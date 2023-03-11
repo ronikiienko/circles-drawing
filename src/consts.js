@@ -1,6 +1,6 @@
 export const defaultSettings = {
     size: {
-        size: '0.2',
+        size: '0.5',
         sizeRand: '0',
     },
     glow: {
@@ -14,7 +14,15 @@ export const defaultSettings = {
         number: '10',
     },
     shape: {
-        shape: 'circle',
+        shape: 'line',
+        lineAngle: 0,
+        lineAngleRand: 0,
+        lineRatio: 0.2,
+        lineRounded: false,
+        lineRatioRand: 0.2,
+        lineLookToOn: false,
+        lineLookToX: 100,
+        lineLookToY: 100,
     },
     position: {
         startX: '0',
@@ -31,3 +39,5 @@ export const defaultSettings = {
         isFullRand: false,
     },
 };
+
+export const highPPICanvasRatio = 1.5;
