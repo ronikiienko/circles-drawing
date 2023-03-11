@@ -2,17 +2,18 @@
   "name": "react-parcel-template",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "parcel index.html --open",
-    "build": "parcel build index.html --no-source-maps"
+    "start": "parcel src/index.html --open",
+    "build": "parcel build src/index.html --no-source-maps"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "use-immer": "^0.8.1"
   },
   "devDependencies": {
     "eslint": "^8.30.0",
