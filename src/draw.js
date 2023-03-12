@@ -1,9 +1,11 @@
+import FileSaver from 'file-saver';
 import {highPPICanvasRatio} from './consts';
-import {getBiasedRandomNumber, hexToRgbArray, turnDegreesToRadians} from './utils';
+import {getBiasedRandomNumber, hexToRgbArray, turnDegreesToRadians, turnRadiansToDegrees} from './utils';
 
 
 let canvasWidth;
 let canvasHeight;
+let history = [];
 export const makeCanvasHighPPI = (canvas, width, height) => {
     canvas.width = width * highPPICanvasRatio;
     canvas.height = height * highPPICanvasRatio;
@@ -86,6 +88,9 @@ const getTranslatedSettings = (rawSettings) => {
             lineRatio: parseFloat(rawSettings.shape.lineRatio),
             lineRatioRand: parseFloat(rawSettings.shape.lineRatioRand),
             lineRounded: rawSettings.shape.lineRounded,
+            lineLookToOn: rawSettings.shape.lineLookToOn,
+            lineLookToX: rawSettings.shape.lineLookToX,
+            lineLookToY: rawSettings.shape.lineLookToY,
         },
         position: {
             startX: parseFloat(rawSettings.position.startX),
@@ -107,6 +112,21 @@ const getTranslatedSettings = (rawSettings) => {
 const getRandomizedShapeSettings = (settings) => {
     let color;
     const transp = settings.transp.transp + getBiasedRandomNumber(-settings.transp.transpRand, settings.transp.transpRand, 2);
+
+    const xPosition = getBiasedRandomNumber(settings.position.startX, settings.position.endX, 0, settings.position.biasX, settings.position.biasInf);
+    const yPosition = getBiasedRandomNumber(settings.position.startY, settings.position.endY, 0, settings.position.biasY, settings.position.biasInf);
+
+    let lineAngle;
+    if (settings.shape.lineLookToOn) {
+        const lookToXOffset = settings.shape.lineLookToX - xPosition;
+        const lookToYOffset = settings.shape.lineLookToY - yPosition;
+        lineAngle = turnRadiansToDegrees(Math.atan(lookToYOffset / lookToXOffset));
+        if (!lineAngle) console.log('settings:', settings, 'offsets:', lookToXOffset, lookToYOffset, lookToXOffset / lookToYOffset);
+    } else {
+        lineAngle = settings.shape.lineAngle;
+    }
+
+
     if (!settings.color.isFullRand) {
         color = `rgba(
                 ${settings.color.color[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 2)}, 
@@ -134,13 +154,13 @@ const getRandomizedShapeSettings = (settings) => {
         },
         shape: {
             shape: settings.shape.shape,
-            lineAngle: settings.shape.lineAngle + getBiasedRandomNumber(-10, 10) * (Math.pow(settings.shape.lineAngleRand + 1, 3) - 1),
+            lineAngle: lineAngle + getBiasedRandomNumber(-10, 10) * (Math.pow(settings.shape.lineAngleRand + 1, 3) - 1),
             lineRatio: settings.shape.lineRatio + getBiasedRandomNumber(-1, 1) * 0.2 * settings.shape.lineRatioRand,
             lineRounded: settings.shape.lineRounded,
         },
         position: {
-            x: getBiasedRandomNumber(settings.position.startX, settings.position.endX, 0, settings.position.biasX, settings.position.biasInf),
-            y: getBiasedRandomNumber(settings.position.startY, settings.position.endY, 0, settings.position.biasY, settings.position.biasInf),
+            x: xPosition,
+            y: yPosition,
         },
         color: {
             color: color,
@@ -151,15 +171,40 @@ const getRandomizedShapeSettings = (settings) => {
 export const draw = (rawSettings) => {
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
+    history = canvas.toDataURL('image/jpeg', 1.0);
     const settings = getTranslatedSettings(rawSettings);
+
     for (let i = 0; i < settings.number.number; i++) {
         const randomizedShapeSettings = getRandomizedShapeSettings(settings);
         drawShape(ctx, randomizedShapeSettings);
     }
 };
 
+export const changeBackground = (backgroundSettings) => {
+
+};
+
+export const undo = async () => {
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    const img = new Image();
+    img.onload = () => ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
+    img.src = history;
+    history = null;
+};
+
 export const clear = () => {
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+};
+
+export const saveAsImage = () => {
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    const dataUrl = canvas.toDataURL('image/jpeg');
+    FileSaver.saveAs(dataUrl, `drawing${Date.now()}.jpeg`);
+    console.log('hi');
 };

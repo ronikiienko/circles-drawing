@@ -13,6 +13,10 @@ export const App = () => {
         makeCanvasHighPPI(canvasRef.current, window.innerWidth, window.innerHeight);
     }, []);
 
+    useEffect(() => {
+        console.log(settings);
+    }, [settings]);
+
     return (
         <div>
             <Controls settings={settings} setSettings={setSettings}/>

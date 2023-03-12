@@ -7,15 +7,15 @@ export const defaultSettings = {
         glow: '0',
     },
     transp: {
-        transp: '1',
-        transpRand: '0',
+        transp: '0.7',
+        transpRand: '0.2',
     },
     number: {
         number: '10',
     },
     shape: {
         shape: 'line',
-        lineAngle: 0,
+        lineAngle: 30 / 360,
         lineAngleRand: 0,
         lineRatio: 0.2,
         lineRounded: false,
@@ -34,10 +34,10 @@ export const defaultSettings = {
         biasInf: '0',
     },
     color: {
-        color: '#000000',
+        color: '#FF00DD',
         colorRand: '0.4',
         isFullRand: false,
     },
 };
 
-export const highPPICanvasRatio = 1.5;
+export const highPPICanvasRatio = 3;
