@@ -1,4 +1,5 @@
-export const defaultSettings = {
+export const defaultLayerSettings = {
+
     size: {
         size: '0.5',
         sizeRand: '0',
@@ -32,12 +33,17 @@ export const defaultSettings = {
         biasX: '100',
         biasY: '100',
         biasInf: '0',
+        overlayMode: 'source-over',
     },
     color: {
         color: '#FF00DD',
         colorRand: '0.4',
         isFullRand: false,
     },
+};
+
+export const defaultBackgroundSettings = {
+    color: '#FFFFFF',
 };
 
 export const highPPICanvasRatio = 3;

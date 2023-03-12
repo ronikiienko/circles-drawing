@@ -5,7 +5,7 @@ import {getBiasedRandomNumber, hexToRgbArray, turnDegreesToRadians, turnRadiansT
 
 let canvasWidth;
 let canvasHeight;
-let history = [];
+let history;
 export const makeCanvasHighPPI = (canvas, width, height) => {
     canvas.width = width * highPPICanvasRatio;
     canvas.height = height * highPPICanvasRatio;
@@ -100,6 +100,7 @@ const getTranslatedSettings = (rawSettings) => {
             biasX: parseFloat(rawSettings.position.biasX),
             biasY: parseFloat(rawSettings.position.biasY),
             biasInf: parseFloat(rawSettings.position.biasInf),
+            overlayMode: rawSettings.position.overlayMode,
         },
         color: {
             color: hexToRgbArray(rawSettings.color.color),
@@ -171,8 +172,10 @@ const getRandomizedShapeSettings = (settings) => {
 export const draw = (rawSettings) => {
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
-    history = canvas.toDataURL('image/jpeg', 1.0);
+    history = ctx.getImageData(0, 0, canvasWidth * 3, canvasHeight * 3);
     const settings = getTranslatedSettings(rawSettings);
+
+    ctx.globalCompositeOperation = settings.position.overlayMode;
 
     for (let i = 0; i < settings.number.number; i++) {
         const randomizedShapeSettings = getRandomizedShapeSettings(settings);
@@ -180,17 +183,11 @@ export const draw = (rawSettings) => {
     }
 };
 
-export const changeBackground = (backgroundSettings) => {
-
-};
-
 export const undo = async () => {
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    const img = new Image();
-    img.onload = () => ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
-    img.src = history;
+    ctx.putImageData(history, 0, 0);
     history = null;
 };
 
@@ -202,9 +199,11 @@ export const clear = () => {
 
 export const saveAsImage = () => {
     const canvas = document.querySelector('canvas');
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     const dataUrl = canvas.toDataURL('image/jpeg');
     FileSaver.saveAs(dataUrl, `drawing${Date.now()}.jpeg`);
     console.log('hi');
 };
+
+// TODO add elipse shape
+// TODO add round rect shape
+// TODO add stroke shapes
