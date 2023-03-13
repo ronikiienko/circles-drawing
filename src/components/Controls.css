@@ -1,4 +1,66 @@
 #controls {
     position: absolute;
     z-index: 100;
+    padding: 10px;
+    background-color: gray;
+    width: 500px;
+    opacity: 1;
+    border-radius: 0 0 10px 0;
+}
+
+#controls:hover {
+    opacity: 0.8;
+}
+
+#controls input[type="text"] {
+    width: 40px;
+}
+
+.tabs-buttons-container {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.tab-button {
+    user-select: none;
+    width: 100%;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightblue;
+    padding: 10px;
+    color: darkblue;
+    border-inline: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+.tab-button:hover {
+    background-color: #a5c7d3;
+    color: #000058;
+}
+
+.tab-button:last-child {
+    border-radius: 0 5px 5px 0;
+}
+
+.tab-button:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.tab-button.active {
+    color: black;
+    background-color: lightcoral;
+}
+
+.tab-button.active:hover {
+    color: black;
+    background-color: #ff3535;
+}
+
+#controls button {
+    border-radius: 5px;
+    padding: 7px;
+    margin: 3px;
+    background-color: transparent;
 }

@@ -1,9 +1,12 @@
 import React from 'react';
+import {useImmer} from 'use-immer';
 import {clear, draw, saveAsImage, undo} from '../draw';
 import './Controls.css';
+import {Tabs} from './Tabs';
 
 
 export const Controls = ({settings, setSettings}) => {
+    const [tab, setTab] = useImmer('number');
     const handleChange = (event) => {
         const categoriesArray = event.target.id.split('-');
         const category = categoriesArray[0];
@@ -18,13 +21,26 @@ export const Controls = ({settings, setSettings}) => {
     };
     return (
         <div id="controls">
-            <label className="number-inputs">
+            <Tabs
+                openedTab={tab}
+                setOpenedTab={setTab}
+                tabsArray={[
+                    {id: 'color', label: 'Color'},
+                    {id: 'number', label: 'Number'},
+                    {id: 'shape', label: 'Shape'},
+                    {id: 'glow', label: 'Glow'},
+                    {id: 'size', label: 'Size'},
+                    {id: 'transp', label: 'Transp'},
+                    {id: 'position', label: 'Position'},
+                ]}
+            />
+            {tab === 'number' && <label className="number-inputs">
                 Number:
                 <input value={settings.number.number} className="number" id="number-number"
                        onChange={handleChange}
                        type="text" inputMode="numeric"/>
-            </label>
-            <label className="color-inputs">
+            </label>}
+            {tab === 'color' && <label className="color-inputs">
                 {!settings.color.isFullRand && <>
                     Color: <input value={settings.color.color} className="color" id="color-color"
                                   onChange={handleChange}
@@ -34,9 +50,8 @@ export const Controls = ({settings, setSettings}) => {
                 </>}
                 Color rand on: <input checked={settings.color.isFullRand} className="color-rand-on"
                                       id="color-isFullRand" onChange={handleChange} type="checkbox"/>
-            </label>
-            <br/>
-            <label className="shape-inputs">
+            </label>}
+            {tab === 'shape' && <label className="shape-inputs">
                 Shape:
                 <select value={settings.shape.shape} className="shape" id="shape-shape"
                         onChange={handleChange}>
@@ -77,34 +92,29 @@ export const Controls = ({settings, setSettings}) => {
 
 
                 </>}
-            </label>
-            <br/>
-            <label className="glow-inputs">
+            </label>}
+            {tab === 'glow' && <label className="glow-inputs">
                 Glow: <input value={settings.glow.glow} className="glow" id="glow-glow"
                              onChange={handleChange}
                              min="0"
                              max="1" step="0.1" type="range"/>
-            </label>
-            <br/>
-            <label className="transp-inputs">
+            </label>}
+            {tab === 'transp' && <label className="transp-inputs">
                 Transp: <input value={settings.transp.transp} className="transp" id="transp-transp"
                                onChange={handleChange} min="0" max="1" step="0.05" type="range"/>
                 Transp rand: <input value={settings.transp.transpRand} className="transp-rand"
                                     id="transp-transpRand"
                                     onChange={handleChange} min="0" max="1" step="0.1" type="range"/>
-            </label>
-            <br/>
-            <label className="size-inputs">
+            </label>}
+            {tab === 'size' && <label className="size-inputs">
                 Size: <input value={settings.size.size} className="size" id="size-size"
                              onChange={handleChange}
                              min="0"
                              max="1" step="0.01" type="range"/>
                 Size rand: <input value={settings.size.sizeRand} className="size-rand" id="size-sizeRand"
                                   onChange={handleChange} min="0" max="1" step="0.1" type="range"/>
-            </label>
-            <br/>
-            <label className="pos-inputs">
-                Position:
+            </label>}
+            {tab === 'position' && <label className="pos-inputs">
                 Start x: <input value={settings.position.startX} className="start-x" id="position-startX"
                                 onChange={handleChange} type="text" inputMode="numeric"/>
                 Start y: <input value={settings.position.startY} className="start-y" id="position-startY"
@@ -149,7 +159,7 @@ export const Controls = ({settings, setSettings}) => {
                 <option value="luminosity">luminosity</option>
                 <option value="saturation">saturation</option>
             </select>
-            </label>
+            </label>}
             <br/>
             <button onClick={clear} className="clear-button">Clear</button>
             <button onClick={() => draw(settings)} className="draw-button">Add layer</button>
