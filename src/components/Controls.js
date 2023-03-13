@@ -2,6 +2,7 @@ import React from 'react';
 import {useImmer} from 'use-immer';
 import {clear, draw, saveAsImage, undo} from '../draw';
 import './Controls.css';
+import {Button} from './styledElements/Button';
 import {Tabs} from './Tabs';
 
 
@@ -25,13 +26,14 @@ export const Controls = ({settings, setSettings}) => {
                 openedTab={tab}
                 setOpenedTab={setTab}
                 tabsArray={[
-                    {id: 'color', label: 'Color'},
                     {id: 'number', label: 'Number'},
-                    {id: 'shape', label: 'Shape'},
-                    {id: 'glow', label: 'Glow'},
                     {id: 'size', label: 'Size'},
+                    {id: 'shape', label: 'Shape'},
+                    {id: 'color', label: 'Color'},
                     {id: 'transp', label: 'Transp'},
                     {id: 'position', label: 'Position'},
+                    {id: 'glow', label: 'Glow'},
+                    {id: 'presets', label: 'Presets'},
                 ]}
             />
             {tab === 'number' && <label className="number-inputs">
@@ -51,16 +53,18 @@ export const Controls = ({settings, setSettings}) => {
                 Color rand on: <input checked={settings.color.isFullRand} className="color-rand-on"
                                       id="color-isFullRand" onChange={handleChange} type="checkbox"/>
             </label>}
-            {tab === 'shape' && <label className="shape-inputs">
-                Shape:
-                <select value={settings.shape.shape} className="shape" id="shape-shape"
-                        onChange={handleChange}>
-                    <option value="circle">Circle</option>
-                    <option value="rectangle">Rectangle</option>
-                    <option value="line">Line</option>
-                    <option value="random3">Random 3</option>
-                    <option value="random4">Random 4</option>
-                </select>
+            {tab === 'shape' && <>
+                <label>
+                    Shape:
+                    <select value={settings.shape.shape} className="shape" id="shape-shape"
+                            onChange={handleChange}>
+                        <option value="circle">Circle</option>
+                        <option value="rectangle">Rectangle</option>
+                        <option value="line">Line</option>
+                        <option value="random3">Random 3</option>
+                        <option value="random4">Random 4</option>
+                    </select>
+                </label>
                 {settings.shape.shape === 'line' && <>
                     Line look to on: <input checked={settings.shape.lineLookToOn} className="line-look-to-on"
                                             id="shape-lineLookToOn"
@@ -92,7 +96,7 @@ export const Controls = ({settings, setSettings}) => {
 
 
                 </>}
-            </label>}
+            </>}
             {tab === 'glow' && <label className="glow-inputs">
                 Glow: <input value={settings.glow.glow} className="glow" id="glow-glow"
                              onChange={handleChange}
@@ -119,16 +123,20 @@ export const Controls = ({settings, setSettings}) => {
                                 onChange={handleChange} type="text" inputMode="numeric"/>
                 Start y: <input value={settings.position.startY} className="start-y" id="position-startY"
                                 onChange={handleChange} type="text" inputMode="numeric"/>
+                <br/>
                 End x: <input value={settings.position.endX} className="end-x" id="position-endX"
                               onChange={handleChange} type="text" inputMode="numeric"/>
                 End y: <input value={settings.position.endY} className="end-y" id="position-endY"
                               onChange={handleChange} type="text" inputMode="numeric"/>
+                <br/>
                 Bias x: <input value={settings.position.biasX} className="bias-x" id="position-biasX"
                                onChange={handleChange} type="text" inputMode="numeric"/>
                 Bias y: <input value={settings.position.biasY} className="bias-y" id="position-biasY"
                                onChange={handleChange} type="text" inputMode="numeric"/>
+                <br/>
                 Bias inf: <input value={settings.position.biasInf} className="bias-inf" id="position-biasInf"
                                  onChange={handleChange} type="range" min="0" max="1" step="0.1"/>
+                <br/>
                 Overlay: <select value={settings.position.overlayMode} className="overlayMode"
                                  id="position-overlayMode"
                                  onChange={handleChange}>
@@ -161,10 +169,10 @@ export const Controls = ({settings, setSettings}) => {
             </select>
             </label>}
             <br/>
-            <button onClick={clear} className="clear-button">Clear</button>
-            <button onClick={() => draw(settings)} className="draw-button">Add layer</button>
-            <button onClick={() => undo()}>Undo</button>
-            <button onClick={saveAsImage}>Save as image</button>
+            <Button onClick={clear} className="clear-button">Clear</Button>
+            <Button onClick={() => draw(settings)} className="draw-button">Add layer</Button>
+            <Button onClick={() => undo()}>Undo</Button>
+            <Button onClick={saveAsImage}>Save as image</Button>
         </div>
     );
 };

@@ -1,0 +1,17 @@
+.styled-button {
+    margin: 5px;
+    padding: 7px;
+    border-radius: 3px;
+    border: none;
+    background-color: lightblue;
+}
+
+.styled-button:hover {
+    background-color: #a5c7d3;
+}
+
+.styled-button:active {
+    background-color: #bcc8ce;
+    transform: translate(1px, 1px);
+    transition: transform 50ms;
+}
