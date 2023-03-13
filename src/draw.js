@@ -6,16 +6,23 @@ import {getBiasedRandomNumber, hexToRgbArray, turnDegreesToRadians, turnRadiansT
 let canvasWidth;
 let canvasHeight;
 let history;
-export const makeCanvasHighPPI = (canvas, width, height) => {
+export const makeCanvasHighPPI = (width, height) => {
+    const {canvas, ctx} = getCanvas();
+
     canvas.width = width * highPPICanvasRatio;
     canvas.height = height * highPPICanvasRatio;
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
-    const ctx = canvas.getContext('2d');
     ctx.scale(highPPICanvasRatio, highPPICanvasRatio);
 
     canvasWidth = width;
     canvasHeight = height;
+};
+
+const getCanvas = () => {
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    return {canvas, ctx};
 };
 
 const drawShape = (ctx, settings) => {
@@ -170,9 +177,8 @@ const getRandomizedShapeSettings = (settings) => {
 };
 
 export const draw = (rawSettings) => {
-    const canvas = document.querySelector('canvas');
-    const ctx = canvas.getContext('2d');
-    history = ctx.getImageData(0, 0, canvasWidth * 3, canvasHeight * 3);
+    const {canvas, ctx} = getCanvas();
+    history = ctx.getImageData(0, 0, canvasWidth * highPPICanvasRatio, canvasHeight * highPPICanvasRatio);
     const settings = getTranslatedSettings(rawSettings);
 
     ctx.globalCompositeOperation = settings.position.overlayMode;
@@ -184,21 +190,19 @@ export const draw = (rawSettings) => {
 };
 
 export const undo = async () => {
-    const canvas = document.querySelector('canvas');
-    const ctx = canvas.getContext('2d');
+    const {canvas, ctx} = getCanvas();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     ctx.putImageData(history, 0, 0);
     history = null;
 };
 
 export const clear = () => {
-    const canvas = document.querySelector('canvas');
-    const ctx = canvas.getContext('2d');
+    const {canvas, ctx} = getCanvas();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 };
 
 export const saveAsImage = () => {
-    const canvas = document.querySelector('canvas');
+    const {canvas, ctx} = getCanvas();
     const dataUrl = canvas.toDataURL('image/jpeg');
     FileSaver.saveAs(dataUrl, `drawing${Date.now()}.jpeg`);
     console.log('hi');

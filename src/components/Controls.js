@@ -2,6 +2,7 @@ import React from 'react';
 import {useImmer} from 'use-immer';
 import {clear, draw, saveAsImage, undo} from '../draw';
 import './Controls.css';
+import {Presets} from './Presets';
 import {Button} from './styledElements/Button';
 import {Tabs} from './Tabs';
 
@@ -66,21 +67,31 @@ export const Controls = ({settings, setSettings}) => {
                     </select>
                 </label>
                 {settings.shape.shape === 'line' && <>
+                    <br/>
                     Line look to on: <input checked={settings.shape.lineLookToOn} className="line-look-to-on"
                                             id="shape-lineLookToOn"
                                             onChange={handleChange} type="checkbox"/>
+                    <br/>
                     Line rounded: <input checked={settings.shape.lineRounded} className="line-rounded"
                                          id="shape-lineRounded"
                                          onChange={handleChange} type="checkbox"/>
+                    <br/>
+                    {!settings.shape.lineLookToOn && <>
+                        Line angle: <input value={settings.shape.lineAngle} className="line-angle"
+                                           id="shape-lineAngle"
+                                           onChange={handleChange} type="range" min="0" max="1" step={0.05}/>
+                    </>}
                     Line angle rand: <input value={settings.shape.lineAngleRand} className="line-angle-rand"
                                             id="shape-lineAngleRand"
                                             onChange={handleChange} type="range" min="0" max="1" step={0.05}/>
+                    <br/>
                     Line ratio: <input value={settings.shape.lineRatio} className="line-ratio" id="shape-lineRatio"
                                        onChange={handleChange} type="range" min="0" max="1" step={0.05}/>
                     Line ratio rand: <input value={settings.shape.lineRatioRand} className="line-ratio-rand"
                                             id="shape-lineRatioRand"
                                             onChange={handleChange} type="range" min="0" max="1" step={0.05}/>
                     {settings.shape.lineLookToOn && <>
+                        <br/>
                         Look to X: <input value={settings.shape.lineLookToX} className="line-look-to-x"
                                           id="shape-lineLookToX"
                                           onChange={handleChange} type="text" inputMode="numeric"/>
@@ -88,11 +99,7 @@ export const Controls = ({settings, setSettings}) => {
                                           id="shape-lineLookToY"
                                           onChange={handleChange} type="text" inputMode="numeric"/>
                     </>}
-                    {!settings.shape.lineLookToOn && <>
-                        Line angle: <input value={settings.shape.lineAngle} className="line-angle"
-                                           id="shape-lineAngle"
-                                           onChange={handleChange} type="range" min="0" max="1" step={0.05}/>
-                    </>}
+
 
 
                 </>}
@@ -168,6 +175,7 @@ export const Controls = ({settings, setSettings}) => {
                 <option value="saturation">saturation</option>
             </select>
             </label>}
+            {tab === 'presets' && <Presets setSettings={setSettings}/>}
             <br/>
             <Button onClick={clear} className="clear-button">Clear</Button>
             <Button onClick={() => draw(settings)} className="draw-button">Add layer</Button>

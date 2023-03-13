@@ -1,26 +1,21 @@
-import {useEffect, useRef} from 'react';
+import {useEffect} from 'react';
 import {useImmer} from 'use-immer';
-import {defaultLayerSettings} from '../consts';
+import {layerPresets} from '../consts';
 import {makeCanvasHighPPI} from '../draw';
 import './App.css';
 import {Controls} from './Controls';
 
 
 export const App = () => {
-    const [settings, setSettings] = useImmer(defaultLayerSettings);
-    const canvasRef = useRef(null);
+    const [settings, setSettings] = useImmer(layerPresets.default);
     useEffect(() => {
-        makeCanvasHighPPI(canvasRef.current, window.innerWidth, window.innerHeight);
+        makeCanvasHighPPI(window.innerWidth, window.innerHeight);
     }, []);
-
-    useEffect(() => {
-        console.log(settings);
-    }, [settings]);
 
     return (
         <div>
             <Controls settings={settings} setSettings={setSettings}/>
-            <canvas ref={canvasRef}></canvas>
+            <canvas></canvas>
         </div>
     );
 };
