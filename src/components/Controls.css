@@ -6,6 +6,12 @@
     width: 600px;
     opacity: 0.8;
     border-radius: 0 0 10px 0;
+    transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
+}
+
+#controls.hidden {
+    opacity: 0.2;
+    transform: translate(-95%, 0);
 }
 
 #controls input[type="text"] {

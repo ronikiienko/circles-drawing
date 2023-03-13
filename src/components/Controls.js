@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useImmer} from 'use-immer';
 import {clear, draw, saveAsImage, undo} from '../draw';
 import './Controls.css';
@@ -11,6 +11,7 @@ import {ConditionalPanel, Tabs} from './Tabs';
 
 export const Controls = ({settings, setSettings}) => {
     const [tab, setTab] = useImmer('number');
+    const [hidden, setHidden] = useImmer(false);
     const handleChange = (event) => {
         const categoriesArray = event.target.id.split('-');
         const category = categoriesArray[0];
@@ -23,8 +24,18 @@ export const Controls = ({settings, setSettings}) => {
             }
         });
     };
+
+    const handleHide = (event) => {
+        const id = event.target.id;
+        console.log(id);
+        if (id === 'hide') setHidden(true);
+        if (id === 'controls' && hidden) setHidden(false);
+    };
+
+    useEffect(() => console.log(hidden), [hidden]);
+
     return (
-        <div id="controls" {}>
+        <div id="controls" className={hidden ? 'hidden' : ''} onClick={handleHide}>
             <Tabs
                 openedTab={tab}
                 setOpenedTab={setTab}
@@ -180,7 +191,7 @@ export const Controls = ({settings, setSettings}) => {
             <Button onClick={() => draw(settings)} className="draw-button">Add layer</Button>
             <Button onClick={() => undo()}>Undo</Button>
             <Button onClick={saveAsImage}>Save as image</Button>
-            {/*<Button onClick={}>Hide interface</Button>*/}
+            <Button id="hide" onClick={handleHide}>Hide interface</Button>
         </div>
     );
 };
