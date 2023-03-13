@@ -1,11 +1,12 @@
 import FileSaver from 'file-saver';
-import {highPPICanvasRatio} from './consts';
+import {highPPICanvasRatio, maxUndoTimes} from './consts';
 import {getBiasedRandomNumber, hexToRgbArray, turnDegreesToRadians, turnRadiansToDegrees} from './utils';
 
 
 let canvasWidth;
 let canvasHeight;
-let history;
+let history = [];
+let settingsHistory = [];
 export const makeCanvasHighPPI = (width, height) => {
     const {canvas, ctx} = getCanvas();
 
@@ -68,7 +69,7 @@ const drawShape = (ctx, settings) => {
     }
 };
 
-const getTranslatedSettings = (rawSettings) => {
+const getTranslatedLayerSettings = (rawSettings) => {
     // reused values
     const size = Math.pow(parseFloat(rawSettings.size.size) + 1, 9);
     const transp = parseFloat(rawSettings.transp.transp);
@@ -133,7 +134,6 @@ const getRandomizedShapeSettings = (settings) => {
         lineAngle = settings.shape.lineAngle;
     }
 
-
     if (!settings.color.isFullRand) {
         color = `rgba(
                 ${settings.color.color[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 2)}, 
@@ -175,10 +175,16 @@ const getRandomizedShapeSettings = (settings) => {
     };
 };
 
-export const draw = (rawSettings) => {
-    const {canvas, ctx} = getCanvas();
-    history = ctx.getImageData(0, 0, canvasWidth * highPPICanvasRatio, canvasHeight * highPPICanvasRatio);
-    const settings = getTranslatedSettings(rawSettings);
+export const draw = (rawSettings, translatedSettings, historyOff) => {
+    const {ctx} = getCanvas();
+    let settings;
+    translatedSettings ? settings = translatedSettings : settings = getTranslatedLayerSettings(rawSettings);
+
+    if (!historyOff) {
+        if (history.length > maxUndoTimes - 1) history.shift();
+        history.push(ctx.getImageData(0, 0, canvasWidth * highPPICanvasRatio, canvasHeight * highPPICanvasRatio));
+        settingsHistory.push(settings);
+    }
 
     ctx.globalCompositeOperation = settings.position.overlayMode;
 
@@ -189,19 +195,22 @@ export const draw = (rawSettings) => {
 };
 
 export const undo = async () => {
-    if (!history) return;
-    const {canvas, ctx} = getCanvas();
+    console.log(history.length);
+    console.log(canvasHeight * highPPICanvasRatio * canvasWidth * highPPICanvasRatio * 4 * 10 / 1000000);
+    if (!history.length) return;
+    const {ctx} = getCanvas();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    ctx.putImageData(history, 0, 0);
+    ctx.putImageData(history[history.length - 1], 0, 0);
+    history.pop();
 };
 
 export const clear = () => {
-    const {canvas, ctx} = getCanvas();
+    const {ctx} = getCanvas();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 };
 
 export const saveAsImage = () => {
-    const {canvas, ctx} = getCanvas();
+    const {canvas} = getCanvas();
     const dataUrl = canvas.toDataURL('image/jpeg');
     FileSaver.saveAs(dataUrl, `drawing${Date.now()}.jpeg`);
     console.log('hi');

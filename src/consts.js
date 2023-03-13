@@ -264,3 +264,5 @@ export const overlayModes = [
 ];
 
 export const highPPICanvasRatio = window.devicePixelRatio;
+
+export const maxUndoTimes = 10;

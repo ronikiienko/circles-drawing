@@ -190,7 +190,7 @@ export const Controls = ({settings, setSettings}) => {
             <Button onClick={() => draw(settings)} className="draw-button">Add layer</Button>
             <Button onClick={() => undo()}>Undo</Button>
             <Button onClick={saveAsImage}>Save as image</Button>
-            <Button id="hide" onClick={handleHide}>Hide interface</Button>
+            <Button id="hide" onClick={handleHide}>Hide</Button>
             <Button onClick={() => console.log(settings)}>Log settings</Button>
         </div>
     );
