@@ -189,7 +189,8 @@ export const Controls = ({settings, setSettings}) => {
             <Button onClick={clear} className="clear-button">Clear</Button>
             <Button onClick={() => draw(settings)} className="draw-button">Add layer</Button>
             <Button onClick={() => undo()}>Undo</Button>
-            <Button onClick={saveAsImage}>Save as image</Button>
+            <Button onClick={saveAsImage}>Save jpeg</Button>
+            <Button onClick={() => saveAsImage(true)}>Save png</Button>
             <Button id="hide" onClick={handleHide}>Hide</Button>
             <Button onClick={() => console.log(settings)}>Log settings</Button>
         </div>

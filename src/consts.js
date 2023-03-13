@@ -83,7 +83,7 @@ export const layerPresets = {
             biasX: '100',
             biasY: '100',
             biasInf: '0',
-            overlayMode: 'destination-over',
+            overlayMode: 'source-over',
         },
         color: {
             color: '#FFAFFF',

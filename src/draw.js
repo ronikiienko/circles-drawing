@@ -177,8 +177,7 @@ const getRandomizedShapeSettings = (settings) => {
 
 export const draw = (rawSettings, translatedSettings, historyOff) => {
     const {ctx} = getCanvas();
-    let settings;
-    translatedSettings ? settings = translatedSettings : settings = getTranslatedLayerSettings(rawSettings);
+    let settings = translatedSettings ? translatedSettings : getTranslatedLayerSettings(rawSettings);
 
     if (!historyOff) {
         if (history.length > maxUndoTimes - 1) history.shift();
@@ -209,10 +208,12 @@ export const clear = () => {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 };
 
-export const saveAsImage = () => {
+export const saveAsImage = (png) => {
     const {canvas} = getCanvas();
-    const dataUrl = canvas.toDataURL('image/jpeg');
-    FileSaver.saveAs(dataUrl, `drawing${Date.now()}.jpeg`);
+    const type = png ? '' : 'image/jpeg';
+    const fileExt = png ? '.png' : '.jpeg';
+    const dataUrl = canvas.toDataURL(type);
+    FileSaver.saveAs(dataUrl, `drawing${Date.now()}${fileExt}`);
     console.log('hi');
 };
 
