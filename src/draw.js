@@ -129,7 +129,6 @@ const getRandomizedShapeSettings = (settings) => {
         const lookToXOffset = settings.shape.lineLookToX - xPosition;
         const lookToYOffset = settings.shape.lineLookToY - yPosition;
         lineAngle = turnRadiansToDegrees(Math.atan(lookToYOffset / lookToXOffset));
-        if (!lineAngle) console.log('settings:', settings, 'offsets:', lookToXOffset, lookToYOffset, lookToXOffset / lookToYOffset);
     } else {
         lineAngle = settings.shape.lineAngle;
     }
@@ -190,10 +189,10 @@ export const draw = (rawSettings) => {
 };
 
 export const undo = async () => {
+    if (!history) return;
     const {canvas, ctx} = getCanvas();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     ctx.putImageData(history, 0, 0);
-    history = null;
 };
 
 export const clear = () => {
