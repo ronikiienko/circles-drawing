@@ -27,7 +27,6 @@ export const Controls = ({settings, setSettings}) => {
 
     const handleHide = (event) => {
         const id = event.target.id;
-        console.log(id);
         if (id === 'hide') setHidden(true);
         if (id === 'controls' && hidden) setHidden(false);
     };
@@ -192,6 +191,7 @@ export const Controls = ({settings, setSettings}) => {
             <Button onClick={() => undo()}>Undo</Button>
             <Button onClick={saveAsImage}>Save as image</Button>
             <Button id="hide" onClick={handleHide}>Hide interface</Button>
+            <Button onClick={() => console.log(settings)}>Log settings</Button>
         </div>
     );
 };

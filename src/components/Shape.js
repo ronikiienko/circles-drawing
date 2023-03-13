@@ -51,6 +51,8 @@ export const Shape = ({settings, setSettings, handleChange}) => {
                                       onChange={handleChange} type="text" inputMode="numeric"/>
                     <button id="shape-lineLookTo" onClick={setClickAndSetProperty}>Click and set</button>
                 </>}
+                <div className="settings-coords-display lookTo" title="Look to point"
+                     style={{left: settings.shape.lineLookToX - 5, top: settings.shape.lineLookToY - 5}}></div>
             </>}
         </>
     );

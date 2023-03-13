@@ -79,3 +79,7 @@
 .settings-coords-display.bias {
     background-color: blue;
 }
+
+.settings-coords-display.lookTo {
+    background-color: black;
+}
