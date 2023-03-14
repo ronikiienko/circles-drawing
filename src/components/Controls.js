@@ -51,8 +51,8 @@ const useStyles = makeStyles({
     },
     inputsContainer: {
         overflowY: 'auto',
-        height: '100px',
-        maxHeight: '100px',
+        height: '150px',
+        maxHeight: '150px',
     },
     contentContainer: {
         // overflow: 'scroll',

@@ -1,60 +1,155 @@
+import {Button, Checkbox, Input, Label, makeStyles, Select, Slider} from '@fluentui/react-components';
 import React from 'react';
 import {useClickAndSet} from '../../hooks/useClickAndSet';
+import {ConditionalPanel} from '../utils/ConditionalPanel';
 import {CoordinateFlag} from '../utils/coordinateFlag';
 
 
+const useStyles = makeStyles({
+    label: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        marginRight: '10px',
+        // height: '25px'
+    },
+    select: {
+        marginLeft: '5px',
+        width: 'fit-content',
+        display: 'inline-flex',
+    },
+    numberInput: {
+        width: '50px',
+        marginLeft: '5px',
+        marginRight: '10px',
+    },
+    slider: {
+        marginLeft: '10px',
+    },
+});
 export const Shape = ({settings, setSettings, handleChange}) => {
+    const classes = useStyles();
     const {setClickAndSetProp, setDragProp} = useClickAndSet({setSettings});
     return (
         <>
-            <label>
+            <Label>
                 Shape:
-                <select value={settings.shape.shape} className="shape" id="shape-shape"
+                <Select size="small" className={classes.select} value={settings.shape.shape} id="shape-shape"
                         onChange={handleChange}>
                     <option value="circle">Circle</option>
                     <option value="rectangle">Rectangle</option>
                     <option value="line">Line</option>
                     <option value="random3">Random 3</option>
                     <option value="random4">Random 4</option>
-                </select>
-            </label>
-            {settings.shape.shape === 'line' && <>
+                </Select>
+            </Label>
+            <ConditionalPanel active={settings.shape.shape === 'line'}>
                 <br/>
-                Line look to on: <input checked={settings.shape.lineLookToOn} className="line-look-to-on"
-                                        id="shape-lineLookToOn"
-                                        onChange={handleChange} type="checkbox"/>
+                <Label className={classes.label}>
+                    Line look to on:
+                    <Checkbox
+                        checked={settings.shape.lineLookToOn}
+                        id="shape-lineLookToOn"
+                        onChange={handleChange}
+                    />
+                </Label>
+                <Label className={classes.label}>
+                    Line rounded:
+                    <Checkbox
+                        checked={settings.shape.lineRounded}
+                        className="line-rounded"
+                        id="shape-lineRounded"
+                        onChange={handleChange}
+                    />
+                </Label>
                 <br/>
-                Line rounded: <input checked={settings.shape.lineRounded} className="line-rounded"
-                                     id="shape-lineRounded"
-                                     onChange={handleChange} type="checkbox"/>
+                <ConditionalPanel active={!settings.shape.lineLookToOn}>
+                    <Label className={classes.label}>
+                        Line angle:
+                        <Slider
+                            className={classes.slider}
+                            value={settings.shape.lineAngle}
+                            id="shape-lineAngle"
+                            onChange={handleChange}
+                            min="0"
+                            max="1"
+                            step={0.05}
+                        />
+                    </Label>
+                </ConditionalPanel>
+                <Label className={classes.label}>
+                    Line angle rand:
+                    <Slider
+                        className={classes.slider}
+                        value={settings.shape.lineAngleRand}
+                        id="shape-lineAngleRand"
+                        onChange={handleChange}
+                        type="range"
+                        min="0"
+                        max="1"
+                        step={0.05}
+                    />
+                </Label>
                 <br/>
-                {!settings.shape.lineLookToOn && <>
-                    Line angle: <input value={settings.shape.lineAngle} className="line-angle"
-                                       id="shape-lineAngle"
-                                       onChange={handleChange} type="range" min="0" max="1" step={0.05}/>
-                </>}
-                Line angle rand: <input value={settings.shape.lineAngleRand} className="line-angle-rand"
-                                        id="shape-lineAngleRand"
-                                        onChange={handleChange} type="range" min="0" max="1" step={0.05}/>
-                <br/>
-                Line ratio: <input value={settings.shape.lineRatio} className="line-ratio" id="shape-lineRatio"
-                                   onChange={handleChange} type="range" min="0" max="1" step={0.05}/>
-                Line ratio rand: <input value={settings.shape.lineRatioRand} className="line-ratio-rand"
-                                        id="shape-lineRatioRand"
-                                        onChange={handleChange} type="range" min="0" max="1" step={0.05}/>
-                {settings.shape.lineLookToOn && <>
+                <Label className={classes.label}>
+                    Line ratio:
+                    <Slider
+                        className={classes.slider}
+                        value={settings.shape.lineRatio}
+                        id="shape-lineRatio"
+                        onChange={handleChange}
+                        min="0"
+                        max="1"
+                        step={0.05}
+                    />
+                </Label>
+                <Label className={classes.label}>
+                    Line ratio rand:
+                    <Slider
+                        className={classes.slider}
+                        value={settings.shape.lineRatioRand}
+                        id="shape-lineRatioRand"
+                        onChange={handleChange}
+                        min="0"
+                        max="1"
+                        step={0.05}
+                    />
+                </Label>
+
+                <ConditionalPanel active={settings.shape.lineLookToOn}>
                     <br/>
-                    Look to X: <input value={settings.shape.lineLookToX} className="line-look-to-x"
-                                      id="shape-lineLookToX"
-                                      onChange={handleChange} type="text" inputMode="numeric"/>
-                    Look to Y: <input value={settings.shape.lineLookToY} className="line-look-to-y"
-                                      id="shape-lineLookToY"
-                                      onChange={handleChange} type="text" inputMode="numeric"/>
-                    <button id="shape-lineLookTo" onClick={setClickAndSetProp}>Click and set</button>
-                    <CoordinateFlag id="shape-lineLookTo" title="Look to point" onMouseDown={setDragProp}
-                                    settings={settings} color="pink"/>
-                </>}
-            </>}
+                    <Label>
+                        Look to X:
+                        <Input
+                            size="small"
+                            value={settings.shape.lineLookToX}
+                            className={classes.numberInput}
+                            id="shape-lineLookToX"
+                            onChange={handleChange}
+                            type="text"
+                        />
+                    </Label>
+                    <Label>
+                        Look to Y:
+                        <Input
+                            size="small"
+                            value={settings.shape.lineLookToY}
+                            className={classes.numberInput}
+                            id="shape-lineLookToY"
+                            onChange={handleChange}
+                            type="text"
+                        />
+                    </Label>
+
+                    <Button size="small" id="shape-lineLookTo" onClick={setClickAndSetProp}>Click and set</Button>
+                    <CoordinateFlag
+                        id="shape-lineLookTo"
+                        title="Look to point"
+                        onMouseDown={setDragProp}
+                        settings={settings}
+                        color="pink"
+                    />
+                </ConditionalPanel>
+            </ConditionalPanel>
         </>
     );
 };

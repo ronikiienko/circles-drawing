@@ -8,9 +8,12 @@ const useStyles = makeStyles({
         alignItems: 'center',
         marginRight: '10px',
     },
-    sliderSizeInput: {
+    sliderSize: {
         marginLeft: '10px',
-        width: '200px',
+        width: '250px',
+    },
+    sliderSizeRand: {
+        marginLeft: '10px',
     },
     numberSizeInput: {
         width: '40px',
@@ -31,7 +34,7 @@ export const Size = ({settings, handleChange}) => {
                     id="size-size"
                     value={settings.size.size}
                     onChange={handleChange}
-                    className={classes.sliderSizeInput}
+                    className={classes.sliderSize}
                 />
                 <Input
                     size="small"
@@ -46,6 +49,7 @@ export const Size = ({settings, handleChange}) => {
             <Label className={classes.label}>
                 Size rand:
                 <Slider
+                    className={classes.sliderSizeRand}
                     value={settings.size.sizeRand}
                     id="size-sizeRand"
                     onChange={handleChange}
