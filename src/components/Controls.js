@@ -1,13 +1,17 @@
-import {Tab, TabList} from '@fluentui/react-components';
+import {Button, Tab, TabList} from '@fluentui/react-components';
 import React, {useEffect} from 'react';
 import {useImmer} from 'use-immer';
 import {clear, draw, saveAsImage, undo} from '../draw';
 import './Controls.css';
-import {Position} from './Position';
-import {Presets} from './Presets';
-import {Shape} from './Shape';
-import {Button} from './styledElements/Button';
-import {ConditionalPanel} from './Tabs';
+import {Color} from './Tabs/Color';
+import {Glow} from './Tabs/Glow';
+import {Number} from './Tabs/Number';
+import {Position} from './Tabs/Position';
+import {Presets} from './Tabs/Presets';
+import {Shape} from './Tabs/Shape';
+import {Size} from './Tabs/Size';
+import {Transp} from './Tabs/Transp';
+import {ConditionalPanel} from './utils/ConditionalPanel';
 
 
 export const Controls = ({settings, setSettings}) => {
@@ -47,159 +51,37 @@ export const Controls = ({settings, setSettings}) => {
                 <Tab value="presets">Presets</Tab>
             </TabList>
             <ConditionalPanel active={tab === 'number'}>
-                <label className="number-inputs">
-                    Number:
-                    <input
-                        value={settings.number.number}
-                        className="number"
-                        id="number-number"
-                        onChange={handleChange}
-                        type="text" inputMode="numeric"
-                    />
-                </label>
+                <Number settings={settings} handleChange={handleChange}/>
             </ConditionalPanel>
             <ConditionalPanel active={tab === 'color'}>
-                <label>
-                    Color:
-                    <input
-                        value={settings.color.color}
-                        className="color"
-                        id="color-color"
-                        onChange={handleChange}
-                        type="color"
-                    />
-                </label>
-                <ConditionalPanel active={!settings.color.isFullRand}>
-                    Color rand:
-                    <input
-                        value={settings.color.colorRand}
-                        className="color-rand" id="color-colorRand"
-                        onChange={handleChange}
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                    />
-                </ConditionalPanel>
-                <label>
-                    Color rand on:
-                    <input
-                        checked={settings.color.isFullRand}
-                        className="color-rand-on"
-                        id="color-isFullRand"
-                        onChange={handleChange}
-                        type="checkbox"
-                    />
-                </label>
+                <Color settings={settings} handleChange={handleChange}/>
             </ConditionalPanel>
             <ConditionalPanel active={tab === 'shape'}>
-                <Shape
-                    settings={settings}
-                    setSettings={setSettings}
-                    handleChange={handleChange}
-                />
+                <Shape settings={settings} setSettings={setSettings} handleChange={handleChange}/>
             </ConditionalPanel>
             <ConditionalPanel active={tab === 'glow'}>
-                <label>
-                    Glow:
-                    <input
-                        value={settings.glow.glow}
-                        className="glow"
-                        id="glow-glow"
-                        onChange={handleChange}
-                        min="0"
-                        max="1"
-                        step="0.1"
-                        type="range"
-                    />
-                </label>
+                <Glow settings={settings} handleChange={handleChange}/>
             </ConditionalPanel>
             <ConditionalPanel active={tab === 'transp'}>
-                <label>
-                    Transp:
-                    <input
-                        value={settings.transp.transp}
-                        className="transp"
-                        id="transp-transp"
-                        onChange={handleChange}
-                        min="0"
-                        max="1"
-                        step="0.05"
-                        type="range"
-                    />
-                </label>
-                <label>
-                    Transp rand:
-                    <input
-                        value={settings.transp.transpRand}
-                        className="transp-rand"
-                        id="transp-transpRand"
-                        onChange={handleChange}
-                        min="0"
-                        max="1"
-                        step="0.1"
-                        type="range"
-                    />
-                </label>
+                <Transp settings={settings} handleChange={handleChange}/>
             </ConditionalPanel>
             <ConditionalPanel active={tab === 'size'}>
-                <label>
-                    Size:
-                    <input
-                        value={settings.size.size}
-                        className="size"
-                        id="size-size"
-                        onChange={handleChange}
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        type="range"
-                    />
-                    <input
-                        value={settings.size.size}
-                        type="text"
-                        inputMode="numeric"
-                        min={0}
-                        max={1}
-                        onChange={handleChange}
-                        id="size-size"
-                    />
-                </label>
-                <br/>
-                <label>
-                    Size rand:
-                    <input
-                        value={settings.size.sizeRand}
-                        className="size-rand"
-                        id="size-sizeRand"
-                        onChange={handleChange}
-                        min="0"
-                        max="1"
-                        step="0.1"
-                        type="range"
-                    />
-                </label>
+                <Size settings={settings} handleChange={handleChange}/>
             </ConditionalPanel>
             <ConditionalPanel active={tab === 'position'}>
-                <Position
-                    settings={settings}
-                    setSettings={setSettings}
-                    handleChange={handleChange}
-                />
+                <Position settings={settings} setSettings={setSettings} handleChange={handleChange}/>
             </ConditionalPanel>
             <ConditionalPanel active={tab === 'presets'}>
-                <Presets
-                    setSettings={setSettings}
-                />
+                <Presets setSettings={setSettings}/>
             </ConditionalPanel>
             <br/>
-            <Button onClick={clear} className="clear-button">Clear</Button>
-            <Button onClick={() => draw(settings)} className="draw-button">Add layer</Button>
-            <Button onClick={() => undo()}>Undo</Button>
-            <Button onClick={saveAsImage}>Save jpeg</Button>
-            <Button onClick={() => saveAsImage(true)}>Save png</Button>
-            <Button id="hide" onClick={handleHide}>Hide</Button>
-            <Button onClick={() => console.log(settings)}>Log settings</Button>
+            <Button size="small" onClick={clear} className="clear-button">Clear</Button>
+            <Button size="small" onClick={() => draw(settings)} className="draw-button">Add layer</Button>
+            <Button size="small" onClick={() => undo()}>Undo</Button>
+            <Button size="small" onClick={saveAsImage}>Save jpeg</Button>
+            <Button size="small" onClick={() => saveAsImage(true)}>Save png</Button>
+            <Button size="small" id="hide" onClick={handleHide}>Hide</Button>
+            <Button size="small" onClick={() => console.log(settings)}>Log settings</Button>
         </div>
     );
 };

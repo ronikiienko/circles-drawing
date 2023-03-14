@@ -1,6 +1,6 @@
 import React from 'react';
-import {useClickAndSet} from '../hooks/useClickAndSet';
-import {CoordinateFlag} from './coordinateFlag';
+import {useClickAndSet} from '../../hooks/useClickAndSet';
+import {CoordinateFlag} from '../utils/coordinateFlag';
 
 
 export const Shape = ({settings, setSettings, handleChange}) => {

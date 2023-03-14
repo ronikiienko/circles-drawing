@@ -1,6 +1,6 @@
-import {overlayModes} from '../consts';
-import {useClickAndSet} from '../hooks/useClickAndSet';
-import {CoordinateFlag} from './coordinateFlag';
+import {overlayModes} from '../../consts';
+import {useClickAndSet} from '../../hooks/useClickAndSet';
+import {CoordinateFlag} from '../utils/coordinateFlag';
 
 
 export const Position = ({settings, setSettings, handleChange}) => {

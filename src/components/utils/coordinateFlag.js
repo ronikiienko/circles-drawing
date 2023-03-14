@@ -1,5 +1,5 @@
 import React from 'react';
-import {coordinateFlagsSize} from '../consts';
+import {coordinateFlagsSize} from '../../consts';
 
 
 export const CoordinateFlag = ({id, onMouseDown, color, settings, title}) => {
