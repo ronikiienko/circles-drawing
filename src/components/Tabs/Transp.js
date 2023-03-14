@@ -1,35 +1,35 @@
+import {Label, Slider} from '@fluentui/react-components';
 import React from 'react';
 
 
-export const Transp = ({settings, handleChange}) => {
+export const Transp = ({settings, handleChange, classes}) => {
     return (
         <>
-            <label>
+            <Label className={classes.label}>
                 Transp:
-                <input
+                <Slider
                     value={settings.transp.transp}
-                    className="transp"
+                    className={classes.slider}
                     id="transp-transp"
                     onChange={handleChange}
                     min="0"
                     max="1"
                     step="0.05"
-                    type="range"
                 />
-            </label>
-            <label>
+            </Label>
+            <br/>
+            <Label className={classes.label}>
                 Transp rand:
-                <input
+                <Slider
                     value={settings.transp.transpRand}
-                    className="transp-rand"
+                    className={classes.slider}
                     id="transp-transpRand"
                     onChange={handleChange}
                     min="0"
                     max="1"
                     step="0.1"
-                    type="range"
                 />
-            </label>
+            </Label>
         </>
 
     );

@@ -1,37 +1,15 @@
-import {Button, Checkbox, Input, Label, makeStyles, Select, Slider} from '@fluentui/react-components';
+import {Button, Checkbox, Input, Label, Select, Slider} from '@fluentui/react-components';
 import React from 'react';
 import {useClickAndSet} from '../../hooks/useClickAndSet';
 import {ConditionalPanel} from '../utils/ConditionalPanel';
 import {CoordinateFlag} from '../utils/coordinateFlag';
 
 
-const useStyles = makeStyles({
-    label: {
-        display: 'inline-flex',
-        alignItems: 'center',
-        marginRight: '10px',
-        // height: '25px'
-    },
-    select: {
-        marginLeft: '5px',
-        width: 'fit-content',
-        display: 'inline-flex',
-    },
-    numberInput: {
-        width: '50px',
-        marginLeft: '5px',
-        marginRight: '10px',
-    },
-    slider: {
-        marginLeft: '10px',
-    },
-});
-export const Shape = ({settings, setSettings, handleChange}) => {
-    const classes = useStyles();
+export const Shape = ({settings, setSettings, handleChange, classes}) => {
     const {setClickAndSetProp, setDragProp} = useClickAndSet({setSettings});
     return (
         <>
-            <Label>
+            <Label className={classes.label}>
                 Shape:
                 <Select size="small" className={classes.select} value={settings.shape.shape} id="shape-shape"
                         onChange={handleChange}>
@@ -114,33 +92,33 @@ export const Shape = ({settings, setSettings, handleChange}) => {
                         step={0.05}
                     />
                 </Label>
-
+                <br/>
                 <ConditionalPanel active={settings.shape.lineLookToOn}>
-                    <br/>
-                    <Label>
-                        Look to X:
-                        <Input
-                            size="small"
-                            value={settings.shape.lineLookToX}
-                            className={classes.numberInput}
-                            id="shape-lineLookToX"
-                            onChange={handleChange}
-                            type="text"
-                        />
-                    </Label>
-                    <Label>
-                        Look to Y:
-                        <Input
-                            size="small"
-                            value={settings.shape.lineLookToY}
-                            className={classes.numberInput}
-                            id="shape-lineLookToY"
-                            onChange={handleChange}
-                            type="text"
-                        />
-                    </Label>
-
-                    <Button size="small" id="shape-lineLookTo" onClick={setClickAndSetProp}>Click and set</Button>
+                    <div className={classes.row}>
+                        <Label>
+                            Look to X:
+                            <Input
+                                size="small"
+                                value={settings.shape.lineLookToX}
+                                className={classes.numberInput}
+                                id="shape-lineLookToX"
+                                onChange={handleChange}
+                                type="text"
+                            />
+                        </Label>
+                        <Label>
+                            Look to Y:
+                            <Input
+                                size="small"
+                                value={settings.shape.lineLookToY}
+                                className={classes.numberInput}
+                                id="shape-lineLookToY"
+                                onChange={handleChange}
+                                type="text"
+                            />
+                        </Label>
+                        <Button size="small" id="shape-lineLookTo" onClick={setClickAndSetProp}>Click and set</Button>
+                    </div>
                     <CoordinateFlag
                         id="shape-lineLookTo"
                         title="Look to point"

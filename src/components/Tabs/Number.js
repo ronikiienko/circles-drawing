@@ -1,22 +1,15 @@
-import {Input, Label, makeStyles} from '@fluentui/react-components';
+import {Input, Label} from '@fluentui/react-components';
 import React from 'react';
 
 
-const useStyles = makeStyles({
-    input: {
-        width: '70px',
-        marginLeft: '7px',
-    },
-});
-export const Number = ({settings, handleChange}) => {
-    const classes = useStyles();
+export const Number = ({settings, handleChange, classes}) => {
     return (
         <Label className={classes.label}>
             Number:
             <Input
                 size="small"
                 value={settings.number.number}
-                className={classes.input}
+                className={classes.number}
                 id="number-number"
                 onChange={handleChange}
                 type="text"

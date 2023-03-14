@@ -3,26 +3,14 @@ import React from 'react';
 
 
 const useStyles = makeStyles({
-    label: {
-        display: 'flex',
-        alignItems: 'center',
-        marginRight: '10px',
-    },
     sliderSize: {
         marginLeft: '10px',
         width: '250px',
     },
-    sliderSizeRand: {
-        marginLeft: '10px',
-    },
-    numberSizeInput: {
-        width: '40px',
-        marginLeft: '5px',
-    },
 });
 
-export const Size = ({settings, handleChange}) => {
-    const classes = useStyles();
+export const Size = ({settings, handleChange, classes}) => {
+    const localClasses = useStyles();
     return (
         <>
             <Label className={classes.label}>
@@ -34,12 +22,12 @@ export const Size = ({settings, handleChange}) => {
                     id="size-size"
                     value={settings.size.size}
                     onChange={handleChange}
-                    className={classes.sliderSize}
+                    className={localClasses.sliderSize}
                 />
                 <Input
                     size="small"
                     value={settings.size.size}
-                    className={classes.numberSizeInput}
+                    className={classes.number}
                     id="size-size"
                     onChange={handleChange}
                     type="text"
@@ -49,7 +37,7 @@ export const Size = ({settings, handleChange}) => {
             <Label className={classes.label}>
                 Size rand:
                 <Slider
-                    className={classes.sliderSizeRand}
+                    className={classes.number}
                     value={settings.size.sizeRand}
                     id="size-sizeRand"
                     onChange={handleChange}

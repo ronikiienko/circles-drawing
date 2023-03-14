@@ -5,12 +5,11 @@
     background-color: rgba(220, 220, 220, 0.8);
     width: 600px;
     opacity: 1;
-    transition: transform 200ms ease-in-out, background-color 200ms ease-in-out;
+    transition: opacity 200ms ease-in-out;
 }
 
 #controls.hidden {
-    background-color: rgba(220, 220, 220, 0);
-    transform: translate(-95%, 0);
+    opacity: 0;
 }
 
 .settings-coords-flag {
@@ -21,6 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 1px 1px 5px black;
 }
 
 .settings-coords-flag .dot {

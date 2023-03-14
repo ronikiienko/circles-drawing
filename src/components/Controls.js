@@ -61,8 +61,35 @@ const useStyles = makeStyles({
         paddingBottom: '20px',
     },
 });
+
+const useStylesTabs = makeStyles({
+    label: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        marginRight: '10px',
+    },
+    slider: {
+        marginLeft: '5px',
+    },
+    number: {
+        width: '50px',
+        marginLeft: '5px',
+    },
+    select: {
+        marginLeft: '5px',
+        width: 'fit-content',
+        display: 'inline-flex',
+    },
+    row: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        marginRight: '10px',
+        marginBottom: '6px',
+    },
+});
 export const Controls = ({settings, setSettings}) => {
     const classes = useStyles();
+    const tabsClasses = useStylesTabs();
 
     const [tab, setTab] = useImmer('number');
     const [hidden, setHidden] = useImmer(false);
@@ -98,28 +125,30 @@ export const Controls = ({settings, setSettings}) => {
                 <div className={classes.contentContainer}>
                     <div className={classes.inputsContainer}>
                         <ConditionalPanel active={tab === 'number'}>
-                            <Number settings={settings} handleChange={handleChange}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={tab === 'color'}>
-                            <Color settings={settings} handleChange={handleChange}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={tab === 'shape'}>
-                            <Shape settings={settings} setSettings={setSettings} handleChange={handleChange}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={tab === 'glow'}>
-                            <Glow settings={settings} handleChange={handleChange}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={tab === 'transp'}>
-                            <Transp settings={settings} handleChange={handleChange}/>
+                            <Number settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === 'size'}>
-                            <Size settings={settings} handleChange={handleChange}/>
+                            <Size settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                        </ConditionalPanel>
+                        <ConditionalPanel active={tab === 'shape'}>
+                            <Shape settings={settings} setSettings={setSettings} handleChange={handleChange}
+                                   classes={tabsClasses}/>
+                        </ConditionalPanel>
+                        <ConditionalPanel active={tab === 'color'}>
+                            <Color settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                        </ConditionalPanel>
+                        <ConditionalPanel active={tab === 'glow'}>
+                            <Glow settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                        </ConditionalPanel>
+                        <ConditionalPanel active={tab === 'transp'}>
+                            <Transp settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === 'position'}>
-                            <Position settings={settings} setSettings={setSettings} handleChange={handleChange}/>
+                            <Position settings={settings} setSettings={setSettings} handleChange={handleChange}
+                                      classes={tabsClasses}/>
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === 'presets'}>
-                            <Presets setSettings={setSettings}/>
+                            <Presets setSettings={setSettings} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <br/>
                     </div>

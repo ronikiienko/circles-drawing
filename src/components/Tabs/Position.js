@@ -1,39 +1,122 @@
+import {Button, Input, Label, Select, Slider} from '@fluentui/react-components';
 import {overlayModes} from '../../consts';
 import {useClickAndSet} from '../../hooks/useClickAndSet';
 import {CoordinateFlag} from '../utils/coordinateFlag';
 
 
-export const Position = ({settings, setSettings, handleChange}) => {
+export const Position = ({settings, setSettings, handleChange, classes}) => {
     const {setClickAndSetProp, setDragProp} = useClickAndSet({setSettings});
     return (
         <>
-            Start x: <input value={settings.position.startX} className="start-x" id="position-startX"
-                            onChange={handleChange} type="text" inputMode="numeric"/>
-            Start y: <input value={settings.position.startY} className="start-y" id="position-startY"
-                            onChange={handleChange} type="text" inputMode="numeric"/>
-            <button id="position-start" onClick={setClickAndSetProp}>Click and set</button>
+            <div className={classes.row}>
+                <Label className={classes.label}>
+                    Start x:
+                    <Input
+                        className={classes.number}
+                        size="small"
+                        value={settings.position.startX}
+                        id="position-startX"
+                        onChange={handleChange}
+                        type="text"
+                    />
+                </Label>
+                <Label className={classes.label}>
+                    Start y:
+                    <Input
+                        className={classes.number}
+                        size="small"
+                        value={settings.position.startY}
+                        id="position-startY"
+                        onChange={handleChange}
+                        type="text"
+                    />
+                </Label>
+                <Button size="small" id="position-start" onClick={setClickAndSetProp}>Click and set</Button>
+            </div>
             <br/>
-            End x: <input value={settings.position.endX} className="end-x" id="position-endX"
-                          onChange={handleChange} type="text" inputMode="numeric"/>
-            End y: <input value={settings.position.endY} className="end-y" id="position-endY"
-                          onChange={handleChange} type="text" inputMode="numeric"/>
-            <button id="position-end" onClick={setClickAndSetProp}>Click and set</button>
+            <div className={classes.row}>
+                <Label className={classes.label}>
+                    End x:
+                    <Input
+                        className={classes.number}
+                        size="small"
+                        value={settings.position.endX}
+                        id="position-endX"
+                        onChange={handleChange}
+                        type="text"
+                    />
+                </Label>
+                <Label className={classes.label}>
+                    End y:
+                    <Input
+                        className={classes.number}
+                        size="small"
+                        value={settings.position.endY}
+                        onChange={handleChange}
+                        type="text"
+                    />
+                </Label>
+                <Button size="small" id="position-end" onClick={setClickAndSetProp}>Click and set</Button>
+            </div>
             <br/>
-            Bias x: <input value={settings.position.biasX} className="bias-x" id="position-biasX"
-                           onChange={handleChange} type="text" inputMode="numeric"/>
-            Bias y: <input value={settings.position.biasY} className="bias-y" id="position-biasY"
-                           onChange={handleChange} type="text" inputMode="numeric"/>
-            <button id="position-bias" onClick={setClickAndSetProp}>Click and set</button>
+            <div className={classes.row}>
+                <Label className={classes.label}>
+                    Bias x:
+                    <Input
+                        className={classes.number}
+                        size="small"
+                        value={settings.position.biasX}
+                        id="position-biasX"
+                        onChange={handleChange}
+                        type="text"
+                    />
+                </Label>
+                <Label className={classes.label}>
+                    Bias y:
+                    <Input
+                        className={classes.number}
+                        size="small"
+                        value={settings.position.biasY}
+                        id="position-biasY"
+                        onChange={handleChange}
+                        type="text"
+                    />
+                </Label>
+                <Button size="small" id="position-bias" onClick={setClickAndSetProp}>Click and set</Button>
+            </div>
             <br/>
-            Bias inf: <input value={settings.position.biasInf} className="bias-inf" id="position-biasInf"
-                             onChange={handleChange} type="range" min="0" max="1" step="0.1"/>
-            <br/>
-            Overlay: <select value={settings.position.overlayMode} className="overlayMode"
-                             id="position-overlayMode"
-                             onChange={handleChange}>
-            <option value="source-over">source-over</option>
-            {overlayModes.map(overlayMode => <option key={overlayMode} value={overlayMode}>{overlayMode}</option>)}
-        </select>
+            <Label className={classes.label}>
+                Bias inf:
+                <Slider
+                    value={settings.position.biasInf}
+                    className={classes.slider}
+                    id="position-biasInf"
+                    onChange={handleChange}
+                    min="0"
+                    max="1"
+                    step="0.1"
+                />
+            </Label>
+            <Label className={classes.label}>
+                Overlay:
+                <Select
+                    size="small"
+                    value={settings.position.overlayMode}
+                    className={classes.select}
+                    id="position-overlayMode"
+                    onChange={handleChange}
+                >
+                    {overlayModes.map(overlayMode =>
+                        <option
+                            key={overlayMode}
+                            value={overlayMode}
+                        >
+                            {overlayMode}
+                        </option>)
+                    }
+                </Select>
+            </Label>
+
             <CoordinateFlag id="position-start" title="Start point" onMouseDown={setDragProp} settings={settings}
                             color="green"/>
             <CoordinateFlag id="position-end" title="End point" onMouseDown={setDragProp} settings={settings}
