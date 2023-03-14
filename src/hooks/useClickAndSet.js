@@ -4,6 +4,7 @@ import {useImmer} from 'use-immer';
 
 export const useClickAndSet = ({setSettings}) => {
     const [clickAndSetProperty, setClickAndSetProperty] = useImmer(null);
+    const [dragProperty, setDragProperty] = useImmer(null);
     useEffect(() => {
         const clickAndSetHandler = (event) => {
             if (!clickAndSetProperty) return;
@@ -14,15 +15,43 @@ export const useClickAndSet = ({setSettings}) => {
             });
             setClickAndSetProperty(null);
         };
-        window.addEventListener('click', clickAndSetHandler);
-        return () => window.removeEventListener('click', clickAndSetHandler);
-    }, [setClickAndSetProperty, clickAndSetProperty, setSettings]);
 
-    return (event) => {
+        const dragHandler = (event) => {
+            if (!dragProperty) return;
+
+            setSettings(draft => {
+                draft[dragProperty[0]][`${dragProperty[1]}X`] = event.pageX;
+                draft[dragProperty[0]][`${dragProperty[1]}Y`] = event.pageY;
+            });
+        };
+
+        const mouseUpHandler = () => {
+            if (!dragProperty) return;
+            setDragProperty(null);
+        };
+        window.addEventListener('click', clickAndSetHandler);
+        window.addEventListener('mousemove', dragHandler);
+        window.addEventListener('mouseup', mouseUpHandler);
+        return () => {
+            window.removeEventListener('click', clickAndSetHandler);
+            window.removeEventListener('mousemove', dragHandler);
+            window.removeEventListener('mouseup', mouseUpHandler);
+        };
+    }, [setClickAndSetProperty, clickAndSetProperty, setSettings, dragProperty, setDragProperty]);
+    const setClickAndSetProp = (event) => {
         event.stopPropagation();
         const categoriesArray = event.target.id.split('-');
         const category = categoriesArray[0];
         const subcategory1 = categoriesArray[1];
         setClickAndSetProperty([category, subcategory1]);
     };
+
+    const setDragProp = (event) => {
+        event.stopPropagation();
+        const categoriesArray = event.target.id.split('-');
+        const category = categoriesArray[0];
+        const subcategory1 = categoriesArray[1];
+        setDragProperty([category, subcategory1]);
+    };
+    return {setClickAndSetProp, setDragProp};
 };

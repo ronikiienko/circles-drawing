@@ -3,7 +3,7 @@ import {useClickAndSet} from '../hooks/useClickAndSet';
 
 
 export const Shape = ({settings, setSettings, handleChange}) => {
-    const setClickAndSetProperty = useClickAndSet({setSettings});
+    const {setClickAndSetProp, setDragProp} = useClickAndSet({setSettings});
     return (
         <>
             <label>
@@ -49,10 +49,11 @@ export const Shape = ({settings, setSettings, handleChange}) => {
                     Look to Y: <input value={settings.shape.lineLookToY} className="line-look-to-y"
                                       id="shape-lineLookToY"
                                       onChange={handleChange} type="text" inputMode="numeric"/>
-                    <button id="shape-lineLookTo" onClick={setClickAndSetProperty}>Click and set</button>
+                    <button id="shape-lineLookTo" onClick={setClickAndSetProp}>Click and set</button>
+                    <div onMouseDown={setDragProp} className="settings-coords-flag lookTo" title="Look to point"
+                         style={{left: settings.shape.lineLookToX - 5, top: settings.shape.lineLookToY - 5}}
+                         id="shape-lineLookTo"></div>
                 </>}
-                <div className="settings-coords-display lookTo" title="Look to point"
-                     style={{left: settings.shape.lineLookToX - 5, top: settings.shape.lineLookToY - 5}}></div>
             </>}
         </>
     );

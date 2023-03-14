@@ -4,6 +4,7 @@
     border-radius: 3px;
     border: none;
     background-color: lightblue;
+    user-select: none;
 }
 
 .styled-button:hover {
