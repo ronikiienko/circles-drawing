@@ -1,7 +1,8 @@
+import {Button} from '@fluentui/react-components';
 import React from 'react';
 import {useImmer} from 'use-immer';
 import {layerPresets} from '../consts';
-import {Button} from './styledElements/Button';
+// import {Button} from './styledElements/Button';
 
 
 export const Presets = ({setSettings}) => {
@@ -17,7 +18,7 @@ export const Presets = ({setSettings}) => {
                     return <option key={key} value={key} title={preset.meta.description}>{preset.meta.name}</option>;
                 })}
             </select>
-                <Button onClick={() => setSettings(layerPresets[preset])}>Apply preset</Button>
+                <Button size="small" onClick={() => setSettings(layerPresets[preset])}>Apply preset</Button>
             </label>
         </>
     );

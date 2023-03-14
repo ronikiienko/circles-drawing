@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fluentui/react-components": "^9.18.0",
+    "@fluentui/react-tabs": "^9.3.2",
     "file-saver": "^2.0.5",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",

@@ -1,3 +1,4 @@
+import {Tab, TabList} from '@fluentui/react-components';
 import React, {useEffect} from 'react';
 import {useImmer} from 'use-immer';
 import {clear, draw, saveAsImage, undo} from '../draw';
@@ -6,7 +7,7 @@ import {Position} from './Position';
 import {Presets} from './Presets';
 import {Shape} from './Shape';
 import {Button} from './styledElements/Button';
-import {ConditionalPanel, Tabs} from './Tabs';
+import {ConditionalPanel} from './Tabs';
 
 
 export const Controls = ({settings, setSettings}) => {
@@ -35,20 +36,16 @@ export const Controls = ({settings, setSettings}) => {
 
     return (
         <div id="controls" className={hidden ? 'hidden' : ''} onClick={handleHide}>
-            <Tabs
-                openedTab={tab}
-                setOpenedTab={setTab}
-                tabsArray={[
-                    {id: 'number', label: 'Number'},
-                    {id: 'size', label: 'Size'},
-                    {id: 'shape', label: 'Shape'},
-                    {id: 'color', label: 'Color'},
-                    {id: 'transp', label: 'Transp'},
-                    {id: 'position', label: 'Position'},
-                    {id: 'glow', label: 'Glow'},
-                    {id: 'presets', label: 'Presets'},
-                ]}
-            />
+            <TabList selectedValue={tab} onTabSelect={(event, data) => setTab(data.value)}>
+                <Tab value="number">Number</Tab>
+                <Tab value="size">Size</Tab>
+                <Tab value="shape">Shape</Tab>
+                <Tab value="color">Color</Tab>
+                <Tab value="transp">Transp</Tab>
+                <Tab value="position">Position</Tab>
+                <Tab value="glow">Glow</Tab>
+                <Tab value="presets">Presets</Tab>
+            </TabList>
             <ConditionalPanel active={tab === 'number'}>
                 <label className="number-inputs">
                     Number:

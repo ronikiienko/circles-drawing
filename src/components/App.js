@@ -1,3 +1,4 @@
+import {FluentProvider, teamsLightTheme} from '@fluentui/react-components';
 import {useEffect} from 'react';
 import {useImmer} from 'use-immer';
 import {layerPresets} from '../consts';
@@ -13,9 +14,11 @@ export const App = () => {
     }, []);
 
     return (
-        <div>
-            <Controls settings={settings} setSettings={setSettings}/>
-            <canvas></canvas>
-        </div>
+        <FluentProvider theme={teamsLightTheme}>
+            <div>
+                <Controls settings={settings} setSettings={setSettings}/>
+                <canvas></canvas>
+            </div>
+        </FluentProvider>
     );
 };
