@@ -95,23 +95,23 @@ export const Shape = ({settings, setSettings, handleChange, classes}) => {
                 <br/>
                 <ConditionalPanel active={settings.shape.lineLookToOn}>
                     <div className={classes.row}>
-                        <Label>
+                        <Label className={classes.label}>
                             Look to X:
                             <Input
                                 size="small"
                                 value={settings.shape.lineLookToX}
-                                className={classes.numberInput}
+                                className={classes.number}
                                 id="shape-lineLookToX"
                                 onChange={handleChange}
                                 type="text"
                             />
                         </Label>
-                        <Label>
+                        <Label className={classes.label}>
                             Look to Y:
                             <Input
                                 size="small"
                                 value={settings.shape.lineLookToY}
-                                className={classes.numberInput}
+                                className={classes.number}
                                 id="shape-lineLookToY"
                                 onChange={handleChange}
                                 type="text"
