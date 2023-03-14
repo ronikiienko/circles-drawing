@@ -1,11 +1,28 @@
-import {Input, Label, Slider} from '@fluentui/react-components';
+import {Input, Label, makeStyles, Slider} from '@fluentui/react-components';
 import React from 'react';
 
 
+const useStyles = makeStyles({
+    label: {
+        display: 'flex',
+        alignItems: 'center',
+        marginRight: '10px',
+    },
+    sliderSizeInput: {
+        marginLeft: '10px',
+        width: '200px',
+    },
+    numberSizeInput: {
+        width: '40px',
+        marginLeft: '5px',
+    },
+});
+
 export const Size = ({settings, handleChange}) => {
+    const classes = useStyles();
     return (
         <>
-            <Label>
+            <Label className={classes.label}>
                 Size:
                 <Slider
                     min={0}
@@ -14,29 +31,29 @@ export const Size = ({settings, handleChange}) => {
                     id="size-size"
                     value={settings.size.size}
                     onChange={handleChange}
+                    className={classes.sliderSizeInput}
                 />
                 <Input
-                    type="number"
-                    value={settings.size.size}
-                    onChange={handleChange}
-                    id="size-size"
                     size="small"
+                    value={settings.size.size}
+                    className={classes.numberSizeInput}
+                    id="size-size"
+                    onChange={handleChange}
+                    type="text"
                 />
             </Label>
             <br/>
-            <label>
+            <Label className={classes.label}>
                 Size rand:
-                <input
+                <Slider
                     value={settings.size.sizeRand}
-                    className="size-rand"
                     id="size-sizeRand"
                     onChange={handleChange}
                     min="0"
                     max="1"
                     step="0.1"
-                    type="range"
                 />
-            </label>
+            </Label>
         </>
 
     );

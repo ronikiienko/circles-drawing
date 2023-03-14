@@ -1,63 +1,16 @@
 #controls {
     position: absolute;
     z-index: 100;
-    padding: 10px;
-    background-color: gray;
+    /*padding: 5px;*/
+    background-color: rgba(220, 220, 220, 0.8);
     width: 600px;
-    opacity: 0.8;
-    border-radius: 0 0 10px 0;
-    transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
+    opacity: 1;
+    transition: transform 200ms ease-in-out, background-color 200ms ease-in-out;
 }
 
 #controls.hidden {
-    opacity: 0.2;
+    background-color: rgba(220, 220, 220, 0);
     transform: translate(-95%, 0);
-}
-
-#controls input[type="text"] {
-    width: 40px;
-}
-
-.tabs-buttons-container {
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-around;
-}
-
-.tab-button {
-    user-select: none;
-    width: 100%;
-    height: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: lightblue;
-    padding: 10px;
-    color: darkblue;
-    border-inline: 1px solid rgba(0, 0, 0, 0.18);
-}
-
-.tab-button:hover {
-    background-color: #a5c7d3;
-    color: #000058;
-}
-
-.tab-button:last-child {
-    border-radius: 0 5px 5px 0;
-}
-
-.tab-button:first-child {
-    border-radius: 5px 0 0 5px;
-}
-
-.tab-button.active {
-    color: black;
-    background-color: lightcoral;
-}
-
-.tab-button.active:hover {
-    color: black;
-    background-color: #ff3535;
 }
 
 .settings-coords-flag {
