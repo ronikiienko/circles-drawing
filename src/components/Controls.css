@@ -62,25 +62,18 @@
 
 .settings-coords-flag {
     z-index: 110;
-    width: 20px;
-    height: 20px;
     border-radius: 50%;
     position: absolute;
     user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.settings-coords-flag.start {
-    background-color: green;
-}
-
-.settings-coords-flag.end {
-    background-color: red;
-}
-
-.settings-coords-flag.bias {
-    background-color: blue;
-}
-
-.settings-coords-flag.lookTo {
+.settings-coords-flag .dot {
+    width: 5px;
+    height: 5px;
     background-color: black;
+    border-radius: 50%;
+    pointer-events: none;
 }

@@ -71,7 +71,7 @@ const drawShape = (ctx, settings) => {
 
 const getTranslatedLayerSettings = (rawSettings) => {
     // reused values
-    const size = Math.pow(parseFloat(rawSettings.size.size) + 1, 9);
+    const size = Math.pow(parseFloat(rawSettings.size.size) + 1, 7) * 2;
     const transp = parseFloat(rawSettings.transp.transp);
 
     return {

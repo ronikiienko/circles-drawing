@@ -1,5 +1,6 @@
 import {overlayModes} from '../consts';
 import {useClickAndSet} from '../hooks/useClickAndSet';
+import {CoordinateFlag} from './coordinateFlag';
 
 
 export const Position = ({settings, setSettings, handleChange}) => {
@@ -33,13 +34,12 @@ export const Position = ({settings, setSettings, handleChange}) => {
             <option value="source-over">source-over</option>
             {overlayModes.map(overlayMode => <option key={overlayMode} value={overlayMode}>{overlayMode}</option>)}
         </select>
-            <div onMouseDown={setDragProp} className="settings-coords-flag start" title="Start point"
-                 style={{left: settings.position.startX - 5, top: settings.position.startY - 5}}
-                 id="position-start"></div>
-            <div onMouseDown={setDragProp} className="settings-coords-flag end" title="End point"
-                 style={{left: settings.position.endX - 5, top: settings.position.endY - 5}} id="position-end"></div>
-            <div onMouseDown={setDragProp} className="settings-coords-flag bias" title="Bias point"
-                 style={{left: settings.position.biasX - 5, top: settings.position.biasY - 5}} id="position-bias"></div>
+            <CoordinateFlag id="position-start" title="Start point" onMouseDown={setDragProp} settings={settings}
+                            color="green"/>
+            <CoordinateFlag id="position-end" title="End point" onMouseDown={setDragProp} settings={settings}
+                            color="red"/>
+            <CoordinateFlag id="position-bias" title="Bias point" onMouseDown={setDragProp} settings={settings}
+                            color="blue"/>
         </>
     );
 };

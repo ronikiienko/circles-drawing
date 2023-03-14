@@ -51,6 +51,7 @@ export const useClickAndSet = ({setSettings}) => {
         const categoriesArray = event.target.id.split('-');
         const category = categoriesArray[0];
         const subcategory1 = categoriesArray[1];
+        console.log('setting drag prop:', category, '?', subcategory1);
         setDragProperty([category, subcategory1]);
     };
     return {setClickAndSetProp, setDragProp};

@@ -158,7 +158,17 @@ export const Controls = ({settings, setSettings}) => {
                         step="0.01"
                         type="range"
                     />
+                    <input
+                        value={settings.size.size}
+                        type="text"
+                        inputMode="numeric"
+                        min={0}
+                        max={1}
+                        onChange={handleChange}
+                        id="size-size"
+                    />
                 </label>
+                <br/>
                 <label>
                     Size rand:
                     <input

@@ -1,5 +1,6 @@
 import React from 'react';
 import {useClickAndSet} from '../hooks/useClickAndSet';
+import {CoordinateFlag} from './coordinateFlag';
 
 
 export const Shape = ({settings, setSettings, handleChange}) => {
@@ -50,9 +51,8 @@ export const Shape = ({settings, setSettings, handleChange}) => {
                                       id="shape-lineLookToY"
                                       onChange={handleChange} type="text" inputMode="numeric"/>
                     <button id="shape-lineLookTo" onClick={setClickAndSetProp}>Click and set</button>
-                    <div onMouseDown={setDragProp} className="settings-coords-flag lookTo" title="Look to point"
-                         style={{left: settings.shape.lineLookToX - 5, top: settings.shape.lineLookToY - 5}}
-                         id="shape-lineLookTo"></div>
+                    <CoordinateFlag id="shape-lineLookTo" title="Look to point" onMouseDown={setDragProp}
+                                    settings={settings} color="pink"/>
                 </>}
             </>}
         </>
