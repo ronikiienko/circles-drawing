@@ -29,8 +29,8 @@ export const useClickAndSet = ({setSettings}) => {
             if (!dragProperty) return;
 
             setSettings(draft => {
-                draft[dragProperty[0]][`${dragProperty[1]}X`] = event.targetTouches[0].pageX;
-                draft[dragProperty[0]][`${dragProperty[1]}Y`] = event.targetTouches[0].pageY;
+                draft[dragProperty[0]][`${dragProperty[1]}X`] = Math.trunc(event.targetTouches[0].pageX);
+                draft[dragProperty[0]][`${dragProperty[1]}Y`] = Math.trunc(event.targetTouches[0].pageY);
             });
         };
 
