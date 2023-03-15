@@ -126,11 +126,14 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                 }/>
             </Label>
 
-            <CoordinateFlag id="position-start" title="Start point" onMouseDown={setDragProp} settings={settings}
+            <CoordinateFlag id="position-start" title="Start point" onMouseDown={setDragProp} onTouchStart={setDragProp}
+                            settings={settings}
                             color="green"/>
-            <CoordinateFlag id="position-end" title="End point" onMouseDown={setDragProp} settings={settings}
+            <CoordinateFlag id="position-end" title="End point" onMouseDown={setDragProp} onTouchStart={setDragProp}
+                            settings={settings}
                             color="red"/>
-            <CoordinateFlag id="position-bias" title="Bias point" onMouseDown={setDragProp} settings={settings}
+            <CoordinateFlag id="position-bias" title="Bias point" onMouseDown={setDragProp} onTouchStart={setDragProp}
+                            settings={settings}
                             color="blue"/>
         </>
     );
