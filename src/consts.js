@@ -264,5 +264,5 @@ export const overlayModes = [
 ];
 
 export const highPPICanvasRatio = window.devicePixelRatio;
-export const coordinateFlagsSize = 20;
+export const coordinateFlagsSize = 30;
 export const maxUndoTimes = 10;
