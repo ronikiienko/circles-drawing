@@ -51,6 +51,7 @@ const useStyles = makeStyles({
     },
     inputsContainer: {
         overflowY: 'auto',
+        overflowX: 'auto',
         height: '150px',
         maxHeight: '150px',
     },
