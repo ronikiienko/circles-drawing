@@ -1,4 +1,15 @@
-import {Button, Divider, makeStyles, mergeClasses, shorthands, Tab, TabList, tokens} from '@fluentui/react-components';
+import {
+    Button,
+    Divider,
+    makeStyles,
+    mergeClasses,
+    Overflow,
+    OverflowItem,
+    shorthands,
+    Tab,
+    TabList,
+    tokens,
+} from '@fluentui/react-components';
 import {
     Add16Regular,
     ArrowUndo16Regular,
@@ -20,6 +31,7 @@ import {Shape} from './Tabs/Shape';
 import {Size} from './Tabs/Size';
 import {Transp} from './Tabs/Transp';
 import {ConditionalPanel} from './utils/ConditionalPanel';
+import {TabOverflowMenu} from './utils/TabOverflowMenu';
 
 
 const useStyles = makeStyles({
@@ -88,11 +100,46 @@ const useStylesTabs = makeStyles({
         marginBottom: '6px',
     },
 });
+
+const tabs = [
+    {
+        label: 'Number',
+        id: 'tab-button-number',
+    },
+    {
+        label: 'Size',
+        id: 'tab-button-size',
+    },
+    {
+        label: 'Shape',
+        id: 'tab-button-shape',
+    },
+    {
+        label: 'Color',
+        id: 'tab-button-color',
+    },
+    {
+        label: 'Transp',
+        id: 'tab-button-transp',
+    },
+    {
+        label: 'Position',
+        id: 'tab-button-position',
+    },
+    {
+        label: 'Glow',
+        id: 'tab-button-glow',
+    },
+    {
+        label: 'Presets',
+        id: 'tab-button-presets',
+    },
+];
 export const Controls = ({settings, setSettings}) => {
     const classes = useStyles();
     const tabsClasses = useStylesTabs();
 
-    const [tab, setTab] = useImmer('number');
+    const [tab, setTab] = useImmer(tabs[0].id);
     const [hidden, setHidden] = useImmer(false);
     const handleChange = (event) => {
         const categoriesArray = event.target.id.split('-');
@@ -112,43 +159,49 @@ export const Controls = ({settings, setSettings}) => {
     return (
         <>
             <div id="controls" className={hidden ? 'hidden' : ''}>
-                <TabList className={classes.tabsContainer} selectedValue={tab}
-                         onTabSelect={(event, data) => setTab(data.value)}>
-                    <Tab value="number">Number</Tab>
-                    <Tab value="size">Size</Tab>
-                    <Tab value="shape">Shape</Tab>
-                    <Tab value="color">Color</Tab>
-                    <Tab value="transp">Transp</Tab>
-                    <Tab value="position">Position</Tab>
-                    <Tab value="glow">Glow</Tab>
-                    <Tab value="presets">Presets</Tab>
-                </TabList>
+                <Overflow minimumVisible={3}>
+
+                    <TabList
+                        className={classes.tabsContainer}
+                        selectedValue={tab}
+                        onTabSelect={(event, data) => setTab(data.value)}
+                    >
+                        {tabs.map(tab => {
+                            return (
+                                <OverflowItem key={tab.id} id={tab.id}>
+                                    <Tab value={tab.id}>{tab.label}</Tab>
+                                </OverflowItem>
+                            );
+                        })}
+                        <TabOverflowMenu tabs={tabs} setTab={setTab}/>
+                    </TabList>
+                </Overflow>
                 <div className={classes.contentContainer}>
                     <div className={classes.inputsContainer}>
-                        <ConditionalPanel active={tab === 'number'}>
+                        <ConditionalPanel active={tab === tabs[0].id}>
                             <Number settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === 'size'}>
+                        <ConditionalPanel active={tab === tabs[1].id}>
                             <Size settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === 'shape'}>
+                        <ConditionalPanel active={tab === tabs[2].id}>
                             <Shape settings={settings} setSettings={setSettings} handleChange={handleChange}
                                    classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === 'color'}>
+                        <ConditionalPanel active={tab === tabs[3].id}>
                             <Color settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === 'glow'}>
+                        <ConditionalPanel active={tab === tabs[4].id}>
                             <Glow settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === 'transp'}>
+                        <ConditionalPanel active={tab === tabs[5].id}>
                             <Transp settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === 'position'}>
+                        <ConditionalPanel active={tab === tabs[6].id}>
                             <Position settings={settings} setSettings={setSettings} handleChange={handleChange}
                                       classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === 'presets'}>
+                        <ConditionalPanel active={tab === tabs[7].id}>
                             <Presets setSettings={setSettings} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <br/>
@@ -190,8 +243,12 @@ export const Controls = ({settings, setSettings}) => {
                     </div>
                 </div>
             </div>
-            <Button className={classes.unhideButton} icon={<Eye16Regular/>} onClick={() => setHidden(prev => !prev)}
-                    appearance="subtle"/>
+            <Button
+                className={classes.unhideButton}
+                icon={<Eye16Regular/>}
+                onClick={() => setHidden(prev => !prev)}
+                appearance="subtle"
+            />
         </>
 
     );
