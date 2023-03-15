@@ -43,7 +43,7 @@ export const TabOverflowMenu = ({tabs, setTab}) => {
 
             <MenuPopover>
                 <MenuList>
-                    {tabs.map((tab) => {
+                    {Object.values(tabs).map((tab) => {
                         return <TabOverflowMenuItem setTab={setTab} key={tab.id} id={tab.id} label={tab.label}/>;
                     })}
                 </MenuList>

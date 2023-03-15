@@ -101,45 +101,45 @@ const useStylesTabs = makeStyles({
     },
 });
 
-const tabs = [
-    {
+const tabs = {
+    number: {
         label: 'Number',
         id: 'tab-button-number',
     },
-    {
+    size: {
         label: 'Size',
         id: 'tab-button-size',
     },
-    {
+    shape: {
         label: 'Shape',
         id: 'tab-button-shape',
     },
-    {
+    color: {
         label: 'Color',
         id: 'tab-button-color',
     },
-    {
+    transp: {
         label: 'Transp',
         id: 'tab-button-transp',
     },
-    {
+    position: {
         label: 'Position',
         id: 'tab-button-position',
     },
-    {
+    glow: {
         label: 'Glow',
         id: 'tab-button-glow',
     },
-    {
+    presets: {
         label: 'Presets',
         id: 'tab-button-presets',
     },
-];
+};
 export const Controls = ({settings, setSettings}) => {
     const classes = useStyles();
     const tabsClasses = useStylesTabs();
 
-    const [tab, setTab] = useImmer(tabs[0].id);
+    const [tab, setTab] = useImmer(tabs.number.id);
     const [hidden, setHidden] = useImmer(false);
     const handleChange = (event) => {
         const categoriesArray = event.target.id.split('-');
@@ -166,7 +166,7 @@ export const Controls = ({settings, setSettings}) => {
                         selectedValue={tab}
                         onTabSelect={(event, data) => setTab(data.value)}
                     >
-                        {tabs.map(tab => {
+                        {Object.values(tabs).map(tab => {
                             return (
                                 <OverflowItem key={tab.id} id={tab.id}>
                                     <Tab value={tab.id}>{tab.label}</Tab>
@@ -178,30 +178,30 @@ export const Controls = ({settings, setSettings}) => {
                 </Overflow>
                 <div className={classes.contentContainer}>
                     <div className={classes.inputsContainer}>
-                        <ConditionalPanel active={tab === tabs[0].id}>
+                        <ConditionalPanel active={tab === tabs.number.id}>
                             <Number settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs[1].id}>
+                        <ConditionalPanel active={tab === tabs.size.id}>
                             <Size settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs[2].id}>
+                        <ConditionalPanel active={tab === tabs.shape.id}>
                             <Shape settings={settings} setSettings={setSettings} handleChange={handleChange}
                                    classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs[3].id}>
+                        <ConditionalPanel active={tab === tabs.color.id}>
                             <Color settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs[4].id}>
-                            <Glow settings={settings} handleChange={handleChange} classes={tabsClasses}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs[5].id}>
-                            <Transp settings={settings} handleChange={handleChange} classes={tabsClasses}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs[6].id}>
+                        <ConditionalPanel active={tab === tabs.position.id}>
                             <Position settings={settings} setSettings={setSettings} handleChange={handleChange}
                                       classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs[7].id}>
+                        <ConditionalPanel active={tab === tabs.transp.id}>
+                            <Transp settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                        </ConditionalPanel>
+                        <ConditionalPanel active={tab === tabs.glow.id}>
+                            <Glow settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                        </ConditionalPanel>
+                        <ConditionalPanel active={tab === tabs.presets.id}>
                             <Presets setSettings={setSettings} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <br/>
@@ -211,7 +211,7 @@ export const Controls = ({settings, setSettings}) => {
                         <Button
                             className={classes.buttons}
                             onClick={() => draw(settings)}
-                            icon={<Add16Regular/>}>Add layer</Button>
+                            icon={<Add16Regular/>}>Layer</Button>
                         <Button
                             className={classes.buttons}
                             onClick={() => undo()} icon={<ArrowUndo16Regular/>}>Undo</Button>
