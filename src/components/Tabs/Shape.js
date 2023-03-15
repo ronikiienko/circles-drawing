@@ -1,4 +1,5 @@
 import {Button, Checkbox, Input, Label, Select, Slider} from '@fluentui/react-components';
+import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
 import {useClickAndSet} from '../../hooks/useClickAndSet';
 import {ConditionalPanel} from '../utils/ConditionalPanel';
@@ -29,6 +30,11 @@ export const Shape = ({settings, setSettings, handleChange, classes}) => {
                         id="shape-lineLookToOn"
                         onChange={handleChange}
                     />
+                    <InfoButton content={
+                        <>
+                            Choose if all lines will be rotated such way to look at one point ("Look to" point)
+                        </>
+                    }/>
                 </Label>
                 <Label className={classes.label}>
                     Line rounded:

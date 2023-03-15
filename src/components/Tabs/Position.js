@@ -1,4 +1,5 @@
-import {Button, Input, Label, Select, Slider} from '@fluentui/react-components';
+import {Button, Input, Label, Link, Select, Slider} from '@fluentui/react-components';
+import {InfoButton} from '@fluentui/react-components/unstable';
 import {overlayModes} from '../../consts';
 import {useClickAndSet} from '../../hooks/useClickAndSet';
 import {CoordinateFlag} from '../utils/coordinateFlag';
@@ -115,6 +116,14 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                         </option>)
                     }
                 </Select>
+                <InfoButton content={
+                    <>
+                        Overlay mode adjusts how new layer blends with existing painting.{' '}
+                        <Link target="_blank"
+                              href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation">Every
+                            mode explained here</Link>
+                    </>
+                }/>
             </Label>
 
             <CoordinateFlag id="position-start" title="Start point" onMouseDown={setDragProp} settings={settings}
