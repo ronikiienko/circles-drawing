@@ -31,11 +31,13 @@ export const useClickAndSet = ({setSettings}) => {
         };
         window.addEventListener('click', clickAndSetHandler);
         window.addEventListener('mousemove', dragHandler);
+        window.addEventListener('touchmove', dragHandler);
         window.addEventListener('mouseup', mouseUpHandler);
         window.addEventListener('touchend', mouseUpHandler);
         return () => {
             window.removeEventListener('click', clickAndSetHandler);
             window.removeEventListener('mousemove', dragHandler);
+            window.removeEventListener('touchmove', dragHandler);
             window.removeEventListener('mouseup', mouseUpHandler);
             window.removeEventListener('touchend', mouseUpHandler);
         };
