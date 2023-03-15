@@ -16,7 +16,7 @@ export const useClickAndSet = ({setSettings}) => {
             setClickAndSetProperty(null);
         };
 
-        const dragHandler = (event) => {
+        const mousemoveHandler = (event) => {
             if (!dragProperty) return;
 
             setSettings(draft => {
@@ -25,19 +25,28 @@ export const useClickAndSet = ({setSettings}) => {
             });
         };
 
+        const touchmoveHandler = (event) => {
+            if (!dragProperty) return;
+
+            setSettings(draft => {
+                draft[dragProperty[0]][`${dragProperty[1]}X`] = event.targetTouches[0].pageX;
+                draft[dragProperty[0]][`${dragProperty[1]}Y`] = event.targetTouches[0].pageY;
+            });
+        };
+
         const mouseUpHandler = () => {
             if (!dragProperty) return;
             setDragProperty(null);
         };
         window.addEventListener('click', clickAndSetHandler);
-        window.addEventListener('mousemove', dragHandler);
-        window.addEventListener('touchmove', dragHandler);
+        window.addEventListener('mousemove', mousemoveHandler);
+        window.addEventListener('touchmove', touchmoveHandler);
         window.addEventListener('mouseup', mouseUpHandler);
         window.addEventListener('touchend', mouseUpHandler);
         return () => {
             window.removeEventListener('click', clickAndSetHandler);
-            window.removeEventListener('mousemove', dragHandler);
-            window.removeEventListener('touchmove', dragHandler);
+            window.removeEventListener('mousemove', mousemoveHandler);
+            window.removeEventListener('touchmove', touchmoveHandler);
             window.removeEventListener('mouseup', mouseUpHandler);
             window.removeEventListener('touchend', mouseUpHandler);
         };

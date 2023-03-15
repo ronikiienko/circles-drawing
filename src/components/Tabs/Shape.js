@@ -129,6 +129,7 @@ export const Shape = ({settings, setSettings, handleChange, classes}) => {
                         id="shape-lineLookTo"
                         title="Look to point"
                         onMouseDown={setDragProp}
+                        onTouchStart={setDragProp}
                         settings={settings}
                         color="pink"
                     />
