@@ -69,6 +69,14 @@ const drawShape = (ctx, settings) => {
     }
 };
 
+const translateBiasA = (biasA) => {
+    return parseFloat(biasA) * 10;
+};
+
+const translateBiasB = (biasB) => {
+    return parseFloat(biasB) * 10;
+};
+
 const getTranslatedLayerSettings = (rawSettings) => {
     // reused values
     const size = Math.pow(parseFloat(rawSettings.size.size) + 1, 7) * 2;
@@ -107,6 +115,8 @@ const getTranslatedLayerSettings = (rawSettings) => {
             endY: parseFloat(rawSettings.position.endY),
             biasX: parseFloat(rawSettings.position.biasX),
             biasY: parseFloat(rawSettings.position.biasY),
+            biasA: translateBiasA(rawSettings.position.biasA),
+            biasB: translateBiasB(rawSettings.position.biasB),
             biasInf: parseFloat(rawSettings.position.biasInf),
             overlayMode: rawSettings.position.overlayMode,
         },

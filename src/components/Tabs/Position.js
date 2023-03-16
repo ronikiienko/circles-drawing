@@ -87,18 +87,6 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
             </div>
             <br/>
             <Label className={classes.label}>
-                Bias inf:
-                <Slider
-                    value={settings.position.biasInf}
-                    className={classes.slider}
-                    id="position-biasInf"
-                    onChange={handleChange}
-                    min="0"
-                    max="1"
-                    step="0.1"
-                />
-            </Label>
-            <Label className={classes.label}>
                 Overlay:
                 <Select
                     size="small"
@@ -125,6 +113,49 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                     </>
                 }/>
             </Label>
+            <br/>
+            <Label className={classes.label}>
+                Bias A:
+                <Slider
+                    size="small"
+                    className={classes.number}
+                    value={settings.position.biasA}
+                    id="position-biasA"
+                    onChange={handleChange}
+                    min="0"
+                    max="1"
+                    step="0.1"
+                />
+            </Label>
+            <br/>
+            <Label className={classes.label}>
+                Bias B:
+                <Slider
+                    size="small"
+                    className={classes.number}
+                    value={settings.position.biasB}
+                    id="position-biasB"
+                    onChange={handleChange}
+                    min="0"
+                    max="1"
+                    step="0.1"
+                />
+            </Label>
+            <br/>
+            <Label className={classes.label}>
+                Bias inf:
+                <Slider
+                    size="small"
+                    value={settings.position.biasInf}
+                    className={classes.slider}
+                    id="position-biasInf"
+                    onChange={handleChange}
+                    min="0"
+                    max="1"
+                    step="0.1"
+                />
+            </Label>
+
 
             <CoordinateFlag id="position-start" title="Start point" onMouseDown={setDragProp} onTouchStart={setDragProp}
                             settings={settings}

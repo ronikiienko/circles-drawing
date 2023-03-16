@@ -266,6 +266,8 @@ export const layerPresets = {
             'endY': window.innerHeight,
             'biasX': window.innerWidth / 2,
             'biasY': window.innerHeight / 2,
+            'biasA': 1,
+            'biasB': 1,
             'biasInf': '1',
             'overlayMode': 'source-over',
         },
