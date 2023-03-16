@@ -131,9 +131,28 @@ const getTranslatedLayerSettings = (rawSettings) => {
 const getRandomizedShapeSettings = (settings) => {
     let color;
     const transp = settings.transp.transp + getBiasedRandomNumber(-settings.transp.transpRand, settings.transp.transpRand, 2);
-
-    const xPosition = getBiasedRandomNumber(settings.position.startX, settings.position.endX, 0, settings.position.biasX, settings.position.biasInf);
-    const yPosition = getBiasedRandomNumber(settings.position.startY, settings.position.endY, 0, settings.position.biasY, settings.position.biasInf);
+    const xPosition = getBiasedRandomNumber(
+        settings.position.startX,
+        settings.position.endX,
+        0,
+        {
+            bias: settings.position.biasX,
+            biasInf: settings.position.biasInf,
+            biasA: settings.position.biasA,
+            biasB: settings.position.biasB,
+        },
+    );
+    const yPosition = getBiasedRandomNumber(
+        settings.position.startY,
+        settings.position.endY,
+        0,
+        {
+            bias: settings.position.biasY,
+            biasInf: settings.position.biasInf,
+            biasA: settings.position.biasA,
+            biasB: settings.position.biasB,
+        },
+    );
 
     let lineAngle;
     if (settings.shape.lineLookToOn) {
