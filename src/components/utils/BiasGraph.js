@@ -4,7 +4,7 @@ import {biasTanhFunction} from '../../utils';
 
 
 const numberOfCircles = 50;
-const svgSize = 100;
+const svgSize = 70;
 export const BiasGraph = ({biasInf, biasA, biasB}) => {
     let path = `M 0 ${svgSize}`;
     const biasATranslated = translateBiasA(biasA);
