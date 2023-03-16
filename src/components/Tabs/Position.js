@@ -2,6 +2,7 @@ import {Button, Input, Label, Link, Select, Slider} from '@fluentui/react-compon
 import {InfoButton} from '@fluentui/react-components/unstable';
 import {overlayModes} from '../../consts';
 import {useClickAndSet} from '../../hooks/useClickAndSet';
+import {BiasGraph} from '../utils/BiasGraph';
 import {CoordinateFlag} from '../utils/coordinateFlag';
 
 
@@ -124,7 +125,7 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                     onChange={handleChange}
                     min="0"
                     max="1"
-                    step="0.05"
+                    step="0.04"
                 />
             </Label>
             <br/>
@@ -138,7 +139,7 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                     onChange={handleChange}
                     min="0"
                     max="1"
-                    step="0.05"
+                    step="0.04"
                 />
             </Label>
             <br/>
@@ -152,11 +153,11 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                     onChange={handleChange}
                     min="0"
                     max="1"
-                    step="0.1"
+                    step="0.04"
                 />
             </Label>
-
-
+            <BiasGraph biasInf={settings.position.biasInf} biasA={settings.position.biasA}
+                       biasB={settings.position.biasB}/>
             <CoordinateFlag id="position-start" title="Start point" onMouseDown={setDragProp} onTouchStart={setDragProp}
                             settings={settings}
                             color="green"/>

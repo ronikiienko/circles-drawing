@@ -4,13 +4,17 @@ export const generateRandomNumber = (min, max, decimals) => {
     return Number(Math.floor(Math.random() * (max * precision - min * precision + 1) + min * precision) / precision);
 };
 
+export const biasTanhFunction = (x, biasInf, biasA, biasB) => {
+    return Math.tanh(Math.pow(x, 1 / biasB) * biasA) * biasInf;
+};
+
 export const getBiasedRandomNumber = (min, max, decimals = 0, biasSettings) => {
     const precision = Math.pow(10, decimals);
     const randomNumber = Math.floor(Math.random() * (max * precision - min * precision + 1) + min * precision) / precision;
     if (!biasSettings) return randomNumber;
     const {bias, biasInf, biasA, biasB} = biasSettings;
     const randomMix = Math.random();
-    const mix = Math.tanh(Math.pow(randomMix, 1 / biasB) * biasA) * biasInf;
+    const mix = biasTanhFunction(randomMix, biasInf, biasA, biasB);
     return randomNumber * (1 - mix) + bias * mix;
 
     // const mix = randomMix * influence;

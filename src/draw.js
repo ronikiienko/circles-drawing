@@ -69,12 +69,14 @@ const drawShape = (ctx, settings) => {
     }
 };
 
-const translateBiasA = (biasA) => {
-    return parseFloat(biasA) * 10;
+export const translateBiasA = (biasA) => {
+    return parseFloat((Math.pow(parseFloat(biasA) + 1, 8) * 0.0390625).toFixed(2));
+    // return parseFloat(biasA) * 10;
 };
 
-const translateBiasB = (biasB) => {
-    return parseFloat(biasB) * 10;
+export const translateBiasB = (biasB) => {
+    return parseFloat((Math.pow(parseFloat(biasB) + 1, 8) * 0.0390625).toFixed(2));
+    // return parseFloat(biasB) * 10;
 };
 
 const getTranslatedLayerSettings = (rawSettings) => {
