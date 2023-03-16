@@ -156,6 +156,7 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                     step="0.04"
                 />
             </Label>
+            <br/>
             <BiasGraph biasInf={settings.position.biasInf} biasA={settings.position.biasA}
                        biasB={settings.position.biasB}/>
             <CoordinateFlag id="position-start" title="Start point" onMouseDown={setDragProp} onTouchStart={setDragProp}
