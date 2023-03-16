@@ -8,7 +8,7 @@ import {Controls} from './Controls';
 
 
 export const App = () => {
-    const [settings, setSettings] = useImmer(layerPresets.default);
+    const [settings, setSettings] = useImmer(layerPresets.biasedCircles);
     useEffect(() => {
         makeCanvasHighPPI(window.innerWidth, window.innerHeight);
     }, []);
