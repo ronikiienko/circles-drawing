@@ -4,13 +4,13 @@ export const generateRandomNumber = (min, max, decimals) => {
     return Number(Math.floor(Math.random() * (max * precision - min * precision + 1) + min * precision) / precision);
 };
 
+
 export const getBiasedRandomNumber = (min, max, decimals = 0, bias, influence) => {
     const precision = Math.pow(10, decimals);
     const randomNumber = Math.floor(Math.random() * (max * precision - min * precision + 1) + min * precision) / precision;
     if (!isFinite(bias) || !isFinite(influence)) return randomNumber;
     const mix = Math.random() * influence;
     return randomNumber * (1 - mix) + bias * mix;
-
 
     // const mix = (1 - Math.pow(Math.random(), influence * 5))
     // const mix = Math.pow(1 - Math.pow(rand - 1, 2), 1 / 2) * influence

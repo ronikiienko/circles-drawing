@@ -229,6 +229,52 @@ export const layerPresets = {
             'isFullRand': false,
         },
     },
+    biasedCircles: {
+        'meta': {
+            'name': 'Biased circles',
+            'description': 'Biased circles!',
+        },
+        'size': {
+            'size': '0.13',
+            'sizeRand': '1',
+        },
+        'glow': {
+            'glow': '0.5',
+        },
+        'transp': {
+            'transp': '0.55',
+            'transpRand': '1',
+        },
+        'number': {
+            'number': '1000',
+        },
+        'shape': {
+            'shape': 'circle',
+            'lineAngle': 0.08333333333333333,
+            'lineAngleRand': 0,
+            'lineRatio': 0.2,
+            'lineRounded': false,
+            'lineRatioRand': 0.2,
+            'lineLookToOn': false,
+            'lineLookToX': 100,
+            'lineLookToY': 100,
+        },
+        'position': {
+            'startX': '0',
+            'startY': '0',
+            'endX': window.innerWidth,
+            'endY': window.innerHeight,
+            'biasX': window.innerWidth / 2,
+            'biasY': window.innerHeight / 2,
+            'biasInf': '1',
+            'overlayMode': 'source-over',
+        },
+        'color': {
+            'color': '#00eeff',
+            'colorRand': '1',
+            'isFullRand': false,
+        },
+    },
 };
 
 export const defaultBackgroundSettings = {
