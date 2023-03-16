@@ -1,4 +1,4 @@
-import {Button, Input, Label, Link, Select, Slider} from '@fluentui/react-components';
+import {Button, Input, Label, Link, makeStyles, Select, Slider} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import {overlayModes} from '../../consts';
 import {useClickAndSet} from '../../hooks/useClickAndSet';
@@ -6,7 +6,15 @@ import {BiasGraph} from '../utils/BiasGraph';
 import {CoordinateFlag} from '../utils/coordinateFlag';
 
 
+const useStyles = makeStyles({
+    biasSection: {
+        display: 'flex',
+        marginTop: '10px',
+        alignItems: 'center',
+    },
+});
 export const Position = ({settings, setSettings, handleChange, classes}) => {
+    const localClasses = useStyles();
     const {setClickAndSetProp, setDragProp} = useClickAndSet({setSettings});
     return (
         <>
@@ -115,50 +123,58 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                 }/>
             </Label>
             <br/>
-            <Label className={classes.label}>
-                Bias A:
-                <Slider
-                    size="small"
-                    className={classes.number}
-                    value={settings.position.biasA}
-                    id="position-biasA"
-                    onChange={handleChange}
-                    min="0"
-                    max="1"
-                    step="0.04"
-                />
-            </Label>
+            <div className={localClasses.biasSection}>
+                <div>
+                    <Label className={classes.label}>
+                        Bias A:
+                        <Slider
+                            size="small"
+                            className={classes.number}
+                            value={settings.position.biasA}
+                            id="position-biasA"
+                            onChange={handleChange}
+                            min="0"
+                            max="1"
+                            step="0.04"
+                        />
+                    </Label>
+                    <br/>
+                    <Label className={classes.label}>
+                        Bias B:
+                        <Slider
+                            size="small"
+                            className={classes.number}
+                            value={settings.position.biasB}
+                            id="position-biasB"
+                            onChange={handleChange}
+                            min="0"
+                            max="1"
+                            step="0.04"
+                        />
+                    </Label>
+                    <br/>
+                    <Label className={classes.label}>
+                        Bias inf:
+                        <Slider
+                            size="small"
+                            value={settings.position.biasInf}
+                            className={classes.slider}
+                            id="position-biasInf"
+                            onChange={handleChange}
+                            min="0"
+                            max="1"
+                            step="0.04"
+                        />
+                    </Label>
+                </div>
+                <div>
+                    <BiasGraph biasInf={settings.position.biasInf} biasA={settings.position.biasA}
+                               biasB={settings.position.biasB}/>
+                </div>
+            </div>
+
             <br/>
-            <Label className={classes.label}>
-                Bias B:
-                <Slider
-                    size="small"
-                    className={classes.number}
-                    value={settings.position.biasB}
-                    id="position-biasB"
-                    onChange={handleChange}
-                    min="0"
-                    max="1"
-                    step="0.04"
-                />
-            </Label>
-            <br/>
-            <Label className={classes.label}>
-                Bias inf:
-                <Slider
-                    size="small"
-                    value={settings.position.biasInf}
-                    className={classes.slider}
-                    id="position-biasInf"
-                    onChange={handleChange}
-                    min="0"
-                    max="1"
-                    step="0.04"
-                />
-            </Label>
-            <br/>
-            <BiasGraph biasInf={settings.position.biasInf} biasA={settings.position.biasA}
-                       biasB={settings.position.biasB}/>
+
             <CoordinateFlag id="position-start" title="Start point" onMouseDown={setDragProp} onTouchStart={setDragProp}
                             settings={settings}
                             color="green"/>
