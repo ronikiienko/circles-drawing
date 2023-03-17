@@ -1,6 +1,6 @@
 import {Checkbox, Label, Slider} from '@fluentui/react-components';
 import React from 'react';
-import {ConditionalPanel} from '../utils/ConditionalPanel';
+import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
 
 export const Color = ({settings, handleChange, classes}) => {

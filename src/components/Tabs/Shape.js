@@ -2,8 +2,8 @@ import {Button, Checkbox, Input, Label, Select, Slider} from '@fluentui/react-co
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
 import {useClickAndSet} from '../../hooks/useClickAndSet';
-import {ConditionalPanel} from '../utils/ConditionalPanel';
-import {CoordinateFlag} from '../utils/coordinateFlag';
+import {ConditionalPanel} from '../Utils/ConditionalPanel';
+import {CoordinateFlag} from '../Utils/coordinateFlag';
 
 
 export const Shape = ({settings, setSettings, handleChange, classes}) => {

@@ -30,8 +30,8 @@ import {Presets} from './Tabs/Presets';
 import {Shape} from './Tabs/Shape';
 import {Size} from './Tabs/Size';
 import {Transp} from './Tabs/Transp';
-import {ConditionalPanel} from './utils/ConditionalPanel';
-import {TabOverflowMenu} from './utils/TabOverflowMenu';
+import {ConditionalPanel} from './Utils/ConditionalPanel';
+import {TabOverflowMenu} from './Utils/TabOverflowMenu';
 
 
 const useStyles = makeStyles({

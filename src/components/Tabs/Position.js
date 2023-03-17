@@ -2,8 +2,8 @@ import {Button, Input, Label, Link, makeStyles, Select, Slider} from '@fluentui/
 import {InfoButton} from '@fluentui/react-components/unstable';
 import {overlayModes} from '../../consts';
 import {useClickAndSet} from '../../hooks/useClickAndSet';
-import {BiasGraph} from '../utils/BiasGraph';
-import {CoordinateFlag} from '../utils/coordinateFlag';
+import {BiasGraph} from '../Utils/BiasGraph';
+import {CoordinateFlag} from '../Utils/coordinateFlag';
 
 
 const useStyles = makeStyles({
