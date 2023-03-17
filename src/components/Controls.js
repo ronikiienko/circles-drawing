@@ -202,7 +202,7 @@ export const Controls = ({settings, setSettings}) => {
                             <Glow settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === tabs.presets.id}>
-                            <Presets setSettings={setSettings} classes={tabsClasses}/>
+                            <Presets settings={settings} setSettings={setSettings} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <br/>
                     </div>

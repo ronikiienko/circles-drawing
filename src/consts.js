@@ -1,6 +1,7 @@
 export const layerPresets = {
     default: {
-        meta: {
+        preset: {
+            id: 'default',
             name: 'Default',
             description: 'Default lines!!!!!',
         },
@@ -46,7 +47,8 @@ export const layerPresets = {
         },
     },
     solidBg: {
-        meta: {
+        preset: {
+            id: 'solidBg',
             name: 'Solid background',
             description: 'Big circles for creating solid background!',
         },
@@ -94,7 +96,8 @@ export const layerPresets = {
         },
     },
     rain: {
-        meta: {
+        preset: {
+            id: 'rain',
             name: 'Rain',
             description: 'Reminds me of minecraft rain!',
         },
@@ -142,7 +145,8 @@ export const layerPresets = {
         },
     },
     littleCircles: {
-        'meta': {
+        'preset': {
+            'id': 'littleCircles',
             'name': 'Little circles',
             'description': 'Soft background. Circles with feeling of depth!',
         },
@@ -190,7 +194,8 @@ export const layerPresets = {
         },
     },
     bacteriaAttack: {
-        'meta': {
+        'preset': {
+            'id': 'bacteriaAttack',
             'name': 'Bacteria attack',
             'description': 'Rounded lines, all looking (going) to one point',
         },
@@ -238,7 +243,8 @@ export const layerPresets = {
         },
     },
     biasedCircles: {
-        'meta': {
+        'preset': {
+            'id': 'biasedCircles',
             'name': 'Biased circles',
             'description': 'Biased circles!',
         },

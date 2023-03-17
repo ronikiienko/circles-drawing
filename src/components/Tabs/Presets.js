@@ -1,15 +1,11 @@
-import {Button, Label, Select} from '@fluentui/react-components';
+import {Label, Select} from '@fluentui/react-components';
 import React from 'react';
-import {useImmer} from 'use-immer';
 import {layerPresets} from '../../consts';
 // import {Button} from './styledElements/Button';
 
 
-export const Presets = ({setSettings, classes}) => {
-    const [preset, setPreset] = useImmer('default');
-    const handleChange = (event) => {
-        setPreset(event.target.value);
-    };
+export const Presets = ({settings, setSettings, classes}) => {
+    const handleChange = event => setSettings(layerPresets[event.target.value]);
     return (
         <>
             <div className={classes.row}>
@@ -18,23 +14,21 @@ export const Presets = ({setSettings, classes}) => {
                     <Select
                         className={classes.select}
                         size="small"
-                        value={preset}
+                        value={settings.preset.id}
                         onChange={handleChange}
                     >
-                        {Object.entries(layerPresets).map(([key, preset]) => {
+                        {Object.values(layerPresets).map(preset => {
                             return <option
-                                key={key}
-                                value={key}
-                                title={preset.meta.description}
+                                key={preset.preset.id}
+                                value={preset.preset.id}
+                                title={preset.preset.description}
                             >
-                                {preset.meta.name}
+                                {preset.preset.name}
                             </option>;
                         })}
                     </Select>
                 </Label>
-                <Button size="small" onClick={() => setSettings(layerPresets[preset])}>Apply preset</Button>
             </div>
-
         </>
     );
 };
