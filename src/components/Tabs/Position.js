@@ -170,6 +170,39 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                 <div>
                     <BiasGraph biasInf={settings.position.biasInf} biasA={settings.position.biasA}
                                biasB={settings.position.biasB}/>
+
+                </div>
+                <div>
+                    <InfoButton
+                        content={<>
+                            <div>
+                                On this graph:
+                            </div>
+                            <br/>
+                            <div>
+
+                                <div>X determines HOW MANY SHAPES will be affected by bias (all width of graph = all
+                                    shapes)
+                                </div>
+                                <div>Y determines HOW MUCH AFFECTED (closer to top = more affected)</div>
+                            </div>
+                            <br/>
+                            <div>
+                                If, for example, the graph will be close to max Y and it will be so through all width,
+                                all shapes will be strongly affected (determined by how close to max Y)
+                            </div>
+                            <br/>
+                            <div>
+                                For natural bias, graph shouldn't reach maximum Y (it will cause shapes to 'stick' to x
+                                and y axis, because bias is 100% then, and no randomness applied to position
+                            </div>
+                            <br/>
+                            <div>
+                                Also, if all points have similar biases
+                            </div>
+
+                        </>}
+                    />
                 </div>
             </div>
 
