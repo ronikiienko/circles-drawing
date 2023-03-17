@@ -179,7 +179,8 @@ export const Controls = ({settings, setSettings}) => {
                 <div className={classes.contentContainer}>
                     <div className={classes.inputsContainer}>
                         <ConditionalPanel active={tab === tabs.number.id}>
-                            <Number settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                            <Number settings={settings} setSettings={setSettings} handleChange={handleChange}
+                                    classes={tabsClasses}/>
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === tabs.size.id}>
                             <Size settings={settings} handleChange={handleChange} classes={tabsClasses}/>
