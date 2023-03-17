@@ -198,7 +198,8 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                             </div>
                             <br/>
                             <div>
-                                Also, if all points have similar biases
+                                For natural bias, also, graph shouldn't look flat, because all biases will be similar
+                                then and result will look like a rectangle
                             </div>
 
                         </>}
