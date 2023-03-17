@@ -21,6 +21,7 @@ import {
 import React, {useEffect} from 'react';
 import {useImmer} from 'use-immer';
 import {clear, draw, saveAsImage, undo} from '../draw';
+import {useKeyboardControls} from '../hooks/useKeyboardControls';
 import './Controls.css';
 import {Color} from './Tabs/Color';
 import {Glow} from './Tabs/Glow';
@@ -141,6 +142,8 @@ export const Controls = ({settings, setSettings}) => {
 
     const [tab, setTab] = useImmer(tabs.number.id);
     const [hidden, setHidden] = useImmer(false);
+
+    useKeyboardControls(setHidden);
     const handleChange = (event) => {
         const categoriesArray = event.target.id.split('-');
         const category = categoriesArray[0];
