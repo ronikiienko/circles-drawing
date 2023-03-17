@@ -1,6 +1,20 @@
-import {Button, Input, Label, Link, makeStyles, Select, Slider} from '@fluentui/react-components';
+import {
+    Button,
+    Input,
+    Label,
+    Link,
+    makeStyles,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    MenuPopover,
+    MenuTrigger,
+    Select,
+    Slider,
+} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
-import {overlayModes} from '../../consts';
+import {biasPresets, overlayModes} from '../../consts';
 import {useClickAndSet} from '../../hooks/useClickAndSet';
 import {BiasGraph} from '../Utils/BiasGraph';
 import {CoordinateFlag} from '../Utils/coordinateFlag';
@@ -10,6 +24,12 @@ const useStyles = makeStyles({
     biasSection: {
         display: 'flex',
         marginTop: '10px',
+        alignItems: 'center',
+    },
+    biasGraphHelpersContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center',
     },
 });
@@ -129,7 +149,7 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                         Bias A:
                         <Slider
                             size="small"
-                            className={classes.number}
+                            className={classes.slider}
                             value={settings.position.biasA}
                             id="position-biasA"
                             onChange={handleChange}
@@ -143,7 +163,7 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                         Bias B:
                         <Slider
                             size="small"
-                            className={classes.number}
+                            className={classes.slider}
                             value={settings.position.biasB}
                             id="position-biasB"
                             onChange={handleChange}
@@ -154,7 +174,7 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                     </Label>
                     <br/>
                     <Label className={classes.label}>
-                        Bias inf:
+                        Bias I:
                         <Slider
                             size="small"
                             value={settings.position.biasInf}
@@ -172,7 +192,7 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                                biasB={settings.position.biasB}/>
 
                 </div>
-                <div>
+                <div className={localClasses.biasGraphHelpersContainer}>
                     <InfoButton
                         content={<>
                             <div>
@@ -181,10 +201,13 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
                             <br/>
                             <div>
 
-                                <div>X determines HOW MANY SHAPES will be affected by bias (all width of graph = all
+                                <div><strong>X</strong> determines <strong>HOW MANY SHAPES</strong> will be affected by
+                                    bias (all width of graph = all
                                     shapes)
                                 </div>
-                                <div>Y determines HOW MUCH AFFECTED (closer to top = more affected)</div>
+                                <div><strong>Y</strong> determines <strong>HOW MUCH AFFECTED</strong> (closer to top =
+                                    more affected)
+                                </div>
                             </div>
                             <br/>
                             <div>
@@ -204,6 +227,32 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
 
                         </>}
                     />
+                    <Menu>
+                        <MenuTrigger disableButtonEnhancement>
+                            <MenuButton appearance="transparent"></MenuButton>
+                        </MenuTrigger>
+                        <MenuPopover>
+                            <MenuList>
+                                {Object.entries(biasPresets).map(([presetId, preset]) => {
+                                    return (
+                                        <MenuItem
+                                            onClick={() => {
+                                                setSettings(draft => {
+                                                    draft.position.biasA = preset.biasA;
+                                                    draft.position.biasB = preset.biasB;
+                                                    draft.position.biasInf = preset.biasInf;
+                                                });
+                                            }}
+                                            key={presetId}
+                                            title={preset.description}
+                                        >
+                                            {preset.name}
+                                        </MenuItem>
+                                    );
+                                })}
+                            </MenuList>
+                        </MenuPopover>
+                    </Menu>
                 </div>
             </div>
 

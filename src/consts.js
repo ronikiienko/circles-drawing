@@ -293,8 +293,49 @@ export const layerPresets = {
     },
 };
 
-export const defaultBackgroundSettings = {
-    color: '#FFFFFF',
+export const biasPresets = {
+    squashed: {
+        name: 'Squashed',
+        description: 'Very strong bias. All shapes just squashed',
+        biasA: 1,
+        biasB: 1,
+        biasInf: 1,
+    },
+    soft: {
+        name: 'Soft bias',
+        description: 'Soft, normal and organic bias',
+        biasA: 0.55,
+        biasB: 0.6,
+        biasInf: 1,
+    },
+    rectangled: {
+        name: 'Rectangled',
+        description: 'Bias with flat curve. Every shape has similar bias, so looks like a rectangle',
+        biasA: 0.3,
+        biasB: 1,
+        biasInf: 1,
+    },
+    softRectangled: {
+        name: 'Soft rectangled',
+        description: 'Bias with flat curve, but not so strong. Some shapes still spawn outside.',
+        biasA: 0.88,
+        biasB: 0.45,
+        biasInf: 0.68,
+    },
+    sticky: {
+        name: 'Sticky',
+        description: 'Shapes just stick to x and y axis.',
+        biasA: 0.7,
+        biasB: 0.45,
+        biasInf: 1,
+    },
+    sticky1: {
+        name: 'Sticky 1',
+        description: 'Shapes stick to x and y axis even more.',
+        biasA: 0.9,
+        biasB: 0.45,
+        biasInf: 1,
+    },
 };
 
 export const overlayModes = [
