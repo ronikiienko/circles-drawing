@@ -133,6 +133,12 @@ const getTranslatedLayerSettings = (rawSettings) => {
     };
 };
 
+const getTranslatedAppSettings = (rawSettings) => {
+    return {
+        waitInterval: Math.trunc(Math.pow(parseFloat(rawSettings.drawingSpeed) + 1, 10)),
+    };
+};
+
 const getRandomizedShapeSettings = (settings) => {
     let color;
     const transp = settings.transp.transp + getBiasedRandomNumber(-settings.transp.transpRand, settings.transp.transpRand, 2);
@@ -209,19 +215,19 @@ const getRandomizedShapeSettings = (settings) => {
     };
 };
 
-export const draw = async (rawSettings, translatedSettings, historyOff) => {
+export const draw = async (rawSettings, rawAppSettings) => {
     const {ctx} = getCanvas();
-    let settings = translatedSettings ? translatedSettings : getTranslatedLayerSettings(rawSettings);
+    let settings = getTranslatedLayerSettings(rawSettings);
+    const appSettings = getTranslatedAppSettings(rawAppSettings);
 
-    if (!historyOff) {
-        if (history.length > maxUndoTimes - 1) history.shift();
-        history.push(ctx.getImageData(0, 0, canvasWidth * highPPICanvasRatio, canvasHeight * highPPICanvasRatio));
-        settingsHistory.push(settings);
-    }
+
+    if (history.length > maxUndoTimes - 1) history.shift();
+    history.push(ctx.getImageData(0, 0, canvasWidth * highPPICanvasRatio, canvasHeight * highPPICanvasRatio));
+    settingsHistory.push(settings);
 
     ctx.globalCompositeOperation = settings.position.overlayMode;
 
-    const waitInterval = 10;
+    const waitInterval = appSettings.waitInterval;
     let lastWaited = 0;
     for (let i = 0; i < settings.number.number; i++) {
         if (i - lastWaited === waitInterval) {

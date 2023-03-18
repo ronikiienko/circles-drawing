@@ -340,6 +340,10 @@ export const biasPresets = {
     },
 };
 
+export const defaultAppSettings = {
+    drawingSpeed: 0.6,
+};
+
 export const overlayModes = [
     'source-over',
     'source-in',

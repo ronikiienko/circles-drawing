@@ -1,6 +1,5 @@
 import {Button} from '@fluentui/react-components';
 import React from 'react';
-import {draw} from '../../draw';
 import {getBiasedRandomNumber} from '../../utils';
 
 
@@ -51,7 +50,6 @@ export const Generation = ({settings, setSettings, classes}) => {
             },
         };
         setSettings(newSettings);
-        draw(settings);
     };
     return (
         <div>

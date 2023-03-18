@@ -29,6 +29,7 @@ import {Glow} from './Tabs/Glow';
 import {Number} from './Tabs/Number';
 import {Position} from './Tabs/Position';
 import {Presets} from './Tabs/Presets';
+import {Settings} from './Tabs/Settings';
 import {Shape} from './Tabs/Shape';
 import {Size} from './Tabs/Size';
 import {Transp} from './Tabs/Transp';
@@ -40,7 +41,7 @@ const useStyles = makeStyles({
     tabsContainer: {
         display: 'flex',
         justifyContent: 'center',
-        marginBottom: '20px',
+        marginBottom: '10px',
     },
     divider: {
         marginBlock: '5px',
@@ -140,8 +141,12 @@ const tabs = {
         label: 'Generation',
         id: 'tab-button-generation',
     },
+    settings: {
+        label: 'Settings',
+        id: 'tab-button-settings',
+    },
 };
-export const Controls = ({settings, setSettings}) => {
+export const Controls = ({settings, setSettings, appSettings, setAppSettings}) => {
     const classes = useStyles();
     const tabsClasses = useStylesTabs();
 
@@ -215,13 +220,16 @@ export const Controls = ({settings, setSettings}) => {
                         <ConditionalPanel active={tab === tabs.generation.id}>
                             <Generation settings={settings} setSettings={setSettings} classes={tabsClasses}/>
                         </ConditionalPanel>
+                        <ConditionalPanel active={tab === tabs.settings.id}>
+                            <Settings appSettings={appSettings} setAppSettings={setAppSettings} classes={tabsClasses}/>
+                        </ConditionalPanel>
                         <br/>
                     </div>
                     <Divider className={classes.divider}>Actions</Divider>
                     <div>
                         <Button
                             className={classes.buttons}
-                            onClick={() => draw(settings)}
+                            onClick={() => draw(settings, appSettings)}
                             icon={<Add16Regular/>}>Layer</Button>
                         <Button
                             className={classes.buttons}

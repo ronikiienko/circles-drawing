@@ -18,7 +18,7 @@ export const Size = ({settings, handleChange, classes}) => {
                 <Slider
                     min={0}
                     max={1}
-                    step={0.01}
+                    step={0.005}
                     id="size-size"
                     value={settings.size.size}
                     onChange={handleChange}
