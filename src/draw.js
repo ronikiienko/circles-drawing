@@ -1,6 +1,6 @@
 import FileSaver from 'file-saver';
 import {highPPICanvasRatio, maxUndoTimes} from './consts';
-import {getBiasedRandomNumber, getPointByDistanceAndAngle, hexToRgbArray, turnRadiansToDegrees} from './utils';
+import {getBiasedRandomNumber, getPointByDistanceAndAngle, hexToRgbArray, turnRadiansToDegrees, wait} from './utils';
 
 
 let canvasWidth;
@@ -209,7 +209,7 @@ const getRandomizedShapeSettings = (settings) => {
     };
 };
 
-export const draw = (rawSettings, translatedSettings, historyOff) => {
+export const draw = async (rawSettings, translatedSettings, historyOff) => {
     const {ctx} = getCanvas();
     let settings = translatedSettings ? translatedSettings : getTranslatedLayerSettings(rawSettings);
 
@@ -221,7 +221,13 @@ export const draw = (rawSettings, translatedSettings, historyOff) => {
 
     ctx.globalCompositeOperation = settings.position.overlayMode;
 
+    const waitInterval = 10;
+    let lastWaited = 0;
     for (let i = 0; i < settings.number.number; i++) {
+        if (i - lastWaited === waitInterval) {
+            await wait(4);
+            lastWaited = i;
+        }
         const randomizedShapeSettings = getRandomizedShapeSettings(settings);
         drawShape(ctx, randomizedShapeSettings);
     }
