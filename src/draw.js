@@ -1,6 +1,6 @@
 import FileSaver from 'file-saver';
 import {highPPICanvasRatio, maxUndoTimes} from './consts';
-import {getBiasedRandomNumber, hexToRgbArray, turnDegreesToRadians, turnRadiansToDegrees} from './utils';
+import {getBiasedRandomNumber, getPointByDistanceAndAngle, hexToRgbArray, turnRadiansToDegrees} from './utils';
 
 
 let canvasWidth;
@@ -52,11 +52,14 @@ const drawShape = (ctx, settings) => {
             ctx.lineCap = 'butt';
         }
         ctx.moveTo(settings.position.x, settings.position.y);
-        let angle = settings.shape.lineAngle;
-        const angleRad = turnDegreesToRadians(angle);
-        const xOffset = Math.cos(angleRad) * settings.size.size;
-        const yOffset = Math.sin(angleRad) * settings.size.size;
-        ctx.lineTo(settings.position.x + xOffset, settings.position.y + yOffset);
+
+        const {x, y} = getPointByDistanceAndAngle(
+            settings.position.x,
+            settings.position.y,
+            settings.size.size,
+            settings.shape.lineAngle,
+        );
+        ctx.lineTo(x, y);
         ctx.stroke();
     }
     if (settings.shape.shape === 'random3' || settings.shape.shape === 'random4') {

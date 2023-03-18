@@ -23,6 +23,13 @@ export const getBiasedRandomNumber = (min, max, decimals = 0, biasSettings) => {
     // const mix = Math.pow(1 - Math.pow(rand - 1, 2), 1 / 2) * influence
 };
 
+export const getPointByDistanceAndAngle = (fromX, fromY, distance, angle) => {
+    const angleRad = turnDegreesToRadians(angle);
+    const x = fromX + Math.cos(angleRad) * distance;
+    const y = fromY + Math.sin(angleRad) * distance;
+    return {x, y};
+};
+
 export const hexToRgbArray = (hex) => {
     return ['0x' + hex[1] + hex[2] | 0, '0x' + hex[3] + hex[4] | 0, '0x' + hex[5] + hex[6] | 0];
 };
