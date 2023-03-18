@@ -6,6 +6,11 @@ import {getBiasedRandomNumber} from '../../utils';
 export const Generation = ({settings, setSettings, classes}) => {
     const randomizeSettings = () => {
         const newSettings = {
+            preset: {
+                id: 'default',
+                name: 'Default',
+                description: 'Default lines!!!!!',
+            },
             size: {
                 size: getBiasedRandomNumber(0, 1, 2),
                 sizeRand: getBiasedRandomNumber(0, 1, 2),
