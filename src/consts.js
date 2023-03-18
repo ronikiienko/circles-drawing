@@ -37,6 +37,8 @@ export const layerPresets = {
             endY: window.innerHeight,
             biasX: '100',
             biasY: '100',
+            biasA: 0.1,
+            biasB: 0.1,
             biasInf: '0',
             overlayMode: 'source-over',
         },

@@ -24,6 +24,7 @@ import {clear, draw, saveAsImage, undo} from '../draw';
 import {useKeyboardControls} from '../hooks/useKeyboardControls';
 import './Controls.css';
 import {Color} from './Tabs/Color';
+import {Generation} from './Tabs/Generation';
 import {Glow} from './Tabs/Glow';
 import {Number} from './Tabs/Number';
 import {Position} from './Tabs/Position';
@@ -135,6 +136,10 @@ const tabs = {
         label: 'Presets',
         id: 'tab-button-presets',
     },
+    generation: {
+        label: 'Generation',
+        id: 'tab-button-generation',
+    },
 };
 export const Controls = ({settings, setSettings}) => {
     const classes = useStyles();
@@ -163,7 +168,6 @@ export const Controls = ({settings, setSettings}) => {
         <>
             <div id="controls" className={hidden ? 'hidden' : ''}>
                 <Overflow minimumVisible={3}>
-
                     <TabList
                         className={classes.tabsContainer}
                         selectedValue={tab}
@@ -207,6 +211,9 @@ export const Controls = ({settings, setSettings}) => {
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === tabs.presets.id}>
                             <Presets settings={settings} setSettings={setSettings} classes={tabsClasses}/>
+                        </ConditionalPanel>
+                        <ConditionalPanel active={tab === tabs.generation.id}>
+                            <Generation settings={settings} setSettings={setSettings} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <br/>
                     </div>
