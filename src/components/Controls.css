@@ -9,6 +9,8 @@
     transition: opacity 200ms ease-in-out;
     box-shadow: 5px 5px 10px #9b9b9b;
     max-width: 90%;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 #controls.hidden {

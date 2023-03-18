@@ -66,7 +66,7 @@ export const layerPresets = {
             transpRand: '0',
         },
         number: {
-            number: '1000',
+            number: '500',
         },
         shape: {
             shape: 'circle',
@@ -341,7 +341,7 @@ export const biasPresets = {
 };
 
 export const defaultAppSettings = {
-    drawingSpeed: 0.6,
+    drawingSpeed: 0.25,
 };
 
 export const overlayModes = [
