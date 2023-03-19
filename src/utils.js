@@ -62,10 +62,19 @@ export const calculateByPythagoreanTheorem = (a, b, c) => {
 };
 
 export const getItemFromStorage = (itemName) => {
-    return JSON.parse(window.localStorage.getItem(itemName));
+    try {
+        return JSON.parse(window.localStorage.getItem(itemName));
+    } catch (e) {
+        console.log(e, 'b');
+        return undefined;
+    }
 };
 
 export const setItemToStorage = (itemName, itemData) => {
-    let stringToSave = JSON.stringify(itemData);
-    return window.localStorage.setItem(itemName, stringToSave);
+    try {
+        let stringToSave = JSON.stringify(itemData);
+        return window.localStorage.setItem(itemName, stringToSave);
+    } catch (e) {
+        return undefined;
+    }
 };
