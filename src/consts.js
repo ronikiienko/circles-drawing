@@ -84,11 +84,6 @@ export const layerPresets = {
             startY: '0',
             endX: window.innerWidth,
             endY: window.innerHeight,
-            biasX: '100',
-            biasY: '100',
-            biasA: 0.1,
-            biasB: 0.1,
-            biasInf: '0',
             overlayMode: 'source-over',
         },
         color: {
@@ -245,55 +240,109 @@ export const layerPresets = {
         },
     },
     biasedCircles: {
-        'preset': {
-            'id': 'biasedCircles',
-            'name': 'Biased circles',
-            'description': 'Biased circles!',
+        preset: {
+            id: 'biasedCircles',
+            name: 'Biased circles',
+            description: 'Biased circles!',
         },
-        'size': {
-            'size': '0.13',
-            'sizeRand': '1',
+        size: {
+            size: '0.13',
+            sizeRand: '1',
         },
-        'glow': {
-            'glow': '0.5',
+        glow: {
+            glow: '0.5',
         },
-        'transp': {
-            'transp': '0.55',
-            'transpRand': '1',
+        transp: {
+            transp: '0.55',
+            transpRand: '1',
         },
-        'number': {
-            'number': '1000',
+        number: {
+            number: '1000',
         },
-        'shape': {
-            'shape': 'circle',
-            'lineAngle': 0.08333333333333333,
-            'lineAngleRand': 0,
-            'lineRatio': 0.2,
-            'lineRounded': false,
-            'lineRatioRand': 0.2,
-            'lineLookToOn': false,
-            'lineLookToX': 100,
-            'lineLookToY': 100,
+        shape: {
+            shape: 'circle',
+            lineAngle: 0.08333333333333333,
+            lineAngleRand: 0,
+            lineRatio: 0.2,
+            lineRounded: false,
+            lineRatioRand: 0.2,
+            lineLookToOn: false,
+            lineLookToX: 100,
+            lineLookToY: 100,
         },
-        'position': {
-            'startX': '0',
-            'startY': '0',
-            'endX': window.innerWidth,
-            'endY': window.innerHeight,
-            'biasX': window.innerWidth / 2,
-            'biasY': window.innerHeight / 2,
-            'biasA': 0.5,
-            'biasB': 0.5,
-            'biasInf': '1',
-            'overlayMode': 'source-over',
+        position: {
+            startX: '0',
+            startY: '0',
+            endX: window.innerWidth,
+            endY: window.innerHeight,
+            biasX: window.innerWidth / 2,
+            biasY: window.innerHeight / 2,
+            biasA: 0.5,
+            biasB: 0.5,
+            biasInf: '1',
+            overlayMode: 'source-over',
         },
-        'color': {
-            'color': '#00eeff',
-            'colorRand': '1',
-            'isFullRand': false,
+        color: {
+            color: '#00eeff',
+            colorRand: '1',
+            isFullRand: false,
         },
     },
 };
+
+export const getPreset = (preset) => {
+    const defaultPreset = layerPresets.default;
+    return {
+        preset: {
+            id: preset.preset.id || defaultPreset.preset.id,
+            name: preset.preset.name || defaultPreset.preset.name,
+            description: preset.preset.description || defaultPreset.preset.description,
+        },
+        size: {
+            size: preset.size.size || defaultPreset.size.size,
+            sizeRand: preset.size.sizeRand || defaultPreset.size.sizeRand,
+        },
+        glow: {
+            glow: preset.glow.glow || defaultPreset.glow.glow,
+        },
+        transp: {
+            transp: preset.transp.transp || defaultPreset.transp.transp,
+            transpRand: preset.transp.transpRand || defaultPreset.transp.transpRand,
+        },
+        number: {
+            number: preset.number.number || defaultPreset.number.number,
+        },
+        shape: {
+            shape: preset.shape.shape || defaultPreset.shape.shape,
+            lineAngle: preset.shape.lineAngle || defaultPreset.shape.lineAngle,
+            lineAngleRand: preset.shape.lineAngleRand || defaultPreset.shape.lineAngleRand,
+            lineRatio: preset.shape.lineRatio || defaultPreset.shape.lineRatio,
+            lineRounded: preset.shape.lineRounded || defaultPreset.shape.lineRounded,
+            lineRatioRand: preset.shape.lineRatioRand || defaultPreset.shape.lineRatioRand,
+            lineLookToOn: preset.shape.lineLookToOn || defaultPreset.shape.lineLookToOn,
+            lineLookToX: preset.shape.lineLookToX || defaultPreset.shape.lineLookToX,
+            lineLookToY: preset.shape.lineLookToY || defaultPreset.shape.lineLookToY,
+        },
+        position: {
+            startX: preset.position.startX || defaultPreset.position.startX,
+            startY: preset.position.startY || defaultPreset.position.startY,
+            endX: preset.position.endX || defaultPreset.position.endX,
+            endY: preset.position.endY || defaultPreset.position.endY,
+            biasX: preset.position.biasX || defaultPreset.position.biasX,
+            biasY: preset.position.biasY || defaultPreset.position.biasY,
+            biasA: preset.position.biasA || defaultPreset.position.biasA,
+            biasB: preset.position.biasB || defaultPreset.position.biasB,
+            biasInf: preset.position.biasInf || defaultPreset.position.biasInf,
+            overlayMode: preset.position.overlayMode || defaultPreset.position.overlayMode,
+        },
+        color: {
+            color: preset.color.color || defaultPreset.color.color,
+            colorRand: preset.color.colorRand || defaultPreset.color.colorRand,
+            isFullRand: preset.color.isFullRand || defaultPreset.color.isFullRand,
+        },
+    };
+};
+getPreset(layerPresets.rain);
 
 export const biasPresets = {
     squashed: {

@@ -18,7 +18,7 @@ import {
     Eye16Regular,
     Image16Regular,
 } from '@fluentui/react-icons';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useImmer} from 'use-immer';
 import {clear, draw, saveAsImage, undo} from '../draw';
 import {useClickAndSet} from '../hooks/useClickAndSet';
@@ -170,8 +170,6 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
             }
         });
     };
-
-    useEffect(() => console.log(hidden), [hidden]);
 
     return (
         <>

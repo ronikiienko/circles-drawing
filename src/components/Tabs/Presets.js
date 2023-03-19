@@ -1,11 +1,11 @@
 import {Label, Select} from '@fluentui/react-components';
 import React from 'react';
-import {layerPresets} from '../../consts';
+import {getPreset, layerPresets} from '../../consts';
 // import {Button} from './styledElements/Button';
 
 
 export const Presets = ({settings, setSettings, classes}) => {
-    const handleChange = event => setSettings(layerPresets[event.target.value]);
+    const handleChange = event => setSettings(getPreset(layerPresets[event.target.value]));
     return (
         <>
             <div className={classes.row}>
