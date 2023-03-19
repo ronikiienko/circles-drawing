@@ -397,11 +397,10 @@ export const defaultAppSettings = {
     drawingSpeed: 0.25,
 };
 
-export const biasTypes = [
-    'rectangular',
-    'radial',
-    'spiral',
-];
+export const biasTypes = {
+    rectangular: 'rectangular',
+    radial: 'radial',
+};
 export const overlayModes = [
     'source-over',
     'source-in',

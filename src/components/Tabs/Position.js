@@ -40,7 +40,7 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
     const localClasses = useStyles();
     return (
         <>
-            <ConditionalPanel active={settings.position.biasType !== 'radial'}>
+            <ConditionalPanel active={settings.position.biasType !== biasTypes.radial}>
                 <div className={classes.row}>
                     <Label className={classes.label}>
                         Start x:
@@ -157,7 +157,7 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                     id="position-biasType"
                     onChange={handleChange}
                 >
-                    {biasTypes.map(biasType =>
+                    {Object.values(biasTypes).map(biasType =>
                         <option
                             key={biasType}
                             value={biasType}
@@ -168,7 +168,7 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                 </Select>
             </Label>
             <br/>
-            <ConditionalPanel active={settings.position.biasType === 'radial'}>
+            <ConditionalPanel active={settings.position.biasType === biasTypes.radial}>
                 <Label className={classes.label}>
                     Bias radius:
                     <Slider

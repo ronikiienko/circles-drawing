@@ -1,5 +1,5 @@
 import FileSaver from 'file-saver';
-import {highPPICanvasRatio, maxUndoTimes} from './consts';
+import {biasTypes, highPPICanvasRatio, maxUndoTimes} from './consts';
 import {getBiasedRandomNumber, getPointByDistanceAndAngle, hexToRgbArray, turnRadiansToDegrees, wait} from './utils';
 
 
@@ -118,6 +118,8 @@ const getTranslatedLayerSettings = (rawSettings) => {
             startY: parseFloat(rawSettings.position.startY),
             endX: parseFloat(rawSettings.position.endX),
             endY: parseFloat(rawSettings.position.endY),
+            biasType: rawSettings.position.biasType,
+            biasRadius: parseFloat(rawSettings.position.biasRadius) * 400,
             biasX: parseFloat(rawSettings.position.biasX),
             biasY: parseFloat(rawSettings.position.biasY),
             biasA: translateBiasA(rawSettings.position.biasA),
@@ -142,28 +144,59 @@ const getTranslatedAppSettings = (rawSettings) => {
 const getRandomizedShapeSettings = (settings) => {
     let color;
     const transp = settings.transp.transp + getBiasedRandomNumber(-settings.transp.transpRand, settings.transp.transpRand, 2);
-    const xPosition = getBiasedRandomNumber(
-        settings.position.startX,
-        settings.position.endX,
-        0,
-        {
-            bias: settings.position.biasX,
-            biasInf: settings.position.biasInf,
-            biasA: settings.position.biasA,
-            biasB: settings.position.biasB,
-        },
-    );
-    const yPosition = getBiasedRandomNumber(
-        settings.position.startY,
-        settings.position.endY,
-        0,
-        {
-            bias: settings.position.biasY,
-            biasInf: settings.position.biasInf,
-            biasA: settings.position.biasA,
-            biasB: settings.position.biasB,
-        },
-    );
+    let xPosition;
+    let yPosition;
+    switch (settings.position.biasType) {
+        case biasTypes.rectangular: {
+            xPosition = getBiasedRandomNumber(
+                settings.position.startX,
+                settings.position.endX,
+                0,
+                {
+                    bias: settings.position.biasX,
+                    biasInf: settings.position.biasInf,
+                    biasA: settings.position.biasA,
+                    biasB: settings.position.biasB,
+                },
+            );
+            yPosition = getBiasedRandomNumber(
+                settings.position.startY,
+                settings.position.endY,
+                0,
+                {
+                    bias: settings.position.biasY,
+                    biasInf: settings.position.biasInf,
+                    biasA: settings.position.biasA,
+                    biasB: settings.position.biasB,
+                },
+            );
+        }
+            break;
+        case biasTypes.radial: {
+            const angle = getBiasedRandomNumber(0, 360);
+
+            const diapason = Math.pow(settings.position.biasRadius, 2);
+
+            const distanceFromBias = getBiasedRandomNumber(
+                0,
+                diapason,
+                0,
+                {
+                    bias: 0,
+                    biasA: settings.position.biasA,
+                    biasB: settings.position.biasB,
+                    biasInf: settings.position.biasInf,
+                },
+            );
+            const {
+                x,
+                y,
+            } = getPointByDistanceAndAngle(settings.position.biasX, settings.position.biasY, Math.pow(distanceFromBias, 1 / 2), angle);
+            xPosition = x;
+            yPosition = y;
+        }
+    }
+
 
     let lineAngle;
     if (settings.shape.lineLookToOn) {
