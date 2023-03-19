@@ -10,7 +10,6 @@ import {
     MenuList,
     MenuPopover,
     MenuTrigger,
-    mergeClasses,
     Select,
     Slider,
 } from '@fluentui/react-components';
@@ -31,9 +30,6 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    biasTypeLabel: {
-        marginTop: '10px',
     },
 });
 export const Position = ({settings, setClickAndSetProp, setSettings, handleChange, classes}) => {
@@ -92,7 +88,6 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                     <Button size="small" id="position-end" onClick={setClickAndSetProp}>Click and set</Button>
                 </div>
             </ConditionalPanel>
-
             <br/>
             <div className={classes.row}>
                 <Label className={classes.label}>
@@ -148,7 +143,7 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                 }/>
             </Label>
             <br/>
-            <Label className={mergeClasses(classes.label, localClasses.biasTypeLabel)}>
+            <Label className={classes.label}>
                 Bias type:
                 <Select
                     size="small"

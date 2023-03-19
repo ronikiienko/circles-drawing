@@ -97,6 +97,8 @@ const useStylesTabs = makeStyles({
         marginLeft: '5px',
         width: 'fit-content',
         display: 'inline-flex',
+        marginTop: '3px',
+        marginBottom: '3px',
     },
     row: {
         display: 'inline-flex',
