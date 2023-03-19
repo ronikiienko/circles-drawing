@@ -119,7 +119,7 @@ const getTranslatedLayerSettings = (rawSettings) => {
             endX: parseFloat(rawSettings.position.endX),
             endY: parseFloat(rawSettings.position.endY),
             biasType: rawSettings.position.biasType,
-            biasRadius: parseFloat(rawSettings.position.biasRadius) * 400,
+            biasRadius: Math.pow(Math.pow(rawSettings.position.biasX - rawSettings.position.biasRadiusX, 2) + Math.pow(rawSettings.position.biasY - rawSettings.position.biasRadiusY, 2), 1 / 2),
             biasX: parseFloat(rawSettings.position.biasX),
             biasY: parseFloat(rawSettings.position.biasY),
             biasA: translateBiasA(rawSettings.position.biasA),

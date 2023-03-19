@@ -169,19 +169,31 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
             </Label>
             <br/>
             <ConditionalPanel active={settings.position.biasType === biasTypes.radial}>
-                <Label className={classes.label}>
-                    Bias radius:
-                    <Slider
-                        value={settings.position.biasRadius}
-                        id="position-biasRadius"
-                        onChange={handleChange}
-                        className={classes.slider}
-                        size="small"
-                        min={0}
-                        max={1}
-                        step={0.01}
-                    />
-                </Label>
+                <div className={classes.row}>
+                    <Label className={classes.label}>
+                        Radius X:
+                        <Input
+                            className={classes.number}
+                            size="small"
+                            value={settings.position.biasRadiusX}
+                            id="position-biasRadiusX"
+                            onChange={handleChange}
+                            type="text"
+                        />
+                    </Label>
+                    <Label className={classes.label}>
+                        Radius Y:
+                        <Input
+                            className={classes.number}
+                            size="small"
+                            value={settings.position.biasRadiusY}
+                            id="position-biasRadiusY"
+                            onChange={handleChange}
+                            type="text"
+                        />
+                    </Label>
+                    <Button size="small" id="position-biasRadius" onClick={setClickAndSetProp}>Click and set</Button>
+                </div>
             </ConditionalPanel>
             <div className={localClasses.biasSection}>
                 <div>
