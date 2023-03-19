@@ -60,3 +60,12 @@ export const calculateByPythagoreanTheorem = (a, b, c) => {
         return Math.sqrt(Math.pow(c, 2) - Math.pow(b, 2));
     }
 };
+
+export const getItemFromStorage = (itemName) => {
+    return JSON.parse(window.localStorage.getItem(itemName));
+};
+
+export const setItemToStorage = (itemName, itemData) => {
+    let stringToSave = JSON.stringify(itemData);
+    return window.localStorage.setItem(itemName, stringToSave);
+};
