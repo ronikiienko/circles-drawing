@@ -10,12 +10,14 @@ import {
     MenuList,
     MenuPopover,
     MenuTrigger,
+    mergeClasses,
     Select,
     Slider,
 } from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
-import {biasPresets, overlayModes} from '../../consts';
+import {biasPresets, biasTypes, overlayModes} from '../../consts';
 import {BiasGraph} from '../Utils/BiasGraph';
+import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
 
 const useStyles = makeStyles({
@@ -30,61 +32,67 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    biasTypeLabel: {
+        marginTop: '10px',
+    },
 });
-export const Position = ({settings, setClickAndSetProp, handleChange, classes}) => {
+export const Position = ({settings, setClickAndSetProp, setSettings, handleChange, classes}) => {
     const localClasses = useStyles();
     return (
         <>
-            <div className={classes.row}>
-                <Label className={classes.label}>
-                    Start x:
-                    <Input
-                        className={classes.number}
-                        size="small"
-                        value={settings.position.startX}
-                        id="position-startX"
-                        onChange={handleChange}
-                        type="text"
-                    />
-                </Label>
-                <Label className={classes.label}>
-                    Start y:
-                    <Input
-                        className={classes.number}
-                        size="small"
-                        value={settings.position.startY}
-                        id="position-startY"
-                        onChange={handleChange}
-                        type="text"
-                    />
-                </Label>
-                <Button size="small" id="position-start" onClick={setClickAndSetProp}>Click and set</Button>
-            </div>
-            <br/>
-            <div className={classes.row}>
-                <Label className={classes.label}>
-                    End x:
-                    <Input
-                        className={classes.number}
-                        size="small"
-                        value={settings.position.endX}
-                        id="position-endX"
-                        onChange={handleChange}
-                        type="text"
-                    />
-                </Label>
-                <Label className={classes.label}>
-                    End y:
-                    <Input
-                        className={classes.number}
-                        size="small"
-                        value={settings.position.endY}
-                        onChange={handleChange}
-                        type="text"
-                    />
-                </Label>
-                <Button size="small" id="position-end" onClick={setClickAndSetProp}>Click and set</Button>
-            </div>
+            <ConditionalPanel active={settings.position.biasType !== 'radial'}>
+                <div className={classes.row}>
+                    <Label className={classes.label}>
+                        Start x:
+                        <Input
+                            className={classes.number}
+                            size="small"
+                            value={settings.position.startX}
+                            id="position-startX"
+                            onChange={handleChange}
+                            type="text"
+                        />
+                    </Label>
+                    <Label className={classes.label}>
+                        Start y:
+                        <Input
+                            className={classes.number}
+                            size="small"
+                            value={settings.position.startY}
+                            id="position-startY"
+                            onChange={handleChange}
+                            type="text"
+                        />
+                    </Label>
+                    <Button size="small" id="position-start" onClick={setClickAndSetProp}>Click and set</Button>
+                </div>
+                <br/>
+                <div className={classes.row}>
+                    <Label className={classes.label}>
+                        End x:
+                        <Input
+                            className={classes.number}
+                            size="small"
+                            value={settings.position.endX}
+                            id="position-endX"
+                            onChange={handleChange}
+                            type="text"
+                        />
+                    </Label>
+                    <Label className={classes.label}>
+                        End y:
+                        <Input
+                            className={classes.number}
+                            size="small"
+                            value={settings.position.endY}
+                            onChange={handleChange}
+                            type="text"
+                        />
+                    </Label>
+                    <Button size="small" id="position-end" onClick={setClickAndSetProp}>Click and set</Button>
+                </div>
+            </ConditionalPanel>
+
             <br/>
             <div className={classes.row}>
                 <Label className={classes.label}>
@@ -140,6 +148,41 @@ export const Position = ({settings, setClickAndSetProp, handleChange, classes}) 
                 }/>
             </Label>
             <br/>
+            <Label className={mergeClasses(classes.label, localClasses.biasTypeLabel)}>
+                Bias type:
+                <Select
+                    size="small"
+                    value={settings.position.biasType}
+                    className={classes.select}
+                    id="position-biasType"
+                    onChange={handleChange}
+                >
+                    {biasTypes.map(biasType =>
+                        <option
+                            key={biasType}
+                            value={biasType}
+                        >
+                            {biasType}
+                        </option>)
+                    }
+                </Select>
+            </Label>
+            <br/>
+            <ConditionalPanel active={settings.position.biasType === 'radial'}>
+                <Label className={classes.label}>
+                    Bias radius:
+                    <Slider
+                        value={settings.position.biasRadius}
+                        id="position-biasRadius"
+                        onChange={handleChange}
+                        className={classes.slider}
+                        size="small"
+                        min={0}
+                        max={1}
+                        step={0.01}
+                    />
+                </Label>
+            </ConditionalPanel>
             <div className={localClasses.biasSection}>
                 <div>
                     <Label className={classes.label}>

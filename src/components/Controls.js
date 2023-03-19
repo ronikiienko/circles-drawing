@@ -208,7 +208,8 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                             <Color settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === tabs.position.id}>
-                            <Position settings={settings} setClickAndSetProp={setClickAndSetProp}
+                            <Position settings={settings} setSettings={setSettings}
+                                      setClickAndSetProp={setClickAndSetProp}
                                       handleChange={handleChange}
                                       classes={tabsClasses}/>
                         </ConditionalPanel>

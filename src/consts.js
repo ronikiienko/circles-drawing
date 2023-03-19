@@ -35,6 +35,8 @@ export const layerPresets = {
             startY: '0',
             endX: window.innerWidth,
             endY: window.innerHeight,
+            biasType: 'rectangular', // rectangular radial spiral
+            biasRadius: 0.4,
             biasX: '100',
             biasY: '100',
             biasA: 0.1,
@@ -328,6 +330,8 @@ export const getPreset = (preset) => {
             startY: preset.position.startY || defaultPreset.position.startY,
             endX: preset.position.endX || defaultPreset.position.endX,
             endY: preset.position.endY || defaultPreset.position.endY,
+            biasType: preset.position.biasType || defaultPreset.position.biasType,
+            biasRadius: preset.position.biasRadius || defaultPreset.position.biasRadius,
             biasX: preset.position.biasX || defaultPreset.position.biasX,
             biasY: preset.position.biasY || defaultPreset.position.biasY,
             biasA: preset.position.biasA || defaultPreset.position.biasA,
@@ -393,6 +397,11 @@ export const defaultAppSettings = {
     drawingSpeed: 0.25,
 };
 
+export const biasTypes = [
+    'rectangular',
+    'radial',
+    'spiral',
+];
 export const overlayModes = [
     'source-over',
     'source-in',
