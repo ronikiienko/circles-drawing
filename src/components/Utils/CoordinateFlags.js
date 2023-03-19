@@ -32,13 +32,16 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                 onTouchStart={setDragProp}
                 settings={settings}
                 color="blue"/>
-            <CoordinateFlag
-                id="position-biasRadius"
-                title="Bias radius point"
-                onMouseDown={setDragProp}
-                onTouchStart={setDragProp}
-                settings={settings}
-                color="gray"/>
+            <ConditionalPanel active={settings.position.biasType === biasTypes.radial}>
+                <CoordinateFlag
+                    id="position-biasRadius"
+                    title="Bias radius point"
+                    onMouseDown={setDragProp}
+                    onTouchStart={setDragProp}
+                    settings={settings}
+                    color="gray"/>
+            </ConditionalPanel>
+
             <ConditionalPanel active={settings.shape.lineLookToOn}>
                 <CoordinateFlag
                     id="shape-lineLookTo"
