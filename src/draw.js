@@ -226,6 +226,10 @@ const getRandomizedShapeSettings = (settings, i) => {
                 case biasSpiralTypes.reducing: {
                     distanceFromBias = Math.pow(angleRad, 1 / 2) * 20;
                 }
+                    break;
+                case biasSpiralTypes.circles: {
+                    distanceFromBias = angleRad * 4 * Math.cos(Math.pow(angleRad, 1 / 1.2));
+                }
             }
             for (let j = 0; j < settings.position.biasSpiralThickness; j++) {
                 let radius = getBiasedRandomNumber(distanceFromBias - settings.position.biasSpiralSpread, distanceFromBias + settings.position.biasSpiralSpread, 0, {

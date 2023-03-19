@@ -8,6 +8,7 @@ export const biasSpiralTypes = {
     basic: 'basic',
     fourLeaf: 'fourLeaf',
     reducing: 'reducing',
+    circles: 'circles',
 };
 
 export const layerPresets = {

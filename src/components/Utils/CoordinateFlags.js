@@ -7,7 +7,7 @@ import {CoordinateFlag} from './coordinateFlag';
 export const CoordinateFlags = ({settings, setDragProp}) => {
     return (
         <>
-            <ConditionalPanel active={settings.position.biasType !== biasTypes.radial}>
+            <ConditionalPanel active={settings.position.biasType === biasTypes.rectangular}>
                 <CoordinateFlag
                     id="position-start"
                     title="Start point"
