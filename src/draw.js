@@ -1,6 +1,13 @@
 import FileSaver from 'file-saver';
-import {biasTypes, highPPICanvasRatio, maxUndoTimes} from './consts';
-import {getBiasedRandomNumber, getPointByDistanceAndAngle, hexToRgbArray, turnRadiansToDegrees, wait} from './utils';
+import {biasSpiralTypes, biasTypes, highPPICanvasRatio, maxUndoTimes} from './consts';
+import {
+    getBiasedRandomNumber,
+    getPointByDistanceAndAngle,
+    hexToRgbArray,
+    turnDegreesToRadians,
+    turnRadiansToDegrees,
+    wait,
+} from './utils';
 
 
 let canvasWidth;
@@ -118,6 +125,11 @@ const getTranslatedLayerSettings = (rawSettings) => {
             startY: parseFloat(rawSettings.position.startY),
             endX: parseFloat(rawSettings.position.endX),
             endY: parseFloat(rawSettings.position.endY),
+            biasSpiralType: rawSettings.position.biasSpiralType,
+            biasSpiralThickness: Math.trunc(Math.pow(parseFloat(rawSettings.position.biasSpiralThickness) + 1, 6)),
+            biasSpiralDensity: Math.pow(parseFloat(rawSettings.position.biasSpiralDensity) + 1, 7),
+            biasSpiralSpread: Math.pow(parseFloat(rawSettings.position.biasSpiralSpread) + 1, 5) * 5,
+            biasSpiralAngleRand: parseFloat(rawSettings.position.biasSpiralAngleRand) * 5,
             biasType: rawSettings.position.biasType,
             biasRadius: Math.pow(Math.pow(rawSettings.position.biasX - rawSettings.position.biasRadiusX, 2) + Math.pow(rawSettings.position.biasY - rawSettings.position.biasRadiusY, 2), 1 / 2),
             biasX: parseFloat(rawSettings.position.biasX),
@@ -135,13 +147,13 @@ const getTranslatedLayerSettings = (rawSettings) => {
     };
 };
 
-const getTranslatedAppSettings = (rawSettings) => {
+const getTranslatedAppSettings = (rawSettings, i) => {
     return {
         waitInterval: Math.trunc(Math.pow(parseFloat(rawSettings.drawingSpeed) + 1, 10)),
     };
 };
 
-const getRandomizedShapeSettings = (settings) => {
+const getRandomizedShapeSettings = (settings, i) => {
     let color;
     const transp = settings.transp.transp + getBiasedRandomNumber(-settings.transp.transpRand, settings.transp.transpRand, 2);
     let xPosition;
@@ -194,6 +206,41 @@ const getRandomizedShapeSettings = (settings) => {
             } = getPointByDistanceAndAngle(settings.position.biasX, settings.position.biasY, Math.pow(distanceFromBias, 1 / 2), angle);
             xPosition = x;
             yPosition = y;
+        }
+            break;
+        case biasTypes.spiral: {
+            const spinI = Math.trunc(i / settings.position.biasSpiralThickness);
+            const angle = spinI * settings.position.biasSpiralDensity;
+            const angleRad = turnDegreesToRadians(angle);
+
+            let distanceFromBias;
+            switch (settings.position.biasSpiralType) {
+                case biasSpiralTypes.basic: {
+                    distanceFromBias = Math.pow(angleRad, 1.2);
+                }
+                    break;
+                case biasSpiralTypes.fourLeaf: {
+                    distanceFromBias = angleRad * Math.sin(angleRad * 2);
+                }
+                    break;
+                case biasSpiralTypes.reducing: {
+                    distanceFromBias = Math.pow(angleRad, 1 / 2) * 20;
+                }
+            }
+            for (let j = 0; j < settings.position.biasSpiralThickness; j++) {
+                let radius = getBiasedRandomNumber(distanceFromBias - settings.position.biasSpiralSpread, distanceFromBias + settings.position.biasSpiralSpread, 0, {
+                    bias: distanceFromBias,
+                    biasA: settings.position.biasA,
+                    biasB: settings.position.biasB,
+                    biasInf: settings.position.biasInf,
+                });
+                const {
+                    x,
+                    y,
+                } = getPointByDistanceAndAngle(settings.position.biasX, settings.position.biasY, radius, getBiasedRandomNumber(angle - settings.position.biasSpiralAngleRand, angle + settings.position.biasSpiralAngleRand, 2));
+                xPosition = x;
+                yPosition = y;
+            }
         }
     }
 
@@ -267,7 +314,7 @@ export const draw = async (rawSettings, rawAppSettings) => {
             await wait(4);
             lastWaited = i;
         }
-        const randomizedShapeSettings = getRandomizedShapeSettings(settings);
+        const randomizedShapeSettings = getRandomizedShapeSettings(settings, i);
         drawShape(ctx, randomizedShapeSettings);
     }
 };

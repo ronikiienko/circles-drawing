@@ -14,7 +14,7 @@ import {
     Slider,
 } from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
-import {biasPresets, biasTypes, overlayModes} from '../../consts';
+import {biasPresets, biasSpiralTypes, biasTypes, overlayModes} from '../../consts';
 import {BiasGraph} from '../Utils/BiasGraph';
 import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
@@ -36,7 +36,7 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
     const localClasses = useStyles();
     return (
         <>
-            <ConditionalPanel active={settings.position.biasType !== biasTypes.radial}>
+            <ConditionalPanel active={settings.position.biasType === biasTypes.rectangular}>
                 <div className={classes.row}>
                     <Label className={classes.label}>
                         Start x:
@@ -163,6 +163,80 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                 </Select>
             </Label>
             <br/>
+            <ConditionalPanel active={settings.position.biasType === biasTypes.spiral}>
+                <Label className={classes.label}>
+                    Spiral type:
+                    <Select
+                        size="small"
+                        value={settings.position.biasSpiralType}
+                        className={classes.select}
+                        id="position-biasSpiralType"
+                        onChange={handleChange}
+                    >
+                        {Object.values(biasSpiralTypes).map(biasSpiralType =>
+                            <option
+                                key={biasSpiralType}
+                                value={biasSpiralType}
+                            >
+                                {biasSpiralType}
+                            </option>)
+                        }
+                    </Select>
+                </Label>
+                <br/>
+                <Label className={classes.label}>
+                    Spiral thickness:
+                    <Slider
+                        size="small"
+                        className={classes.slider}
+                        value={settings.position.biasSpiralThickness}
+                        id="position-biasSpiralThickness"
+                        onChange={handleChange}
+                        min="0"
+                        max="1"
+                        step="0.01"
+                    />
+                </Label>
+                <Label className={classes.label}>
+                    Spiral density:
+                    <Slider
+                        size="small"
+                        className={classes.slider}
+                        value={settings.position.biasSpiralDensity}
+                        id="position-biasSpiralDensity"
+                        onChange={handleChange}
+                        min="0"
+                        max="1"
+                        step="0.01"
+                    />
+                </Label>
+                <Label className={classes.label}>
+                    Spiral spread:
+                    <Slider
+                        size="small"
+                        className={classes.slider}
+                        value={settings.position.biasSpiralSpread}
+                        id="position-biasSpiralSpread"
+                        onChange={handleChange}
+                        min="0"
+                        max="1"
+                        step="0.01"
+                    />
+                </Label>
+                <Label className={classes.label}>
+                    Spiral angle rand:
+                    <Slider
+                        size="small"
+                        className={classes.slider}
+                        value={settings.position.biasSpiralAngleRand}
+                        id="position-biasSpiralAngleRand"
+                        onChange={handleChange}
+                        min="0"
+                        max="1"
+                        step="0.01"
+                    />
+                </Label>
+            </ConditionalPanel>
             <ConditionalPanel active={settings.position.biasType === biasTypes.radial}>
                 <div className={classes.row}>
                     <Label className={classes.label}>

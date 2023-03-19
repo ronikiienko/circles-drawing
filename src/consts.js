@@ -1,3 +1,15 @@
+export const biasTypes = {
+    rectangular: 'rectangular',
+    radial: 'radial',
+    spiral: 'spiral',
+};
+
+export const biasSpiralTypes = {
+    basic: 'basic',
+    fourLeaf: 'fourLeaf',
+    reducing: 'reducing',
+};
+
 export const layerPresets = {
     default: {
         preset: {
@@ -35,7 +47,12 @@ export const layerPresets = {
             startY: '0',
             endX: window.innerWidth,
             endY: window.innerHeight,
-            biasType: 'rectangular', // rectangular radial spiral
+            biasType: biasTypes.rectangular, // rectangular radial spiral
+            biasSpiralType: biasSpiralTypes.basic,
+            biasSpiralThickness: 0.5,
+            biasSpiralDensity: 0.5,
+            biasSpiralSpread: 0.5,
+            biasSpiralAngleRand: 0.5,
             biasRadiusX: 200,
             biasRadiusY: 200,
             biasX: '100',
@@ -332,6 +349,11 @@ export const getPreset = (preset) => {
             endX: preset.position.endX || defaultPreset.position.endX,
             endY: preset.position.endY || defaultPreset.position.endY,
             biasType: preset.position.biasType || defaultPreset.position.biasType,
+            biasSpiralType: preset.position.biasSpiralType || defaultPreset.position.biasSpiralType,
+            biasSpiralThickness: preset.position.biasSpiralThickness || defaultPreset.position.biasSpiralThickness,
+            biasSpiralDensity: preset.position.biasSpiralDensity || defaultPreset.position.biasSpiralDensity,
+            biasSpiralSpread: preset.position.biasSpiralSpread || defaultPreset.position.biasSpiralSpread,
+            biasSpiralAngleRand: preset.position.biasSpiralAngleRand || defaultPreset.position.biasSpiralAngleRand,
             biasRadiusX: preset.position.biasRadiusX || defaultPreset.position.biasRadiusX,
             biasRadiusY: preset.position.biasRadiusY || defaultPreset.position.biasRadiusY,
             biasX: preset.position.biasX || defaultPreset.position.biasX,
@@ -399,10 +421,7 @@ export const defaultAppSettings = {
     drawingSpeed: 0.25,
 };
 
-export const biasTypes = {
-    rectangular: 'rectangular',
-    radial: 'radial',
-};
+
 export const overlayModes = [
     'source-over',
     'source-in',
