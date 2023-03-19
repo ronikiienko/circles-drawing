@@ -15,9 +15,7 @@ import {
 } from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import {biasPresets, overlayModes} from '../../consts';
-import {useClickAndSet} from '../../hooks/useClickAndSet';
 import {BiasGraph} from '../Utils/BiasGraph';
-import {CoordinateFlag} from '../Utils/coordinateFlag';
 
 
 const useStyles = makeStyles({
@@ -33,9 +31,8 @@ const useStyles = makeStyles({
         alignItems: 'center',
     },
 });
-export const Position = ({settings, setSettings, handleChange, classes}) => {
+export const Position = ({settings, setClickAndSetProp, handleChange, classes}) => {
     const localClasses = useStyles();
-    const {setClickAndSetProp, setDragProp} = useClickAndSet({setSettings});
     return (
         <>
             <div className={classes.row}>
@@ -258,15 +255,7 @@ export const Position = ({settings, setSettings, handleChange, classes}) => {
 
             <br/>
 
-            <CoordinateFlag id="position-start" title="Start point" onMouseDown={setDragProp} onTouchStart={setDragProp}
-                            settings={settings}
-                            color="green"/>
-            <CoordinateFlag id="position-end" title="End point" onMouseDown={setDragProp} onTouchStart={setDragProp}
-                            settings={settings}
-                            color="red"/>
-            <CoordinateFlag id="position-bias" title="Bias point" onMouseDown={setDragProp} onTouchStart={setDragProp}
-                            settings={settings}
-                            color="blue"/>
+
         </>
     );
 };

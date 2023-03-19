@@ -21,6 +21,7 @@ import {
 import React, {useEffect} from 'react';
 import {useImmer} from 'use-immer';
 import {clear, draw, saveAsImage, undo} from '../draw';
+import {useClickAndSet} from '../hooks/useClickAndSet';
 import {useKeyboardControls} from '../hooks/useKeyboardControls';
 import './Controls.css';
 import {Color} from './Tabs/Color';
@@ -34,6 +35,7 @@ import {Shape} from './Tabs/Shape';
 import {Size} from './Tabs/Size';
 import {Transp} from './Tabs/Transp';
 import {ConditionalPanel} from './Utils/ConditionalPanel';
+import {CoordinateFlags} from './Utils/CoordinateFlags';
 import {TabOverflowMenu} from './Utils/TabOverflowMenu';
 
 
@@ -154,6 +156,8 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
     const [hidden, setHidden] = useImmer(false);
 
     useKeyboardControls(setHidden);
+    const {setDragProp, setClickAndSetProp} = useClickAndSet({setSettings});
+
     const handleChange = (event) => {
         const categoriesArray = event.target.id.split('-');
         const category = categoriesArray[0];
@@ -198,14 +202,16 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                             <Size settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === tabs.shape.id}>
-                            <Shape settings={settings} setSettings={setSettings} handleChange={handleChange}
+                            <Shape settings={settings} setClickAndSetProp={setClickAndSetProp}
+                                   handleChange={handleChange}
                                    classes={tabsClasses}/>
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === tabs.color.id}>
                             <Color settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === tabs.position.id}>
-                            <Position settings={settings} setSettings={setSettings} handleChange={handleChange}
+                            <Position settings={settings} setClickAndSetProp={setClickAndSetProp}
+                                      handleChange={handleChange}
                                       classes={tabsClasses}/>
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === tabs.transp.id}>
@@ -261,6 +267,7 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                         </div>
                     </div>
                 </div>
+                <CoordinateFlags settings={settings} setDragProp={setDragProp}/>
             </div>
             <Button
                 className={classes.unhideButton}

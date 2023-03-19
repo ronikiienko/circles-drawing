@@ -1,13 +1,10 @@
 import {Button, Checkbox, Input, Label, Select, Slider} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
-import {useClickAndSet} from '../../hooks/useClickAndSet';
 import {ConditionalPanel} from '../Utils/ConditionalPanel';
-import {CoordinateFlag} from '../Utils/coordinateFlag';
 
 
-export const Shape = ({settings, setSettings, handleChange, classes}) => {
-    const {setClickAndSetProp, setDragProp} = useClickAndSet({setSettings});
+export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => {
     return (
         <>
             <Label className={classes.label}>
@@ -125,14 +122,7 @@ export const Shape = ({settings, setSettings, handleChange, classes}) => {
                         </Label>
                         <Button size="small" id="shape-lineLookTo" onClick={setClickAndSetProp}>Click and set</Button>
                     </div>
-                    <CoordinateFlag
-                        id="shape-lineLookTo"
-                        title="Look to point"
-                        onMouseDown={setDragProp}
-                        onTouchStart={setDragProp}
-                        settings={settings}
-                        color="pink"
-                    />
+
                 </ConditionalPanel>
             </ConditionalPanel>
         </>
