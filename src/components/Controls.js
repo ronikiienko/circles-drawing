@@ -29,6 +29,7 @@ import {Glow} from './Tabs/Glow';
 import {Number} from './Tabs/Number';
 import {Position} from './Tabs/Position';
 import {Presets} from './Tabs/Presets';
+import {Saves} from './Tabs/Saves';
 import {Settings} from './Tabs/Settings';
 import {Shape} from './Tabs/Shape';
 import {Size} from './Tabs/Size';
@@ -92,6 +93,9 @@ const useStylesTabs = makeStyles({
         width: '50px',
         marginLeft: '5px',
     },
+    button: {
+        ...shorthands.margin('3px'),
+    },
     text: {
         width: '300px',
         marginLeft: '5px',
@@ -151,6 +155,10 @@ const tabs = {
     settings: {
         label: 'Settings',
         id: 'tab-button-settings',
+    },
+    saves: {
+        label: 'Saves',
+        id: 'tab-button-saves',
     },
 };
 export const Controls = ({settings, setSettings, appSettings, setAppSettings}) => {
@@ -232,6 +240,9 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === tabs.settings.id}>
                             <Settings appSettings={appSettings} setAppSettings={setAppSettings} classes={tabsClasses}/>
+                        </ConditionalPanel>
+                        <ConditionalPanel active={tab === tabs.saves.id}>
+                            <Saves settings={settings} setSettings={setSettings} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <br/>
                     </div>

@@ -461,4 +461,5 @@ export const maxUndoTimes = 10;
 export const storageKeys = {
     layerSettings: 'layerSettings',
     appSettings: 'appSettings',
+    shelvedLayerSettings: 'shelvedLayerSettings',
 };
