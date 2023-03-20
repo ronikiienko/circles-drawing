@@ -274,7 +274,7 @@ export const layerPresets = {
             'sizeRand': '0.1',
         },
         'glow': {
-            'glow': '0',
+            'glow': '0.5',
         },
         'transp': {
             'transp': '0.65',
