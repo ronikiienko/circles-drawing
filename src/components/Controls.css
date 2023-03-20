@@ -7,7 +7,7 @@
     width: 600px;
     opacity: 1;
     transition: opacity 200ms ease-in-out;
-    box-shadow: 5px 5px 10px #9b9b9b;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
     max-width: 90%;
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;

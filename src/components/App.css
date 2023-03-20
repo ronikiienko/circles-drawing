@@ -3,6 +3,7 @@ html {
     color: pink;
     font-family: sans-serif;
     overflow: hidden;
+    background-color: black;
 }
 
 html, body {
