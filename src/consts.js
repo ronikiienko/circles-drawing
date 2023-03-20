@@ -51,7 +51,7 @@ export const layerPresets = {
             endY: window.innerHeight,
             biasType: biasTypes.rectangular, // rectangular radial spiral
             biasSpiralType: biasSpiralTypes.basic,
-            biasSpiralCustom: '${angleRad}',
+            biasSpiralCustom: 'Math.pow(angleRad, 1.2)',
             biasSpiralThickness: 0.5,
             biasSpiralDensity: 0.5,
             biasSpiralSpread: 0.5,
