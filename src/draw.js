@@ -129,7 +129,7 @@ const getTranslatedLayerSettings = (rawSettings) => {
             biasSpiralCustom: rawSettings.position.biasSpiralCustom,
             biasSpiralThickness: Math.trunc(Math.pow(parseFloat(rawSettings.position.biasSpiralThickness) + 1, 6)),
             biasSpiralDensity: Math.pow(parseFloat(rawSettings.position.biasSpiralDensity) + 1, 7),
-            biasSpiralSpread: Math.pow(parseFloat(rawSettings.position.biasSpiralSpread) + 1, 5) * 5,
+            biasSpiralSpread: Math.pow(parseFloat(rawSettings.position.biasSpiralSpread) + 1, 7) - 1,
             biasSpiralAngleRand: parseFloat(rawSettings.position.biasSpiralAngleRand) * 5,
             biasType: rawSettings.position.biasType,
             biasRadius: Math.pow(Math.pow(rawSettings.position.biasX - rawSettings.position.biasRadiusX, 2) + Math.pow(rawSettings.position.biasY - rawSettings.position.biasRadiusY, 2), 1 / 2),
