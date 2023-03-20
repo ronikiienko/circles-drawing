@@ -306,7 +306,7 @@ export const layerPresets = {
             'biasA': 0.1,
             'biasB': 0.1,
             'biasInf': '0',
-            'overlayMode': 'destination-over',
+            'overlayMode': 'source-over',
         },
         'color': {
             'color': '#00ffcc',
@@ -318,7 +318,7 @@ export const layerPresets = {
 
 export const getPreset = (preset) => {
     const defaultPreset = layerPresets.default;
-
+    console.log(preset);
     return {
         preset: {
             id: preset.preset.id || defaultPreset.preset.id,
