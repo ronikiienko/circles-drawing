@@ -131,6 +131,7 @@ const getTranslatedLayerSettings = (rawSettings) => {
             biasSpiralDensity: Math.pow(parseFloat(rawSettings.position.biasSpiralDensity) + 1, 7),
             biasSpiralSpread: Math.pow(parseFloat(rawSettings.position.biasSpiralSpread) + 1, 7) - 1,
             biasSpiralAngleRand: parseFloat(rawSettings.position.biasSpiralAngleRand) * 5,
+            biasSpiralMult: Math.pow(parseFloat(rawSettings.position.biasSpiralMult) * 20, 2.3) * 0.05,
             biasType: rawSettings.position.biasType,
             biasRadius: Math.pow(Math.pow(rawSettings.position.biasX - rawSettings.position.biasRadiusX, 2) + Math.pow(rawSettings.position.biasY - rawSettings.position.biasRadiusY, 2), 1 / 2),
             biasX: parseFloat(rawSettings.position.biasX),
@@ -217,7 +218,7 @@ const getRandomizedShapeSettings = (settings, i) => {
             let distanceFromBias;
             switch (settings.position.biasSpiralType) {
                 case biasSpiralTypes.basic: {
-                    distanceFromBias = Math.pow(angleRad, 1) / 1;
+                    distanceFromBias = Math.pow(angleRad, 1);
                 }
                     break;
                 case biasSpiralTypes.fourLeaf: {
@@ -240,6 +241,7 @@ const getRandomizedShapeSettings = (settings, i) => {
                     }
                 }
             }
+            distanceFromBias = distanceFromBias * settings.position.biasSpiralMult;
             for (let j = 0; j < settings.position.biasSpiralThickness; j++) {
                 let radius = getBiasedRandomNumber(distanceFromBias - settings.position.biasSpiralSpread, distanceFromBias + settings.position.biasSpiralSpread, 0, {
                     bias: distanceFromBias,

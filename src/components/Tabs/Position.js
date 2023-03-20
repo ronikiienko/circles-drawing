@@ -199,6 +199,19 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                     <br/>
                 </ConditionalPanel>
                 <Label className={classes.label}>
+                    Spiral mult:
+                    <Slider
+                        size="small"
+                        className={classes.slider}
+                        value={settings.position.biasSpiralMult}
+                        id="position-biasSpiralMult"
+                        onChange={handleChange}
+                        min="0"
+                        max="1"
+                        step="0.01"
+                    />
+                </Label>
+                <Label className={classes.label}>
                     Spiral thickness:
                     <Slider
                         size="small"
