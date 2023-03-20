@@ -217,7 +217,7 @@ const getRandomizedShapeSettings = (settings, i) => {
             let distanceFromBias;
             switch (settings.position.biasSpiralType) {
                 case biasSpiralTypes.basic: {
-                    distanceFromBias = Math.pow(angleRad, 1.2);
+                    distanceFromBias = Math.pow(angleRad, 1) / 1;
                 }
                     break;
                 case biasSpiralTypes.fourLeaf: {
