@@ -184,6 +184,20 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                     </Select>
                 </Label>
                 <br/>
+                <ConditionalPanel active={settings.position.biasSpiralType === biasSpiralTypes.custom}>
+                    <Label className={classes.label}>
+                        Custom spiral formula:
+                        <Input
+                            className={classes.text}
+                            size="small"
+                            value={settings.position.biasSpiralCustom}
+                            id="position-biasSpiralCustom"
+                            onChange={handleChange}
+                            type="text"
+                        />
+                    </Label>
+                    <br/>
+                </ConditionalPanel>
                 <Label className={classes.label}>
                     Spiral thickness:
                     <Slider

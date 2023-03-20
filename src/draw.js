@@ -126,6 +126,7 @@ const getTranslatedLayerSettings = (rawSettings) => {
             endX: parseFloat(rawSettings.position.endX),
             endY: parseFloat(rawSettings.position.endY),
             biasSpiralType: rawSettings.position.biasSpiralType,
+            biasSpiralCustom: rawSettings.position.biasSpiralCustom,
             biasSpiralThickness: Math.trunc(Math.pow(parseFloat(rawSettings.position.biasSpiralThickness) + 1, 6)),
             biasSpiralDensity: Math.pow(parseFloat(rawSettings.position.biasSpiralDensity) + 1, 7),
             biasSpiralSpread: Math.pow(parseFloat(rawSettings.position.biasSpiralSpread) + 1, 5) * 5,
@@ -229,6 +230,14 @@ const getRandomizedShapeSettings = (settings, i) => {
                     break;
                 case biasSpiralTypes.circles: {
                     distanceFromBias = angleRad * 4 * Math.cos(Math.pow(angleRad, 1 / 1.2));
+                }
+                    break;
+                case biasSpiralTypes.custom: {
+                    try {
+                        distanceFromBias = eval(String(settings.position.biasSpiralCustom));
+                    } catch (e) {
+                        distanceFromBias = 0;
+                    }
                 }
             }
             for (let j = 0; j < settings.position.biasSpiralThickness; j++) {

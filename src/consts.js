@@ -9,6 +9,7 @@ export const biasSpiralTypes = {
     fourLeaf: 'fourLeaf',
     reducing: 'reducing',
     circles: 'circles',
+    custom: 'custom',
 };
 
 export const layerPresets = {
@@ -50,6 +51,7 @@ export const layerPresets = {
             endY: window.innerHeight,
             biasType: biasTypes.rectangular, // rectangular radial spiral
             biasSpiralType: biasSpiralTypes.basic,
+            biasSpiralCustom: '${angleRad}',
             biasSpiralThickness: 0.5,
             biasSpiralDensity: 0.5,
             biasSpiralSpread: 0.5,
@@ -351,6 +353,7 @@ export const getPreset = (preset) => {
             endY: preset.position.endY || defaultPreset.position.endY,
             biasType: preset.position.biasType || defaultPreset.position.biasType,
             biasSpiralType: preset.position.biasSpiralType || defaultPreset.position.biasSpiralType,
+            biasSpiralCustom: preset.position.biasSpiralCustom || defaultPreset.position.biasSpiralCustom,
             biasSpiralThickness: preset.position.biasSpiralThickness || defaultPreset.position.biasSpiralThickness,
             biasSpiralDensity: preset.position.biasSpiralDensity || defaultPreset.position.biasSpiralDensity,
             biasSpiralSpread: preset.position.biasSpiralSpread || defaultPreset.position.biasSpiralSpread,

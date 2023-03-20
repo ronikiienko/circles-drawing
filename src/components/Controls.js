@@ -22,7 +22,6 @@ import React from 'react';
 import {useImmer} from 'use-immer';
 import {clear, draw, saveAsImage, undo} from '../draw';
 import {useClickAndSet} from '../hooks/useClickAndSet';
-import {useKeyboardControls} from '../hooks/useKeyboardControls';
 import './Controls.css';
 import {Color} from './Tabs/Color';
 import {Generation} from './Tabs/Generation';
@@ -93,6 +92,10 @@ const useStylesTabs = makeStyles({
         width: '50px',
         marginLeft: '5px',
     },
+    text: {
+        width: '300px',
+        marginLeft: '5px',
+    },
     select: {
         marginLeft: '5px',
         width: 'fit-content',
@@ -157,7 +160,7 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
     const [tab, setTab] = useImmer(tabs.number.id);
     const [hidden, setHidden] = useImmer(false);
 
-    useKeyboardControls(setHidden);
+    // useKeyboardControls(setHidden);
     const {setDragProp, setClickAndSetProp} = useClickAndSet({setSettings});
 
     const handleChange = (event) => {
