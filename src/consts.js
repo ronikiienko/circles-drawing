@@ -318,6 +318,7 @@ export const layerPresets = {
 
 export const getPreset = (preset) => {
     const defaultPreset = layerPresets.default;
+    console.log(defaultPreset);
     return {
         preset: {
             id: preset.preset.id || defaultPreset.preset.id,
@@ -378,7 +379,6 @@ export const getPreset = (preset) => {
         },
     };
 };
-getPreset(layerPresets.rain);
 
 export const biasPresets = {
     squashed: {
