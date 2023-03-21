@@ -288,10 +288,8 @@ export const layerPresets = {
 };
 
 export const getPreset = (preset) => {
-    console.log('hi------------');
     if (!preset) return false;
     const defaultPreset = layerPresets.default;
-    console.log(preset);
     return {
         preset: {
             id: preset.preset?.id || defaultPreset.preset.id,
