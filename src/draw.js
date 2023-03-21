@@ -3,7 +3,7 @@ import {biasSpiralTypes, biasTypes, highPPICanvasRatio, maxUndoTimes} from './co
 import {
     getBiasedRandomNumber,
     getPointByDistanceAndAngle,
-    hexToRgbArray,
+    hexToHslArray,
     turnDegreesToRadians,
     turnRadiansToDegrees,
     wait,
@@ -34,7 +34,7 @@ const getCanvas = () => {
 };
 
 const drawShape = (ctx, settings) => {
-    ctx.shadowBlur = settings.glow.glow;
+    ctx.shadowBlur = settings.color.glow;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
 
@@ -92,19 +92,12 @@ export const translateBiasB = (biasB) => {
 const getTranslatedLayerSettings = (rawSettings) => {
     // reused values
     const size = Math.pow(parseFloat(rawSettings.size.size) + 1, 7) * 2;
-    const transp = parseFloat(rawSettings.transp.transp);
+    const transp = parseFloat(rawSettings.color.transp);
 
     return {
         size: {
             size: size,
             sizeRand: parseFloat(rawSettings.size.sizeRand) * size * 0.8,
-        },
-        glow: {
-            glow: parseFloat(rawSettings.glow.glow) * 100,
-        },
-        transp: {
-            transp: transp,
-            transpRand: parseFloat(rawSettings.transp.transpRand) * transp,
         },
         number: {
             number: parseFloat(rawSettings.number.number),
@@ -142,14 +135,16 @@ const getTranslatedLayerSettings = (rawSettings) => {
             overlayMode: rawSettings.position.overlayMode,
         },
         color: {
-            color: hexToRgbArray(rawSettings.color.color),
-            colorRand: parseFloat(rawSettings.color.colorRand) * 100,
-            isFullRand: rawSettings.color.isFullRand,
+            color: hexToHslArray(rawSettings.color.color),
+            colorRand: Math.pow(parseFloat(rawSettings.color.colorRand) + 1, 5) * 5.6 - 1,
+            transp: transp,
+            transpRand: parseFloat(rawSettings.color.transpRand) * transp,
+            glow: parseFloat(rawSettings.color.glow) * 100,
         },
     };
 };
 
-const getTranslatedAppSettings = (rawSettings, i) => {
+const getTranslatedAppSettings = (rawSettings) => {
     return {
         waitInterval: Math.trunc(Math.pow(parseFloat(rawSettings.drawingSpeed) + 1, 10)),
     };
@@ -157,7 +152,7 @@ const getTranslatedAppSettings = (rawSettings, i) => {
 
 const getRandomizedShapeSettings = (settings, i) => {
     let color;
-    const transp = settings.transp.transp + getBiasedRandomNumber(-settings.transp.transpRand, settings.transp.transpRand, 2);
+    const transp = settings.color.transp + getBiasedRandomNumber(-settings.color.transpRand, settings.color.transpRand, 2);
     let xPosition;
     let yPosition;
     switch (settings.position.biasType) {
@@ -270,30 +265,15 @@ const getRandomizedShapeSettings = (settings, i) => {
         lineAngle = settings.shape.lineAngle;
     }
 
-    if (!settings.color.isFullRand) {
-        color = `rgba(
-                ${settings.color.color[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 2)}, 
-                ${settings.color.color[1] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 2)}, 
-                ${settings.color.color[2] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 2)}, 
+    color = `hsla(
+                ${(settings.color.color[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360}, 
+                ${settings.color.color[1]}%, 
+                ${settings.color.color[2]}%, 
                 ${transp}
             )`;
-    } else {
-        color = `rgba(
-                ${getBiasedRandomNumber(0, 255)}, 
-                ${getBiasedRandomNumber(0, 255)}, 
-                ${getBiasedRandomNumber(0, 255)}, 
-                ${transp}
-            )`;
-    }
     return {
         size: {
             size: settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2),
-        },
-        glow: {
-            glow: settings.glow.glow,
-        },
-        transp: {
-            transp: transp,
         },
         shape: {
             shape: settings.shape.shape,
@@ -307,6 +287,7 @@ const getRandomizedShapeSettings = (settings, i) => {
         },
         color: {
             color: color,
+            glow: settings.color.glow,
         },
     };
 };

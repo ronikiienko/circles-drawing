@@ -23,13 +23,6 @@ export const layerPresets = {
             size: '0.5',
             sizeRand: '0',
         },
-        glow: {
-            glow: '0',
-        },
-        transp: {
-            transp: '0.7',
-            transpRand: '0.2',
-        },
         number: {
             number: '10',
         },
@@ -68,8 +61,10 @@ export const layerPresets = {
         },
         color: {
             color: '#FF00DD',
-            colorRand: '0.4',
-            isFullRand: false,
+            colorRand: '0.2',
+            transp: '0.7',
+            transpRand: '0.2',
+            glow: '0',
         },
     },
     solidBg: {
@@ -81,13 +76,6 @@ export const layerPresets = {
         size: {
             size: '1',
             sizeRand: '0',
-        },
-        glow: {
-            glow: '0',
-        },
-        transp: {
-            transp: '1',
-            transpRand: '0',
         },
         number: {
             number: '500',
@@ -112,8 +100,11 @@ export const layerPresets = {
         },
         color: {
             color: '#FFAFFF',
-            colorRand: '0',
+            colorRand: '0.2',
             isFullRand: false,
+            transp: '1',
+            transpRand: '0',
+            glow: '0',
         },
     },
     rain: {
@@ -125,13 +116,6 @@ export const layerPresets = {
         size: {
             size: '0.4',
             sizeRand: '1',
-        },
-        glow: {
-            glow: '0.4',
-        },
-        transp: {
-            transp: '0.5',
-            transpRand: '1',
         },
         number: {
             number: '1000',
@@ -161,8 +145,10 @@ export const layerPresets = {
         },
         color: {
             color: '#0036ff',
-            colorRand: '0.5',
-            isFullRand: false,
+            colorRand: '0.2',
+            transp: '0.5',
+            transpRand: '1',
+            glow: '0.4',
         },
     },
     littleCircles: {
@@ -174,13 +160,6 @@ export const layerPresets = {
         'size': {
             'size': '0.13',
             'sizeRand': '1',
-        },
-        'glow': {
-            'glow': '0.6',
-        },
-        'transp': {
-            'transp': '0.55',
-            'transpRand': '1',
         },
         'number': {
             'number': '1000',
@@ -210,8 +189,10 @@ export const layerPresets = {
         },
         'color': {
             'color': '#ff0000',
-            'colorRand': '0.54',
-            'isFullRand': false,
+            'colorRand': '0.2',
+            'transp': '0.55',
+            'transpRand': '1',
+            'glow': '0.6',
         },
     },
     bacteriaAttack: {
@@ -223,13 +204,6 @@ export const layerPresets = {
         'size': {
             'size': '0.41',
             'sizeRand': '1',
-        },
-        'glow': {
-            'glow': '0.5',
-        },
-        'transp': {
-            'transp': '0.6',
-            'transpRand': '0.5',
         },
         'number': {
             'number': '200',
@@ -259,8 +233,10 @@ export const layerPresets = {
         },
         'color': {
             'color': '#37ff00',
-            'colorRand': '0.77',
-            'isFullRand': false,
+            'colorRand': '0.2',
+            'transp': '0.6',
+            'transpRand': '0.5',
+            'glow': '0.5',
         },
     },
     spiralNet: {
@@ -272,13 +248,6 @@ export const layerPresets = {
         'size': {
             'size': '0.155',
             'sizeRand': '0.1',
-        },
-        'glow': {
-            'glow': '0.5',
-        },
-        'transp': {
-            'transp': '0.65',
-            'transpRand': '1',
         },
         'number': {
             'number': '10000',
@@ -310,8 +279,10 @@ export const layerPresets = {
         },
         'color': {
             'color': '#00ffcc',
-            'colorRand': '1',
-            'isFullRand': false,
+            'colorRand': '0.2',
+            'glow': '0.5',
+            'transp': '0.65',
+            'transpRand': '1',
         },
     },
 };
@@ -328,13 +299,6 @@ export const getPreset = (preset) => {
         size: {
             size: preset.size.size || defaultPreset.size.size,
             sizeRand: preset.size.sizeRand || defaultPreset.size.sizeRand,
-        },
-        glow: {
-            glow: preset.glow.glow || defaultPreset.glow.glow,
-        },
-        transp: {
-            transp: preset.transp.transp || defaultPreset.transp.transp,
-            transpRand: preset.transp.transpRand || defaultPreset.transp.transpRand,
         },
         number: {
             number: preset.number.number || defaultPreset.number.number,
@@ -375,7 +339,9 @@ export const getPreset = (preset) => {
         color: {
             color: preset.color.color || defaultPreset.color.color,
             colorRand: preset.color.colorRand || defaultPreset.color.colorRand,
-            isFullRand: preset.color.isFullRand || defaultPreset.color.isFullRand,
+            glow: preset.color.glow || defaultPreset.color.glow,
+            transp: preset.color.transp || defaultPreset.color.transp,
+            transpRand: preset.color.transpRand || defaultPreset.color.transpRand,
         },
     };
 };

@@ -25,7 +25,6 @@ import {useClickAndSet} from '../hooks/useClickAndSet';
 import './Controls.css';
 import {Color} from './Tabs/Color';
 import {Generation} from './Tabs/Generation';
-import {Glow} from './Tabs/Glow';
 import {Number} from './Tabs/Number';
 import {Position} from './Tabs/Position';
 import {Presets} from './Tabs/Presets';
@@ -33,7 +32,6 @@ import {Saves} from './Tabs/Saves';
 import {Settings} from './Tabs/Settings';
 import {Shape} from './Tabs/Shape';
 import {Size} from './Tabs/Size';
-import {Transp} from './Tabs/Transp';
 import {ConditionalPanel} from './Utils/ConditionalPanel';
 import {CoordinateFlags} from './Utils/CoordinateFlags';
 import {TabOverflowMenu} from './Utils/TabOverflowMenu';
@@ -132,17 +130,9 @@ const tabs = {
         label: 'Color',
         id: 'tab-button-color',
     },
-    transp: {
-        label: 'Transp',
-        id: 'tab-button-transp',
-    },
     position: {
         label: 'Position',
         id: 'tab-button-position',
-    },
-    glow: {
-        label: 'Glow',
-        id: 'tab-button-glow',
     },
     presets: {
         label: 'Presets',
@@ -225,12 +215,6 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                                       setClickAndSetProp={setClickAndSetProp}
                                       handleChange={handleChange}
                                       classes={tabsClasses}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs.transp.id}>
-                            <Transp settings={settings} handleChange={handleChange} classes={tabsClasses}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs.glow.id}>
-                            <Glow settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <ConditionalPanel active={tab === tabs.presets.id}>
                             <Presets settings={settings} setSettings={setSettings} classes={tabsClasses}/>
