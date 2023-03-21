@@ -14,14 +14,14 @@ let canvasWidth;
 let canvasHeight;
 let history = [];
 let settingsHistory = [];
-export const makeCanvasHighPPI = (width, height) => {
+export const makeCanvasHighPPI = (width, height, resolutionMult) => {
     const {canvas, ctx} = getCanvas();
 
-    canvas.width = width * highPPICanvasRatio;
-    canvas.height = height * highPPICanvasRatio;
+    canvas.width = width * resolutionMult;
+    canvas.height = height * resolutionMult;
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
-    ctx.scale(highPPICanvasRatio, highPPICanvasRatio);
+    ctx.scale(resolutionMult, resolutionMult);
 
     canvasWidth = width;
     canvasHeight = height;

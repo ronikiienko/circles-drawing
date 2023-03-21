@@ -393,6 +393,8 @@ export const biasPresets = {
 
 export const defaultAppSettings = {
     drawingSpeed: 0.25,
+    darkMode: true,
+    resolutionMult: window.devicePixelRatio,
 };
 
 

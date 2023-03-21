@@ -1,4 +1,4 @@
-import {FluentProvider, makeStyles, tokens, webDarkTheme} from '@fluentui/react-components';
+import {FluentProvider, makeStyles, teamsDarkTheme, teamsLightTheme, tokens} from '@fluentui/react-components';
 import {useEffect} from 'react';
 import {useImmer} from 'use-immer';
 import {defaultAppSettings, getPreset, layerPresets, storageKeys} from '../consts';
@@ -25,9 +25,10 @@ export const App = () => {
     const [appSettings, setAppSettings] = useImmer(() => getItemFromStorage(storageKeys.appSettings) || defaultAppSettings);
     const debouncedSettings = useDebouncedValue(settings, 2000);
     const debouncedAppSettings = useDebouncedValue(appSettings, 2000);
+
     useEffect(() => {
-        makeCanvasHighPPI(window.innerWidth, window.innerHeight);
-    }, []);
+        makeCanvasHighPPI(window.innerWidth, window.innerHeight, appSettings.resolutionMult);
+    }, [appSettings.resolutionMult]);
 
     // TODO review performance of this way of saving
     useEffect(() => {
@@ -39,7 +40,7 @@ export const App = () => {
     }, [debouncedAppSettings]);
 
     return (
-        <FluentProvider theme={webDarkTheme}>
+        <FluentProvider theme={appSettings.darkMode ? teamsDarkTheme : teamsLightTheme}>
             <div className={classes.mainContainer}>
                 <Controls settings={settings} setSettings={setSettings} appSettings={appSettings}
                           setAppSettings={setAppSettings}/>
