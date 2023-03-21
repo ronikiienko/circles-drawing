@@ -15,7 +15,6 @@ export const Color = ({settings, handleChange, classes}) => {
                     type="color"
                 />
             </Label>
-            <br/>
             <Label className={classes.label}>
                 Color rand:
                 <Slider
@@ -26,6 +25,7 @@ export const Color = ({settings, handleChange, classes}) => {
                     min="0"
                     max="1"
                     step="0.01"
+                    size="small"
                 />
             </Label>
             <br/>
@@ -39,9 +39,9 @@ export const Color = ({settings, handleChange, classes}) => {
                     min="0"
                     max="1"
                     step="0.05"
+                    size="small"
                 />
             </Label>
-            <br/>
             <Label className={classes.label}>
                 Transp rand:
                 <Slider
@@ -52,6 +52,7 @@ export const Color = ({settings, handleChange, classes}) => {
                     min="0"
                     max="1"
                     step="0.1"
+                    size="small"
                 />
             </Label>
             <br/>
@@ -65,6 +66,7 @@ export const Color = ({settings, handleChange, classes}) => {
                     min="0"
                     max="1"
                     step="0.1"
+                    size="small"
                 />
             </Label>
         </>

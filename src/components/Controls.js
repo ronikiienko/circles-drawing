@@ -24,7 +24,6 @@ import {clear, draw, saveAsImage, undo} from '../draw';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import './Controls.css';
 import {Color} from './Tabs/Color';
-import {Generation} from './Tabs/Generation';
 import {Number} from './Tabs/Number';
 import {Position} from './Tabs/Position';
 import {Presets} from './Tabs/Presets';
@@ -138,10 +137,10 @@ const tabs = {
         label: 'Presets',
         id: 'tab-button-presets',
     },
-    generation: {
-        label: 'Generation',
-        id: 'tab-button-generation',
-    },
+    // generation: {
+    //     label: 'Generation',
+    //     id: 'tab-button-generation',
+    // },
     settings: {
         label: 'Settings',
         id: 'tab-button-settings',
@@ -219,9 +218,9 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                         <ConditionalPanel active={tab === tabs.presets.id}>
                             <Presets settings={settings} setSettings={setSettings} classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs.generation.id}>
-                            <Generation settings={settings} setSettings={setSettings} classes={tabsClasses}/>
-                        </ConditionalPanel>
+                        {/*<ConditionalPanel active={tab === tabs.generation.id}>*/}
+                        {/*    <Generation settings={settings} setSettings={setSettings} classes={tabsClasses}/>*/}
+                        {/*</ConditionalPanel>*/}
                         <ConditionalPanel active={tab === tabs.settings.id}>
                             <Settings appSettings={appSettings} setAppSettings={setAppSettings} classes={tabsClasses}/>
                         </ConditionalPanel>

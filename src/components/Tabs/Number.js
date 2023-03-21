@@ -33,6 +33,10 @@ export const Number = ({settings, setSettings, handleChange, classes}) => {
             <Button onClick={() => setNumber(100)} className={classes.button} size="small">100</Button>
             <Button onClick={() => setNumber(500)} className={classes.button} size="small">500</Button>
             <Button onClick={() => setNumber(1000)} className={classes.button} size="small">1000</Button>
+            <Button onClick={() => setNumber(5000)} className={classes.button} size="small">5000</Button>
+            <Button onClick={() => setNumber(10000)} className={classes.button} size="small">10000</Button>
+            <Button onClick={() => setNumber(50000)} className={classes.button} size="small">50000</Button>
+            <Button onClick={() => setNumber(100000)} className={classes.button} size="small">100000</Button>
         </>
     );
 };
