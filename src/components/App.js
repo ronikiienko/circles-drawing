@@ -1,4 +1,4 @@
-import {FluentProvider, teamsLightTheme} from '@fluentui/react-components';
+import {FluentProvider, makeStyles, tokens, webDarkTheme} from '@fluentui/react-components';
 import {useEffect} from 'react';
 import {useImmer} from 'use-immer';
 import {defaultAppSettings, getPreset, layerPresets, storageKeys} from '../consts';
@@ -9,9 +9,20 @@ import './App.css';
 import {Controls} from './Controls';
 
 
+const useStyles = makeStyles({
+    mainContainer: {
+        backgroundColor: tokens.colorNeutralBackground1,
+    },
+    canvas: {
+        backgroundColor: tokens.colorNeutralBackground1,
+    },
+});
+
 export const App = () => {
-    const [settings, setSettings] = useImmer(getPreset(getItemFromStorage(storageKeys.layerSettings)) || getPreset(layerPresets.default));
-    const [appSettings, setAppSettings] = useImmer(getItemFromStorage(storageKeys.appSettings) || defaultAppSettings);
+    const classes = useStyles();
+
+    const [settings, setSettings] = useImmer(() => getPreset(getItemFromStorage(storageKeys.layerSettings)) || getPreset(layerPresets.default));
+    const [appSettings, setAppSettings] = useImmer(() => getItemFromStorage(storageKeys.appSettings) || defaultAppSettings);
     const debouncedSettings = useDebouncedValue(settings, 2000);
     const debouncedAppSettings = useDebouncedValue(appSettings, 2000);
     useEffect(() => {
@@ -28,11 +39,11 @@ export const App = () => {
     }, [debouncedAppSettings]);
 
     return (
-        <FluentProvider theme={teamsLightTheme}>
-            <div>
+        <FluentProvider theme={webDarkTheme}>
+            <div className={classes.mainContainer}>
                 <Controls settings={settings} setSettings={setSettings} appSettings={appSettings}
                           setAppSettings={setAppSettings}/>
-                <canvas></canvas>
+                <canvas className={classes.canvas}></canvas>
             </div>
         </FluentProvider>
     );

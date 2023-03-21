@@ -37,6 +37,21 @@ import {TabOverflowMenu} from './Utils/TabOverflowMenu';
 
 
 const useStyles = makeStyles({
+    mainContainer: {
+        position: 'absolute',
+        top: '10px',
+        zIndex: 100,
+        backgroundColor: tokens.colorSubtleBackgroundLightAlphaHover,
+        width: '600px',
+        opacity: 1,
+        boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.3)',
+        maxWidth: '90%',
+        borderBottomRightRadius: '10px',
+        borderTopRightRadius: '10px',
+    },
+    hidden: {
+        opacity: 0,
+    },
     tabsContainer: {
         display: 'flex',
         justifyContent: 'center',
@@ -175,7 +190,8 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
 
     return (
         <>
-            <div id="controls" className={hidden ? 'hidden' : ''}>
+            <div id="controls" style={{opacity: `${hidden ? 0 : 1}`, transition: 'opacity 200ms ease-in-out'}}
+                 className={classes.mainContainer}>
                 <Overflow minimumVisible={3}>
                     <TabList
                         className={classes.tabsContainer}
