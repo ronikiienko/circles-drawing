@@ -8,8 +8,6 @@ const useStyles = makeStyles({
     },
 });
 export const Number = ({settings, setSettings, handleChange, classes}) => {
-    const localStyles = useStyles();
-
     const setNumber = (number) => {
         setSettings(draft => {
             draft.number.number = number;
@@ -29,12 +27,12 @@ export const Number = ({settings, setSettings, handleChange, classes}) => {
                 />
             </Label>
             <br/>
-            <Button onClick={() => setNumber(1)} className={localStyles.button} size="small">1</Button>
-            <Button onClick={() => setNumber(10)} className={localStyles.button} size="small">10</Button>
-            <Button onClick={() => setNumber(50)} className={localStyles.button} size="small">50</Button>
-            <Button onClick={() => setNumber(100)} className={localStyles.button} size="small">100</Button>
-            <Button onClick={() => setNumber(500)} className={localStyles.button} size="small">500</Button>
-            <Button onClick={() => setNumber(1000)} className={localStyles.button} size="small">1000</Button>
+            <Button onClick={() => setNumber(1)} className={classes.button} size="small">1</Button>
+            <Button onClick={() => setNumber(10)} className={classes.button} size="small">10</Button>
+            <Button onClick={() => setNumber(50)} className={classes.button} size="small">50</Button>
+            <Button onClick={() => setNumber(100)} className={classes.button} size="small">100</Button>
+            <Button onClick={() => setNumber(500)} className={classes.button} size="small">500</Button>
+            <Button onClick={() => setNumber(1000)} className={classes.button} size="small">1000</Button>
         </>
     );
 };

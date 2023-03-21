@@ -10,7 +10,7 @@ import {Controls} from './Controls';
 
 
 export const App = () => {
-    const [settings, setSettings] = useImmer(getItemFromStorage(storageKeys.layerSettings) || getPreset(layerPresets.default));
+    const [settings, setSettings] = useImmer(getItemFromStorage(storageKeys.layerSettings) || getPreset(layerPresets.spiralNet));
     const [appSettings, setAppSettings] = useImmer(getItemFromStorage(storageKeys.appSettings) || defaultAppSettings);
     const debouncedSettings = useDebouncedValue(settings, 2000);
     const debouncedAppSettings = useDebouncedValue(appSettings, 2000);

@@ -240,6 +240,7 @@ const getRandomizedShapeSettings = (settings, i) => {
                         distanceFromBias = 0;
                     }
                 }
+                // angleRad * Math.sin(Math.pow(angleRad, 1 / 4))
             }
             distanceFromBias = distanceFromBias * settings.position.biasSpiralMult;
             for (let j = 0; j < settings.position.biasSpiralThickness; j++) {
