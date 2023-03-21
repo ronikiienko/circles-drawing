@@ -2,7 +2,6 @@ import {
     Button,
     Input,
     Label,
-    Link,
     makeStyles,
     Menu,
     MenuButton,
@@ -14,7 +13,7 @@ import {
     Slider,
 } from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
-import {biasPresets, biasSpiralTypes, biasTypes, overlayModes} from '../../consts';
+import {biasPresets, biasSpiralTypes, biasTypes} from '../../consts';
 import {BiasGraph} from '../Utils/BiasGraph';
 import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
@@ -36,7 +35,27 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
     const localClasses = useStyles();
     return (
         <>
+            <Label className={classes.label}>
+                Bias type:
+                <Select
+                    size="small"
+                    value={settings.position.biasType}
+                    className={classes.select}
+                    id="position-biasType"
+                    onChange={handleChange}
+                >
+                    {Object.values(biasTypes).map(biasType =>
+                        <option
+                            key={biasType}
+                            value={biasType}
+                        >
+                            {biasType}
+                        </option>)
+                    }
+                </Select>
+            </Label>
             <ConditionalPanel active={settings.position.biasType === biasTypes.rectangular}>
+                <br/>
                 <div className={classes.row}>
                     <Label className={classes.label}>
                         Start x:
@@ -114,54 +133,6 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                 </Label>
                 <Button size="small" id="position-bias" onClick={setClickAndSetProp}>Click and set</Button>
             </div>
-            <br/>
-            <Label className={classes.label}>
-                Overlay:
-                <Select
-                    size="small"
-                    value={settings.position.overlayMode}
-                    className={classes.select}
-                    id="position-overlayMode"
-                    onChange={handleChange}
-                >
-                    {overlayModes.map(overlayMode =>
-                        <option
-                            key={overlayMode}
-                            value={overlayMode}
-                        >
-                            {overlayMode}
-                        </option>)
-                    }
-                </Select>
-                <InfoButton content={
-                    <>
-                        Overlay mode adjusts how new layer blends with existing painting.{' '}
-                        <Link target="_blank"
-                              href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation">Every
-                            mode explained here</Link>
-                    </>
-                }/>
-            </Label>
-            <br/>
-            <Label className={classes.label}>
-                Bias type:
-                <Select
-                    size="small"
-                    value={settings.position.biasType}
-                    className={classes.select}
-                    id="position-biasType"
-                    onChange={handleChange}
-                >
-                    {Object.values(biasTypes).map(biasType =>
-                        <option
-                            key={biasType}
-                            value={biasType}
-                        >
-                            {biasType}
-                        </option>)
-                    }
-                </Select>
-            </Label>
             <br/>
             <ConditionalPanel active={settings.position.biasType === biasTypes.spiral}>
                 <Label className={classes.label}>

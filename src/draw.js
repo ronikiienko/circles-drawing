@@ -132,7 +132,6 @@ const getTranslatedLayerSettings = (rawSettings) => {
             biasA: translateBiasA(rawSettings.position.biasA),
             biasB: translateBiasB(rawSettings.position.biasB),
             biasInf: parseFloat(rawSettings.position.biasInf),
-            overlayMode: rawSettings.position.overlayMode,
         },
         color: {
             color: hexToHslArray(rawSettings.color.color),
@@ -140,6 +139,7 @@ const getTranslatedLayerSettings = (rawSettings) => {
             transp: transp,
             transpRand: parseFloat(rawSettings.color.transpRand) * transp,
             glow: parseFloat(rawSettings.color.glow) * 100,
+            overlayMode: rawSettings.color.overlayMode,
         },
     };
 };
@@ -302,7 +302,7 @@ export const draw = async (rawSettings, rawAppSettings) => {
     history.push(ctx.getImageData(0, 0, canvasWidth * highPPICanvasRatio, canvasHeight * highPPICanvasRatio));
     settingsHistory.push(settings);
 
-    ctx.globalCompositeOperation = settings.position.overlayMode;
+    ctx.globalCompositeOperation = settings.color.overlayMode;
 
     const waitInterval = appSettings.waitInterval;
     let lastWaited = 0;

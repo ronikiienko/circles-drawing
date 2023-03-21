@@ -1,5 +1,7 @@
-import {Label, Slider} from '@fluentui/react-components';
+import {Label, Link, Select, Slider} from '@fluentui/react-components';
+import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
+import {overlayModes} from '../../consts';
 
 
 export const Color = ({settings, handleChange, classes}) => {
@@ -68,6 +70,34 @@ export const Color = ({settings, handleChange, classes}) => {
                     step="0.1"
                     size="small"
                 />
+            </Label>
+            <br/>
+            <Label className={classes.label}>
+                Overlay:
+                <Select
+                    size="small"
+                    value={settings.color.overlayMode}
+                    className={classes.select}
+                    id="color-overlayMode"
+                    onChange={handleChange}
+                >
+                    {overlayModes.map(overlayMode =>
+                        <option
+                            key={overlayMode}
+                            value={overlayMode}
+                        >
+                            {overlayMode}
+                        </option>)
+                    }
+                </Select>
+                <InfoButton content={
+                    <>
+                        Overlay mode adjusts how new layer blends with existing painting.{' '}
+                        <Link target="_blank"
+                              href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation">Every
+                            mode explained here</Link>
+                    </>
+                }/>
             </Label>
         </>
     );
