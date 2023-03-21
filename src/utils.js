@@ -1,9 +1,3 @@
-export const generateRandomNumber = (min, max, decimals) => {
-    const actualDecimals = decimals ? decimals : 0;
-    const precision = Math.pow(10, actualDecimals);
-    return Number(Math.floor(Math.random() * (max * precision - min * precision + 1) + min * precision) / precision);
-};
-
 export const biasTanhFunction = (x, biasInf, biasA, biasB) => {
     return Math.tanh(Math.pow(x, 1 / biasB) * biasA) * biasInf;
 };
@@ -16,11 +10,6 @@ export const getBiasedRandomNumber = (min, max, decimals = 0, biasSettings) => {
     const randomMix = Math.random();
     const mix = biasTanhFunction(randomMix, biasInf, biasA, biasB);
     return randomNumber * (1 - mix) + bias * mix;
-
-    // const mix = randomMix * influence;
-    // const mix = Math.pow(Math.random() < 0.1 ? 0 : Math.random() - 0.1, 1 / 2.2) * influence
-    // const mix = (1 - Math.pow(Math.random(), influence * 5))
-    // const mix = Math.pow(1 - Math.pow(rand - 1, 2), 1 / 2) * influence
 };
 
 export const getPointByDistanceAndAngle = (fromX, fromY, distance, angle) => {
@@ -33,7 +22,6 @@ export const getPointByDistanceAndAngle = (fromX, fromY, distance, angle) => {
 export const hexToRgbArray = (hex) => {
     return ['0x' + hex[1] + hex[2] | 0, '0x' + hex[3] + hex[4] | 0, '0x' + hex[5] + hex[6] | 0];
 };
-
 export const hexToHslArray = (hex) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 
