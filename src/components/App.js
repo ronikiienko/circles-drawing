@@ -25,10 +25,11 @@ export const App = () => {
     const [appSettings, setAppSettings] = useImmer(() => getItemFromStorage(storageKeys.appSettings) || defaultAppSettings);
     const debouncedSettings = useDebouncedValue(settings, 2000);
     const debouncedAppSettings = useDebouncedValue(appSettings, 2000);
+    const debouncedResolutionMult = useDebouncedValue(appSettings.resolutionMult, 500);
 
     useEffect(() => {
-        makeCanvasHighPPI(window.innerWidth, window.innerHeight, appSettings.resolutionMult);
-    }, [appSettings.resolutionMult]);
+        makeCanvasHighPPI(window.innerWidth, window.innerHeight, debouncedResolutionMult);
+    }, [debouncedResolutionMult]);
 
     // TODO review performance of this way of saving
     useEffect(() => {

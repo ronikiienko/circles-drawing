@@ -17,6 +17,8 @@ let settingsHistory = [];
 export const makeCanvasHighPPI = (width, height, resolutionMult) => {
     const {canvas, ctx} = getCanvas();
 
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
     canvas.width = width * resolutionMult;
     canvas.height = height * resolutionMult;
     canvas.style.width = width + 'px';

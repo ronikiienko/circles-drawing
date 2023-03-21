@@ -1,4 +1,4 @@
-import {Label, Slider, Switch, Text} from '@fluentui/react-components';
+import {Button, Label, Slider, Switch, Text} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
 
@@ -13,6 +13,13 @@ export const Settings = ({appSettings, setAppSettings, classes}) => {
             }
         });
     };
+
+    const resetResolution = () => {
+        setAppSettings(draft => {
+            draft.resolutionMult = window.devicePixelRatio;
+        });
+    };
+
     return (
         <div>
             <Label className={classes.label}>
@@ -54,11 +61,11 @@ export const Settings = ({appSettings, setAppSettings, classes}) => {
                     content={
                         <>
                             Sets resolution multiplier for canvas.
-                            Option will take place ONLY after reload.
-                            Resolution is not 100% accurate
+                            Changing will clear current drawing.
                         </>
                     }
                 />
+                <Button size="small" onClick={resetResolution}>Reset resolution</Button>
             </Label>
         </div>
     );
