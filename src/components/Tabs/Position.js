@@ -215,6 +215,8 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                                 Six leaf: <code>angleRad * Math.sin(angleRad * 1.5)</code>
                                 <br/>
                                 Strange tube: <code>angleRad * 4 * Math.sin(Math.pow(angleRad, 1) * 0.95)</code>
+                                <br/>
+                                Inside-outside: <code>angleRad * Math.sin(Math.pow(angleRad, 1 / 4))</code>
                             </>
                         }/>
                     </Label>
