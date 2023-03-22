@@ -307,7 +307,7 @@ export const draw = async (rawSettings, rawAppSettings, stopButton) => {
 
     // TODO undos GREATLY reduce performance
     if (history.length > maxUndoTimes - 1) history.shift();
-    history.push(ctx.getImageData(0, 0, canvasWidth * highPPICanvasRatio, canvasHeight * highPPICanvasRatio));
+    // history.push(ctx.getImageData(0, 0, canvasWidth * highPPICanvasRatio, canvasHeight * highPPICanvasRatio));
     settingsHistory.push(settings);
 
 
