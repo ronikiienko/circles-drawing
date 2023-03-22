@@ -2,7 +2,6 @@ import {
     Button,
     Divider,
     makeStyles,
-    mergeClasses,
     Overflow,
     OverflowItem,
     shorthands,
@@ -17,8 +16,9 @@ import {
     Delete16Regular,
     Eye16Regular,
     Image16Regular,
+    Stop16Regular,
 } from '@fluentui/react-icons';
-import React from 'react';
+import React, {useRef} from 'react';
 import {useImmer} from 'use-immer';
 import {clear, draw, saveAsImage, undo} from '../draw';
 import {useClickAndSet} from '../hooks/useClickAndSet';
@@ -70,6 +70,7 @@ const useStyles = makeStyles({
         ...shorthands.margin('5px'),
     },
     clearButton: {
+        ...shorthands.margin('5px'),
         float: 'right',
     },
     unhideButton: {
@@ -172,6 +173,8 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
     const [tab, setTab] = useImmer(tabs.number.id);
     const [hidden, setHidden] = useImmer(false);
 
+    const stopButtonRef = useRef(null);
+
     // useKeyboardControls(setHidden);
     const {setDragProp, setClickAndSetProp} = useClickAndSet({setSettings});
 
@@ -249,16 +252,27 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                     <div>
                         <Button
                             className={classes.buttons}
-                            onClick={() => draw(settings, appSettings)}
+                            onClick={() => draw(settings, appSettings, stopButtonRef.current)}
                             icon={<Add16Regular/>}>Layer</Button>
                         <Button
                             className={classes.buttons}
                             onClick={() => undo()} icon={<ArrowUndo16Regular/>}>Undo</Button>
                         <Button
-                            className={mergeClasses(classes.button, classes.clearButton)}
+                            className={classes.clearButton}
                             onClick={clear}
                             appearance="primary"
-                            icon={<Delete16Regular/>}>Clear</Button>
+                            icon={<Delete16Regular/>}
+                        >
+                            Clear
+                        </Button>
+                        <Button
+                            className={classes.clearButton}
+                            ref={stopButtonRef}
+                            appearance="primary"
+                            icon={<Stop16Regular/>}
+                        >
+                            Stop
+                        </Button>
                         <div>
                             <Button
                                 appearance="subtle"

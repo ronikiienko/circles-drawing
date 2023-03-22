@@ -300,7 +300,7 @@ const getRandomizedShapeSettings = (settings, i) => {
     };
 };
 
-export const draw = async (rawSettings, rawAppSettings) => {
+export const draw = async (rawSettings, rawAppSettings, stopButton) => {
     const {ctx} = getCanvas();
     let settings = getTranslatedLayerSettings(rawSettings);
     const appSettings = getTranslatedAppSettings(rawAppSettings);
@@ -315,6 +315,11 @@ export const draw = async (rawSettings, rawAppSettings) => {
 
     const waitInterval = appSettings.waitInterval;
     let lastWaited = 0;
+
+    let stoppedFlag = false;
+    const stopButtonHandler = () => stoppedFlag = true;
+    stopButton.addEventListener('click', stopButtonHandler);
+
     for (let i = 0; i < settings.number.number; i++) {
         if (i - lastWaited === waitInterval) {
             await wait(4);
@@ -322,6 +327,11 @@ export const draw = async (rawSettings, rawAppSettings) => {
         }
         const randomizedShapeSettings = getRandomizedShapeSettings(settings, i);
         drawShape(ctx, randomizedShapeSettings);
+
+        if (stoppedFlag) {
+            stopButton.removeEventListener('click', stopButtonHandler);
+            break;
+        }
     }
 };
 
