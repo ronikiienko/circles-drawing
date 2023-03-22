@@ -20,7 +20,7 @@ import {
 } from '@fluentui/react-icons';
 import React, {useRef} from 'react';
 import {useImmer} from 'use-immer';
-import {clear, saveAsImage, undo} from '../draw';
+import {clear, draw, saveAsImage, undo} from '../draw';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import './Controls.css';
 import {Color} from './Tabs/Color';
@@ -191,7 +191,7 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
         });
     };
 
-    const drawLayer = () => drawLayer(settings, appSettings, stopButtonRef.current);
+    const drawLayer = () => draw(settings, appSettings, stopButtonRef.current);
 
     return (
         <>

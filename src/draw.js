@@ -242,7 +242,6 @@ const getRandomizedShapeSettings = (settings, i) => {
                         distanceFromBias = 0;
                     }
                 }
-                // angleRad * Math.sin(Math.pow(angleRad, 1 / 4))
             }
             distanceFromBias = distanceFromBias * settings.position.biasSpiralMult;
             for (let j = 0; j < settings.position.biasSpiralThickness; j++) {
@@ -289,8 +288,8 @@ const getRandomizedShapeSettings = (settings, i) => {
             lineRounded: settings.shape.lineRounded,
         },
         position: {
-            x: xPosition,
-            y: yPosition,
+            x: Math.floor(xPosition),
+            y: Math.floor(yPosition),
         },
         color: {
             color: color,
@@ -306,9 +305,11 @@ export const draw = async (rawSettings, rawAppSettings, stopButton) => {
     const appSettings = getTranslatedAppSettings(rawAppSettings);
 
 
+    // TODO undos GREATLY reduce performance
     if (history.length > maxUndoTimes - 1) history.shift();
     history.push(ctx.getImageData(0, 0, canvasWidth * highPPICanvasRatio, canvasHeight * highPPICanvasRatio));
     settingsHistory.push(settings);
+
 
     ctx.globalCompositeOperation = settings.color.overlayMode;
     if (!settings.color.blur) ctx.filter = 'none';
