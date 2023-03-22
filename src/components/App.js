@@ -45,7 +45,7 @@ export const App = () => {
             <div className={classes.mainContainer}>
                 <Controls settings={settings} setSettings={setSettings} appSettings={appSettings}
                           setAppSettings={setAppSettings}/>
-                <canvas className={classes.canvas}></canvas>
+                <canvas style={{imageRendering: appSettings.imageRendering}} className={classes.canvas}></canvas>
             </div>
         </FluentProvider>
     );

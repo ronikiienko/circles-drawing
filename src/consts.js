@@ -391,10 +391,16 @@ export const biasPresets = {
     },
 };
 
+export const imageRenderingMap = {
+    auto: 'auto',
+    crispEdges: 'crisp-edges',
+    pixelated: 'pixelated',
+};
 export const defaultAppSettings = {
     drawingSpeed: 0.25,
     darkMode: true,
     resolutionMult: window.devicePixelRatio,
+    imageRendering: imageRenderingMap.auto,
 };
 
 
