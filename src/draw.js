@@ -145,7 +145,7 @@ const getTranslatedLayerSettings = (rawSettings) => {
             glow: parseFloat(rawSettings.color.glow) * 100,
             overlayMode: rawSettings.color.overlayMode,
             blur: actualBlur,
-            blurRand: Math.pow(parseFloat(rawSettings.color.blurRand) + 1, 3),
+            blurRand: Math.pow(parseFloat(rawSettings.color.blurRand) + 1, 3) - 1,
         },
     };
 };
@@ -159,6 +159,7 @@ const getTranslatedAppSettings = (rawSettings) => {
 const getRandomizedShapeSettings = (settings, i) => {
     let color;
     const transp = settings.color.transp + getBiasedRandomNumber(-settings.color.transpRand, settings.color.transpRand, 2);
+    console.log('hello', settings.color.blurRand);
     const blur = !settings.color.blur ? 0 : settings.color.blur + getBiasedRandomNumber(-settings.color.blurRand, settings.color.blurRand);
     let xPosition;
     let yPosition;
@@ -311,6 +312,7 @@ export const draw = async (rawSettings, rawAppSettings) => {
     settingsHistory.push(settings);
 
     ctx.globalCompositeOperation = settings.color.overlayMode;
+    if (!settings.color.blur) ctx.filter = ``;
 
     const waitInterval = appSettings.waitInterval;
     let lastWaited = 0;
