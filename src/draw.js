@@ -1,5 +1,5 @@
 import FileSaver from 'file-saver';
-import {biasSpiralTypes, biasTypes, highPPICanvasRatio, maxUndoTimes} from './consts';
+import {biasSpiralTypes, biasTypes, highPPICanvasRatio} from './consts';
 import {
     getBiasedRandomNumber,
     getPointByDistanceAndAngle,
@@ -300,6 +300,15 @@ const getRandomizedShapeSettings = (settings, i) => {
     };
 };
 
+// setTimeout(() => {
+//     console.log('aaaaaaaaadin');
+//     const {ctx} = getCanvas();
+//     for (let i = 0; i < 100; i++) {
+//         console.log(i, 'adding to history');
+//         history.push(ctx.getImageData(0, 0, canvasWidth * highPPICanvasRatio, canvasHeight * highPPICanvasRatio));
+//     }
+// }, 3000)
+
 export const draw = async (rawSettings, rawAppSettings, stopButton) => {
     const {ctx} = getCanvas();
     let settings = getTranslatedLayerSettings(rawSettings);
@@ -307,11 +316,11 @@ export const draw = async (rawSettings, rawAppSettings, stopButton) => {
 
 
     // TODO undos reduce performance
-    console.time('b');
-    if (history.length > maxUndoTimes - 1) history.shift();
-    history.push(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
-    settingsHistory.push(settings);
-    console.timeEnd('b');
+    // console.time('b');
+    // if (history.length > maxUndoTimes - 1) history.shift();
+    // history.push(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
+    // settingsHistory.push(settings);
+    // console.timeEnd('b');
 
 
     ctx.globalCompositeOperation = settings.color.overlayMode;
