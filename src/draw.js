@@ -153,6 +153,7 @@ const getTranslatedLayerSettings = (rawSettings) => {
 const getTranslatedAppSettings = (rawSettings) => {
     return {
         waitInterval: Math.trunc(Math.pow(parseFloat(rawSettings.drawingSpeed) + 1, 10)),
+        resolutionMult: rawSettings.resolutionMult,
     };
 };
 
@@ -305,10 +306,12 @@ export const draw = async (rawSettings, rawAppSettings, stopButton) => {
     const appSettings = getTranslatedAppSettings(rawAppSettings);
 
 
-    // TODO undos GREATLY reduce performance
+    // TODO undos reduce performance
+    console.time('b');
     if (history.length > maxUndoTimes - 1) history.shift();
-    // history.push(ctx.getImageData(0, 0, canvasWidth * highPPICanvasRatio, canvasHeight * highPPICanvasRatio));
+    history.push(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
     settingsHistory.push(settings);
+    console.timeEnd('b');
 
 
     ctx.globalCompositeOperation = settings.color.overlayMode;
