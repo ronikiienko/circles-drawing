@@ -65,6 +65,9 @@ export const layerPresets = {
             transpRand: '0.2',
             glow: '0',
             overlayMode: 'source-over',
+            blurOn: false,
+            blur: '0',
+            blurRand: '0',
         },
     },
     // solidBg: {
@@ -342,6 +345,9 @@ export const getPreset = (preset) => {
             transp: preset.color?.transp || defaultPreset.color.transp,
             transpRand: preset.color?.transpRand || defaultPreset.color.transpRand,
             overlayMode: preset.color?.overlayMode || defaultPreset.color.overlayMode,
+            blurOn: preset.color?.blurOn || defaultPreset.color.blurOn,
+            blur: preset.color?.blur || defaultPreset.color.blur,
+            blurRand: preset.color?.blurRand || defaultPreset.color.blurRand,
         },
     };
 };

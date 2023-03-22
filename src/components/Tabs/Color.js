@@ -1,7 +1,8 @@
-import {Label, Link, Select, Slider} from '@fluentui/react-components';
+import {Label, Link, Select, Slider, Switch} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
 import {overlayModes} from '../../consts';
+import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
 
 export const Color = ({settings, handleChange, classes}) => {
@@ -99,6 +100,44 @@ export const Color = ({settings, handleChange, classes}) => {
                     </>
                 }/>
             </Label>
+            <br/>
+            <div className={classes.row}>
+                <Label className={classes.label}>
+                    Blur on:
+                    <Switch
+                        id="color-blurOn"
+                        size="small"
+                        checked={settings.color.blurOn}
+                        onChange={handleChange}
+                    />
+                </Label>
+                <ConditionalPanel active={settings.color.blurOn}>
+                    <Label className={classes.label}>
+                        Blur:
+                        <Slider
+                            className={classes.slider}
+                            min={0}
+                            max={1}
+                            step={0.05}
+                            value={settings.color.blur}
+                            onChange={handleChange}
+                            id="color-blur"
+                        />
+                    </Label>
+                    <Label className={classes.label}>
+                        Blur rand:
+                        <Slider
+                            className={classes.slider}
+                            min={0}
+                            max={1}
+                            step={0.05}
+                            value={settings.color.blurRand}
+                            onChange={handleChange}
+                            id="color-blurRand"
+                        />
+                    </Label>
+                </ConditionalPanel>
+            </div>
         </>
     );
 };

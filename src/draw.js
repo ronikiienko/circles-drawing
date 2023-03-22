@@ -36,6 +36,7 @@ const getCanvas = () => {
 };
 
 const drawShape = (ctx, settings) => {
+    if (settings.color.blur) ctx.filter = `blur(${settings.color.blur}px)`;
     ctx.shadowBlur = settings.color.glow;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
@@ -95,7 +96,8 @@ const getTranslatedLayerSettings = (rawSettings) => {
     // reused values
     const size = Math.pow(parseFloat(rawSettings.size.size) + 1, 7) * 2;
     const transp = parseFloat(rawSettings.color.transp);
-
+    const blur = parseFloat(rawSettings.color.blur);
+    const actualBlur = rawSettings.color.blurOn ? Math.pow(blur + 1, 4) - 1 : 0;
     return {
         size: {
             size: size,
@@ -142,6 +144,8 @@ const getTranslatedLayerSettings = (rawSettings) => {
             transpRand: parseFloat(rawSettings.color.transpRand) * transp,
             glow: parseFloat(rawSettings.color.glow) * 100,
             overlayMode: rawSettings.color.overlayMode,
+            blur: actualBlur,
+            blurRand: Math.pow(parseFloat(rawSettings.color.blurRand) + 1, 3),
         },
     };
 };
@@ -155,6 +159,7 @@ const getTranslatedAppSettings = (rawSettings) => {
 const getRandomizedShapeSettings = (settings, i) => {
     let color;
     const transp = settings.color.transp + getBiasedRandomNumber(-settings.color.transpRand, settings.color.transpRand, 2);
+    const blur = !settings.color.blur ? 0 : settings.color.blur + getBiasedRandomNumber(-settings.color.blurRand, settings.color.blurRand);
     let xPosition;
     let yPosition;
     switch (settings.position.biasType) {
@@ -290,6 +295,7 @@ const getRandomizedShapeSettings = (settings, i) => {
         color: {
             color: color,
             glow: settings.color.glow,
+            blur: blur,
         },
     };
 };
