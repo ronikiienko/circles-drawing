@@ -20,7 +20,7 @@ import {
 } from '@fluentui/react-icons';
 import React, {useRef} from 'react';
 import {useImmer} from 'use-immer';
-import {clear, draw, saveAsImage, undo} from '../draw';
+import {clear, saveAsImage, undo} from '../draw';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import './Controls.css';
 import {Color} from './Tabs/Color';
@@ -191,6 +191,8 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
         });
     };
 
+    const drawLayer = () => drawLayer(settings, appSettings, stopButtonRef.current);
+
     return (
         <>
             <div id="controls" style={{opacity: `${hidden ? 0 : 1}`, transition: 'opacity 200ms ease-in-out'}}
@@ -252,7 +254,7 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                     <div>
                         <Button
                             className={classes.buttons}
-                            onClick={() => draw(settings, appSettings, stopButtonRef.current)}
+                            onClick={drawLayer}
                             icon={<Add16Regular/>}>Layer</Button>
                         <Button
                             className={classes.buttons}
