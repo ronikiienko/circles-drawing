@@ -20,7 +20,7 @@ import {
 } from '@fluentui/react-icons';
 import React, {useRef} from 'react';
 import {useImmer} from 'use-immer';
-import {clear, draw, saveAsImage, undo} from '../draw';
+import {clear, drawLayer, saveAsImage, stopDrawing, undo} from '../drawing/draw';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import './Controls.css';
 import {Color} from './Tabs/Color';
@@ -191,7 +191,6 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
         });
     };
 
-    const drawLayer = () => draw(settings, appSettings, stopButtonRef.current);
 
     return (
         <>
@@ -254,11 +253,12 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                     <div>
                         <Button
                             className={classes.buttons}
-                            onClick={drawLayer}
-                            icon={<Add16Regular/>}>Layer</Button>
+                            onClick={() => drawLayer(settings, appSettings)}
+                            icon={<Add16Regular/>}
+                        >Layer</Button>
                         <Button
                             className={classes.buttons}
-                            onClick={() => undo()} icon={<ArrowUndo16Regular/>}>Undo</Button>
+                            onClick={undo} icon={<ArrowUndo16Regular/>}>Undo</Button>
                         <Button
                             className={classes.clearButton}
                             onClick={clear}
@@ -272,6 +272,7 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                             ref={stopButtonRef}
                             appearance="primary"
                             icon={<Stop16Regular/>}
+                            onClick={stopDrawing}
                         >
                             Stop
                         </Button>
@@ -280,7 +281,7 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                                 appearance="subtle"
                                 className={classes.buttons}
                                 size="small"
-                                onClick={saveAsImage}
+                                onClick={() => saveAsImage(false)}
                                 icon={<Image16Regular/>}>Save jpeg</Button>
                             <Button
                                 appearance="subtle"

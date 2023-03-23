@@ -1,16 +1,5 @@
-export const biasTypes = {
-    rectangular: 'rectangular',
-    radial: 'radial',
-    spiral: 'spiral',
-};
+import {biasSpiralTypes, biasTypes} from './drawing/sharedConsts';
 
-export const biasSpiralTypes = {
-    basic: 'basic',
-    fourLeaf: 'fourLeaf',
-    reducing: 'reducing',
-    circles: 'circles',
-    custom: 'custom',
-};
 
 export const layerPresets = {
     default: {
@@ -438,12 +427,11 @@ export const overlayModes = [
     'luminosity',
 ];
 
-export const highPPICanvasRatio = window.devicePixelRatio;
 export const coordinateFlagsSize = 30;
-export const maxUndoTimes = 10;
 
 export const storageKeys = {
     layerSettings: 'layerSettings',
     appSettings: 'appSettings',
     shelvedLayerSettings: 'shelvedLayerSettings',
 };
+

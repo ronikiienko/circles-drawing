@@ -1,6 +1,6 @@
 import {makeStyles, shorthands} from '@fluentui/react-components';
 import React from 'react';
-import {translateBiasA, translateBiasB} from '../../draw';
+import {translateBiasA, translateBiasB} from '../../drawing/translaters';
 import {biasTanhFunction} from '../../utils';
 
 

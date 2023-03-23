@@ -13,7 +13,8 @@ import {
     Slider,
 } from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
-import {biasPresets, biasSpiralTypes, biasTypes} from '../../consts';
+import {biasPresets} from '../../consts';
+import {biasSpiralTypes, biasTypes} from '../../drawing/sharedConsts';
 import {BiasGraph} from '../Utils/BiasGraph';
 import {ConditionalPanel} from '../Utils/ConditionalPanel';
 

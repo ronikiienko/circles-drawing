@@ -1,41 +1,65 @@
-import FileSaver from 'file-saver';
-import {biasSpiralTypes, biasTypes, highPPICanvasRatio, maxUndoTimes} from './consts';
 import {
     getBiasedRandomNumber,
     getPointByDistanceAndAngle,
-    hexToHslArray,
     turnDegreesToRadians,
     turnRadiansToDegrees,
     wait,
-} from './utils';
+} from '../utils';
+import {biasSpiralTypes, biasTypes, CMD, maxUndoTimes} from './sharedConsts';
+import {getTranslatedAppSettings, getTranslatedLayerSettings} from './translaters';
 
 
+let canvas;
+let ctx;
 let canvasWidth;
 let canvasHeight;
-let history = [];
-let settingsHistory = [];
+
+let drawingStoppedFlag = false;
+
+const history = [];
+
+onmessage = async (event) => {
+    const data = event.data;
+    switch (event.data.cmd) {
+        case CMD.initCanvas: {
+            canvas = data.canvas;
+            ctx = canvas.getContext('2d');
+        }
+            break;
+        case CMD.drawLayer: {
+            draw(data.rawSettings, data.rawAppSettings);
+        }
+            break;
+        case CMD.undo: {
+            undo();
+        }
+            break;
+        case CMD.setCanvasPPI: {
+            makeCanvasHighPPI(data.width, data.height, data.resolutionMult);
+        }
+            break;
+        case CMD.stopDrawing: {
+            drawingStoppedFlag = true;
+        }
+            break;
+        case CMD.clear: {
+            clear();
+        }
+            break;
+    }
+};
+
 export const makeCanvasHighPPI = (width, height, resolutionMult) => {
-    const {canvas, ctx} = getCanvas();
-
-    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
     canvas.width = width * resolutionMult;
     canvas.height = height * resolutionMult;
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
+
     ctx.scale(resolutionMult, resolutionMult);
 
     canvasWidth = width;
     canvasHeight = height;
 };
 
-const getCanvas = () => {
-    const canvas = document.querySelector('canvas');
-    const ctx = canvas.getContext('2d');
-    return {canvas, ctx};
-};
-
-const drawShape = (ctx, settings) => {
+const drawShape = (settings) => {
     if (settings.color.blur) ctx.filter = `blur(${settings.color.blur}px)`;
     ctx.shadowBlur = settings.color.glow;
     ctx.shadowOffsetX = 0;
@@ -80,81 +104,6 @@ const drawShape = (ctx, settings) => {
         ctx.lineTo(settings.position.x, settings.position.y);
         ctx.fill();
     }
-};
-
-export const translateBiasA = (biasA) => {
-    return parseFloat((Math.pow(parseFloat(biasA) + 1, 8) * 0.0390625).toFixed(2));
-    // return parseFloat(biasA) * 10;
-};
-
-export const translateBiasB = (biasB) => {
-    return parseFloat((Math.pow(parseFloat(biasB) + 1, 8) * 0.0390625).toFixed(2));
-    // return parseFloat(biasB) * 10;
-};
-
-const getTranslatedLayerSettings = (rawSettings) => {
-    // reused values
-    const size = Math.pow(parseFloat(rawSettings.size.size) + 1, 7) * 2;
-    const transp = parseFloat(rawSettings.color.transp);
-    const blur = parseFloat(rawSettings.color.blur);
-    const actualBlur = rawSettings.color.blurOn ? Math.pow(blur + 1, 4) - 1 : 0;
-    return {
-        size: {
-            size: size,
-            sizeRand: parseFloat(rawSettings.size.sizeRand) * size * 0.8,
-        },
-        number: {
-            number: parseFloat(rawSettings.number.number),
-        },
-        shape: {
-            shape: rawSettings.shape.shape,
-            lineAngle: parseFloat(rawSettings.shape.lineAngle) * 360,
-            lineAngleRand: parseFloat(rawSettings.shape.lineAngleRand),
-            lineRatio: parseFloat(rawSettings.shape.lineRatio),
-            lineRatioRand: parseFloat(rawSettings.shape.lineRatioRand),
-            lineRounded: rawSettings.shape.lineRounded,
-            lineLookToOn: rawSettings.shape.lineLookToOn,
-            lineLookToX: rawSettings.shape.lineLookToX,
-            lineLookToY: rawSettings.shape.lineLookToY,
-        },
-        position: {
-            startX: parseFloat(rawSettings.position.startX),
-            startY: parseFloat(rawSettings.position.startY),
-            endX: parseFloat(rawSettings.position.endX),
-            endY: parseFloat(rawSettings.position.endY),
-            biasSpiralType: rawSettings.position.biasSpiralType,
-            biasSpiralCustom: rawSettings.position.biasSpiralCustom,
-            biasSpiralThickness: Math.trunc(Math.pow(parseFloat(rawSettings.position.biasSpiralThickness) + 1, 6)),
-            biasSpiralDensity: Math.pow(parseFloat(rawSettings.position.biasSpiralDensity) + 1, 7),
-            biasSpiralSpread: Math.pow(parseFloat(rawSettings.position.biasSpiralSpread) + 1, 7) - 1,
-            biasSpiralAngleRand: parseFloat(rawSettings.position.biasSpiralAngleRand) * 5,
-            biasSpiralMult: Math.pow(parseFloat(rawSettings.position.biasSpiralMult) * 20, 2.3) * 0.05,
-            biasType: rawSettings.position.biasType,
-            biasRadius: Math.pow(Math.pow(rawSettings.position.biasX - rawSettings.position.biasRadiusX, 2) + Math.pow(rawSettings.position.biasY - rawSettings.position.biasRadiusY, 2), 1 / 2),
-            biasX: parseFloat(rawSettings.position.biasX),
-            biasY: parseFloat(rawSettings.position.biasY),
-            biasA: translateBiasA(rawSettings.position.biasA),
-            biasB: translateBiasB(rawSettings.position.biasB),
-            biasInf: parseFloat(rawSettings.position.biasInf),
-        },
-        color: {
-            color: hexToHslArray(rawSettings.color.color),
-            colorRand: Math.pow(parseFloat(rawSettings.color.colorRand) + 1, 5) * 5.6 - 1,
-            transp: transp,
-            transpRand: parseFloat(rawSettings.color.transpRand) * transp,
-            glow: parseFloat(rawSettings.color.glow) * 100,
-            overlayMode: rawSettings.color.overlayMode,
-            blur: actualBlur,
-            blurRand: Math.pow(parseFloat(rawSettings.color.blurRand) + 1, 3) - 1,
-        },
-    };
-};
-
-const getTranslatedAppSettings = (rawSettings) => {
-    return {
-        waitInterval: Math.trunc(Math.pow(parseFloat(rawSettings.drawingSpeed) + 1, 10)),
-        resolutionMult: rawSettings.resolutionMult,
-    };
 };
 
 const getRandomizedShapeSettings = (settings, i) => {
@@ -273,9 +222,9 @@ const getRandomizedShapeSettings = (settings, i) => {
     }
 
     color = `hsla(
-                ${(settings.color.color[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360}, 
-                ${settings.color.color[1]}%, 
-                ${settings.color.color[2]}%, 
+                ${(settings.color.color[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360},
+                ${settings.color.color[1]}%,
+                ${settings.color.color[2]}%,
                 ${transp}
             )`;
     return {
@@ -300,29 +249,12 @@ const getRandomizedShapeSettings = (settings, i) => {
     };
 };
 
-// setTimeout(() => {
-//     console.log('aaaaaaaaadin');
-//     const {ctx} = getCanvas();
-//     for (let i = 0; i < 100; i++) {
-//         console.log(i, 'adding to history');
-//         history.push(ctx.getImageData(0, 0, canvasWidth * highPPICanvasRatio, canvasHeight * highPPICanvasRatio));
-//     }
-// }, 3000)
-
-export const draw = async (rawSettings, rawAppSettings, stopButton) => {
-    const {ctx, canvas} = getCanvas();
+export const draw = async (rawSettings, rawAppSettings) => {
     let settings = getTranslatedLayerSettings(rawSettings);
     const appSettings = getTranslatedAppSettings(rawAppSettings);
 
-
-    // TODO undos reduce performance because after getImageData call, canvas switches to CPU which is much slower for drawing, especially of some effects like blur
-    console.time('b');
     if (history.length > maxUndoTimes - 1) history.shift();
-    console.log(history);
     history.push(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
-    settingsHistory.push(settings);
-    console.timeEnd('b');
-
 
     ctx.globalCompositeOperation = settings.color.overlayMode;
     if (!settings.color.blur) ctx.filter = 'none';
@@ -330,47 +262,30 @@ export const draw = async (rawSettings, rawAppSettings, stopButton) => {
     const waitInterval = appSettings.waitInterval;
     let lastWaited = 0;
 
-    let stoppedFlag = false;
-    const stopButtonHandler = () => stoppedFlag = true;
-    stopButton.addEventListener('click', stopButtonHandler);
-
     for (let i = 0; i < settings.number.number; i++) {
         if (i - lastWaited === waitInterval) {
             await wait(4);
             lastWaited = i;
         }
         const randomizedShapeSettings = getRandomizedShapeSettings(settings, i);
-        drawShape(ctx, randomizedShapeSettings);
+        drawShape(randomizedShapeSettings);
 
-        if (stoppedFlag) {
-            stopButton.removeEventListener('click', stopButtonHandler);
+        if (drawingStoppedFlag) {
+            drawingStoppedFlag = false;
             break;
         }
     }
 };
 
 export const undo = async () => {
-    console.log(history.length);
-    console.log(canvasHeight * highPPICanvasRatio * canvasWidth * highPPICanvasRatio * 4 * 10 / 1000000);
     if (!history.length) return;
-    const {ctx} = getCanvas();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     ctx.putImageData(history[history.length - 1], 0, 0);
     history.pop();
 };
 
 export const clear = () => {
-    const {ctx} = getCanvas();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-};
-
-export const saveAsImage = (png) => {
-    const {canvas} = getCanvas();
-    const type = png ? '' : 'image/jpeg';
-    const fileExt = png ? '.png' : '.jpeg';
-    const dataUrl = canvas.toDataURL(type);
-    FileSaver.saveAs(dataUrl, `drawing${Date.now()}${fileExt}`);
-    console.log('hi');
 };
 
 // TODO add elipse shape
