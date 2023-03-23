@@ -315,10 +315,9 @@ export const draw = async (rawSettings, rawAppSettings, stopButton) => {
     const appSettings = getTranslatedAppSettings(rawAppSettings);
 
 
-    // TODO undos reduce performance
+    // TODO undos reduce performance because after getImageData call, canvas switches to CPU which is much slower for drawing, especially of some effects like blur
     console.time('b');
     if (history.length > maxUndoTimes - 1) history.shift();
-    // history.push(await createImageBitmap(canvas, 0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
     console.log(history);
     history.push(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
     settingsHistory.push(settings);
@@ -356,7 +355,6 @@ export const undo = async () => {
     if (!history.length) return;
     const {ctx} = getCanvas();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    // ctx.drawImage(history[history.length - 1], 0, 0, canvasWidth, canvasHeight);
     ctx.putImageData(history[history.length - 1], 0, 0);
     history.pop();
 };
