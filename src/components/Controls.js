@@ -258,7 +258,7 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                         >Layer</Button>
                         <Button
                             className={classes.buttons}
-                            onClick={undo} icon={<ArrowUndo16Regular/>}>Undo</Button>
+                            onClick={() => undo(appSettings)} icon={<ArrowUndo16Regular/>}>Undo</Button>
                         <Button
                             className={classes.clearButton}
                             onClick={clear}

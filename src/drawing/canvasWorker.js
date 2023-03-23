@@ -1,3 +1,4 @@
+import {getLastState, setLastState} from '../consts/db';
 import {CMD, maxUndoTimes} from '../consts/sharedConsts';
 import {getBiasedRandomNumber, getPointByDistanceAndAngle, wait} from '../utils';
 import {getRandomizedShapeSettings, getTranslatedAppSettings, getTranslatedLayerSettings} from './translaters';
@@ -18,6 +19,9 @@ onmessage = async (event) => {
         case CMD.initCanvas: {
             canvas = data.canvas;
             ctx = canvas.getContext('2d');
+            const lastState = await getLastState();
+            console.log(lastState);
+            if (lastState) ctx.putImageData(await getLastState(), 0, 0);
         }
             break;
         case CMD.drawLayer: {
@@ -25,7 +29,7 @@ onmessage = async (event) => {
         }
             break;
         case CMD.undo: {
-            undo();
+            undo(data.rawAppSettings);
         }
             break;
         case CMD.setCanvasPPI: {
@@ -42,23 +46,6 @@ onmessage = async (event) => {
             break;
     }
 };
-
-// const db = new Dexie("history")
-//
-// db.version(1).stores({
-//     history: '++ind'
-// })
-//
-// export const pushToHistory = (data) => {
-//     return db.table('history').put(data)
-// }
-//
-// export const getUndo = () => {
-//     return db.table('history').orderBy('ind').last()
-// }
-//
-// getUndo()
-//     .then(value => console.log(value))
 
 export const makeCanvasHighPPI = (width, height, resolutionMult) => {
     canvas.width = width * resolutionMult;
@@ -144,13 +131,15 @@ export const drawLayer = async (rawSettings, rawAppSettings) => {
             break;
         }
     }
+    setLastState(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
 };
 
-export const undo = async () => {
+export const undo = async (rawAppSettings) => {
     if (!history.length) return;
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     ctx.putImageData(history[history.length - 1], 0, 0);
     history.pop();
+    setLastState(ctx.getImageData(0, 0, canvasWidth * rawAppSettings.resolutionMult, canvasHeight * rawAppSettings.resolutionMult));
 };
 
 export const clear = () => {
