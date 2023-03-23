@@ -1,5 +1,5 @@
 import React from 'react';
-import {biasTypes} from '../../drawing/sharedConsts';
+import {biasTypes} from '../../consts/sharedConsts';
 import {ConditionalPanel} from './ConditionalPanel';
 import {CoordinateFlag} from './coordinateFlag';
 

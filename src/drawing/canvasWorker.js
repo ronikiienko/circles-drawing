@@ -1,3 +1,4 @@
+import {biasSpiralTypes, biasTypes, CMD, maxUndoTimes} from '../consts/sharedConsts';
 import {
     getBiasedRandomNumber,
     getPointByDistanceAndAngle,
@@ -5,7 +6,6 @@ import {
     turnRadiansToDegrees,
     wait,
 } from '../utils';
-import {biasSpiralTypes, biasTypes, CMD, maxUndoTimes} from './sharedConsts';
 import {getTranslatedAppSettings, getTranslatedLayerSettings} from './translaters';
 
 

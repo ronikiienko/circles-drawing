@@ -1,7 +1,7 @@
 import {Button, Label, Select, Slider, Switch, Text} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
-import {imageRenderingMap} from '../../consts';
+import {imageRenderingMap} from '../../consts/consts';
 
 
 export const Settings = ({appSettings, setAppSettings, classes}) => {

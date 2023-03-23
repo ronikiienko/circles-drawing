@@ -1,5 +1,5 @@
 import {saveAs} from 'file-saver';
-import {CMD} from './sharedConsts';
+import {CMD} from '../consts/sharedConsts';
 
 
 let worker;
@@ -8,7 +8,7 @@ let canvas;
 export const initializeOffscreenCanvas = () => {
     canvas = document.querySelector('canvas');
     worker = new Worker(
-        new URL('worker.js', import.meta.url),
+        new URL('canvasWorker.js', import.meta.url),
         {type: 'module'},
     );
     const canvasWorker = canvas.transferControlToOffscreen();

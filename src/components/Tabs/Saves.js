@@ -1,6 +1,6 @@
 import {Button} from '@fluentui/react-components';
 import React from 'react';
-import {storageKeys} from '../../consts';
+import {storageKeys} from '../../consts/consts';
 import {getItemFromStorage, setItemToStorage} from '../../utils';
 
 

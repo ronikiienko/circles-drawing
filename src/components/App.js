@@ -1,7 +1,7 @@
 import {FluentProvider, makeStyles, teamsDarkTheme, teamsLightTheme, tokens} from '@fluentui/react-components';
 import {useEffect, useRef} from 'react';
 import {useImmer} from 'use-immer';
-import {defaultAppSettings, getPreset, layerPresets, storageKeys} from '../consts';
+import {defaultAppSettings, getPreset, layerPresets, storageKeys} from '../consts/consts';
 import {initializeOffscreenCanvas, setCanvasResolution} from '../drawing/draw';
 import {useDebouncedValue} from '../hooks/useDebouncedValue';
 import {getItemFromStorage, setItemToStorage} from '../utils';

@@ -1,7 +1,7 @@
 import {Label, Link, Select, Slider, Switch} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
-import {overlayModes} from '../../consts';
+import {overlayModes} from '../../consts/consts';
 import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
 

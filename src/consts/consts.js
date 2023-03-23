@@ -1,4 +1,4 @@
-import {biasSpiralTypes, biasTypes} from './drawing/sharedConsts';
+import {biasSpiralTypes, biasTypes} from './sharedConsts';
 
 
 export const layerPresets = {

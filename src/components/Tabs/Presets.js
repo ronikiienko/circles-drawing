@@ -1,6 +1,6 @@
 import {Label, Select} from '@fluentui/react-components';
 import React from 'react';
-import {getPreset, layerPresets} from '../../consts';
+import {getPreset, layerPresets} from '../../consts/consts';
 // import {Button} from './styledElements/Button';
 
 
