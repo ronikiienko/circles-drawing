@@ -1,5 +1,5 @@
 import FileSaver from 'file-saver';
-import {biasSpiralTypes, biasTypes, highPPICanvasRatio} from './consts';
+import {biasSpiralTypes, biasTypes, highPPICanvasRatio, maxUndoTimes} from './consts';
 import {
     getBiasedRandomNumber,
     getPointByDistanceAndAngle,
@@ -310,17 +310,19 @@ const getRandomizedShapeSettings = (settings, i) => {
 // }, 3000)
 
 export const draw = async (rawSettings, rawAppSettings, stopButton) => {
-    const {ctx} = getCanvas();
+    const {ctx, canvas} = getCanvas();
     let settings = getTranslatedLayerSettings(rawSettings);
     const appSettings = getTranslatedAppSettings(rawAppSettings);
 
 
     // TODO undos reduce performance
-    // console.time('b');
-    // if (history.length > maxUndoTimes - 1) history.shift();
-    // history.push(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
-    // settingsHistory.push(settings);
-    // console.timeEnd('b');
+    console.time('b');
+    if (history.length > maxUndoTimes - 1) history.shift();
+    // history.push(await createImageBitmap(canvas, 0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
+    console.log(history);
+    history.push(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
+    settingsHistory.push(settings);
+    console.timeEnd('b');
 
 
     ctx.globalCompositeOperation = settings.color.overlayMode;
@@ -354,6 +356,7 @@ export const undo = async () => {
     if (!history.length) return;
     const {ctx} = getCanvas();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    // ctx.drawImage(history[history.length - 1], 0, 0, canvasWidth, canvasHeight);
     ctx.putImageData(history[history.length - 1], 0, 0);
     history.pop();
 };
