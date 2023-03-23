@@ -1,4 +1,11 @@
-import {hexToHslArray} from '../utils';
+import {biasSpiralTypes, biasTypes} from '../consts/sharedConsts';
+import {
+    getBiasedRandomNumber,
+    getPointByDistanceAndAngle,
+    hexToHslArray,
+    turnDegreesToRadians,
+    turnRadiansToDegrees,
+} from '../utils';
 
 
 export const translateBiasA = (biasA) => {
@@ -73,6 +80,149 @@ export const getTranslatedAppSettings = (rawSettings) => {
     return {
         waitInterval: Math.trunc(Math.pow(parseFloat(rawSettings.drawingSpeed) + 1, 10)),
         resolutionMult: rawSettings.resolutionMult,
+    };
+};
+
+export const getRandomizedShapeSettings = (settings, i) => {
+    let color;
+    const transp = settings.color.transp + getBiasedRandomNumber(-settings.color.transpRand, settings.color.transpRand, 2);
+    const blur = !settings.color.blur ? 0 : settings.color.blur + getBiasedRandomNumber(-settings.color.blurRand, settings.color.blurRand);
+    let xPosition;
+    let yPosition;
+    switch (settings.position.biasType) {
+        case biasTypes.rectangular: {
+            xPosition = getBiasedRandomNumber(
+                settings.position.startX,
+                settings.position.endX,
+                0,
+                {
+                    bias: settings.position.biasX,
+                    biasInf: settings.position.biasInf,
+                    biasA: settings.position.biasA,
+                    biasB: settings.position.biasB,
+                },
+            );
+            yPosition = getBiasedRandomNumber(
+                settings.position.startY,
+                settings.position.endY,
+                0,
+                {
+                    bias: settings.position.biasY,
+                    biasInf: settings.position.biasInf,
+                    biasA: settings.position.biasA,
+                    biasB: settings.position.biasB,
+                },
+            );
+        }
+            break;
+        case biasTypes.radial: {
+            const angle = getBiasedRandomNumber(0, 360);
+
+            const diapason = Math.pow(settings.position.biasRadius, 2);
+
+            const distanceFromBias = getBiasedRandomNumber(
+                0,
+                diapason,
+                0,
+                {
+                    bias: 0,
+                    biasA: settings.position.biasA,
+                    biasB: settings.position.biasB,
+                    biasInf: settings.position.biasInf,
+                },
+            );
+            const {
+                x,
+                y,
+            } = getPointByDistanceAndAngle(settings.position.biasX, settings.position.biasY, Math.pow(distanceFromBias, 1 / 2), angle);
+            xPosition = x;
+            yPosition = y;
+        }
+            break;
+        case biasTypes.spiral: {
+            const spinI = Math.trunc(i / settings.position.biasSpiralThickness);
+            const angle = spinI * settings.position.biasSpiralDensity;
+            const angleRad = turnDegreesToRadians(angle);
+
+            let distanceFromBias;
+            switch (settings.position.biasSpiralType) {
+                case biasSpiralTypes.basic: {
+                    distanceFromBias = Math.pow(angleRad, 1);
+                }
+                    break;
+                case biasSpiralTypes.fourLeaf: {
+                    distanceFromBias = angleRad * Math.sin(angleRad * 2);
+                }
+                    break;
+                case biasSpiralTypes.reducing: {
+                    distanceFromBias = Math.pow(angleRad, 1 / 2) * 20;
+                }
+                    break;
+                case biasSpiralTypes.circles: {
+                    distanceFromBias = angleRad * 4 * Math.cos(Math.pow(angleRad, 1 / 1.2));
+                }
+                    break;
+                case biasSpiralTypes.custom: {
+                    try {
+                        distanceFromBias = eval(String(settings.position.biasSpiralCustom));
+                    } catch (e) {
+                        distanceFromBias = 0;
+                    }
+                }
+            }
+            distanceFromBias = distanceFromBias * settings.position.biasSpiralMult;
+            for (let j = 0; j < settings.position.biasSpiralThickness; j++) {
+                let radius = getBiasedRandomNumber(distanceFromBias - settings.position.biasSpiralSpread, distanceFromBias + settings.position.biasSpiralSpread, 0, {
+                    bias: distanceFromBias,
+                    biasA: settings.position.biasA,
+                    biasB: settings.position.biasB,
+                    biasInf: settings.position.biasInf,
+                });
+                const {
+                    x,
+                    y,
+                } = getPointByDistanceAndAngle(settings.position.biasX, settings.position.biasY, radius, getBiasedRandomNumber(angle - settings.position.biasSpiralAngleRand, angle + settings.position.biasSpiralAngleRand, 2));
+                xPosition = x;
+                yPosition = y;
+            }
+        }
+    }
+
+
+    let lineAngle;
+    if (settings.shape.lineLookToOn) {
+        const lookToXOffset = settings.shape.lineLookToX - xPosition;
+        const lookToYOffset = settings.shape.lineLookToY - yPosition;
+        lineAngle = turnRadiansToDegrees(Math.atan(lookToYOffset / lookToXOffset));
+    } else {
+        lineAngle = settings.shape.lineAngle;
+    }
+
+    color = `hsla(
+                ${(settings.color.color[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360},
+                ${settings.color.color[1]}%,
+                ${settings.color.color[2]}%,
+                ${transp}
+            )`;
+    return {
+        size: {
+            size: settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2),
+        },
+        shape: {
+            shape: settings.shape.shape,
+            lineAngle: lineAngle + getBiasedRandomNumber(-10, 10) * (Math.pow(settings.shape.lineAngleRand + 1, 3) - 1),
+            lineRatio: settings.shape.lineRatio + getBiasedRandomNumber(-1, 1) * 0.2 * settings.shape.lineRatioRand,
+            lineRounded: settings.shape.lineRounded,
+        },
+        position: {
+            x: Math.floor(xPosition),
+            y: Math.floor(yPosition),
+        },
+        color: {
+            color: color,
+            glow: settings.color.glow,
+            blur: blur,
+        },
     };
 };
 
