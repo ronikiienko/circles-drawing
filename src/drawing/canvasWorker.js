@@ -43,6 +43,23 @@ onmessage = async (event) => {
     }
 };
 
+// const db = new Dexie("history")
+//
+// db.version(1).stores({
+//     history: '++ind'
+// })
+//
+// export const pushToHistory = (data) => {
+//     return db.table('history').put(data)
+// }
+//
+// export const getUndo = () => {
+//     return db.table('history').orderBy('ind').last()
+// }
+//
+// getUndo()
+//     .then(value => console.log(value))
+
 export const makeCanvasHighPPI = (width, height, resolutionMult) => {
     canvas.width = width * resolutionMult;
     canvas.height = height * resolutionMult;
@@ -105,6 +122,7 @@ export const drawLayer = async (rawSettings, rawAppSettings) => {
     const appSettings = getTranslatedAppSettings(rawAppSettings);
 
     if (history.length > maxUndoTimes - 1) history.shift();
+    // pushToHistory(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult))
     history.push(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
 
     ctx.globalCompositeOperation = settings.color.overlayMode;
