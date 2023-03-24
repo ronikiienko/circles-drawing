@@ -1,10 +1,9 @@
 import {FluentProvider, makeStyles, teamsDarkTheme, teamsLightTheme, tokens} from '@fluentui/react-components';
 import {useEffect, useRef} from 'react';
-import {useImmer} from 'use-immer';
 import {defaultAppSettings, getPreset, layerPresets, storageKeys, tabs} from '../consts/consts';
 import {initializeOffscreenCanvas, setCanvasResolution} from '../drawing/draw';
 import {useDebouncedValue} from '../hooks/useDebouncedValue';
-import {getItemFromStorage, setItemToStorage} from '../utils';
+import {usePersistedImmer} from '../hooks/usePersistedImmer';
 import './App.css';
 import {Controls} from './Controls';
 
@@ -23,26 +22,11 @@ export const App = () => {
 
     const classes = useStyles();
 
-    const [settings, setSettings] = useImmer(() => getPreset(getItemFromStorage(storageKeys.layerSettings)) || getPreset(layerPresets.default));
-    const [appSettings, setAppSettings] = useImmer(() => getItemFromStorage(storageKeys.appSettings) || defaultAppSettings);
-    const [mainTab, setMainTab] = useImmer(() => getItemFromStorage(storageKeys.mainTab) || tabs.number.id);
-    const debouncedSettings = useDebouncedValue(settings, 2000);
-    const debouncedAppSettings = useDebouncedValue(appSettings, 2000);
+    const [settings, setSettings] = usePersistedImmer(layerPresets.default, storageKeys.layerSettings, getPreset, 1000);
+    const [appSettings, setAppSettings] = usePersistedImmer(defaultAppSettings, storageKeys.appSettings, (appSettings) => appSettings, 1000);
+    const [mainTab, setMainTab] = usePersistedImmer(tabs.number.id, storageKeys.mainTab, (tab) => tab, 0);
+
     const debouncedResolutionMult = useDebouncedValue(appSettings.resolutionMult, 500);
-
-
-    // TODO review performance of this way of saving
-    useEffect(() => {
-        setItemToStorage(storageKeys.layerSettings, debouncedSettings);
-    }, [debouncedSettings]);
-
-    useEffect(() => {
-        setItemToStorage(storageKeys.appSettings, debouncedAppSettings);
-    }, [debouncedAppSettings]);
-
-    useEffect(() => {
-        setItemToStorage(storageKeys.mainTab, mainTab);
-    }, [mainTab]);
 
     useEffect(() => {
         initializeOffscreenCanvas(canvasRef.current);

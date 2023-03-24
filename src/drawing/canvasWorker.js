@@ -20,7 +20,6 @@ onmessage = async (event) => {
             canvas = data.canvas;
             ctx = canvas.getContext('2d');
             const lastState = await getLastState();
-            console.log(lastState);
             if (lastState) ctx.putImageData(await getLastState(), 0, 0);
         }
             break;
