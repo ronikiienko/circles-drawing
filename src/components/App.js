@@ -1,7 +1,7 @@
 import {FluentProvider, makeStyles, teamsDarkTheme, teamsLightTheme, tokens} from '@fluentui/react-components';
 import {useEffect, useRef} from 'react';
 import {useImmer} from 'use-immer';
-import {defaultAppSettings, getPreset, layerPresets, storageKeys} from '../consts/consts';
+import {defaultAppSettings, getPreset, layerPresets, storageKeys, tabs} from '../consts/consts';
 import {initializeOffscreenCanvas, setCanvasResolution} from '../drawing/draw';
 import {useDebouncedValue} from '../hooks/useDebouncedValue';
 import {getItemFromStorage, setItemToStorage} from '../utils';
@@ -25,6 +25,7 @@ export const App = () => {
 
     const [settings, setSettings] = useImmer(() => getPreset(getItemFromStorage(storageKeys.layerSettings)) || getPreset(layerPresets.default));
     const [appSettings, setAppSettings] = useImmer(() => getItemFromStorage(storageKeys.appSettings) || defaultAppSettings);
+    const [mainTab, setMainTab] = useImmer(() => getItemFromStorage(storageKeys.mainTab) || tabs.number.id);
     const debouncedSettings = useDebouncedValue(settings, 2000);
     const debouncedAppSettings = useDebouncedValue(appSettings, 2000);
     const debouncedResolutionMult = useDebouncedValue(appSettings.resolutionMult, 500);
@@ -40,6 +41,10 @@ export const App = () => {
     }, [debouncedAppSettings]);
 
     useEffect(() => {
+        setItemToStorage(storageKeys.mainTab, mainTab);
+    }, [mainTab]);
+
+    useEffect(() => {
         initializeOffscreenCanvas(canvasRef.current);
     }, []);
 
@@ -50,7 +55,8 @@ export const App = () => {
     return (
         <FluentProvider theme={appSettings.darkMode ? teamsDarkTheme : teamsLightTheme}>
             <div className={classes.mainContainer}>
-                <Controls settings={settings} setSettings={setSettings} appSettings={appSettings}
+                <Controls mainTab={mainTab} setMainTab={setMainTab} settings={settings} setSettings={setSettings}
+                          appSettings={appSettings}
                           setAppSettings={setAppSettings}/>
                 <canvas ref={canvasRef} style={{imageRendering: appSettings.imageRendering}}
                         className={classes.canvas}></canvas>

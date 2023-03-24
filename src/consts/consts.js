@@ -433,5 +433,45 @@ export const storageKeys = {
     layerSettings: 'layerSettings',
     appSettings: 'appSettings',
     shelvedLayerSettings: 'shelvedLayerSettings',
+    mainTab: 'mainTab',
+};
+
+export const tabs = {
+    number: {
+        label: 'Number',
+        id: 'tab-button-number',
+    },
+    size: {
+        label: 'Size',
+        id: 'tab-button-size',
+    },
+    shape: {
+        label: 'Shape',
+        id: 'tab-button-shape',
+    },
+    color: {
+        label: 'Color',
+        id: 'tab-button-color',
+    },
+    position: {
+        label: 'Position',
+        id: 'tab-button-position',
+    },
+    presets: {
+        label: 'Presets',
+        id: 'tab-button-presets',
+    },
+    // generation: {
+    //     label: 'Generation',
+    //     id: 'tab-button-generation',
+    // },
+    settings: {
+        label: 'Settings',
+        id: 'tab-button-settings',
+    },
+    saves: {
+        label: 'Saves',
+        id: 'tab-button-saves',
+    },
 };
 

@@ -20,6 +20,7 @@ import {
 } from '@fluentui/react-icons';
 import React, {useRef} from 'react';
 import {useImmer} from 'use-immer';
+import {tabs} from '../consts/consts';
 import {clear, drawLayer, saveAsImage, stopDrawing, undo} from '../drawing/draw';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import './Controls.css';
@@ -128,49 +129,11 @@ const useStylesTabs = makeStyles({
     },
 });
 
-const tabs = {
-    number: {
-        label: 'Number',
-        id: 'tab-button-number',
-    },
-    size: {
-        label: 'Size',
-        id: 'tab-button-size',
-    },
-    shape: {
-        label: 'Shape',
-        id: 'tab-button-shape',
-    },
-    color: {
-        label: 'Color',
-        id: 'tab-button-color',
-    },
-    position: {
-        label: 'Position',
-        id: 'tab-button-position',
-    },
-    presets: {
-        label: 'Presets',
-        id: 'tab-button-presets',
-    },
-    // generation: {
-    //     label: 'Generation',
-    //     id: 'tab-button-generation',
-    // },
-    settings: {
-        label: 'Settings',
-        id: 'tab-button-settings',
-    },
-    saves: {
-        label: 'Saves',
-        id: 'tab-button-saves',
-    },
-};
-export const Controls = ({settings, setSettings, appSettings, setAppSettings}) => {
+
+export const Controls = ({mainTab, setMainTab, settings, setSettings, appSettings, setAppSettings}) => {
     const classes = useStyles();
     const tabsClasses = useStylesTabs();
 
-    const [tab, setTab] = useImmer(tabs.number.id);
     const [hidden, setHidden] = useImmer(false);
 
     const stopButtonRef = useRef(null);
@@ -199,8 +162,8 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                 <Overflow minimumVisible={3}>
                     <TabList
                         className={classes.tabsContainer}
-                        selectedValue={tab}
-                        onTabSelect={(event, data) => setTab(data.value)}
+                        selectedValue={mainTab}
+                        onTabSelect={(event, data) => setMainTab(data.value)}
                     >
                         {Object.values(tabs).map(tab => {
                             return (
@@ -209,42 +172,42 @@ export const Controls = ({settings, setSettings, appSettings, setAppSettings}) =
                                 </OverflowItem>
                             );
                         })}
-                        <TabOverflowMenu tabs={tabs} setTab={setTab}/>
+                        <TabOverflowMenu tabs={tabs} setTab={setMainTab}/>
                     </TabList>
                 </Overflow>
                 <div className={classes.contentContainer}>
                     <div className={classes.inputsContainer}>
-                        <ConditionalPanel active={tab === tabs.number.id}>
+                        <ConditionalPanel active={mainTab === tabs.number.id}>
                             <Number settings={settings} setSettings={setSettings} handleChange={handleChange}
                                     classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs.size.id}>
+                        <ConditionalPanel active={mainTab === tabs.size.id}>
                             <Size settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs.shape.id}>
+                        <ConditionalPanel active={mainTab === tabs.shape.id}>
                             <Shape settings={settings} setClickAndSetProp={setClickAndSetProp}
                                    handleChange={handleChange}
                                    classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs.color.id}>
+                        <ConditionalPanel active={mainTab === tabs.color.id}>
                             <Color settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs.position.id}>
+                        <ConditionalPanel active={mainTab === tabs.position.id}>
                             <Position settings={settings} setSettings={setSettings}
                                       setClickAndSetProp={setClickAndSetProp}
                                       handleChange={handleChange}
                                       classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs.presets.id}>
+                        <ConditionalPanel active={mainTab === tabs.presets.id}>
                             <Presets settings={settings} setSettings={setSettings} classes={tabsClasses}/>
                         </ConditionalPanel>
                         {/*<ConditionalPanel active={tab === tabs.generation.id}>*/}
                         {/*    <Generation settings={settings} setSettings={setSettings} classes={tabsClasses}/>*/}
                         {/*</ConditionalPanel>*/}
-                        <ConditionalPanel active={tab === tabs.settings.id}>
+                        <ConditionalPanel active={mainTab === tabs.settings.id}>
                             <Settings appSettings={appSettings} setAppSettings={setAppSettings} classes={tabsClasses}/>
                         </ConditionalPanel>
-                        <ConditionalPanel active={tab === tabs.saves.id}>
+                        <ConditionalPanel active={mainTab === tabs.saves.id}>
                             <Saves settings={settings} setSettings={setSettings} classes={tabsClasses}/>
                         </ConditionalPanel>
                         <br/>
