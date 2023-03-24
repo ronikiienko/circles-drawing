@@ -41,14 +41,14 @@ const useStyles = makeStyles({
     mainContainer: {
         position: 'absolute',
         top: '10px',
+        left: '10px',
         zIndex: 100,
         backgroundColor: tokens.colorSubtleBackgroundLightAlphaHover,
         width: '600px',
         opacity: 1,
         boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.3)',
         maxWidth: '90%',
-        borderBottomRightRadius: '10px',
-        borderTopRightRadius: '10px',
+        ...shorthands.borderRadius('10px'),
     },
     hidden: {
         opacity: 0,

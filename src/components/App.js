@@ -2,6 +2,7 @@ import {FluentProvider, makeStyles, teamsDarkTheme, teamsLightTheme, tokens} fro
 import {useEffect, useRef} from 'react';
 import {defaultAppSettings, getPreset, layerPresets, storageKeys, tabs} from '../consts/consts';
 import {initializeOffscreenCanvas, setCanvasResolution} from '../drawing/draw';
+import {useDebouncedPersistedImmer} from '../hooks/useDebouncedPersistedImmer';
 import {useDebouncedValue} from '../hooks/useDebouncedValue';
 import {usePersistedImmer} from '../hooks/usePersistedImmer';
 import './App.css';
@@ -22,9 +23,9 @@ export const App = () => {
 
     const classes = useStyles();
 
-    const [settings, setSettings] = usePersistedImmer(layerPresets.default, storageKeys.layerSettings, getPreset, 1000);
-    const [appSettings, setAppSettings] = usePersistedImmer(defaultAppSettings, storageKeys.appSettings, (appSettings) => appSettings, 1000);
-    const [mainTab, setMainTab] = usePersistedImmer(tabs.number.id, storageKeys.mainTab, (tab) => tab, 0);
+    const [settings, setSettings] = useDebouncedPersistedImmer(layerPresets.default, storageKeys.layerSettings, 1000, getPreset);
+    const [appSettings, setAppSettings] = useDebouncedPersistedImmer(defaultAppSettings, storageKeys.appSettings, 1000);
+    const [mainTab, setMainTab] = usePersistedImmer(tabs.number.id, storageKeys.mainTab);
 
     const debouncedResolutionMult = useDebouncedValue(appSettings.resolutionMult, 500);
 
