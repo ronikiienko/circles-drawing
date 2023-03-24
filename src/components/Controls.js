@@ -23,6 +23,7 @@ import {useImmer} from 'use-immer';
 import {tabs} from '../consts/consts';
 import {clear, drawLayer, saveAsImage, stopDrawing, undo} from '../drawing/draw';
 import {useClickAndSet} from '../hooks/useClickAndSet';
+import {useResizer} from '../hooks/useResizer';
 import './Controls.css';
 import {Color} from './Tabs/Color';
 import {Number} from './Tabs/Number';
@@ -34,20 +35,21 @@ import {Shape} from './Tabs/Shape';
 import {Size} from './Tabs/Size';
 import {ConditionalPanel} from './Utils/ConditionalPanel';
 import {CoordinateFlags} from './Utils/CoordinateFlags';
+import {Resizer} from './Utils/Resizer';
 import {TabOverflowMenu} from './Utils/TabOverflowMenu';
 
 
 const useStyles = makeStyles({
     mainContainer: {
+        ...shorthands.overflow('hidden', 'hidden'),
         position: 'absolute',
         top: '10px',
         left: '10px',
-        zIndex: 100,
+        zIndex: 1,
         backgroundColor: tokens.colorSubtleBackgroundLightAlphaHover,
         width: '600px',
         opacity: 1,
         boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.3)',
-        maxWidth: '90%',
         ...shorthands.borderRadius('10px'),
     },
     hidden: {
@@ -78,7 +80,7 @@ const useStyles = makeStyles({
         position: 'fixed',
         right: '5px',
         top: '5px',
-        zIndex: 1000,
+        zIndex: 10,
     },
     inputsContainer: {
         overflowY: 'auto',
@@ -91,6 +93,10 @@ const useStyles = makeStyles({
         ...shorthands.overflow('hidden'),
         paddingInline: '40px',
         paddingBottom: '20px',
+    },
+    footer: {
+        // position: 'absolute',
+        // bottom: '0'
     },
 });
 
@@ -134,6 +140,8 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
     const classes = useStyles();
     const tabsClasses = useStylesTabs();
 
+    const containerRef = useRef(null);
+
     const [hidden, setHidden] = useImmer(false);
 
     const stopButtonRef = useRef(null);
@@ -154,11 +162,17 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
         });
     };
 
+    const handleResize = useResizer(containerRef);
 
     return (
         <>
-            <div id="controls" style={{opacity: `${hidden ? 0 : 1}`, transition: 'opacity 200ms ease-in-out'}}
-                 className={classes.mainContainer}>
+            <div
+                ref={containerRef}
+                id="controls"
+                style={{opacity: `${hidden ? 0 : 1}`, transition: 'opacity 200ms ease-in-out'}}
+                className={classes.mainContainer}
+            >
+                <Resizer onResize={handleResize}/>
                 <Overflow minimumVisible={3}>
                     <TabList
                         className={classes.tabsContainer}
@@ -212,8 +226,8 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         </ConditionalPanel>
                         <br/>
                     </div>
-                    <Divider className={classes.divider}>Actions</Divider>
-                    <div>
+                    <div className={classes.footer}>
+                        <Divider className={classes.divider}>Actions</Divider>
                         <Button
                             className={classes.buttons}
                             onClick={() => drawLayer(settings, appSettings)}
