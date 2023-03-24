@@ -33,6 +33,10 @@ import {TabOverflowMenu} from './Utils/TabOverflowMenu';
 
 const useStyles = makeStyles({
     mainContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        ...shorthands.flex(1),
+        justifyContent: 'space-between',
         ...shorthands.overflow('hidden', 'hidden'),
         position: 'absolute',
         top: '10px',
@@ -43,17 +47,33 @@ const useStyles = makeStyles({
         opacity: 1,
         boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.3)',
         ...shorthands.borderRadius('10px'),
-        minHeight: '200px',
+        minHeight: '300px',
         minWidth: '200px',
+        maxWidth: '95%',
     },
-    hidden: {
-        opacity: 0,
+
+    header: {},
+    content: {
+        '::-webkit-scrollbar-thumb': {
+            backgroundColor: tokens.colorScrollbarOverlay,
+            ...shorthands.borderRadius('30px'),
+        },
+        '::-webkit-scrollbar': {
+            width: '5px',
+            height: '5px',
+        },
+        '@media (max-width: 1250px)': {},
+        scrollbarWidth: '40px',
+        overflowY: 'auto',
+        marginInline: '30px',
+        flexGrow: '1',
     },
-    tabsContainer: {
-        display: 'flex',
-        justifyContent: 'center',
+    footer: {
+        paddingInline: '30px',
         marginBottom: '10px',
     },
+
+
     divider: {
         marginBlock: '5px',
         '::before': {
@@ -62,6 +82,9 @@ const useStyles = makeStyles({
         '::after': {
             ...shorthands.borderColor(tokens.colorNeutralForegroundDisabled),
         },
+    },
+    hidden: {
+        opacity: 0,
     },
     buttons: {
         ...shorthands.margin('5px'),
@@ -76,22 +99,12 @@ const useStyles = makeStyles({
         top: '5px',
         zIndex: 10,
     },
-    inputsContainer: {
-        overflowY: 'auto',
-        overflowX: 'auto',
-        height: '200px',
-        maxHeight: '200px',
+    tabsContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginBottom: '10px',
     },
-    contentContainer: {
-        // overflow: 'scroll',
-        ...shorthands.overflow('hidden'),
-        paddingInline: '40px',
-        paddingBottom: '20px',
-    },
-    footer: {
-        // position: 'absolute',
-        // bottom: '0'
-    },
+
 });
 
 const useStylesTabs = makeStyles({
@@ -121,12 +134,7 @@ const useStylesTabs = makeStyles({
         marginTop: '3px',
         marginBottom: '3px',
     },
-    row: {
-        display: 'inline-flex',
-        alignItems: 'center',
-        marginRight: '10px',
-        marginBottom: '6px',
-    },
+    row: {},
 });
 
 
@@ -167,90 +175,90 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                 className={classes.mainContainer}
             >
                 <Resizer onResize={handleResize}/>
-                <Overflow minimumVisible={3}>
-                    <TabList
-                        className={classes.tabsContainer}
-                        selectedValue={mainTab}
-                        onTabSelect={(event, data) => setMainTab(data.value)}
-                    >
-                        {Object.values(tabs).map(tab => {
-                            return (
-                                <OverflowItem key={tab.id} id={tab.id}>
-                                    <Tab value={tab.id}>{tab.label}</Tab>
-                                </OverflowItem>
-                            );
-                        })}
-                        <TabOverflowMenu tabs={tabs} setTab={setMainTab}/>
-                    </TabList>
-                </Overflow>
-                <div className={classes.contentContainer}>
-                    <div className={classes.inputsContainer}>
-                        <ConditionalPanel active={mainTab === tabs.number.id}>
-                            <Number settings={settings} setSettings={setSettings} handleChange={handleChange}
-                                    classes={tabsClasses}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={mainTab === tabs.size.id}>
-                            <Size settings={settings} handleChange={handleChange} classes={tabsClasses}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={mainTab === tabs.shape.id}>
-                            <Shape settings={settings} setClickAndSetProp={setClickAndSetProp}
-                                   handleChange={handleChange}
-                                   classes={tabsClasses}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={mainTab === tabs.color.id}>
-                            <Color settings={settings} handleChange={handleChange} classes={tabsClasses}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={mainTab === tabs.position.id}>
-                            <Position settings={settings} setSettings={setSettings}
-                                      setClickAndSetProp={setClickAndSetProp}
-                                      handleChange={handleChange}
-                                      classes={tabsClasses}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={mainTab === tabs.presets.id}>
-                            <Presets settings={settings} setSettings={setSettings} classes={tabsClasses}/>
-                        </ConditionalPanel>
-                        {/*<ConditionalPanel active={tab === tabs.generation.id}>*/}
-                        {/*    <Generation settings={settings} setSettings={setSettings} classes={tabsClasses}/>*/}
-                        {/*</ConditionalPanel>*/}
-                        <ConditionalPanel active={mainTab === tabs.settings.id}>
-                            <Settings appSettings={appSettings} setAppSettings={setAppSettings} classes={tabsClasses}/>
-                        </ConditionalPanel>
-                        <ConditionalPanel active={mainTab === tabs.saves.id}>
-                            <Saves settings={settings} setSettings={setSettings} classes={tabsClasses}/>
-                        </ConditionalPanel>
-                        <br/>
-                    </div>
-                    <div className={classes.footer}>
-                        <Divider className={classes.divider}>Actions</Divider>
-                        <Button
-                            className={classes.buttons}
-                            onClick={() => drawLayer(settings, appSettings)}
-                            icon={<Add16Regular/>}
-                        >Layer</Button>
-                        <Button
-                            className={classes.buttons}
-                            onClick={() => undo(appSettings)} icon={<ArrowUndo16Regular/>}>Undo</Button>
-                        <Button
-                            className={classes.clearButton}
-                            onClick={clear}
-                            appearance="primary"
-                            icon={<Delete16Regular/>}
+                <div className={classes.header}>
+                    <Overflow minimumVisible={3}>
+                        <TabList
+                            className={classes.tabsContainer}
+                            selectedValue={mainTab}
+                            onTabSelect={(event, data) => setMainTab(data.value)}
                         >
-                            Clear
-                        </Button>
-                        <Button
-                            className={classes.clearButton}
-                            ref={stopButtonRef}
-                            appearance="primary"
-                            icon={<Stop16Regular/>}
-                            onClick={stopDrawing}
-                        >
-                            Stop
-                        </Button>
-                    </div>
+                            {Object.values(tabs).map(tab => {
+                                return (
+                                    <OverflowItem key={tab.id} id={tab.id}>
+                                        <Tab value={tab.id}>{tab.label}</Tab>
+                                    </OverflowItem>
+                                );
+                            })}
+                            <TabOverflowMenu tabs={tabs} setTab={setMainTab}/>
+                        </TabList>
+                    </Overflow>
                 </div>
-                <CoordinateFlags settings={settings} setDragProp={setDragProp}/>
+                <div className={classes.content}>
+                    <ConditionalPanel active={mainTab === tabs.number.id}>
+                        <Number settings={settings} setSettings={setSettings} handleChange={handleChange}
+                                classes={tabsClasses}/>
+                    </ConditionalPanel>
+                    <ConditionalPanel active={mainTab === tabs.size.id}>
+                        <Size settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                    </ConditionalPanel>
+                    <ConditionalPanel active={mainTab === tabs.shape.id}>
+                        <Shape settings={settings} setClickAndSetProp={setClickAndSetProp}
+                               handleChange={handleChange}
+                               classes={tabsClasses}/>
+                    </ConditionalPanel>
+                    <ConditionalPanel active={mainTab === tabs.color.id}>
+                        <Color settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                    </ConditionalPanel>
+                    <ConditionalPanel active={mainTab === tabs.position.id}>
+                        <Position settings={settings} setSettings={setSettings}
+                                  setClickAndSetProp={setClickAndSetProp}
+                                  handleChange={handleChange}
+                                  classes={tabsClasses}/>
+                    </ConditionalPanel>
+                    <ConditionalPanel active={mainTab === tabs.presets.id}>
+                        <Presets settings={settings} setSettings={setSettings} classes={tabsClasses}/>
+                    </ConditionalPanel>
+                    {/*<ConditionalPanel active={tab === tabs.generation.id}>*/}
+                    {/*    <Generation settings={settings} setSettings={setSettings} classes={tabsClasses}/>*/}
+                    {/*</ConditionalPanel>*/}
+                    <ConditionalPanel active={mainTab === tabs.settings.id}>
+                        <Settings appSettings={appSettings} setAppSettings={setAppSettings} classes={tabsClasses}/>
+                    </ConditionalPanel>
+                    <ConditionalPanel active={mainTab === tabs.saves.id}>
+                        <Saves settings={settings} setSettings={setSettings} classes={tabsClasses}/>
+                    </ConditionalPanel>
+                    <br/>
+                </div>
+                <div className={classes.footer}>
+                    <Divider className={classes.divider}>Actions</Divider>
+                    <Button
+                        className={classes.buttons}
+                        onClick={() => drawLayer(settings, appSettings)}
+                        icon={<Add16Regular/>}
+                    >Layer</Button>
+                    <Button
+                        className={classes.buttons}
+                        onClick={() => undo(appSettings)} icon={<ArrowUndo16Regular/>}>Undo</Button>
+                    <Button
+                        className={classes.clearButton}
+                        onClick={clear}
+                        appearance="primary"
+                        icon={<Delete16Regular/>}
+                    >
+                        Clear
+                    </Button>
+                    <Button
+                        className={classes.clearButton}
+                        ref={stopButtonRef}
+                        appearance="primary"
+                        icon={<Stop16Regular/>}
+                        onClick={stopDrawing}
+                    >
+                        Stop
+                    </Button>
+                </div>
             </div>
+            <CoordinateFlags settings={settings} setDragProp={setDragProp}/>
             <Button
                 className={classes.unhideButton}
                 icon={<Eye16Regular/>}
