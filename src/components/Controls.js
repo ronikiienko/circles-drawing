@@ -9,19 +9,11 @@ import {
     TabList,
     tokens,
 } from '@fluentui/react-components';
-import {
-    Add16Regular,
-    ArrowUndo16Regular,
-    Code16Regular,
-    Delete16Regular,
-    Eye16Regular,
-    Image16Regular,
-    Stop16Regular,
-} from '@fluentui/react-icons';
+import {Add16Regular, ArrowUndo16Regular, Delete16Regular, Eye16Regular, Stop16Regular} from '@fluentui/react-icons';
 import React, {useRef} from 'react';
 import {useImmer} from 'use-immer';
 import {tabs} from '../consts/consts';
-import {clear, drawLayer, saveAsImage, stopDrawing, undo} from '../drawing/draw';
+import {clear, drawLayer, stopDrawing, undo} from '../drawing/draw';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import {useResizer} from '../hooks/useResizer';
 import './Controls.css';
@@ -51,6 +43,8 @@ const useStyles = makeStyles({
         opacity: 1,
         boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.3)',
         ...shorthands.borderRadius('10px'),
+        minHeight: '200px',
+        minWidth: '200px',
     },
     hidden: {
         opacity: 0,
@@ -85,8 +79,8 @@ const useStyles = makeStyles({
     inputsContainer: {
         overflowY: 'auto',
         overflowX: 'auto',
-        height: '150px',
-        maxHeight: '150px',
+        height: '200px',
+        maxHeight: '200px',
     },
     contentContainer: {
         // overflow: 'scroll',
@@ -253,26 +247,6 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         >
                             Stop
                         </Button>
-                        <div>
-                            <Button
-                                appearance="subtle"
-                                className={classes.buttons}
-                                size="small"
-                                onClick={() => saveAsImage(false)}
-                                icon={<Image16Regular/>}>Save jpeg</Button>
-                            <Button
-                                appearance="subtle"
-                                className={classes.buttons}
-                                size="small"
-                                onClick={() => saveAsImage(true)}
-                                icon={<Image16Regular/>}>Save png</Button>
-                            <Button
-                                appearance="subtle"
-                                className={classes.buttons}
-                                size="small"
-                                onClick={() => console.log(settings)}
-                                icon={<Code16Regular/>}>Log settings</Button>
-                        </div>
                     </div>
                 </div>
                 <CoordinateFlags settings={settings} setDragProp={setDragProp}/>
