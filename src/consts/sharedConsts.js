@@ -12,6 +12,7 @@ export const biasTypes = {
     rectangular: 'rectangular',
     radial: 'radial',
     spiral: 'spiral',
+    off: 'off',
 };
 export const biasSpiralTypes = {
     basic: 'basic',

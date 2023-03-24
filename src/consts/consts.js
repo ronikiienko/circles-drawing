@@ -31,7 +31,7 @@ export const layerPresets = {
             startY: '0',
             endX: window.innerWidth,
             endY: window.innerHeight,
-            biasType: biasTypes.rectangular, // rectangular radial spiral
+            biasType: biasTypes.off, // rectangular radial spiral
             biasSpiralType: biasSpiralTypes.basic,
             biasSpiralCustom: 'Math.pow(angleRad, 1.2)',
             biasSpiralThickness: 0.5,
@@ -43,9 +43,9 @@ export const layerPresets = {
             biasRadiusY: 200,
             biasX: '100',
             biasY: '100',
-            biasA: 0.1,
-            biasB: 0.1,
-            biasInf: '0',
+            biasA: 0.5,
+            biasB: 0.5,
+            biasInf: 0.5,
         },
         color: {
             color: '#FF00DD',

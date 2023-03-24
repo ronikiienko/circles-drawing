@@ -90,6 +90,11 @@ export const getRandomizedShapeSettings = (settings, i) => {
     let xPosition;
     let yPosition;
     switch (settings.position.biasType) {
+        case biasTypes.off: {
+            xPosition = getBiasedRandomNumber(settings.position.startX, settings.position.endX);
+            yPosition = getBiasedRandomNumber(settings.position.startY, settings.position.endY);
+        }
+            break;
         case biasTypes.rectangular: {
             xPosition = getBiasedRandomNumber(
                 settings.position.startX,
