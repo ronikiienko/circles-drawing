@@ -50,6 +50,7 @@ const useStyles = makeStyles({
         minHeight: '300px',
         minWidth: '200px',
         maxWidth: '95%',
+        height: '300px',
     },
 
     header: {},
@@ -139,14 +140,12 @@ const useStylesTabs = makeStyles({
 
 
 export const Controls = ({mainTab, setMainTab, settings, setSettings, appSettings, setAppSettings}) => {
-    const classes = useStyles();
+    const localClasses = useStyles();
     const tabsClasses = useStylesTabs();
 
     const containerRef = useRef(null);
 
     const [hidden, setHidden] = useImmer(false);
-
-    const stopButtonRef = useRef(null);
 
     // useKeyboardControls(setHidden);
     const {setDragProp, setClickAndSetProp} = useClickAndSet({setSettings});
@@ -172,13 +171,13 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                 ref={containerRef}
                 id="controls"
                 style={{opacity: `${hidden ? 0 : 1}`, transition: 'opacity 200ms ease-in-out'}}
-                className={classes.mainContainer}
+                className={localClasses.mainContainer}
             >
                 <Resizer onResize={handleResize}/>
-                <div className={classes.header}>
+                <div className={localClasses.header}>
                     <Overflow minimumVisible={3}>
                         <TabList
-                            className={classes.tabsContainer}
+                            className={localClasses.tabsContainer}
                             selectedValue={mainTab}
                             onTabSelect={(event, data) => setMainTab(data.value)}
                         >
@@ -193,7 +192,7 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         </TabList>
                     </Overflow>
                 </div>
-                <div className={classes.content}>
+                <div className={localClasses.content}>
                     <ConditionalPanel active={mainTab === tabs.number.id}>
                         <Number settings={settings} setSettings={setSettings} handleChange={handleChange}
                                 classes={tabsClasses}/>
@@ -229,18 +228,18 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                     </ConditionalPanel>
                     <br/>
                 </div>
-                <div className={classes.footer}>
-                    <Divider className={classes.divider}>Actions</Divider>
+                <div className={localClasses.footer}>
+                    <Divider className={localClasses.divider}>Actions</Divider>
                     <Button
-                        className={classes.buttons}
+                        className={localClasses.buttons}
                         onClick={() => drawLayer(settings, appSettings)}
                         icon={<Add16Regular/>}
                     >Layer</Button>
                     <Button
-                        className={classes.buttons}
+                        className={localClasses.buttons}
                         onClick={() => undo(appSettings)} icon={<ArrowUndo16Regular/>}>Undo</Button>
                     <Button
-                        className={classes.clearButton}
+                        className={localClasses.clearButton}
                         onClick={clear}
                         appearance="primary"
                         icon={<Delete16Regular/>}
@@ -248,8 +247,7 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         Clear
                     </Button>
                     <Button
-                        className={classes.clearButton}
-                        ref={stopButtonRef}
+                        className={localClasses.clearButton}
                         appearance="primary"
                         icon={<Stop16Regular/>}
                         onClick={stopDrawing}
@@ -257,10 +255,10 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         Stop
                     </Button>
                 </div>
+                <CoordinateFlags settings={settings} setDragProp={setDragProp}/>
             </div>
-            <CoordinateFlags settings={settings} setDragProp={setDragProp}/>
             <Button
-                className={classes.unhideButton}
+                className={localClasses.unhideButton}
                 icon={<Eye16Regular/>}
                 onClick={() => setHidden(prev => !prev)}
                 appearance="subtle"

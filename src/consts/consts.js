@@ -434,6 +434,8 @@ export const storageKeys = {
     appSettings: 'appSettings',
     shelvedLayerSettings: 'shelvedLayerSettings',
     mainTab: 'mainTab',
+    presetDraftMeta: 'presetDraftMeta',
+    userPresets: 'userPresets',
 };
 
 export const tabs = {
