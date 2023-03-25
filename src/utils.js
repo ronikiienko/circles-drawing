@@ -110,3 +110,7 @@ export const setItemToStorage = (itemName, itemData) => {
         return undefined;
     }
 };
+
+export const parseJSON = (value) => {
+    return value === 'undefined' ? undefined : JSON.parse(value);
+};
