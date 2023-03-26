@@ -1,8 +1,8 @@
 import {biasSpiralTypes, biasTypes} from './sharedConsts';
 
 
-export const layerPresets = {
-    default: {
+export const layerPresets = [
+    {
         preset: {
             id: 'default',
             name: 'Default',
@@ -59,46 +59,46 @@ export const layerPresets = {
             blurRand: '0',
         },
     },
-    // solidBg: {
-    //     preset: {
-    //         id: 'solidBg',
-    //         name: 'Solid background',
-    //         description: 'Big circles for creating solid background!',
-    //     },
-    //     size: {
-    //         size: '1',
-    //         sizeRand: '0',
-    //     },
-    //     number: {
-    //         number: '500',
-    //     },
-    //     shape: {
-    //         shape: 'circle',
-    //         lineAngle: 30 / 360,
-    //         lineAngleRand: 0,
-    //         lineRatio: 0.2,
-    //         lineRounded: false,
-    //         lineRatioRand: 0.2,
-    //         lineLookToOn: false,
-    //         lineLookToX: 100,
-    //         lineLookToY: 100,
-    //     },
-    //     position: {
-    //         startX: '0',
-    //         startY: '0',
-    //         endX: window.innerWidth,
-    //         endY: window.innerHeight,
-    //         overlayMode: 'source-over',
-    //     },
-    //     color: {
-    //         color: '#FFAFFF',
-    //         colorRand: '0.2',
-    //         isFullRand: false,
-    //         transp: '1',
-    //         transpRand: '0',
-    //         glow: '0',
-    //     },
-    // },
+    {
+        preset: {
+            id: 'solidBg',
+            name: 'Solid background',
+            description: 'Big circles for creating solid background!',
+        },
+        size: {
+            size: '1',
+            sizeRand: '0',
+        },
+        number: {
+            number: '500',
+        },
+        shape: {
+            shape: 'circle',
+            lineAngle: 30 / 360,
+            lineAngleRand: 0,
+            lineRatio: 0.2,
+            lineRounded: false,
+            lineRatioRand: 0.2,
+            lineLookToOn: false,
+            lineLookToX: 100,
+            lineLookToY: 100,
+        },
+        position: {
+            startX: 0,
+            startY: 0,
+            endX: window.innerWidth,
+            endY: window.innerHeight,
+            overlayMode: 'source-over',
+        },
+        color: {
+            color: '#FFAFFF',
+            colorRand: '0.2',
+            isFullRand: false,
+            transp: '1',
+            transpRand: '0',
+            glow: '0',
+        },
+    },
     // rain: {
     //     preset: {
     //         id: 'rain',
@@ -277,11 +277,11 @@ export const layerPresets = {
     //         'transpRand': '1',
     //     },
     // },
-};
+];
 
 export const getPreset = (preset) => {
     if (!preset) return false;
-    const defaultPreset = layerPresets.default;
+    const defaultPreset = layerPresets[0];
     return {
         preset: {
             id: preset.preset?.id || defaultPreset.preset.id,

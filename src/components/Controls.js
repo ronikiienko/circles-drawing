@@ -20,7 +20,7 @@ import './Controls.css';
 import {Color} from './Tabs/Color';
 import {Number} from './Tabs/Number';
 import {Position} from './Tabs/Position';
-import {Presets} from './Tabs/Presets';
+import {Presets} from './Tabs/Presets/Presets';
 import {Saves} from './Tabs/Saves';
 import {Settings} from './Tabs/Settings';
 import {Shape} from './Tabs/Shape';
