@@ -1,4 +1,15 @@
-import {Button, Input, Label, makeStyles, Select, shorthands, Textarea, tokens} from '@fluentui/react-components';
+import {
+    Button,
+    Input,
+    Label,
+    makeStyles,
+    mergeClasses,
+    Select,
+    shorthands,
+    Text,
+    Textarea,
+    tokens,
+} from '@fluentui/react-components';
 import {Delete16Regular} from '@fluentui/react-icons';
 import {nanoid} from 'nanoid';
 import React from 'react';
@@ -10,30 +21,25 @@ import {deepCopy} from '../../utils';
 
 const useStyles = makeStyles({
     presetName: {
-        width: '200px',
+        width: '100%',
         marginBlock: '3px',
     },
     presetDescription: {
-        width: '200px',
+        width: '100%',
         marginBlock: '3px',
     },
     verticalLabel: {
         display: 'flex',
         flexDirection: 'column',
-        width: 'fit-content',
         alignItems: 'flex-start',
     },
     savePresetButton: {
         marginTop: '5px',
-        width: '200px',
+        width: '100%',
     },
     presetElementContainer: {
-        ':hover': {
-            backgroundColor: tokens.colorNeutralBackground1Hover,
-        },
         ...shorthands.padding('5px'),
         marginBlock: '5px',
-        marginRight: '10px',
         ...shorthands.border('1px', 'solid'),
         ...shorthands.borderColor(tokens.colorNeutralStroke1),
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
@@ -43,6 +49,9 @@ const useStyles = makeStyles({
     },
     presetElementButton: {
         marginInline: '2px',
+    },
+    selected: {
+        backgroundColor: tokens.colorNeutralForeground2BrandSelected,
     },
 });
 
@@ -107,33 +116,40 @@ export const Presets = ({settings, setSettings, classes}) => {
                     </Select>
                 </Label>
             </div>
-            <Label className={localClasses.verticalLabel}>
-                Preset name:
-                <Input
-                    id="name"
-                    onChange={handlePresetDraftMetaChange}
-                    value={presetDraftMeta.name}
-                    className={localClasses.presetName}
-                    size="small"
-                    type="text"
-                />
-            </Label>
-            <Label className={localClasses.verticalLabel}>
-                Preset description:
-                <Textarea
-                    id="description"
-                    onChange={handlePresetDraftMetaChange}
-                    value={presetDraftMeta.description}
-                    className={localClasses.presetDescription}
-                    size="small"
-                    type="text"
-                />
-            </Label>
-            <Button onClick={handlePresetSave} className={localClasses.savePresetButton}>Save preset</Button>
+            <div className={localClasses.presetCreationContainer}>
+                <Label className={localClasses.verticalLabel}>
+                    Preset name:
+                    <Input
+                        id="name"
+                        onChange={handlePresetDraftMetaChange}
+                        value={presetDraftMeta.name}
+                        className={localClasses.presetName}
+                        size="small"
+                        type="text"
+                    />
+                </Label>
+                <Label className={localClasses.verticalLabel}>
+                    Preset description:
+                    <Textarea
+                        id="description"
+                        onChange={handlePresetDraftMetaChange}
+                        value={presetDraftMeta.description}
+                        className={localClasses.presetDescription}
+                        size="small"
+                        type="text"
+                    />
+                </Label>
+                <Button onClick={handlePresetSave} className={localClasses.savePresetButton}>Save preset</Button>
+            </div>
+            <Text
+                as="h6"
+            >User presets:</Text>
             {userPresets.map((preset, index) => {
                 return (
-                    <span className={localClasses.presetElementContainer} key={preset.preset.id}
-                          title={preset.preset.description}>
+                    <span
+                        className={settings.preset.id === preset.preset.id ? mergeClasses(localClasses.presetElementContainer, localClasses.selected) : localClasses.presetElementContainer}
+                        key={preset.preset.id}
+                        title={preset.preset.description}>
                         <span>{preset.preset.name}</span>
                         <span className={localClasses.presetElementButtons}>
                             <Button

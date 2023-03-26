@@ -68,6 +68,7 @@ const useStyles = makeStyles({
         overflowY: 'auto',
         marginInline: '30px',
         flexGrow: '1',
+        paddingRight: '10px',
     },
     footer: {
         paddingInline: '30px',

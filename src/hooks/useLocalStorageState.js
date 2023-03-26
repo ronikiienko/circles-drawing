@@ -27,6 +27,7 @@ export const useLocalStorageState = (key, defaultValue, options) => {
     const subscriber = useCallback((onStoreChange) => {
         const onChange = (localKey) => {
             if (key === localKey) {
+                console.log('callback');
                 onStoreChange();
             }
         };
@@ -37,6 +38,7 @@ export const useLocalStorageState = (key, defaultValue, options) => {
 
     const getter = () => {
         // TODO called 3 times
+
         const item = localStorage.getItem(key);
 
         if (inMemoryData.has(key)) {
