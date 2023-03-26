@@ -57,7 +57,6 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
             </Label>
             <ConditionalPanel
                 active={settings.position.biasType === biasTypes.rectangular || settings.position.biasType === biasTypes.off}>
-                <br/>
                 <div className={classes.row}>
                     <Label className={classes.label}>
                         Start x:
@@ -83,7 +82,6 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                     </Label>
                     <Button size="small" id="position-start" onClick={setClickAndSetProp}>Click and set</Button>
                 </div>
-                <br/>
                 <div className={classes.row}>
                     <Label className={classes.label}>
                         End x:
@@ -109,7 +107,6 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                     <Button size="small" id="position-end" onClick={setClickAndSetProp}>Click and set</Button>
                 </div>
             </ConditionalPanel>
-            <br/>
             <ConditionalPanel active={settings.position.biasType !== biasTypes.off}>
                 <div className={classes.row}>
                     <Label className={classes.label}>
@@ -136,7 +133,6 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                     </Label>
                     <Button size="small" id="position-bias" onClick={setClickAndSetProp}>Click and set</Button>
                 </div>
-                <br/>
                 <ConditionalPanel active={settings.position.biasType === biasTypes.spiral}>
                     <Label className={classes.label}>
                         Spiral type:

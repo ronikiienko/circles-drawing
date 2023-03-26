@@ -136,7 +136,11 @@ const useStylesTabs = makeStyles({
         marginTop: '3px',
         marginBottom: '3px',
     },
-    row: {},
+    row: {
+        display: 'flex',
+        alignItems: 'center',
+        marginBlock: '5px',
+    },
 });
 
 
@@ -171,7 +175,11 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
             <div
                 ref={containerRef}
                 id="controls"
-                style={{opacity: `${hidden ? 0 : 1}`, transition: 'opacity 200ms ease-in-out'}}
+                style={{
+                    opacity: `${hidden ? 0 : 1}`,
+                    transition: 'opacity 200ms ease-in-out',
+                    display: `${hidden ? 'none' : 'flex'}`,
+                }}
                 className={localClasses.mainContainer}
             >
                 <Resizer onResize={handleResize}/>

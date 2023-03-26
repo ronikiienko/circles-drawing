@@ -66,7 +66,9 @@ export const Presets = ({settings, setSettings, classes}) => {
         });
     };
 
-    const removeUserPreset = (index) => {
+    const removeUserPreset = (event, index) => {
+        // TODO when click remove and then cancel, preset is being chosen
+        event.stopPropagation();
         if (confirm('Are you sure you want to remove preset?') === true) {
             setUserPresets(prevUserPresets => {
                 const newUserPresets = deepCopy(prevUserPresets);

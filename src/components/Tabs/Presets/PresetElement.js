@@ -23,7 +23,7 @@ const useStyles = makeStyles({
         marginInline: '2px',
     },
     selected: {
-        backgroundColor: tokens.colorPaletteGreenBackground1,
+        backgroundColor: tokens.colorNeutralShadowKeyDarker,
     },
     presetDescription: {
         fontSize: tokens.fontSizeBase200,
@@ -56,7 +56,7 @@ export const PresetElement = ({preset, settings, setSettings, removeButton, inde
                                 appearance="transparent"
                                 className={localClasses.presetElementButton}
                                 icon={<Delete48Regular/>}
-                                onClick={() => removeUserPreset(index)}
+                                onClick={(event) => removeUserPreset(event, index)}
                             >
                             </Button>
                         </ConditionalPanel>
