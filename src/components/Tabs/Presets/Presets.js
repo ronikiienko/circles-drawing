@@ -36,7 +36,6 @@ const useStyles = makeStyles({
     savePresetButton: {
         marginTop: '5px',
         width: '100%',
-        marginBottom: '10px',
     },
 });
 
