@@ -1,4 +1,5 @@
 import {Button, makeStyles, mergeClasses, shorthands, tokens} from '@fluentui/react-components';
+import {InfoButton} from '@fluentui/react-components/unstable';
 import {Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {getPreset} from '../../../consts/consts';
@@ -9,6 +10,7 @@ import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 const useStyles = makeStyles({
 
     presetElementContainer: {
+        height: '23px',
         ...shorthands.padding('5px'),
         marginBlock: '5px',
         ...shorthands.border('1px', 'solid'),
@@ -36,6 +38,11 @@ export const PresetElement = ({preset, settings, setSettings, removeButton, inde
                 title={preset.preset.description}
             >
                 <span>{preset.preset.name}</span>
+                <InfoButton
+                    content={
+                        <>{preset.preset.description}</>
+                    }
+                />
                     <span className={localClasses.presetElementButtons}>
                         <ConditionalPanel active={removeButton}>
                             <Button
