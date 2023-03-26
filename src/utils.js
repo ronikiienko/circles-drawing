@@ -114,3 +114,7 @@ export const setItemToStorage = (itemName, itemData) => {
 export const parseJSON = (value) => {
     return value === 'undefined' ? undefined : JSON.parse(value);
 };
+
+export const deepCopy = (value) => {
+    return JSON.parse(JSON.stringify(value));
+};

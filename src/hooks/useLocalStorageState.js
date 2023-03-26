@@ -36,6 +36,7 @@ export const useLocalStorageState = (key, defaultValue, options) => {
     }, [key]);
 
     const getter = () => {
+        // TODO called 3 times
         const item = localStorage.getItem(key);
 
         if (inMemoryData.has(key)) {
@@ -62,14 +63,15 @@ export const useLocalStorageState = (key, defaultValue, options) => {
     const value = useSyncExternalStore(subscriber, getter);
 
     const setState = useCallback((newValue) => {
-        const value = newValue instanceof Function ? newValue(storageValue.current.parsed) : newValue;
+        // TODO review if i can mutate prevValue when calling setState(prev => ...)
+        const newCalculatedValue = newValue instanceof Function ? newValue(storageValue.current.parsed) : newValue;
 
         try {
-            setItemToStorage(key, value);
+            setItemToStorage(key, newCalculatedValue);
 
             inMemoryData.delete(key);
         } catch {
-            inMemoryData.set(key, value);
+            inMemoryData.set(key, newCalculatedValue);
         }
 
         triggerCallbacks(key);
