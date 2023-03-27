@@ -9,6 +9,7 @@ let counter;
 export const useBrush = ({settings, appSettings}) => {
     const isBrushOn = useIsKeyPressed('Space');
     const mousemoveHandler = useCallback((event) => {
+        console.log('mousemove');
         if (!isBrushOn) return;
 
         const brushEventInterval = getTranslatedBrushDensity(settings.brush.brushDensity);
@@ -24,15 +25,21 @@ export const useBrush = ({settings, appSettings}) => {
         drawLayer(rawSettings, appSettings, false);
     }, [isBrushOn, appSettings, settings]);
 
+    // TODO when stop holding space earlier than mouseup, nothing is written to history (fixed by removing mouseup listener from mouseupHandler)
+
     useEffect(() => {
         if (!isBrushOn) return;
 
         const mousedownHandler = () => {
+            console.log('mousedown');
+            window.addEventListener('mouseup', mouseupHandler);
             window.addEventListener('mousemove', mousemoveHandler);
         };
 
         const mouseupHandler = () => {
+            console.log('mouseup');
             window.removeEventListener('mousemove', mousemoveHandler);
+            window.removeEventListener('mouseup', mouseupHandler);
             addToHistory(appSettings);
         };
 
@@ -44,7 +51,6 @@ export const useBrush = ({settings, appSettings}) => {
             console.log('removing listeners');
             window.removeEventListener('mousemove', mousemoveHandler);
             window.removeEventListener('mousedown', mousedownHandler);
-            window.removeEventListener('mouseup', mouseupHandler);
         };
 
     }, [appSettings, isBrushOn, mousemoveHandler]);
