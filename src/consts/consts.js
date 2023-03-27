@@ -62,7 +62,6 @@ export const layerPresets = [
             brushOn: false,
             brushX: 0,
             brushY: 0,
-            brushDensity: 0.5,
         },
     },
     // {
@@ -285,7 +284,7 @@ export const layerPresets = [
     // },
 ];
 
-export const getPreset = (preset) => {
+export const getLayerSettings = (preset) => {
     if (!preset) return false;
     const defaultPreset = layerPresets[0];
     return {
@@ -348,7 +347,6 @@ export const getPreset = (preset) => {
             brushOn: preset.brush?.brushOn || defaultPreset.brush.brushOn,
             brushX: preset.brush?.brushX || defaultPreset.brush.brushX,
             brushY: preset.brush?.brushY || defaultPreset.brush.brushY,
-            brushDensity: preset.brush?.brushDensity || defaultPreset.brush.brushDensity,
         },
     };
 };
@@ -408,6 +406,19 @@ export const defaultAppSettings = {
     darkMode: true,
     resolutionMult: window.devicePixelRatio,
     imageRendering: imageRenderingMap.auto,
+    brushDensity: 0.5,
+};
+
+export const getAppSettings = (settings) => {
+    if (!settings) return false;
+    const defaultSettings = defaultAppSettings;
+    return {
+        drawingSpeed: settings.drawingSpeed || defaultSettings.drawingSpeed,
+        darkMode: settings.darkMode || defaultSettings.darkMode,
+        resolutionMult: settings.resolutionMult || defaultSettings.resolutionMult,
+        imageRendering: settings.imageRendering || defaultSettings.imageRendering,
+        brushDensity: settings.brushDensity || defaultSettings.brushDensity,
+    };
 };
 
 

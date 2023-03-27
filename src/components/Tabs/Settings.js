@@ -4,17 +4,7 @@ import React from 'react';
 import {imageRenderingMap} from '../../consts/consts';
 
 
-export const Settings = ({appSettings, setAppSettings, classes}) => {
-    const handleChange = (event) => {
-        setAppSettings(draft => {
-            if (event.target.type !== 'checkbox') {
-                draft[event.target.id] = event.target.value;
-            } else {
-                draft[event.target.id] = event.target.checked;
-            }
-        });
-    };
-
+export const Settings = ({appSettings, setAppSettings, handleAppSettingsChange, classes}) => {
     const resetResolution = () => {
         setAppSettings(draft => {
             draft.resolutionMult = window.devicePixelRatio;
@@ -29,7 +19,7 @@ export const Settings = ({appSettings, setAppSettings, classes}) => {
                     id="drawingSpeed"
                     className={classes.slider}
                     value={appSettings.drawingSpeed}
-                    onChange={handleChange}
+                    onChange={handleAppSettingsChange}
                     min={0}
                     max={1}
                     step={0.01}
@@ -42,7 +32,7 @@ export const Settings = ({appSettings, setAppSettings, classes}) => {
                     id="darkMode"
                     className={classes.slider}
                     checked={appSettings.darkMode}
-                    onChange={handleChange}
+                    onChange={handleAppSettingsChange}
                 />
             </Label>
             <br/>
@@ -52,7 +42,7 @@ export const Settings = ({appSettings, setAppSettings, classes}) => {
                     id="resolutionMult"
                     className={classes.slider}
                     value={appSettings.resolutionMult}
-                    onChange={handleChange}
+                    onChange={handleAppSettingsChange}
                     min={0.1}
                     max={5}
                     step={0.01}
@@ -76,7 +66,7 @@ export const Settings = ({appSettings, setAppSettings, classes}) => {
                     size="small"
                     value={appSettings.imageRendering}
                     id="imageRendering"
-                    onChange={handleChange}
+                    onChange={handleAppSettingsChange}
                 >
                     {Object.values(imageRenderingMap).map(imageRenderingType => {
                         return <option

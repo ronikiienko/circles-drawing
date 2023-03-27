@@ -23,12 +23,12 @@ export const stopDrawing = () => {
     worker.postMessage({cmd: CMD.stopDrawing});
 };
 
-export const undo = (rawAppSettings) => {
-    worker.postMessage({cmd: CMD.undo, rawAppSettings: rawAppSettings});
+export const undo = () => {
+    worker.postMessage({cmd: CMD.undo});
 };
 
-export const redo = (rawAppSettings) => {
-    worker.postMessage({cmd: CMD.redo, rawAppSettings: rawAppSettings});
+export const redo = () => {
+    worker.postMessage({cmd: CMD.redo});
 };
 
 export const setCanvasResolution = (width, height, resolutionMult, canvasElement) => {

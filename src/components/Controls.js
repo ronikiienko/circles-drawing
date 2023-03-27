@@ -176,6 +176,16 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
         });
     };
 
+    const handleAppSettingsChange = (event) => {
+        setAppSettings(draft => {
+            if (event.target.type !== 'checkbox') {
+                draft[event.target.id] = event.target.value;
+            } else {
+                draft[event.target.id] = event.target.checked;
+            }
+        });
+    };
+
     const handleResize = useResizer(containerRef);
 
     return (
@@ -238,13 +248,23 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                     {/*    <Generation settings={settings} setSettings={setSettings} classes={tabsClasses}/>*/}
                     {/*</ConditionalPanel>*/}
                     <ConditionalPanel active={mainTab === tabs.settings.id}>
-                        <Settings appSettings={appSettings} setAppSettings={setAppSettings} classes={tabsClasses}/>
+                        <Settings
+                            setAppSettings={setAppSettings}
+                            appSettings={appSettings}
+                            handleAppSettingsChange={handleAppSettingsChange}
+                            classes={tabsClasses}
+                        />
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.saves.id}>
                         <Saves settings={settings} setSettings={setSettings} classes={tabsClasses}/>
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.brush.id}>
-                        <Brush settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                        <Brush
+                            appSettings={appSettings}
+                            settings={settings}
+                            handleAppSettingsChange={handleAppSettingsChange}
+                            classes={tabsClasses}
+                        />
                     </ConditionalPanel>
                     <br/>
                 </div>
@@ -257,10 +277,12 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                     >Layer</Button>
                     <Button
                         className={localClasses.buttons}
-                        onClick={() => undo(appSettings)} icon={<ArrowUndo16Regular/>}>Undo</Button>
+                        onClick={undo}
+                        icon={<ArrowUndo16Regular/>}>Undo</Button>
                     <Button
                         className={localClasses.buttons}
-                        onClick={() => redo(appSettings)} icon={<ArrowRedo16Regular/>}>Redo</Button>
+                        onClick={redo}
+                        icon={<ArrowRedo16Regular/>}>Redo</Button>
                     <Button
                         className={localClasses.clearButton}
                         onClick={clear}

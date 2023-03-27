@@ -1,7 +1,7 @@
 import {Button, makeStyles, mergeClasses, shorthands, tokens} from '@fluentui/react-components';
 import {Delete48Regular} from '@fluentui/react-icons';
 import React from 'react';
-import {getPreset} from '../../../consts/consts';
+import {getLayerSettings} from '../../../consts/consts';
 import {deepCopy} from '../../../utils';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 
@@ -40,7 +40,7 @@ export const PresetElement = ({preset, settings, setSettings, removeButton, inde
     return (
         <>
             <span
-                onClick={() => setSettings(getPreset(deepCopy(preset)))}
+                onClick={() => setSettings(getLayerSettings(deepCopy(preset)))}
                 className={settings.preset.id === preset.preset.id ? mergeClasses(localClasses.presetElementContainer, localClasses.selected) : localClasses.presetElementContainer}
                 key={preset.preset.id}
                 title={preset.preset.description}

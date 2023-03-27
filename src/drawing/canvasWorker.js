@@ -27,21 +27,21 @@ class HistoryCareTaker {
         console.log('ADD', 'current index:', this.currentIndex);
     }
 
-    undo(rawAppSettings) {
+    undo() {
         if (!this.mementos.length || this.currentIndex - 1 < 0) return;
         this.currentIndex--;
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         ctx.putImageData(this.mementos[this.currentIndex], 0, 0);
-        setLastState(ctx.getImageData(0, 0, canvasWidth * rawAppSettings.resolutionMult, canvasHeight * rawAppSettings.resolutionMult));
+        setLastState(this.mementos[this.currentIndex]);
         console.log('UNDO', 'current index:', this.currentIndex);
     }
 
-    redo(rawAppSettings) {
+    redo() {
         if (!this.mementos.length || !this.mementos[this.currentIndex + 1]) return;
         this.currentIndex++;
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         ctx.putImageData(this.mementos[this.currentIndex], 0, 0);
-        setLastState(ctx.getImageData(0, 0, canvasWidth * rawAppSettings.resolutionMult, canvasHeight * rawAppSettings.resolutionMult));
+        setLastState(this.mementos[this.currentIndex]);
         console.log('REDO', 'current index:', this.currentIndex);
     }
 }
@@ -64,11 +64,11 @@ onmessage = async (event) => {
         }
             break;
         case CMD.undo: {
-            history.undo(data.rawAppSettings);
+            history.undo();
         }
             break;
         case CMD.redo: {
-            history.redo(data.rawAppSettings);
+            history.redo();
         }
             break;
         case CMD.setCanvasPPI: {
