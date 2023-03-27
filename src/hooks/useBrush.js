@@ -1,4 +1,4 @@
-export const useManual = () => {
+export const useBrush = () => {
     // useEffect(() => {
     //     const mousemoveHandler = (event) => {
     //         console.log(counter);
