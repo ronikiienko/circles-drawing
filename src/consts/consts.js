@@ -59,6 +59,7 @@ export const layerPresets = [
             blurRand: '0',
         },
         brush: {
+            brushDensity: 0.5,
             brushOn: false,
             brushX: 0,
             brushY: 0,
@@ -344,6 +345,7 @@ export const getLayerSettings = (preset) => {
             blurRand: preset.color?.blurRand || defaultPreset.color.blurRand,
         },
         brush: {
+            brushDensity: preset.brush?.brushDensity || defaultPreset.brush.brushDensity,
             brushOn: preset.brush?.brushOn || defaultPreset.brush.brushOn,
             brushX: preset.brush?.brushX || defaultPreset.brush.brushX,
             brushY: preset.brush?.brushY || defaultPreset.brush.brushY,
@@ -406,7 +408,6 @@ export const defaultAppSettings = {
     darkMode: true,
     resolutionMult: window.devicePixelRatio,
     imageRendering: imageRenderingMap.auto,
-    brushDensity: 0.5,
 };
 
 export const getAppSettings = (settings) => {
@@ -417,7 +418,6 @@ export const getAppSettings = (settings) => {
         darkMode: settings.darkMode || defaultSettings.darkMode,
         resolutionMult: settings.resolutionMult || defaultSettings.resolutionMult,
         imageRendering: settings.imageRendering || defaultSettings.imageRendering,
-        brushDensity: settings.brushDensity || defaultSettings.brushDensity,
     };
 };
 

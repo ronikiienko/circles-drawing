@@ -18,6 +18,10 @@ export const translateBiasB = (biasB) => {
     // return parseFloat(biasB) * 10;
 };
 
+export const getTranslatedBrushDensity = (brushDensity) => {
+    return Math.trunc(Math.pow(parseFloat(brushDensity) + 1, 5));
+};
+
 export const getTranslatedLayerSettings = (rawSettings) => {
     // reused values
     const size = Math.pow(parseFloat(rawSettings.size.size) + 1, 7) * 2;
@@ -74,6 +78,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             blurRand: Math.pow(parseFloat(rawSettings.color.blurRand) + 1, 3) - 1,
         },
         brush: {
+            brushDensity: getTranslatedBrushDensity(rawSettings.brush.brushDensity),
             brushOn: rawSettings.brush.brushOn,
             brushX: rawSettings.brush.brushX,
             brushY: rawSettings.brush.brushY,
@@ -83,7 +88,6 @@ export const getTranslatedLayerSettings = (rawSettings) => {
 
 export const getTranslatedAppSettings = (rawSettings) => {
     return {
-        brushEventInterval: Math.trunc(Math.pow(parseFloat(rawSettings.brushDensity) + 1, 5)),
         waitInterval: Math.trunc(Math.pow(parseFloat(rawSettings.drawingSpeed) + 1, 10)),
         resolutionMult: rawSettings.resolutionMult,
     };

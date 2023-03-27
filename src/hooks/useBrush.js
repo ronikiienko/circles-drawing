@@ -1,6 +1,6 @@
 import {useCallback, useEffect} from 'react';
 import {addToHistory, drawLayer} from '../drawing/draw';
-import {getTranslatedAppSettings} from '../drawing/translaters';
+import {getTranslatedBrushDensity} from '../drawing/translaters';
 import {deepCopy} from '../utils';
 import {useIsKeyPressed} from './useIsKeyPressed';
 
@@ -11,21 +11,21 @@ export const useBrush = ({settings, appSettings}) => {
     const mousemoveHandler = useCallback((event) => {
         if (!isBrushOn) return;
 
-        const brushEventInterval = getTranslatedAppSettings(appSettings).brushEventInterval;
-
-        console.log(counter);
+        const brushEventInterval = getTranslatedBrushDensity(settings.brush.brushDensity);
         counter++;
         if (counter < brushEventInterval) return;
         counter = 0;
+
         const rawSettings = deepCopy(settings);
         rawSettings.brush.brushX = event.pageX;
         rawSettings.brush.brushY = event.pageY;
         rawSettings.brush.brushOn = true;
-        console.log(rawSettings);
+
         drawLayer(rawSettings, appSettings, false);
     }, [isBrushOn, appSettings, settings]);
 
     useEffect(() => {
+        if (!isBrushOn) return;
         const mousedownHandler = () => {
             window.addEventListener('mousemove', mousemoveHandler);
         };
@@ -35,11 +35,9 @@ export const useBrush = ({settings, appSettings}) => {
             addToHistory(appSettings);
         };
 
-        if (isBrushOn) {
-            console.log('adding listeners');
-            window.addEventListener('mousedown', mousedownHandler);
-            window.addEventListener('mouseup', mouseupHandler);
-        }
+        console.log('adding listeners');
+        window.addEventListener('mousedown', mousedownHandler);
+        window.addEventListener('mouseup', mouseupHandler);
 
         return () => {
             console.log('removing listeners');
@@ -47,5 +45,6 @@ export const useBrush = ({settings, appSettings}) => {
             window.removeEventListener('mousedown', mousedownHandler);
             window.removeEventListener('mouseup', mouseupHandler);
         };
-    }, [isBrushOn, mousemoveHandler]);
+
+    }, [appSettings, isBrushOn, mousemoveHandler]);
 };
