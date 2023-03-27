@@ -45,7 +45,6 @@ export const useBrush = ({settings, appSettings}) => {
 
         console.log('adding listeners');
         window.addEventListener('mousedown', mousedownHandler);
-        window.addEventListener('mouseup', mouseupHandler);
 
         return () => {
             console.log('removing listeners');
