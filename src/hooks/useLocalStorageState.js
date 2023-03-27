@@ -86,6 +86,8 @@ export const useLocalStorageState = (key, defaultValue, options) => {
             }
         };
         window.addEventListener('storage', onStorage);
+
+        return () => removeEventListener('storage', onStorage);
     }, [key]);
 
 

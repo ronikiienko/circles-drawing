@@ -6,6 +6,7 @@ export const CMD = {
     setCanvasPPI: 'SET_CANVAS_PPI',
     clear: 'CLEAR',
     stopDrawing: 'STOP_DRAWING',
+    addToHistory: 'ADD_TO_HISTORY',
 };
 
 export const maxUndoTimes = 10;

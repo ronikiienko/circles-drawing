@@ -21,6 +21,7 @@ import React, {useRef} from 'react';
 import {useImmer} from 'use-immer';
 import {tabs} from '../consts/consts';
 import {clear, drawLayer, redo, stopDrawing, undo} from '../drawing/draw';
+import {useBrush} from '../hooks/useBrush';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import {useResizer} from '../hooks/useResizer';
 import './Controls.css';
@@ -153,6 +154,7 @@ const useStylesTabs = makeStyles({
 
 
 export const Controls = ({mainTab, setMainTab, settings, setSettings, appSettings, setAppSettings}) => {
+    useBrush({settings, appSettings});
     const localClasses = useStyles();
     const tabsClasses = useStylesTabs();
 

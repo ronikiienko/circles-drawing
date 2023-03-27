@@ -73,11 +73,17 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             blur: actualBlur,
             blurRand: Math.pow(parseFloat(rawSettings.color.blurRand) + 1, 3) - 1,
         },
+        brush: {
+            brushOn: rawSettings.brush.brushOn,
+            brushX: rawSettings.brush.brushX,
+            brushY: rawSettings.brush.brushY,
+        },
     };
 };
 
 export const getTranslatedAppSettings = (rawSettings) => {
     return {
+        brushEventInterval: Math.trunc(Math.pow(parseFloat(rawSettings.brushDensity) + 1, 5)),
         waitInterval: Math.trunc(Math.pow(parseFloat(rawSettings.drawingSpeed) + 1, 10)),
         resolutionMult: rawSettings.resolutionMult,
     };
@@ -89,6 +95,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
     const blur = !settings.color.blur ? 0 : settings.color.blur + getBiasedRandomNumber(-settings.color.blurRand, settings.color.blurRand);
     let xPosition;
     let yPosition;
+    const realBiasX = settings.brush.brushOn ? settings.brush.brushX : settings.position.biasX;
+    const realBiasY = settings.brush.brushOn ? settings.brush.brushY : settings.position.biasY;
     switch (settings.position.biasType) {
         case biasTypes.off: {
             xPosition = getBiasedRandomNumber(settings.position.startX, settings.position.endX);
@@ -139,7 +147,12 @@ export const getRandomizedShapeSettings = (settings, i) => {
             const {
                 x,
                 y,
-            } = getPointByDistanceAndAngle(settings.position.biasX, settings.position.biasY, Math.pow(distanceFromBias, 1 / 2), angle);
+            } = getPointByDistanceAndAngle(
+                realBiasX,
+                realBiasY,
+                Math.pow(distanceFromBias, 1 / 2),
+                angle,
+            );
             xPosition = x;
             yPosition = y;
         }
@@ -186,7 +199,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
                 const {
                     x,
                     y,
-                } = getPointByDistanceAndAngle(settings.position.biasX, settings.position.biasY, radius, getBiasedRandomNumber(angle - settings.position.biasSpiralAngleRand, angle + settings.position.biasSpiralAngleRand, 2));
+                } = getPointByDistanceAndAngle(realBiasX, realBiasY, radius, getBiasedRandomNumber(angle - settings.position.biasSpiralAngleRand, angle + settings.position.biasSpiralAngleRand, 2));
                 xPosition = x;
                 yPosition = y;
             }

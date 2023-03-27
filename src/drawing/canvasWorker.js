@@ -60,7 +60,11 @@ onmessage = async (event) => {
         }
             break;
         case CMD.drawLayer: {
-            drawLayer(data.rawSettings, data.rawAppSettings);
+            drawLayer(data.rawSettings, data.rawAppSettings, data.addToHistory);
+        }
+            break;
+        case CMD.addToHistory: {
+            history.add(ctx.getImageData(0, 0, canvasWidth * data.rawAppSettings.resolutionMult, canvasHeight * data.rawAppSettings.resolutionMult));
         }
             break;
         case CMD.undo: {
@@ -143,7 +147,7 @@ const drawShape = (settings) => {
     }
 };
 
-export const drawLayer = async (rawSettings, rawAppSettings) => {
+export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
     let settings = getTranslatedLayerSettings(rawSettings);
     const appSettings = getTranslatedAppSettings(rawAppSettings);
 
@@ -168,7 +172,7 @@ export const drawLayer = async (rawSettings, rawAppSettings) => {
         }
     }
 
-    history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
+    if (addToHistory) history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
 };
 
 export const clear = () => {
