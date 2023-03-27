@@ -2,6 +2,7 @@ export const CMD = {
     initCanvas: 'INIT_CANVAS',
     drawLayer: 'DRAW_LAYER',
     undo: 'UNDO',
+    redo: 'REDO',
     setCanvasPPI: 'SET_CANVAS_PPI',
     clear: 'CLEAR',
     stopDrawing: 'STOP_DRAWING',

@@ -13,21 +13,36 @@ let drawingStoppedFlag = false;
 
 class HistoryCareTaker {
     mementos = [];
+    currentIndex = 0;
 
     constructor() {
     }
 
     add(snapshot) {
+        this.mementos.splice(this.currentIndex + 1);
         if (this.mementos.length > maxUndoTimes - 1) this.mementos.shift();
         this.mementos.push(snapshot);
+        this.currentIndex = this.mementos.length - 1;
+        setLastState(snapshot);
+        console.log('ADD', 'current index:', this.currentIndex);
     }
 
     undo(rawAppSettings) {
-        if (!this.mementos.length) return;
+        if (!this.mementos.length || this.currentIndex - 1 < 0) return;
+        this.currentIndex--;
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        ctx.putImageData(this.mementos[this.mementos.length - 1], 0, 0);
-        this.mementos.pop();
+        ctx.putImageData(this.mementos[this.currentIndex], 0, 0);
         setLastState(ctx.getImageData(0, 0, canvasWidth * rawAppSettings.resolutionMult, canvasHeight * rawAppSettings.resolutionMult));
+        console.log('UNDO', 'current index:', this.currentIndex);
+    }
+
+    redo(rawAppSettings) {
+        if (!this.mementos.length || !this.mementos[this.currentIndex + 1]) return;
+        this.currentIndex++;
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        ctx.putImageData(this.mementos[this.currentIndex], 0, 0);
+        setLastState(ctx.getImageData(0, 0, canvasWidth * rawAppSettings.resolutionMult, canvasHeight * rawAppSettings.resolutionMult));
+        console.log('REDO', 'current index:', this.currentIndex);
     }
 }
 
@@ -41,6 +56,7 @@ onmessage = async (event) => {
             ctx = canvas.getContext('2d');
             const lastState = await getLastState();
             if (lastState) ctx.putImageData(await getLastState(), 0, 0);
+            history.add(lastState);
         }
             break;
         case CMD.drawLayer: {
@@ -49,6 +65,10 @@ onmessage = async (event) => {
             break;
         case CMD.undo: {
             history.undo(data.rawAppSettings);
+        }
+            break;
+        case CMD.redo: {
+            history.redo(data.rawAppSettings);
         }
             break;
         case CMD.setCanvasPPI: {
@@ -127,7 +147,6 @@ export const drawLayer = async (rawSettings, rawAppSettings) => {
     let settings = getTranslatedLayerSettings(rawSettings);
     const appSettings = getTranslatedAppSettings(rawAppSettings);
 
-    history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
 
     ctx.globalCompositeOperation = settings.color.overlayMode;
     if (!settings.color.blur) ctx.filter = 'none';
@@ -148,7 +167,8 @@ export const drawLayer = async (rawSettings, rawAppSettings) => {
             break;
         }
     }
-    setLastState(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
+
+    history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
 };
 
 export const clear = () => {

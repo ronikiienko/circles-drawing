@@ -27,6 +27,10 @@ export const undo = (rawAppSettings) => {
     worker.postMessage({cmd: CMD.undo, rawAppSettings: rawAppSettings});
 };
 
+export const redo = (rawAppSettings) => {
+    worker.postMessage({cmd: CMD.redo, rawAppSettings: rawAppSettings});
+};
+
 export const setCanvasResolution = (width, height, resolutionMult, canvasElement) => {
     canvasElement.style.width = width + 'px';
     canvasElement.style.height = height + 'px';
@@ -35,7 +39,7 @@ export const setCanvasResolution = (width, height, resolutionMult, canvasElement
 
 export const clear = () => {
     worker.postMessage({cmd: CMD.clear});
-}
+};
 
 export const saveAsImage = (png) => {
     console.log(png);

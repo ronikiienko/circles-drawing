@@ -9,11 +9,18 @@ import {
     TabList,
     tokens,
 } from '@fluentui/react-components';
-import {Add16Regular, ArrowUndo16Regular, Delete16Regular, Eye16Regular, Stop16Regular} from '@fluentui/react-icons';
+import {
+    Add16Regular,
+    ArrowRedo16Regular,
+    ArrowUndo16Regular,
+    Delete16Regular,
+    Eye16Regular,
+    Stop16Regular,
+} from '@fluentui/react-icons';
 import React, {useRef} from 'react';
 import {useImmer} from 'use-immer';
 import {tabs} from '../consts/consts';
-import {clear, drawLayer, stopDrawing, undo} from '../drawing/draw';
+import {clear, drawLayer, redo, stopDrawing, undo} from '../drawing/draw';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import {useResizer} from '../hooks/useResizer';
 import './Controls.css';
@@ -251,6 +258,9 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                     <Button
                         className={localClasses.buttons}
                         onClick={() => undo(appSettings)} icon={<ArrowUndo16Regular/>}>Undo</Button>
+                    <Button
+                        className={localClasses.buttons}
+                        onClick={() => redo(appSettings)} icon={<ArrowRedo16Regular/>}>Redo</Button>
                     <Button
                         className={localClasses.clearButton}
                         onClick={clear}

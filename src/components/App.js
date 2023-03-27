@@ -30,7 +30,7 @@ export const App = () => {
     const debouncedResolutionMult = useDebouncedValue(appSettings.resolutionMult, 500);
 
     useEffect(() => {
-        initializeOffscreenCanvas(canvasRef.current);
+        initializeOffscreenCanvas();
     }, []);
 
     useEffect(() => {
