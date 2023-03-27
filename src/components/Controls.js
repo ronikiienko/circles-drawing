@@ -17,6 +17,7 @@ import {clear, drawLayer, stopDrawing, undo} from '../drawing/draw';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import {useResizer} from '../hooks/useResizer';
 import './Controls.css';
+import {Brush} from './Tabs/Brush';
 import {Color} from './Tabs/Color';
 import {Number} from './Tabs/Number';
 import {Position} from './Tabs/Position';
@@ -234,6 +235,9 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.saves.id}>
                         <Saves settings={settings} setSettings={setSettings} classes={tabsClasses}/>
+                    </ConditionalPanel>
+                    <ConditionalPanel active={mainTab === tabs.brush.id}>
+                        <Brush settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                     </ConditionalPanel>
                     <br/>
                 </div>

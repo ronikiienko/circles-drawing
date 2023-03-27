@@ -58,7 +58,7 @@ export const layerPresets = [
             blur: '0',
             blurRand: '0',
         },
-        brushes: {
+        brush: {
             brushOn: false,
             brushX: 0,
             brushY: 0,
@@ -344,11 +344,11 @@ export const getPreset = (preset) => {
             blur: preset.color?.blur || defaultPreset.color.blur,
             blurRand: preset.color?.blurRand || defaultPreset.color.blurRand,
         },
-        brushes: {
-            brushOn: preset.brushes?.brushOn || defaultPreset.brushes.brushOn,
-            brushX: preset.brushes?.brushX || defaultPreset.brushes.brushX,
-            brushY: preset.brushes?.brushY || defaultPreset.brushes.brushY,
-            brushDensity: preset.brushes?.brushDensity || defaultPreset.brushes.brushDensity,
+        brush: {
+            brushOn: preset.brush?.brushOn || defaultPreset.brush.brushOn,
+            brushX: preset.brush?.brushX || defaultPreset.brush.brushX,
+            brushY: preset.brush?.brushY || defaultPreset.brush.brushY,
+            brushDensity: preset.brush?.brushDensity || defaultPreset.brush.brushDensity,
         },
     };
 };
@@ -487,9 +487,9 @@ export const tabs = {
         label: 'Saves',
         id: 'tab-button-saves',
     },
-    brushes: {
-        label: 'Brushes',
-        id: 'tab-button-brushes',
+    brush: {
+        label: 'Brush',
+        id: 'tab-button-brush',
     },
 };
 
