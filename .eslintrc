@@ -11,11 +11,11 @@
     "plugin:react-hooks/recommended"
   ],
   "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 12,
-    "sourceType": "module"
+      "ecmaFeatures": {
+          "jsx": true
+      },
+      "ecmaVersion": 13,
+      "sourceType": "module"
   },
   "plugins": [
     "react",

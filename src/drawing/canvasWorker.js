@@ -11,7 +11,27 @@ let canvasHeight;
 
 let drawingStoppedFlag = false;
 
-const history = [];
+class HistoryCareTaker {
+    mementos = [];
+
+    constructor() {
+    }
+
+    add(snapshot) {
+        if (this.mementos.length > maxUndoTimes - 1) this.mementos.shift();
+        this.mementos.push(snapshot);
+    }
+
+    undo(rawAppSettings) {
+        if (!this.mementos.length) return;
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        ctx.putImageData(this.mementos[this.mementos.length - 1], 0, 0);
+        this.mementos.pop();
+        setLastState(ctx.getImageData(0, 0, canvasWidth * rawAppSettings.resolutionMult, canvasHeight * rawAppSettings.resolutionMult));
+    }
+}
+
+const history = new HistoryCareTaker();
 
 onmessage = async (event) => {
     const data = event.data;
@@ -28,7 +48,7 @@ onmessage = async (event) => {
         }
             break;
         case CMD.undo: {
-            undo(data.rawAppSettings);
+            history.undo(data.rawAppSettings);
         }
             break;
         case CMD.setCanvasPPI: {
@@ -107,9 +127,7 @@ export const drawLayer = async (rawSettings, rawAppSettings) => {
     let settings = getTranslatedLayerSettings(rawSettings);
     const appSettings = getTranslatedAppSettings(rawAppSettings);
 
-    if (history.length > maxUndoTimes - 1) history.shift();
-    // pushToHistory(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult))
-    history.push(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
+    history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
 
     ctx.globalCompositeOperation = settings.color.overlayMode;
     if (!settings.color.blur) ctx.filter = 'none';
@@ -131,14 +149,6 @@ export const drawLayer = async (rawSettings, rawAppSettings) => {
         }
     }
     setLastState(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
-};
-
-export const undo = async (rawAppSettings) => {
-    if (!history.length) return;
-    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    ctx.putImageData(history[history.length - 1], 0, 0);
-    history.pop();
-    setLastState(ctx.getImageData(0, 0, canvasWidth * rawAppSettings.resolutionMult, canvasHeight * rawAppSettings.resolutionMult));
 };
 
 export const clear = () => {
