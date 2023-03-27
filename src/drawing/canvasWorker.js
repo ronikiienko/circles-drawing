@@ -158,6 +158,8 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
     const waitInterval = appSettings.waitInterval;
     let lastWaited = 0;
 
+    drawingStoppedFlag = false;
+
     for (let i = 0; i < settings.number.number; i++) {
         if (i - lastWaited === waitInterval) {
             await wait(4);
@@ -167,7 +169,6 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
         drawShape(randomizedShapeSettings);
 
         if (drawingStoppedFlag) {
-            drawingStoppedFlag = false;
             break;
         }
     }
