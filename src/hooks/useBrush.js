@@ -7,7 +7,7 @@ import {useIsKeyPressed} from './useIsKeyPressed';
 
 let counter;
 export const useBrush = ({settings, appSettings}) => {
-    const isBrushOn = useIsKeyPressed('ControlLeft');
+    const isBrushOn = useIsKeyPressed('Space');
     const mousemoveHandler = useCallback((event) => {
         if (!isBrushOn) return;
 

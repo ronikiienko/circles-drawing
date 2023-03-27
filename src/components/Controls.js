@@ -18,6 +18,7 @@ import {
     Stop16Regular,
 } from '@fluentui/react-icons';
 import React, {useRef} from 'react';
+import {useHotkeys} from 'react-hotkeys-hook';
 import {useImmer} from 'use-immer';
 import {tabs} from '../consts/consts';
 import {clear, drawLayer, redo, stopDrawing, undo} from '../drawing/draw';
@@ -164,6 +165,10 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
     useBrush({settings, appSettings});
     const {setDragProp, setClickAndSetProp} = useClickAndSet({setSettings});
     const handleResize = useResizer(containerRef);
+    useHotkeys('ctrl+z', undo);
+    useHotkeys('ctrl+shift+z', redo);
+    useHotkeys('Escape', () => setHidden(prevHidden => !prevHidden));
+
 
     const handleChange = (event) => {
         const categoriesArray = event.target.id.split('-');
