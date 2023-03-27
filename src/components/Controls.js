@@ -154,7 +154,6 @@ const useStylesTabs = makeStyles({
 
 
 export const Controls = ({mainTab, setMainTab, settings, setSettings, appSettings, setAppSettings}) => {
-    useBrush({settings, appSettings});
     const localClasses = useStyles();
     const tabsClasses = useStylesTabs();
 
@@ -162,8 +161,9 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
 
     const [hidden, setHidden] = useImmer(false);
 
-    // useKeyboardControls(setHidden);
+    useBrush({settings, appSettings});
     const {setDragProp, setClickAndSetProp} = useClickAndSet({setSettings});
+    const handleResize = useResizer(containerRef);
 
     const handleChange = (event) => {
         const categoriesArray = event.target.id.split('-');
@@ -177,7 +177,6 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
             }
         });
     };
-
     const handleAppSettingsChange = (event) => {
         setAppSettings(draft => {
             if (event.target.type !== 'checkbox') {
@@ -188,7 +187,6 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
         });
     };
 
-    const handleResize = useResizer(containerRef);
 
     return (
         <>

@@ -26,6 +26,7 @@ export const useBrush = ({settings, appSettings}) => {
 
     useEffect(() => {
         if (!isBrushOn) return;
+
         const mousedownHandler = () => {
             window.addEventListener('mousemove', mousemoveHandler);
         };
