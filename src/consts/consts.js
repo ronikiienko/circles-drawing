@@ -58,47 +58,53 @@ export const layerPresets = [
             blur: '0',
             blurRand: '0',
         },
-    },
-    {
-        preset: {
-            id: 'solidBg',
-            name: 'Solid background',
-            description: 'Big circles for creating solid background!',
-        },
-        size: {
-            size: '1',
-            sizeRand: '0',
-        },
-        number: {
-            number: '500',
-        },
-        shape: {
-            shape: 'circle',
-            lineAngle: 30 / 360,
-            lineAngleRand: 0,
-            lineRatio: 0.2,
-            lineRounded: false,
-            lineRatioRand: 0.2,
-            lineLookToOn: false,
-            lineLookToX: 100,
-            lineLookToY: 100,
-        },
-        position: {
-            startX: 0,
-            startY: 0,
-            endX: window.innerWidth,
-            endY: window.innerHeight,
-            overlayMode: 'source-over',
-        },
-        color: {
-            color: '#FFAFFF',
-            colorRand: '0.2',
-            isFullRand: false,
-            transp: '1',
-            transpRand: '0',
-            glow: '0',
+        brushes: {
+            brushOn: false,
+            brushX: 0,
+            brushY: 0,
+            brushDensity: 0.5,
         },
     },
+    // {
+    //     preset: {
+    //         id: 'solidBg',
+    //         name: 'Solid background',
+    //         description: 'Big circles for creating solid background!',
+    //     },
+    //     size: {
+    //         size: '1',
+    //         sizeRand: '0',
+    //     },
+    //     number: {
+    //         number: '500',
+    //     },
+    //     shape: {
+    //         shape: 'circle',
+    //         lineAngle: 30 / 360,
+    //         lineAngleRand: 0,
+    //         lineRatio: 0.2,
+    //         lineRounded: false,
+    //         lineRatioRand: 0.2,
+    //         lineLookToOn: false,
+    //         lineLookToX: 100,
+    //         lineLookToY: 100,
+    //     },
+    //     position: {
+    //         startX: 0,
+    //         startY: 0,
+    //         endX: window.innerWidth,
+    //         endY: window.innerHeight,
+    //         overlayMode: 'source-over',
+    //     },
+    //     color: {
+    //         color: '#FFAFFF',
+    //         colorRand: '0.2',
+    //         isFullRand: false,
+    //         transp: '1',
+    //         transpRand: '0',
+    //         glow: '0',
+    //     },
+    // },
     // rain: {
     //     preset: {
     //         id: 'rain',
@@ -338,6 +344,12 @@ export const getPreset = (preset) => {
             blur: preset.color?.blur || defaultPreset.color.blur,
             blurRand: preset.color?.blurRand || defaultPreset.color.blurRand,
         },
+        brushes: {
+            brushOn: preset.brushes?.brushOn || defaultPreset.brushes.brushOn,
+            brushX: preset.brushes?.brushX || defaultPreset.brushes.brushX,
+            brushY: preset.brushes?.brushY || defaultPreset.brushes.brushY,
+            brushDensity: preset.brushes?.brushDensity || defaultPreset.brushes.brushDensity,
+        },
     };
 };
 
@@ -474,6 +486,10 @@ export const tabs = {
     saves: {
         label: 'Saves',
         id: 'tab-button-saves',
+    },
+    brushes: {
+        label: 'Brushes',
+        id: 'tab-button-brushes',
     },
 };
 
