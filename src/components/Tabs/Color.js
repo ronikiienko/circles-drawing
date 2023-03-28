@@ -100,7 +100,6 @@ export const Color = ({settings, handleChange, classes}) => {
                     </>
                 }/>
             </Label>
-            <br/>
             <div className={classes.row}>
                 <Label className={classes.label}>
                     Blur on:

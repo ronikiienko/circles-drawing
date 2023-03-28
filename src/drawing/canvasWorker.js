@@ -1,4 +1,4 @@
-import {getLastState, setLastState} from '../consts/db';
+import {db} from '../consts/db';
 import {CMD, maxUndoTimes} from '../consts/sharedConsts';
 import {getBiasedRandomNumber, getPointByDistanceAndAngle, wait} from '../utils';
 import {getRandomizedShapeSettings, getTranslatedAppSettings, getTranslatedLayerSettings} from './translaters';
@@ -12,37 +12,71 @@ let canvasHeight;
 let drawingStoppedFlag = false;
 
 class HistoryCareTaker {
-    mementos = [];
-    currentIndex = 0;
-
     constructor() {
     }
 
-    add(snapshot) {
-        this.mementos.splice(this.currentIndex + 1);
-        if (this.mementos.length > maxUndoTimes - 1) this.mementos.shift();
-        this.mementos.push(snapshot);
-        this.currentIndex = this.mementos.length - 1;
-        setLastState(snapshot);
-        console.log('ADD', 'current index:', this.currentIndex);
+    async #getHistoryIndex() {
+        const firstItem = await db.table('appState').toCollection().first();
+        return firstItem.historyIndex;
     }
 
-    undo() {
-        if (!this.mementos.length || this.currentIndex - 1 < 0) return;
-        this.currentIndex--;
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        ctx.putImageData(this.mementos[this.currentIndex], 0, 0);
-        setLastState(this.mementos[this.currentIndex]);
-        console.log('UNDO', 'current index:', this.currentIndex);
+    async #setHistoryIndex(newHistoryIndex) {
+        const firstItem = await db.table('appState').toCollection().first();
+        firstItem && await db.table('appState').where('historyIndex').equals(firstItem.historyIndex).delete();
+        await db.table('appState').put({historyIndex: newHistoryIndex});
     }
 
-    redo() {
-        if (!this.mementos.length || !this.mementos[this.currentIndex + 1]) return;
-        this.currentIndex++;
+    async #getHistoryLength() {
+        return db.table('history').toCollection().count();
+    }
+
+    async add(snapshot) {
+        await db.table('history').where('index').above(await this.#getHistoryIndex()).delete();
+
+        if (await this.#getHistoryLength() > maxUndoTimes - 1) {
+            const firstItem = await db.table('history').toCollection().first();
+            await db.table('history').where('index').equals(firstItem.index).delete();
+        }
+
+        const newHistoryIndex = await db.table('history').put({data: snapshot});
+
+        await this.#setHistoryIndex(newHistoryIndex);
+    }
+
+    async undo() {
+        if (!await this.#getHistoryLength()) return;
+        const currentHistoryIndex = await this.#getHistoryIndex();
+        const prevItem = await db.table('history').where('index').below(currentHistoryIndex).last();
+        if (!prevItem) return;
+
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        ctx.putImageData(this.mementos[this.currentIndex], 0, 0);
-        setLastState(this.mementos[this.currentIndex]);
-        console.log('REDO', 'current index:', this.currentIndex);
+        ctx.putImageData(prevItem.data, 0, 0);
+        await this.#setHistoryIndex(prevItem.index);
+    }
+
+    async redo() {
+        if (!await this.#getHistoryLength()) return;
+        const currentHistoryIndex = await this.#getHistoryIndex();
+        const nextItem = await db.table('history').where('index').above(currentHistoryIndex).first();
+        if (!nextItem) return;
+
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        ctx.putImageData(nextItem.data, 0, 0);
+        await this.#setHistoryIndex(nextItem.index);
+    }
+
+    async initHistoryIfNeeded(snapshot) {
+        if (!(await db.table('history').toCollection().first())) {
+            const newHistoryIndex = await db.table('history').put({
+                data: snapshot,
+            });
+            await this.#setHistoryIndex(newHistoryIndex);
+        }
+    }
+
+    async getCurrent() {
+        const currentItem = await db.table('history').get(await this.#getHistoryIndex());
+        return currentItem.data;
     }
 }
 
@@ -54,17 +88,16 @@ onmessage = async (event) => {
         case CMD.initCanvas: {
             canvas = data.canvas;
             ctx = canvas.getContext('2d');
-            const lastState = await getLastState();
-            if (lastState) ctx.putImageData(await getLastState(), 0, 0);
-            history.add(lastState);
+            await history.initHistoryIfNeeded(ctx.getImageData(0, 0, 20, 20));
+            ctx.putImageData(await history.getCurrent(), 0, 0);
         }
             break;
         case CMD.drawLayer: {
-            drawLayer(data.settings, data.appSettings, data.addToHistory);
+            await drawLayer(data.settings, data.appSettings, data.addToHistory);
         }
             break;
         case CMD.addToHistory: {
-            history.add(ctx.getImageData(0, 0, canvasWidth * data.appSettings.resolutionMult, canvasHeight * data.appSettings.resolutionMult));
+            await history.add(ctx.getImageData(0, 0, canvasWidth * data.appSettings.resolutionMult, canvasHeight * data.appSettings.resolutionMult));
         }
             break;
         case CMD.undo: {
@@ -84,13 +117,14 @@ onmessage = async (event) => {
         }
             break;
         case CMD.clear: {
-            clear(data.appSettings);
+            await clear(data.appSettings);
         }
             break;
     }
 };
 
 export const makeCanvasHighPPI = (width, height, resolutionMult) => {
+
     canvas.width = width * resolutionMult;
     canvas.height = height * resolutionMult;
 
@@ -173,12 +207,12 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
         }
     }
 
-    if (addToHistory) history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
+    if (addToHistory) await history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
 };
 
-export const clear = (appSettings) => {
+export const clear = async (appSettings) => {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
+    await history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
 };
 
 // TODO add elipse shape
