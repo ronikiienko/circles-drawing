@@ -398,16 +398,10 @@ export const biasPresets = {
     },
 };
 
-export const imageRenderingMap = {
-    auto: 'auto',
-    crispEdges: 'crisp-edges',
-    pixelated: 'pixelated',
-};
 export const defaultAppSettings = {
     drawingSpeed: 0.25,
     darkMode: true,
     resolutionMult: window.devicePixelRatio,
-    imageRendering: imageRenderingMap.auto,
 };
 
 export const getAppSettings = (settings) => {
@@ -417,7 +411,6 @@ export const getAppSettings = (settings) => {
         drawingSpeed: settings.drawingSpeed || defaultSettings.drawingSpeed,
         darkMode: settings.darkMode || defaultSettings.darkMode,
         resolutionMult: settings.resolutionMult || defaultSettings.resolutionMult,
-        imageRendering: settings.imageRendering || defaultSettings.imageRendering,
     };
 };
 

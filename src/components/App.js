@@ -23,8 +23,8 @@ export const App = () => {
 
     const classes = useStyles();
 
-    const [settings, setSettings] = useDebouncedPersistedImmer(layerPresets.default, storageKeys.layerSettings, 1000, getLayerSettings);
-    const [appSettings, setAppSettings] = useDebouncedPersistedImmer(defaultAppSettings, storageKeys.appSettings, 1000, getAppSettings);
+    const [settings, setSettings] = useDebouncedPersistedImmer(layerPresets.default, storageKeys.layerSettings, 500, getLayerSettings);
+    const [appSettings, setAppSettings] = useDebouncedPersistedImmer(defaultAppSettings, storageKeys.appSettings, 500, getAppSettings);
     const [mainTab, setMainTab] = usePersistedImmer(tabs.number.id, storageKeys.mainTab);
 
     const debouncedResolutionMult = useDebouncedValue(appSettings.resolutionMult, 500);
@@ -36,15 +36,14 @@ export const App = () => {
     useEffect(() => {
         setCanvasResolution(window.innerWidth, window.innerHeight, debouncedResolutionMult, canvasRef.current);
     }, [debouncedResolutionMult]);
-
+    console.log(appSettings);
     return (
         <FluentProvider theme={appSettings.darkMode ? teamsDarkTheme : teamsLightTheme}>
             <div className={classes.mainContainer}>
                 <Controls mainTab={mainTab} setMainTab={setMainTab} settings={settings} setSettings={setSettings}
                           appSettings={appSettings}
                           setAppSettings={setAppSettings}/>
-                <canvas ref={canvasRef} style={{imageRendering: appSettings.imageRendering}}
-                        className={classes.canvas}></canvas>
+                <canvas ref={canvasRef} className={classes.canvas}></canvas>
             </div>
         </FluentProvider>
     );

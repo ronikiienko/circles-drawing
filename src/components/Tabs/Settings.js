@@ -1,7 +1,6 @@
-import {Button, Label, Select, Slider, Switch, Text} from '@fluentui/react-components';
+import {Button, Label, Slider, Switch, Text} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
-import {imageRenderingMap} from '../../consts/consts';
 
 
 export const Settings = ({appSettings, setAppSettings, handleAppSettingsChange, classes}) => {
@@ -57,35 +56,6 @@ export const Settings = ({appSettings, setAppSettings, handleAppSettingsChange, 
                     }
                 />
                 <Button size="small" onClick={resetResolution}>Reset resolution</Button>
-            </Label>
-            <br/>
-            <Label className={classes.label}>
-                Pixelated type:
-                <Select
-                    className={classes.select}
-                    size="small"
-                    value={appSettings.imageRendering}
-                    id="imageRendering"
-                    onChange={handleAppSettingsChange}
-                >
-                    {Object.values(imageRenderingMap).map(imageRenderingType => {
-                        return <option
-                            key={imageRenderingType}
-                            value={imageRenderingType}
-                        >
-                            {imageRenderingType}
-                        </option>;
-                    })}
-                </Select>
-                <InfoButton
-                    content={
-                        <>
-                            Select how low resolutions will look. Pixelated or blurred.
-                            <br/>
-                            Changes are applied after reload
-                        </>
-                    }
-                />
             </Label>
         </div>
     );
