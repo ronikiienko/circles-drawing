@@ -1,5 +1,6 @@
 import {saveAs} from 'file-saver';
 import {CMD} from '../consts/sharedConsts';
+import {getRandomName} from '../nameGenerator';
 
 
 let worker;
@@ -51,7 +52,7 @@ export const saveAsImage = (png) => {
     const fileExt = png ? '.png' : '.jpeg';
     console.log('canvas', canvas);
     const dataUrl = canvas.toDataURL(type);
-    saveAs(dataUrl, `drawing${Date.now()}${fileExt}`);
+    saveAs(dataUrl, `${getRandomName()}${fileExt}`);
     console.log('hi');
 };
 
