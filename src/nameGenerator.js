@@ -7,7 +7,7 @@ const weatherAdjectives = [
     'meteorology',
     'seasonal',
     'spell',
-    'weather-forecast ',
+    'weather-forecast',
     'zone',
     'balmy',
     'blistering',
@@ -147,6 +147,7 @@ const landscapeNouns = [
     'savanna',
     'tundra',
     'underwater',
+    'cavernous',
 ];
 
 export const getRandomName = () => {
