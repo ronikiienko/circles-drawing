@@ -20,8 +20,8 @@ import {
 import React, {useRef} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 import {useImmer} from 'use-immer';
-import {tabs} from '../consts/consts';
-import {clear, drawLayer, redo, stopDrawing, undo} from '../drawing/draw';
+import {hotkeys, tabs} from '../consts/consts';
+import {clear, drawLayer, redo, saveAsImage, stopDrawing, undo} from '../drawing/draw';
 import {useBrush} from '../hooks/useBrush';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import {useResizer} from '../hooks/useResizer';
@@ -165,10 +165,13 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
     useBrush({settings, appSettings});
     const {setDragProp, setClickAndSetProp} = useClickAndSet({setSettings});
     const handleResize = useResizer(containerRef);
-    useHotkeys('ctrl+z', undo);
-    useHotkeys('ctrl+shift+z', redo);
-    useHotkeys('Escape', () => setHidden(prevHidden => !prevHidden));
 
+    useHotkeys(hotkeys.undo, undo);
+    useHotkeys(hotkeys.redo, redo);
+    useHotkeys(hotkeys.hideInterface, () => setHidden(prevHidden => !prevHidden));
+    useHotkeys(hotkeys.clear, () => clear(appSettings), {preventDefault: true});
+    useHotkeys(hotkeys.saveAsPng, () => saveAsImage(true), {preventDefault: true});
+    useHotkeys(hotkeys.addLayer, () => drawLayer(settings, appSettings));
 
     const handleChange = (event) => {
         const categoriesArray = event.target.id.split('-');
@@ -289,7 +292,7 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         icon={<ArrowRedo16Regular/>}>Redo</Button>
                     <Button
                         className={localClasses.clearButton}
-                        onClick={clear}
+                        onClick={() => clear(appSettings)}
                         appearance="primary"
                         icon={<Delete16Regular/>}
                     >

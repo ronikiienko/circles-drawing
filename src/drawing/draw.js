@@ -16,12 +16,12 @@ export const initializeOffscreenCanvas = () => {
     worker.postMessage({cmd: CMD.initCanvas, canvas: canvasWorker}, [canvasWorker]);
 };
 
-export const drawLayer = (rawSettings, rawAppSettings, addToHistory = true) => {
-    worker.postMessage({cmd: CMD.drawLayer, rawSettings, rawAppSettings, addToHistory});
+export const drawLayer = (settings, appSettings, addToHistory = true) => {
+    worker.postMessage({cmd: CMD.drawLayer, settings, appSettings, addToHistory});
 };
 
-export const addToHistory = (rawAppSettings) => {
-    worker.postMessage({cmd: CMD.addToHistory, rawAppSettings});
+export const addToHistory = (appSettings) => {
+    worker.postMessage({cmd: CMD.addToHistory, appSettings});
 };
 
 export const stopDrawing = () => {
@@ -42,8 +42,8 @@ export const setCanvasResolution = (width, height, resolutionMult, canvasElement
     worker.postMessage({cmd: CMD.setCanvasPPI, width, height, resolutionMult});
 };
 
-export const clear = () => {
-    worker.postMessage({cmd: CMD.clear});
+export const clear = (appSettings) => {
+    worker.postMessage({cmd: CMD.clear, appSettings});
 };
 
 export const saveAsImage = (png) => {

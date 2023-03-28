@@ -60,11 +60,11 @@ onmessage = async (event) => {
         }
             break;
         case CMD.drawLayer: {
-            drawLayer(data.rawSettings, data.rawAppSettings, data.addToHistory);
+            drawLayer(data.settings, data.appSettings, data.addToHistory);
         }
             break;
         case CMD.addToHistory: {
-            history.add(ctx.getImageData(0, 0, canvasWidth * data.rawAppSettings.resolutionMult, canvasHeight * data.rawAppSettings.resolutionMult));
+            history.add(ctx.getImageData(0, 0, canvasWidth * data.appSettings.resolutionMult, canvasHeight * data.appSettings.resolutionMult));
         }
             break;
         case CMD.undo: {
@@ -84,7 +84,7 @@ onmessage = async (event) => {
         }
             break;
         case CMD.clear: {
-            clear();
+            clear(data.appSettings);
         }
             break;
     }
@@ -176,8 +176,9 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
     if (addToHistory) history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
 };
 
-export const clear = () => {
+export const clear = (appSettings) => {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
 };
 
 // TODO add elipse shape

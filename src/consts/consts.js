@@ -504,3 +504,12 @@ export const tabs = {
     },
 };
 
+export const hotkeys = {
+    addLayer: 'a',
+    clear: 'ctrl+d',
+    undo: 'ctrl+z',
+    redo: 'ctrl+shift+z',
+    hideInterface: 'Escape',
+    saveAsPng: 'ctrl+s',
+};
+
