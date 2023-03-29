@@ -1,4 +1,4 @@
-import {biasSpiralTypes, biasTypes} from '../consts/sharedConsts';
+import {biasSpiralTypes, biasTypes, shapeTypes} from '../consts/sharedConsts';
 import {
     getBiasedRandomNumber,
     getPointByDistanceAndAngle,
@@ -24,20 +24,44 @@ export const getTranslatedBrushDensity = (brushDensity) => {
 
 export const getTranslatedLayerSettings = (rawSettings) => {
     // reused values
-    const size = Math.pow(parseFloat(rawSettings.size.size) + 1, 7) * 2;
+    const shape = rawSettings.shape.shape;
+    const baseSize = Math.pow(parseFloat(rawSettings.size.size) + 1, 7) * 2;
+    let shapeAdjustedSize;
+    switch (shape) {
+        case shapeTypes.circle: {
+            shapeAdjustedSize = baseSize;
+        }
+            break;
+        case shapeTypes.rectangle: {
+            shapeAdjustedSize = baseSize * 2;
+        }
+            break;
+        case shapeTypes.line: {
+            shapeAdjustedSize = baseSize * 2;
+        }
+            break;
+        case shapeTypes.random3: {
+            shapeAdjustedSize = baseSize * 2;
+        }
+            break;
+        case shapeTypes.random4: {
+            shapeAdjustedSize = baseSize * 2;
+        }
+    }
+
     const transp = parseFloat(rawSettings.color.transp);
     const blur = parseFloat(rawSettings.color.blur);
     const actualBlur = rawSettings.color.blurOn ? Math.pow(blur + 1, 4) - 1 : 0;
     return {
         size: {
-            size: size,
-            sizeRand: parseFloat(rawSettings.size.sizeRand) * size * 0.8,
+            size: shapeAdjustedSize,
+            sizeRand: parseFloat(rawSettings.size.sizeRand) * shapeAdjustedSize * 0.8,
         },
         number: {
             number: parseFloat(rawSettings.number.number),
         },
         shape: {
-            shape: rawSettings.shape.shape,
+            shape: shape,
             lineAngle: parseFloat(rawSettings.shape.lineAngle) * 360,
             lineAngleRand: parseFloat(rawSettings.shape.lineAngleRand),
             lineRatio: parseFloat(rawSettings.shape.lineRatio),
