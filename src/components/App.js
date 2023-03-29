@@ -1,10 +1,11 @@
 import {FluentProvider, makeStyles, teamsDarkTheme, teamsLightTheme, tokens} from '@fluentui/react-components';
 import {useEffect, useRef} from 'react';
-import {defaultAppSettings, getAppSettings, getLayerSettings, layerPresets, storageKeys, tabs} from '../consts/consts';
-import {initializeOffscreenCanvas, setCanvasResolution} from '../drawing/draw';
+import {defaultAppSettings, layerPresets, storageKeys, tabs} from '../consts/consts';
 import {useDebouncedPersistedImmer} from '../hooks/useDebouncedPersistedImmer';
 import {useDebouncedValue} from '../hooks/useDebouncedValue';
 import {usePersistedImmer} from '../hooks/usePersistedImmer';
+import {getAppSettings, getLayerSettings} from '../utils/presetUtils';
+import {initializeOffscreenCanvas, setCanvasResolution} from '../worker/canvasWorkerMediators';
 import './App.css';
 import {Controls} from './Controls';
 

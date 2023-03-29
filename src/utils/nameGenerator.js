@@ -1,4 +1,4 @@
-import {getBiasedRandomNumber} from './utils';
+import {getBiasedRandomNumber} from './generalUtils';
 
 
 const weatherAdjectives = [

@@ -5,15 +5,15 @@ import {
     hexToHslArray,
     turnDegreesToRadians,
     turnRadiansToDegrees,
-} from '../utils';
+} from './generalUtils';
 
 
-export const translateBiasA = (biasA) => {
+export const getTranslatedBiasA = (biasA) => {
     return parseFloat((Math.pow(parseFloat(biasA) + 1, 8) * 0.0390625).toFixed(2));
     // return parseFloat(biasA) * 10;
 };
 
-export const translateBiasB = (biasB) => {
+export const getTranslatedBiasB = (biasB) => {
     return parseFloat((Math.pow(parseFloat(biasB) + 1, 8) * 0.0390625).toFixed(2));
     // return parseFloat(biasB) * 10;
 };
@@ -63,8 +63,8 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             biasRadius: Math.pow(Math.pow(rawSettings.position.biasX - rawSettings.position.biasRadiusX, 2) + Math.pow(rawSettings.position.biasY - rawSettings.position.biasRadiusY, 2), 1 / 2),
             biasX: parseFloat(rawSettings.position.biasX),
             biasY: parseFloat(rawSettings.position.biasY),
-            biasA: translateBiasA(rawSettings.position.biasA),
-            biasB: translateBiasB(rawSettings.position.biasB),
+            biasA: getTranslatedBiasA(rawSettings.position.biasA),
+            biasB: getTranslatedBiasB(rawSettings.position.biasB),
             biasInf: parseFloat(rawSettings.position.biasInf),
         },
         color: {

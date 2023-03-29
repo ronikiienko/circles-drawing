@@ -1,7 +1,7 @@
 import {makeStyles, shorthands} from '@fluentui/react-components';
 import React from 'react';
-import {translateBiasA, translateBiasB} from '../../drawing/translaters';
-import {biasTanhFunction} from '../../utils';
+import {biasTanhFunction} from '../../utils/generalUtils';
+import {getTranslatedBiasA, getTranslatedBiasB} from '../../utils/translaters';
 
 
 const numberOfCircles = 50;
@@ -20,8 +20,8 @@ export const BiasGraph = ({biasInf, biasA, biasB}) => {
 
     React.useEffect(() => {
         let internalPath = `M 0 ${svgSize}`;
-        const biasATranslated = translateBiasA(biasA);
-        const biasBTranslated = translateBiasB(biasB);
+        const biasATranslated = getTranslatedBiasA(biasA);
+        const biasBTranslated = getTranslatedBiasB(biasB);
         new Array(numberOfCircles).fill(undefined).forEach((value, index) => {
             const x = 1 / (numberOfCircles - 1) * index;
             const y = biasTanhFunction(x, biasInf, biasATranslated, biasBTranslated);

@@ -1,7 +1,7 @@
 import {useCallback, useEffect} from 'react';
-import {addToHistory, drawLayer} from '../drawing/draw';
-import {getTranslatedBrushDensity} from '../drawing/translaters';
-import {deepCopy} from '../utils';
+import {deepCopy} from '../utils/generalUtils';
+import {getTranslatedBrushDensity} from '../utils/translaters';
+import {addToHistory, drawLayer} from '../worker/canvasWorkerMediators';
 import {useIsKeyPressed} from './useIsKeyPressed';
 
 

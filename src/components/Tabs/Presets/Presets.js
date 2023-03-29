@@ -15,7 +15,7 @@ import React from 'react';
 import {layerPresets, storageKeys} from '../../../consts/consts';
 import {useLocalStorageState} from '../../../hooks/useLocalStorageState';
 import {usePersistedImmer} from '../../../hooks/usePersistedImmer';
-import {deepCopy} from '../../../utils';
+import {deepCopy} from '../../../utils/generalUtils';
 import {PresetElement} from './PresetElement';
 
 

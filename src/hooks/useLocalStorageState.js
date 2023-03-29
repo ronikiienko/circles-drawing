@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useRef, useSyncExternalStore} from 'react';
-import {parseJSON, setItemToStorage} from '../utils';
+import {parseJSON, setItemToStorage} from '../utils/generalUtils';
 
 
 const callbacks = new Set();

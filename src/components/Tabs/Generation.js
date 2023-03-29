@@ -1,6 +1,6 @@
 import {Button} from '@fluentui/react-components';
 import React from 'react';
-import {getBiasedRandomNumber} from '../../utils';
+import {getBiasedRandomNumber} from '../../utils/generalUtils';
 
 
 export const Generation = ({settings, setSettings, classes}) => {

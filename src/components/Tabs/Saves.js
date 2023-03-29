@@ -3,8 +3,8 @@ import {InfoButton} from '@fluentui/react-components/unstable';
 import {Branch16Regular, BranchRequest20Regular, Code16Regular, Image16Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {storageKeys} from '../../consts/consts';
-import {openAsProject, saveAsImage, saveAsProject} from '../../drawing/draw';
-import {getItemFromStorage, setItemToStorage} from '../../utils';
+import {getItemFromStorage, setItemToStorage} from '../../utils/generalUtils';
+import {openAsProject, saveAsImage, saveAsProject} from '../../worker/canvasWorkerMediators';
 import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
 

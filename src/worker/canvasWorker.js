@@ -1,7 +1,7 @@
-import {db} from '../consts/db';
 import {CMD, maxUndoTimes} from '../consts/sharedConsts';
-import {getBiasedRandomNumber, getPointByDistanceAndAngle, wait} from '../utils';
-import {getRandomizedShapeSettings, getTranslatedAppSettings, getTranslatedLayerSettings} from './translaters';
+import {db} from '../db';
+import {getBiasedRandomNumber, getPointByDistanceAndAngle, wait} from '../utils/generalUtils';
+import {getRandomizedShapeSettings, getTranslatedAppSettings, getTranslatedLayerSettings} from '../utils/translaters';
 
 
 let canvas;
