@@ -10,8 +10,10 @@ let canvasWidth;
 let canvasHeight;
 
 let drawingStoppedFlag = false;
+let isDrawingFlag = false;
 
 // TODO needs more testing
+// TODO problems when simultaneously not one (specifically history index is undefined in getHistoryIndex (fixed* by starting drawing only if previous finished)
 class HistoryCareTaker {
     constructor() {
     }
@@ -193,6 +195,8 @@ const drawShape = (settings) => {
 };
 
 export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
+    if (isDrawingFlag) return;
+    isDrawingFlag = true;
     let settings = getTranslatedLayerSettings(rawSettings);
     const appSettings = getTranslatedAppSettings(rawAppSettings);
 
@@ -219,6 +223,7 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
     }
 
     if (addToHistory) await history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
+    isDrawingFlag = false;
 };
 
 export const clear = async (appSettings) => {
