@@ -47,15 +47,36 @@ export const clear = (appSettings) => {
 };
 
 export const saveAsImage = (png) => {
-    console.log(png);
     const type = png ? '' : 'image/jpeg';
     const fileExt = png ? '.png' : '.jpeg';
-    console.log('canvas', canvas);
     const dataUrl = canvas.toDataURL(type);
     saveAs(dataUrl, `${getRandomName()}${fileExt}`);
-    console.log('hi');
 };
 
+
+// TODO not working
+export const saveAsImageData = async (appSettings) => {
+    const imageData = await getImageData(appSettings);
+    console.log(imageData);
+    // const txt = JSON.stringify(imageData);
+    // console.log(txt);
+    const blob = new Blob([imageData.data], {type: 'application/octet-stream'});
+    console.log(blob);
+    saveAs(blob, `${getRandomName()}.mde`);
+};
+
+export const getImageData = (appSettings) => {
+    return new Promise(resolve => {
+        worker.postMessage({cmd: CMD.getImageData, appSettings});
+        worker.onmessage = (event) => {
+            if (event.data.cmd === CMD.getImageData) resolve(event.data.data);
+        };
+    });
+};
+
+// export const setImageData = (imageData) => {
+//     worker.postMessage({cmd: CMD.setImageData})
+// }
 
 
 

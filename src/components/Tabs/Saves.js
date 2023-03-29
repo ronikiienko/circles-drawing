@@ -2,11 +2,11 @@ import {Button} from '@fluentui/react-components';
 import {Code16Regular, Image16Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {storageKeys} from '../../consts/consts';
-import {saveAsImage} from '../../drawing/draw';
+import {saveAsImage, saveAsImageData} from '../../drawing/draw';
 import {getItemFromStorage, setItemToStorage} from '../../utils';
 
 
-export const Saves = ({settings, setSettings, classes}) => {
+export const Saves = ({settings, setSettings, appSettings, classes}) => {
     const shelveSettings = () => setItemToStorage(storageKeys.shelvedLayerSettings, settings);
     const unshelveSettings = () => {
         const shelvedSettings = getItemFromStorage(storageKeys.shelvedLayerSettings);
@@ -39,6 +39,8 @@ export const Saves = ({settings, setSettings, classes}) => {
                     onClick={() => console.log(settings)}
                     icon={<Code16Regular/>}>Log settings</Button>
             </div>
+            <Button onClick={() => saveAsImageData(appSettings)} className={classes.button}>Save as image data</Button>
+            {/*<Button onClick={() => getImageData()} className={classes.button}>Open lossless</Button>*/}
         </>
     );
 };

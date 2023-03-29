@@ -264,7 +264,8 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         />
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.saves.id}>
-                        <Saves settings={settings} setSettings={setSettings} classes={tabsClasses}/>
+                        <Saves appSettings={appSettings} settings={settings} setSettings={setSettings}
+                               classes={tabsClasses}/>
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.brush.id}>
                         <Brush

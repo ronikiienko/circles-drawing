@@ -11,6 +11,7 @@ let canvasHeight;
 
 let drawingStoppedFlag = false;
 
+// TODO needs more testing
 class HistoryCareTaker {
     constructor() {
     }
@@ -32,6 +33,8 @@ class HistoryCareTaker {
 
     async add(snapshot) {
         await db.table('history').where('index').above(await this.#getHistoryIndex()).delete();
+
+        console.log(await this.#getHistoryLength(), maxUndoTimes, 'hi');
 
         if (await this.#getHistoryLength() > maxUndoTimes - 1) {
             const firstItem = await db.table('history').toCollection().first();
@@ -120,6 +123,16 @@ onmessage = async (event) => {
             await clear(data.appSettings);
         }
             break;
+        case CMD.getImageData: {
+            postMessage({
+                cmd: CMD.getImageData,
+                data: ctx.getImageData(0, 0, canvasWidth * data.appSettings.resolutionMult, canvasHeight * data.appSettings.resolutionMult),
+            });
+        }
+            break;
+        // case CMD.setImageData: {
+        //
+        // }
     }
 };
 

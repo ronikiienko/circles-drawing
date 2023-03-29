@@ -36,7 +36,6 @@ export const App = () => {
     useEffect(() => {
         setCanvasResolution(window.innerWidth, window.innerHeight, debouncedResolutionMult, canvasRef.current);
     }, [debouncedResolutionMult]);
-    console.log(appSettings);
     return (
         <FluentProvider theme={appSettings.darkMode ? teamsDarkTheme : teamsLightTheme}>
             <div className={classes.mainContainer}>

@@ -7,6 +7,8 @@ export const CMD = {
     clear: 'CLEAR',
     stopDrawing: 'STOP_DRAWING',
     addToHistory: 'ADD_TO_HISTORY',
+    getImageData: 'GET_IMAGE_DATA',
+    setImageData: 'SET_IMAGE_DATA',
 };
 
 export const maxUndoTimes = 10;
