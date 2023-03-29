@@ -41,7 +41,9 @@ export const Saves = ({settings, setSettings, appSettings, handleAppSettingsChan
                     onClick={() => console.log(settings)}
                     icon={<Code16Regular/>}>Log settings</Button>
             </div>
-            <Button onClick={() => saveAsImageData(appSettings)} className={classes.button}>Save as image data</Button>
+            <Button onClick={() => saveAsImageData(appSettings.projectName, appSettings)} className={classes.button}>Save
+                as image data</Button>
+            {/*<input type={'file'}/>*/}
             {/*<Button onClick={() => getImageData()} className={classes.button}>Open lossless</Button>*/}
             <br/>
             <Label className={classes.label}>

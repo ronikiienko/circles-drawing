@@ -1,7 +1,6 @@
 import {saveAs} from 'file-saver';
 import {save} from 'save-file';
 import {CMD} from '../consts/sharedConsts';
-import {getRandomName} from '../nameGenerator';
 
 
 let worker;
@@ -56,7 +55,7 @@ export const saveAsImage = (name, png) => {
 
 
 // TODO not working
-export const saveAsImageData = async (appSettings) => {
+export const saveAsImageData = async (name, appSettings) => {
     const imageData = await getImageData(appSettings);
     console.log(imageData);
     // // const txt = JSON.stringify(imageData);
@@ -65,7 +64,7 @@ export const saveAsImageData = async (appSettings) => {
     // console.log(blob);
     // saveAs(blob, `${getRandomName()}.mde`);
 
-    save(imageData, `${getRandomName()}.mde`);
+    save(imageData, `${name}.mde`);
 };
 
 export const getImageData = (appSettings) => {
