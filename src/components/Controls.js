@@ -176,7 +176,7 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
     useHotkeys(hotkeys.redo, redo);
     useHotkeys(hotkeys.hideInterface, () => setHidden(prevHidden => !prevHidden));
     useHotkeys(hotkeys.clear, () => clear(appSettings), {preventDefault: true});
-    useHotkeys(hotkeys.saveAsPng, () => saveAsImage(true), {preventDefault: true});
+    useHotkeys(hotkeys.saveAsPng, () => saveAsImage(appSettings.projectName, true), {preventDefault: true});
     useHotkeys(hotkeys.addLayer, () => drawLayer(settings, appSettings));
 
     const handleChange = (event) => {
