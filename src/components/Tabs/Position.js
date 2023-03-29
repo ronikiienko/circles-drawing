@@ -158,7 +158,7 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                         <Label className={classes.label}>
                             Custom spiral formula:
                             <Input
-                                className={classes.text}
+                                className={classes.bigText}
                                 size="small"
                                 value={settings.position.biasSpiralCustom}
                                 id="position-biasSpiralCustom"

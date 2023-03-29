@@ -20,6 +20,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hotkeys-hook": "^4.3.8",
+    "save-file": "^2.3.1",
     "use-immer": "^0.8.1"
   },
   "devDependencies": {

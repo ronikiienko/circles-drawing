@@ -1,3 +1,4 @@
+import {getRandomName} from '../nameGenerator';
 import {biasSpiralTypes, biasTypes} from './sharedConsts';
 
 
@@ -401,11 +402,15 @@ export const defaultAppSettings = {
     drawingSpeed: 0.25,
     darkMode: true,
     resolutionMult: window.devicePixelRatio,
+    projectNameRand: true,
+    projectName: getRandomName(),
 };
 
 export const getAppSettings = (settings) => {
     const defaultSettings = defaultAppSettings;
     return {
+        projectNameRand: settings?.projectNameRand || defaultSettings.projectNameRand,
+        projectName: settings?.projectName || defaultSettings.projectName,
         drawingSpeed: settings?.drawingSpeed || defaultSettings.drawingSpeed,
         darkMode: settings?.darkMode || defaultSettings.darkMode,
         resolutionMult: settings?.resolutionMult || defaultSettings.resolutionMult,

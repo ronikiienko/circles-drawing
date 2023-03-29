@@ -34,8 +34,6 @@ class HistoryCareTaker {
     async add(snapshot) {
         await db.table('history').where('index').above(await this.#getHistoryIndex()).delete();
 
-        console.log(await this.#getHistoryLength(), maxUndoTimes, 'hi');
-
         if (await this.#getHistoryLength() > maxUndoTimes - 1) {
             const firstItem = await db.table('history').toCollection().first();
             await db.table('history').where('index').equals(firstItem.index).delete();

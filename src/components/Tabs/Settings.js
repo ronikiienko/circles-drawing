@@ -15,6 +15,7 @@ export const Settings = ({appSettings, setAppSettings, handleAppSettingsChange, 
             <Label className={classes.label}>
                 Drawing speed:
                 <Slider
+                    size="small"
                     id="drawingSpeed"
                     className={classes.slider}
                     value={appSettings.drawingSpeed}
@@ -28,6 +29,7 @@ export const Settings = ({appSettings, setAppSettings, handleAppSettingsChange, 
             <Label className={classes.label}>
                 Dark mode:
                 <Switch
+                    size="small"
                     id="darkMode"
                     className={classes.slider}
                     checked={appSettings.darkMode}
@@ -38,6 +40,7 @@ export const Settings = ({appSettings, setAppSettings, handleAppSettingsChange, 
             <Label className={classes.row}>
                 Resolution:
                 <Slider
+                    size="small"
                     id="resolutionMult"
                     className={classes.slider}
                     value={appSettings.resolutionMult}
@@ -57,6 +60,7 @@ export const Settings = ({appSettings, setAppSettings, handleAppSettingsChange, 
                 />
                 <Button size="small" onClick={resetResolution}>Reset resolution</Button>
             </Label>
+
         </div>
     );
 };

@@ -1,4 +1,5 @@
 import {saveAs} from 'file-saver';
+import {save} from 'save-file';
 import {CMD} from '../consts/sharedConsts';
 import {getRandomName} from '../nameGenerator';
 
@@ -42,15 +43,15 @@ export const setCanvasResolution = (width, height, resolutionMult, canvasElement
     worker.postMessage({cmd: CMD.setCanvasPPI, width, height, resolutionMult});
 };
 
-export const clear = (appSettings) => {
+export const clearCanvas = (appSettings) => {
     worker.postMessage({cmd: CMD.clear, appSettings});
 };
 
-export const saveAsImage = (png) => {
+export const saveAsImage = (name, png) => {
     const type = png ? '' : 'image/jpeg';
     const fileExt = png ? '.png' : '.jpeg';
     const dataUrl = canvas.toDataURL(type);
-    saveAs(dataUrl, `${getRandomName()}${fileExt}`);
+    saveAs(dataUrl, `${name}${fileExt}`);
 };
 
 
@@ -58,11 +59,13 @@ export const saveAsImage = (png) => {
 export const saveAsImageData = async (appSettings) => {
     const imageData = await getImageData(appSettings);
     console.log(imageData);
-    // const txt = JSON.stringify(imageData);
-    // console.log(txt);
-    const blob = new Blob([imageData.data], {type: 'application/octet-stream'});
-    console.log(blob);
-    saveAs(blob, `${getRandomName()}.mde`);
+    // // const txt = JSON.stringify(imageData);
+    // // console.log(txt);
+    // const blob = new Blob([imageData.data], {type: 'application/octet-stream'});
+    // console.log(blob);
+    // saveAs(blob, `${getRandomName()}.mde`);
+
+    save(imageData, `${getRandomName()}.mde`);
 };
 
 export const getImageData = (appSettings) => {

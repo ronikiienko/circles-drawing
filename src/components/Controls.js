@@ -21,10 +21,11 @@ import React, {useRef} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 import {useImmer} from 'use-immer';
 import {hotkeys, tabs} from '../consts/consts';
-import {clear, drawLayer, redo, saveAsImage, stopDrawing, undo} from '../drawing/draw';
+import {clearCanvas, drawLayer, redo, saveAsImage, stopDrawing, undo} from '../drawing/draw';
 import {useBrush} from '../hooks/useBrush';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import {useResizer} from '../hooks/useResizer';
+import {getRandomName} from '../nameGenerator';
 import './Controls.css';
 import {Brush} from './Tabs/Brush';
 import {Color} from './Tabs/Color';
@@ -135,8 +136,12 @@ const useStylesTabs = makeStyles({
     button: {
         ...shorthands.margin('3px'),
     },
-    text: {
+    bigText: {
         width: '300px',
+        marginLeft: '5px',
+    },
+    text: {
+        width: '200px',
         marginLeft: '5px',
     },
     select: {
@@ -195,6 +200,12 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
         });
     };
 
+    const clear = () => {
+        clearCanvas(appSettings);
+        if (appSettings.projectNameRand) setAppSettings(draft => {
+            draft.projectName = getRandomName();
+        });
+    };
 
     return (
         <>
@@ -264,7 +275,8 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         />
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.saves.id}>
-                        <Saves appSettings={appSettings} settings={settings} setSettings={setSettings}
+                        <Saves handleAppSettingsChange={handleAppSettingsChange} appSettings={appSettings}
+                               settings={settings} setSettings={setSettings}
                                classes={tabsClasses}/>
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.brush.id}>
@@ -293,7 +305,7 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         icon={<ArrowRedo16Regular/>}>Redo</Button>
                     <Button
                         className={localClasses.clearButton}
-                        onClick={() => clear(appSettings)}
+                        onClick={clear}
                         appearance="primary"
                         icon={<Delete16Regular/>}
                     >
