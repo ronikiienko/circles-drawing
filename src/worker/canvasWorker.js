@@ -1,4 +1,4 @@
-import {CMD, maxUndoTimes} from '../consts/sharedConsts';
+import {CMD, maxUndoTimes, shapeTypes} from '../consts/sharedConsts';
 import {db} from '../db';
 import {getBiasedRandomNumber, getPointByDistanceAndAngle, wait} from '../utils/generalUtils';
 import {getRandomizedShapeSettings, getTranslatedAppSettings, getTranslatedLayerSettings} from '../utils/translaters';
@@ -156,15 +156,15 @@ const drawShape = (settings) => {
     ctx.shadowColor = settings.color.color;
 
     ctx.beginPath();
-    if (settings.shape.shape === 'circle') {
+    if (settings.shape.shape === shapeTypes.circle) {
         ctx.arc(settings.position.x, settings.position.y, settings.size.size, 0, Math.PI * 2, true);
         ctx.fill();
     }
-    if (settings.shape.shape === 'rectangle') {
+    if (settings.shape.shape === shapeTypes.rectangle) {
         ctx.rect(settings.position.x, settings.position.y, settings.size.size, settings.size.size);
         ctx.fill();
     }
-    if (settings.shape.shape === 'line') {
+    if (settings.shape.shape === shapeTypes.line) {
         ctx.lineWidth = settings.size.size * settings.shape.lineRatio;
         if (settings.shape.lineRounded) {
             ctx.lineCap = 'round';
@@ -182,11 +182,11 @@ const drawShape = (settings) => {
         ctx.lineTo(x, y);
         ctx.stroke();
     }
-    if (settings.shape.shape === 'random3' || settings.shape.shape === 'random4') {
+    if (settings.shape.shape === shapeTypes.random3 || settings.shape.shape === shapeTypes.random4) {
         ctx.moveTo(settings.position.x, settings.position.y);
         ctx.lineTo(settings.position.x + getBiasedRandomNumber(-settings.size.size, settings.size.size), settings.position.y + getBiasedRandomNumber(-settings.size.size, settings.size.size));
         ctx.lineTo(settings.position.x + getBiasedRandomNumber(-settings.size.size, settings.size.size), settings.position.y + getBiasedRandomNumber(-settings.size.size, settings.size.size));
-        if (settings.shape.shape === 'random4') ctx.lineTo(settings.position.x + getBiasedRandomNumber(-settings.size.size, settings.size.size), settings.position.y + getBiasedRandomNumber(-settings.size.size, settings.size.size));
+        if (settings.shape.shape === shapeTypes.random4) ctx.lineTo(settings.position.x + getBiasedRandomNumber(-settings.size.size, settings.size.size), settings.position.y + getBiasedRandomNumber(-settings.size.size, settings.size.size));
         ctx.lineTo(settings.position.x, settings.position.y);
         ctx.fill();
     }

@@ -1,6 +1,7 @@
 import {Button, Checkbox, Input, Label, Select, Slider} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
+import {shapeTypes} from '../../consts/sharedConsts';
 import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
 
@@ -11,11 +12,9 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                 Shape:
                 <Select size="small" className={classes.select} value={settings.shape.shape} id="shape-shape"
                         onChange={handleChange}>
-                    <option value="circle">Circle</option>
-                    <option value="rectangle">Rectangle</option>
-                    <option value="line">Line</option>
-                    <option value="random3">Random 3</option>
-                    <option value="random4">Random 4</option>
+                    {Object.values(shapeTypes).map(shapeType => {
+                        return <option key={shapeType} value={shapeType}>{shapeType}</option>;
+                    })}
                 </Select>
             </Label>
             <ConditionalPanel active={settings.shape.shape === 'line'}>

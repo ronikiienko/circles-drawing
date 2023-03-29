@@ -77,3 +77,7 @@ export const getAppSettings = (settings) => {
         resolutionMult: settings?.resolutionMult || defaultSettings.resolutionMult,
     };
 };
+
+export const presetDescriptionGenerator = () => {
+
+};

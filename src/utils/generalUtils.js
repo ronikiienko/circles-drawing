@@ -12,6 +12,18 @@ export const getBiasedRandomNumber = (min, max, decimals = 0, biasSettings) => {
     return randomNumber * (1 - mix) + bias * mix;
 };
 
+/**
+ * Both, magnitude and angle require array of 2 - 4 properties. 1 - minVal 2 - maxVal 3 - decimalsNum 4 - biasSettings
+ * @param magnitude
+ * @param angle
+ */
+
+export const getRandomVector = (magnitude, angle) => {
+    const randomAngle = getBiasedRandomNumber(angle[0], angle[1], angle[2], angle[3]);
+    const randomMagnitude = getBiasedRandomNumber(magnitude[0], magnitude[1], magnitude[2], magnitude[3]);
+    return [randomMagnitude, randomAngle];
+};
+
 export const getPointByDistanceAndAngle = (fromX, fromY, distance, angle) => {
     const angleRad = turnDegreesToRadians(angle);
     const x = fromX + Math.cos(angleRad) * distance;

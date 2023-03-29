@@ -1,5 +1,5 @@
 import {getRandomName} from '../utils/nameGenerator';
-import {biasSpiralTypes, biasTypes} from './sharedConsts';
+import {biasSpiralTypes, biasTypes, shapeTypes} from './sharedConsts';
 
 
 export const layerPresets = [
@@ -17,7 +17,7 @@ export const layerPresets = [
             number: '10',
         },
         shape: {
-            shape: 'line',
+            shape: shapeTypes.line,
             lineAngle: 30 / 360,
             lineAngleRand: 0,
             lineRatio: 0.2,
@@ -80,7 +80,7 @@ export const layerPresets = [
             number: '500',
         },
         shape: {
-            shape: 'circle',
+            shape: shapeTypes.circle,
             lineAngle: 30 / 360,
             lineAngleRand: 0,
             lineRatio: 0.2,
@@ -120,7 +120,7 @@ export const layerPresets = [
             number: '1000',
         },
         shape: {
-            shape: 'line',
+            shape: shapeTypes.line,
             lineAngle: 70 / 360,
             lineAngleRand: 0.1,
             lineRatio: 0.1,
@@ -252,7 +252,7 @@ export const layerPresets = [
             'number': '10000',
         },
         'shape': {
-            'shape': 'circle',
+            'shape': shapeTypes.circle,
             'lineAngle': 0.08333333333333333,
             'lineAngleRand': 0,
             'lineRatio': 0.2,
@@ -429,4 +429,6 @@ export const hotkeys = {
     hideInterface: 'Escape',
     saveAsPng: 'ctrl+s',
 };
+
+
 

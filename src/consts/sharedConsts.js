@@ -25,3 +25,33 @@ export const biasSpiralTypes = {
     circles: 'circles',
     custom: 'custom',
 };
+
+export const shapeTypes = {
+    circle: 'circle',
+    rectangle: 'rectangle',
+    line: 'line',
+    random3: 'random3',
+    random4: 'random4',
+};
+
+const randomPresetRules = {
+    size: {
+        size: {
+            min: 0,
+            max: 1,
+        },
+        sizeRand: {
+            min: 0,
+            max: 1,
+        },
+    },
+    number: {
+        number: {
+            min: 0,
+            max: 100,
+        },
+    },
+    shape: {
+        shape: ['li'],
+    },
+};
