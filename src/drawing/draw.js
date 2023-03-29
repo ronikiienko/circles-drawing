@@ -55,7 +55,7 @@ export const saveAsImage = (name, png) => {
 
 
 // TODO not working
-export const saveAsImageData = async (name, appSettings) => {
+export const saveAsProject = async (name, appSettings) => {
     const imageData = await getImageData(appSettings);
     console.log(imageData);
     // // const txt = JSON.stringify(imageData);
@@ -64,7 +64,24 @@ export const saveAsImageData = async (name, appSettings) => {
     // console.log(blob);
     // saveAs(blob, `${getRandomName()}.mde`);
 
-    save(imageData, `${name}.mde`);
+    save(imageData.data, `${name}.mde`);
+};
+
+export const openAsProject = async (event) => {
+    let fileData = event.target.files[0];
+    const text = await fileData.text();
+    // console.log(text);
+    const clamped = new Uint8ClampedArray(fileData);
+    console.log('clamped', clamped);
+    console.log(new ImageData(text, 1000, 1000));
+    // let testConfigObject = parseJSON(text, true);
+    // if (!testConfigObject) return alert('Invalid test file :(');
+    // const isTestValid = validateTest(testConfigObject);
+    // if (testConfigObject[TEST_KEYS.general]?.[TEST_GENERAL_KEYS.creatorId] !== getItemFromStorage(USER_ID_KEY)) {
+    //     return alert('Only test creator can edit test :(');
+    // }
+    // if (!isTestValid) return alert('Invalid test file :(');
+    // setTestConfigs(testConfigObject);
 };
 
 export const getImageData = (appSettings) => {
