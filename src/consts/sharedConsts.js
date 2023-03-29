@@ -34,24 +34,3 @@ export const shapeTypes = {
     random4: 'random4',
 };
 
-const randomPresetRules = {
-    size: {
-        size: {
-            min: 0,
-            max: 1,
-        },
-        sizeRand: {
-            min: 0,
-            max: 1,
-        },
-    },
-    number: {
-        number: {
-            min: 0,
-            max: 100,
-        },
-    },
-    shape: {
-        shape: ['li'],
-    },
-};
