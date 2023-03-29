@@ -4,7 +4,7 @@ import {Branch16Regular, BranchRequest20Regular, Code16Regular, Image16Regular} 
 import React from 'react';
 import {storageKeys} from '../../consts/consts';
 import {getItemFromStorage, setItemToStorage} from '../../utils/generalUtils';
-import {openAsProject, saveAsImage, saveAsProject} from '../../worker/canvasWorkerMediators';
+import {saveAsImage} from '../../worker/canvasWorkerMediators';
 import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
 
@@ -56,11 +56,11 @@ export const Saves = ({settings, setSettings, appSettings, handleAppSettingsChan
                     icon={<Code16Regular/>}
                 >Log settings</Button>
             </div>
-            <Button
-                onClick={() => saveAsProject(appSettings.projectName, appSettings)}
-                className={classes.button}
-            >Save as image data</Button>
-            <input onChange={openAsProject} type={'file'}/>
+            {/*<Button*/}
+            {/*    onClick={() => saveAsProject(appSettings.projectName, appSettings)}*/}
+            {/*    className={classes.button}*/}
+            {/*>Save as image data</Button>*/}
+            {/*<input onChange={openAsProject} type={'file'}/>*/}
             {/*<Button onClick={() => getImageData()} className={classes.button}>Open lossless</Button>*/}
             <br/>
             <Label className={classes.label}>

@@ -82,6 +82,10 @@ export const tabs = {
         label: 'Brush',
         id: 'tab-button-brush',
     },
+    generation: {
+        label: 'Generation',
+        id: 'tab-button-generation',
+    },
 };
 
 export const hotkeys = {
