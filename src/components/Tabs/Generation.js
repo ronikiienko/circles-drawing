@@ -46,7 +46,6 @@ export const Generation = ({settings, setSettings, classes}) => {
                 biasA: getBiasedRandomNumber(0, 1, 2),
                 biasB: getBiasedRandomNumber(0, 1, 2),
                 biasInf: getBiasedRandomNumber(0, 1, 2),
-                overlayMode: 'source-over',
             },
             color: {
                 color: '#FF00DD',

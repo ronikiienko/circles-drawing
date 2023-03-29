@@ -58,7 +58,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             sizeRand: parseFloat(rawSettings.size.sizeRand) * shapeAdjustedSize * 0.8,
         },
         number: {
-            number: parseFloat(rawSettings.number.number),
+            number: Math.trunc(parseFloat(rawSettings.number.number)),
         },
         shape: {
             shape: shape,

@@ -82,7 +82,7 @@ export const Color = ({settings, handleChange, classes}) => {
                     id="color-overlayMode"
                     onChange={handleChange}
                 >
-                    {overlayModes.map(overlayMode =>
+                    {Object.values(overlayModes).map(overlayMode =>
                         <option
                             key={overlayMode}
                             value={overlayMode}

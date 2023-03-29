@@ -2,6 +2,97 @@ import {getRandomName} from '../utils/nameGenerator';
 import {biasSpiralTypes, biasTypes, shapeTypes} from './sharedConsts';
 
 
+export const overlayModes = {
+    sourceOver: 'source-over',
+    sourceIn: 'source-in',
+    sourceOut: 'source-out',
+    sourceAtop: 'source-atop',
+    destinationOver: 'destination-over',
+    destinationIn: 'destination-in',
+    destinationOut: 'destination-out',
+    destinationAtop: 'destination-atop',
+    lighter: 'lighter',
+    copy: 'copy',
+    xor: 'xor',
+    screen: 'screen',
+    overlay: 'overlay',
+    darken: 'darken',
+    lighten: 'lighten',
+    colorDodge: 'color-dodge',
+    colorBurn: 'color-burn',
+    hardLight: 'hard-light',
+    softLight: 'soft-light',
+    difference: 'difference',
+    exclusion: 'exclusion',
+    hue: 'hue',
+    saturation: 'saturation',
+    color: 'color',
+    luminosity: 'luminosity',
+};
+
+export const coordinateFlagsSize = 30;
+
+export const storageKeys = {
+    layerSettings: 'layerSettings',
+    appSettings: 'appSettings',
+    shelvedLayerSettings: 'shelvedLayerSettings',
+    mainTab: 'mainTab',
+    presetDraftMeta: 'presetDraftMeta',
+    userPresets: 'userPresets',
+};
+
+export const tabs = {
+    number: {
+        label: 'Number',
+        id: 'tab-button-number',
+    },
+    size: {
+        label: 'Size',
+        id: 'tab-button-size',
+    },
+    shape: {
+        label: 'Shape',
+        id: 'tab-button-shape',
+    },
+    color: {
+        label: 'Color',
+        id: 'tab-button-color',
+    },
+    position: {
+        label: 'Position',
+        id: 'tab-button-position',
+    },
+    presets: {
+        label: 'Presets',
+        id: 'tab-button-presets',
+    },
+    // generation: {
+    //     label: 'Generation',
+    //     id: 'tab-button-generation',
+    // },
+    settings: {
+        label: 'Settings',
+        id: 'tab-button-settings',
+    },
+    saves: {
+        label: 'Saves',
+        id: 'tab-button-saves',
+    },
+    brush: {
+        label: 'Brush',
+        id: 'tab-button-brush',
+    },
+};
+
+export const hotkeys = {
+    addLayer: 'a',
+    clear: 'ctrl+d',
+    undo: 'ctrl+z',
+    redo: 'ctrl+shift+z',
+    hideInterface: 'Escape',
+    saveAsPng: 'ctrl+s',
+};
+
 export const layerPresets = [
     {
         preset: {
@@ -54,7 +145,7 @@ export const layerPresets = [
             transp: '0.7',
             transpRand: '0.2',
             glow: '0',
-            overlayMode: 'source-over',
+            overlayMode: overlayModes.sourceOver,
             blurOn: false,
             blur: '0',
             blurRand: '0',
@@ -95,7 +186,6 @@ export const layerPresets = [
             startY: 0,
             endX: window.innerWidth,
             endY: window.innerHeight,
-            overlayMode: 'source-over',
         },
         color: {
             color: '#FFAFFF',
@@ -140,7 +230,6 @@ export const layerPresets = [
             biasA: 0.1,
             biasB: 0.1,
             biasInf: '0',
-            overlayMode: 'source-over',
         },
         color: {
             color: '#0036ff',
@@ -274,7 +363,6 @@ export const layerPresets = [
             'biasA': 0.1,
             'biasB': 0.1,
             'biasInf': '0',
-            'overlayMode': 'source-over',
         },
         'color': {
             'color': '#00ffcc',
@@ -339,98 +427,7 @@ export const defaultAppSettings = {
     projectName: getRandomName(),
 };
 
-export const overlayModes = [
-    'source-over',
-    'source-in',
-    'source-out',
-    'source-atop',
-    'destination-over',
-    'destination-in',
-    'destination-out',
-    'destination-atop',
-    'lighter',
-    'copy',
-    'xor',
-    'screen',
-    'overlay',
-    'darken',
-    'lighten',
-    'color-dodge',
-    'color-burn',
-    'hard-light',
-    'soft-light',
-    'difference',
-    'exclusion',
-    'hue',
-    'saturation',
-    'color',
-    'luminosity',
-];
-
-export const coordinateFlagsSize = 30;
-
-export const storageKeys = {
-    layerSettings: 'layerSettings',
-    appSettings: 'appSettings',
-    shelvedLayerSettings: 'shelvedLayerSettings',
-    mainTab: 'mainTab',
-    presetDraftMeta: 'presetDraftMeta',
-    userPresets: 'userPresets',
-};
-
-export const tabs = {
-    number: {
-        label: 'Number',
-        id: 'tab-button-number',
-    },
-    size: {
-        label: 'Size',
-        id: 'tab-button-size',
-    },
-    shape: {
-        label: 'Shape',
-        id: 'tab-button-shape',
-    },
-    color: {
-        label: 'Color',
-        id: 'tab-button-color',
-    },
-    position: {
-        label: 'Position',
-        id: 'tab-button-position',
-    },
-    presets: {
-        label: 'Presets',
-        id: 'tab-button-presets',
-    },
-    // generation: {
-    //     label: 'Generation',
-    //     id: 'tab-button-generation',
-    // },
-    settings: {
-        label: 'Settings',
-        id: 'tab-button-settings',
-    },
-    saves: {
-        label: 'Saves',
-        id: 'tab-button-saves',
-    },
-    brush: {
-        label: 'Brush',
-        id: 'tab-button-brush',
-    },
-};
-
-export const hotkeys = {
-    addLayer: 'a',
-    clear: 'ctrl+d',
-    undo: 'ctrl+z',
-    redo: 'ctrl+shift+z',
-    hideInterface: 'Escape',
-    saveAsPng: 'ctrl+s',
-};
-
-const randomPresetRules = {
+export const randomPresetRules = {
     preset: {
         name: 'Autogenerated',
         description: 'Autogenerated preset',
@@ -448,7 +445,7 @@ const randomPresetRules = {
     },
     number: {
         number: {
-            min: 0,
+            min: 10,
             max: 100,
         },
     },
@@ -485,11 +482,62 @@ const randomPresetRules = {
         startX: 0,
         startY: 0,
         endX: window.innerWidth,
-        end: window.innerHeight,
-        overlayMode: 'source-over',
+        endY: window.innerHeight,
+        biasType: Object.values(biasTypes),
+        biasSpiralType: Object.values(biasSpiralTypes),
+        biasSpiralCustom: 'Math.pow(angleRad, 1.2)',
+        biasSpiralThickness: {
+            min: 0,
+            max: 1,
+        },
+        biasSpiralDensity: {
+            min: 0,
+            max: 1,
+        },
+        biasSpiralSpread: {
+            min: 0,
+            max: 1,
+        },
+        biasSpiralAngleRand: {
+            min: 0,
+            max: 1,
+        },
+        biasSpiralMult: {
+            min: 0,
+            max: 1,
+        },
+        biasRadiusX: {
+            min: 0,
+            max: window.innerWidth,
+        },
+        biasRadiusY: {
+            min: 0,
+            max: window.innerHeight,
+        },
+        biasX: {
+            min: 0,
+            max: window.innerWidth,
+        },
+        biasY: {
+            min: 0,
+            max: window.innerHeight,
+        },
+        biasA: {
+            min: 0,
+            max: 1,
+        },
+        biasB: {
+            min: 0,
+            max: 1,
+        },
+        biasInf: {
+            min: 0,
+            max: 1,
+        },
     },
     color: {
         color: {
+            type: 'color',
             rMin: 0,
             rMax: 255,
             gMin: 0,
@@ -514,6 +562,22 @@ const randomPresetRules = {
             min: 0,
             max: 1,
         },
+        overlayMode: overlayModes.sourceOver,
+        blurOn: [false, true],
+        blur: {
+            min: 0,
+            max: 1,
+        },
+        blurRand: {
+            min: 0,
+            max: 1,
+        },
+    },
+    brush: {
+        brushDensity: 0.5,
+        brushOn: false,
+        brushX: 0,
+        brushY: 0,
     },
 };
 

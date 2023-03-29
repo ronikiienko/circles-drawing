@@ -78,6 +78,12 @@ export const hexToHslArray = (hex) => {
     return [h, s, l];
 };
 
+
+export const rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => {
+    const hex = x.toString(16);
+    return hex.length === 1 ? '0' + hex : hex;
+}).join('');
+
 export const wait = (ms) => new Promise(resolve => setTimeout(() => {
     resolve();
 }, ms));
@@ -129,4 +135,17 @@ export const parseJSON = (value) => {
 
 export const deepCopy = (value) => {
     return JSON.parse(JSON.stringify(value));
+};
+
+/**
+ *
+ * @param value
+ * @returns {"undefined"|"boolean"|"number"|"string"|"function"|"symbol"|"bigint"|string|"array"}
+ */
+export const typeofWithArray = (value) => {
+    let typeOf = typeof value;
+    if (typeOf === 'object') {
+        typeOf = Array.isArray(value) ? 'array' : 'object';
+    }
+    return typeOf;
 };
