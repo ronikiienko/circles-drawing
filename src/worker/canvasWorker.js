@@ -14,6 +14,7 @@ let isDrawingFlag = false;
 
 // TODO needs more testing
 // TODO problems when simultaneously not one (specifically history index is undefined in getHistoryIndex (fixed* by starting drawing only if previous finished)
+// TODO when using brush, not letting drawing simultaneously may be very uncomfortable
 class HistoryCareTaker {
     constructor() {
     }
@@ -167,7 +168,7 @@ const drawShape = (settings) => {
         ctx.fill();
     }
     if (settings.shape.shape === shapeTypes.line) {
-        ctx.lineWidth = settings.size.size * settings.shape.lineRatio;
+        ctx.lineWidth = settings.size.size * settings.shape.widthRatio;
         if (settings.shape.lineRounded) {
             ctx.lineCap = 'round';
         } else {
@@ -179,10 +180,16 @@ const drawShape = (settings) => {
             settings.position.x,
             settings.position.y,
             settings.size.size,
-            settings.shape.lineAngle,
+            settings.shape.angle,
         );
         ctx.lineTo(x, y);
         ctx.stroke();
+    }
+    if (settings.shape.shape === shapeTypes.ellipse) {
+        const width = settings.size.size * settings.shape.widthRatio;
+
+        ctx.ellipse(settings.position.x, settings.position.y, width, settings.size.size, settings.shape.angle, 0, 2 * Math.PI);
+        ctx.fill();
     }
     if (settings.shape.shape === shapeTypes.random3 || settings.shape.shape === shapeTypes.random4) {
         ctx.moveTo(settings.position.x, settings.position.y);
@@ -195,7 +202,7 @@ const drawShape = (settings) => {
 };
 
 export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
-    if (isDrawingFlag) return;
+    if (addToHistory && isDrawingFlag) return;
     isDrawingFlag = true;
     let settings = getTranslatedLayerSettings(rawSettings);
     const appSettings = getTranslatedAppSettings(rawAppSettings);

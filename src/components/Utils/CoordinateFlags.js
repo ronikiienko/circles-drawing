@@ -46,7 +46,7 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                     color="gray"/>
             </ConditionalPanel>
 
-            <ConditionalPanel active={settings.shape.lineLookToOn}>
+            <ConditionalPanel active={settings.shape.lookToOn}>
                 <CoordinateFlag
                     id="shape-lineLookTo"
                     title="Look to point"

@@ -17,38 +17,40 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                     })}
                 </Select>
             </Label>
-            <ConditionalPanel active={settings.shape.shape === 'line'}>
+            <ConditionalPanel active={settings.shape.shape === 'line' || settings.shape.shape === 'ellipse'}>
                 <br/>
                 <Label className={classes.label}>
-                    Line look to on:
+                    Look to on:
                     <Checkbox
-                        checked={settings.shape.lineLookToOn}
-                        id="shape-lineLookToOn"
+                        checked={settings.shape.lookToOn}
+                        id="shape-lookToOn"
                         onChange={handleChange}
                     />
                     <InfoButton content={
                         <>
-                            Choose if all lines will be rotated such way to look at one point ("Look to" point)
+                            Choose if all shapes will be rotated such way to look at one point ("Look to" point)
                         </>
                     }/>
                 </Label>
-                <Label className={classes.label}>
-                    Line rounded:
-                    <Checkbox
-                        checked={settings.shape.lineRounded}
-                        className="line-rounded"
-                        id="shape-lineRounded"
-                        onChange={handleChange}
-                    />
-                </Label>
-                <br/>
-                <ConditionalPanel active={!settings.shape.lineLookToOn}>
+                <ConditionalPanel active={settings.shape.shape === 'line'}>
                     <Label className={classes.label}>
-                        Line angle:
+                        Line rounded:
+                        <Checkbox
+                            checked={settings.shape.lineRounded}
+                            className="line-rounded"
+                            id="shape-lineRounded"
+                            onChange={handleChange}
+                        />
+                    </Label>
+                </ConditionalPanel>
+                <br/>
+                <ConditionalPanel active={!settings.shape.lookToOn}>
+                    <Label className={classes.label}>
+                        Angle:
                         <Slider
                             className={classes.slider}
-                            value={settings.shape.lineAngle}
-                            id="shape-lineAngle"
+                            value={settings.shape.angle}
+                            id="shape-angle"
                             onChange={handleChange}
                             min="0"
                             max="1"
@@ -57,11 +59,11 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                     </Label>
                 </ConditionalPanel>
                 <Label className={classes.label}>
-                    Line angle rand:
+                    Angle rand:
                     <Slider
                         className={classes.slider}
-                        value={settings.shape.lineAngleRand}
-                        id="shape-lineAngleRand"
+                        value={settings.shape.angleRand}
+                        id="shape-angleRand"
                         onChange={handleChange}
                         type="range"
                         min="0"
@@ -71,11 +73,11 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                 </Label>
                 <br/>
                 <Label className={classes.label}>
-                    Line ratio:
+                    Width ratio:
                     <Slider
                         className={classes.slider}
-                        value={settings.shape.lineRatio}
-                        id="shape-lineRatio"
+                        value={settings.shape.widthRatio}
+                        id="shape-widthRatio"
                         onChange={handleChange}
                         min="0"
                         max="1"
@@ -83,11 +85,11 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                     />
                 </Label>
                 <Label className={classes.label}>
-                    Line ratio rand:
+                    Width ratio rand:
                     <Slider
                         className={classes.slider}
-                        value={settings.shape.lineRatioRand}
-                        id="shape-lineRatioRand"
+                        value={settings.shape.widthRatioRand}
+                        id="shape-widthRatioRand"
                         onChange={handleChange}
                         min="0"
                         max="1"
@@ -95,7 +97,7 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                     />
                 </Label>
                 <br/>
-                <ConditionalPanel active={settings.shape.lineLookToOn}>
+                <ConditionalPanel active={settings.shape.lookToOn}>
                     <div className={classes.row}>
                         <Label className={classes.label}>
                             Look to X:

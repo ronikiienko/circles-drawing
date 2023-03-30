@@ -32,5 +32,6 @@ export const shapeTypes = {
     line: 'line',
     random3: 'random3',
     random4: 'random4',
+    ellipse: 'ellipse',
 };
 

@@ -47,6 +47,10 @@ export const getTranslatedLayerSettings = (rawSettings) => {
         case shapeTypes.random4: {
             shapeAdjustedSize = baseSize * 2;
         }
+            break;
+        case shapeTypes.ellipse: {
+            shapeAdjustedSize = baseSize;
+        }
     }
 
     const transp = parseFloat(rawSettings.color.transp);
@@ -62,12 +66,12 @@ export const getTranslatedLayerSettings = (rawSettings) => {
         },
         shape: {
             shape: shape,
-            lineAngle: parseFloat(rawSettings.shape.lineAngle) * 360,
-            lineAngleRand: parseFloat(rawSettings.shape.lineAngleRand),
-            lineRatio: parseFloat(rawSettings.shape.lineRatio),
-            lineRatioRand: parseFloat(rawSettings.shape.lineRatioRand),
+            angle: parseFloat(rawSettings.shape.angle) * 360,
+            angleRand: parseFloat(rawSettings.shape.angleRand),
+            widthRatio: parseFloat(rawSettings.shape.widthRatio),
+            widthRatioRand: parseFloat(rawSettings.shape.widthRatioRand),
             lineRounded: rawSettings.shape.lineRounded,
-            lineLookToOn: rawSettings.shape.lineLookToOn,
+            lookToOn: rawSettings.shape.lookToOn,
             lineLookToX: rawSettings.shape.lineLookToX,
             lineLookToY: rawSettings.shape.lineLookToY,
         },
@@ -235,13 +239,13 @@ export const getRandomizedShapeSettings = (settings, i) => {
     }
 
 
-    let lineAngle;
-    if (settings.shape.lineLookToOn) {
+    let angle;
+    if (settings.shape.lookToOn && (settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse)) {
         const lookToXOffset = settings.shape.lineLookToX - xPosition;
         const lookToYOffset = settings.shape.lineLookToY - yPosition;
-        lineAngle = turnRadiansToDegrees(Math.atan(lookToYOffset / lookToXOffset));
+        angle = turnRadiansToDegrees(Math.atan(lookToYOffset / lookToXOffset));
     } else {
-        lineAngle = settings.shape.lineAngle;
+        angle = settings.shape.angle;
     }
 
     color = `hsla(
@@ -256,8 +260,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
         },
         shape: {
             shape: settings.shape.shape,
-            lineAngle: lineAngle + getBiasedRandomNumber(-10, 10) * (Math.pow(settings.shape.lineAngleRand + 1, 3) - 1),
-            lineRatio: settings.shape.lineRatio + getBiasedRandomNumber(-1, 1) * 0.2 * settings.shape.lineRatioRand,
+            angle: angle + getBiasedRandomNumber(-10, 10) * (Math.pow(settings.shape.angleRand + 1, 3) - 1),
+            widthRatio: settings.shape.widthRatio + getBiasedRandomNumber(-1, 1) * 0.2 * settings.shape.widthRatioRand,
             lineRounded: settings.shape.lineRounded,
         },
         position: {
