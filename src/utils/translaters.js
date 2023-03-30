@@ -1,5 +1,6 @@
 import {biasSpiralTypes, biasTypes, shapeTypes} from '../consts/sharedConsts';
 import {
+    clampValueToRange,
     getBiasedRandomNumber,
     getPointByDistanceAndAngle,
     hexToHslArray,
@@ -260,6 +261,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
     const size = settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2);
     const baseRectRoundness = size / 2 * settings.shape.rectRoundness;
 
+    // TODO sometimes width radio is minor (less than 0)
+
     return {
         size: {
             size: size,
@@ -267,7 +270,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
         shape: {
             shape: settings.shape.shape,
             angle: angle + getBiasedRandomNumber(-10, 10) * (Math.pow(settings.shape.angleRand + 1, 3) - 1),
-            widthRatio: settings.shape.widthRatio + getBiasedRandomNumber(-1, 1, 2) * 0.2 * settings.shape.widthRatioRand,
+            widthRatio: clampValueToRange(0, 1, settings.shape.widthRatio + getBiasedRandomNumber(-1, 1, 2) * settings.shape.widthRatio * settings.shape.widthRatioRand),
             lineRounded: settings.shape.lineRounded,
             rectRoundness: baseRectRoundness + getBiasedRandomNumber(-1, 1, 2) * baseRectRoundness * settings.shape.rectRoundnessRand * 0.6,
         },
