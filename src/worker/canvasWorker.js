@@ -1,6 +1,6 @@
 import {CMD, maxUndoTimes, shapeTypes} from '../consts/sharedConsts';
 import {db} from '../db';
-import {getBiasedRandomNumber, getPointByDistanceAndAngle, wait} from '../utils/generalUtils';
+import {getBiasedRandomNumber, getPointByDistanceAndAngle, turnDegreesToRadians, wait} from '../utils/generalUtils';
 import {getRandomizedShapeSettings, getTranslatedAppSettings, getTranslatedLayerSettings} from '../utils/translaters';
 
 
@@ -186,9 +186,9 @@ const drawShape = (settings) => {
         ctx.stroke();
     }
     if (settings.shape.shape === shapeTypes.ellipse) {
-        const width = settings.size.size * settings.shape.widthRatio;
+        const height = settings.size.size * settings.shape.widthRatio;
 
-        ctx.ellipse(settings.position.x, settings.position.y, width, settings.size.size, settings.shape.angle, 0, 2 * Math.PI);
+        ctx.ellipse(settings.position.x, settings.position.y, settings.size.size, height, turnDegreesToRadians(settings.shape.angle), 0, 2 * Math.PI);
         ctx.fill();
     }
     if (settings.shape.shape === shapeTypes.random3 || settings.shape.shape === shapeTypes.random4) {
