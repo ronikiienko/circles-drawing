@@ -3,9 +3,9 @@ import {
     clampValueToRange,
     getBiasedRandomNumber,
     getPointByDistanceAndAngle,
+    getVectorByTwoPoints,
     hexToHslArray,
     turnDegreesToRadians,
-    turnRadiansToDegrees,
 } from './generalUtils';
 
 
@@ -246,9 +246,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
 
     let angle;
     if (settings.shape.lookToOn && (settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse)) {
-        const lookToXOffset = settings.shape.lookToX - xPosition;
-        const lookToYOffset = settings.shape.lookToY - yPosition;
-        angle = turnRadiansToDegrees(Math.atan(lookToYOffset / lookToXOffset));
+        const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, settings.shape.lookToX, settings.shape.lookToY);
+        angle = lookToAngle;
     } else {
         angle = settings.shape.angle;
     }

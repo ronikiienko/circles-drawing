@@ -31,6 +31,14 @@ export const getPointByDistanceAndAngle = (fromX, fromY, distance, angle) => {
     return {x, y};
 };
 
+export const getVectorByTwoPoints = (lookFromX, lookFromY, lookToX, lookToY) => {
+    const xOffset = lookFromX - lookToX;
+    const yOffset = lookFromY - lookToY;
+    const angle = turnRadiansToDegrees(Math.atan(yOffset / xOffset));
+    const magnitude = Math.sqrt(Math.pow(xOffset, 2) + Math.pow(yOffset, 2));
+    return [magnitude, angle];
+};
+
 export const hexToRgbArray = (hex) => {
     return ['0x' + hex[1] + hex[2] | 0, '0x' + hex[3] + hex[4] | 0, '0x' + hex[5] + hex[6] | 0];
 };
