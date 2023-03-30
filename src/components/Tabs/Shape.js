@@ -17,7 +17,23 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                     })}
                 </Select>
             </Label>
-            <ConditionalPanel active={settings.shape.shape === 'line' || settings.shape.shape === 'ellipse'}>
+            <ConditionalPanel active={settings.shape.shape === shapeTypes.rectangle}>
+                <br/>
+                <Label className={classes.label}>
+                    Rectangle roundness:
+                    <Slider
+                        id="shape-rectRoundness"
+                        value={settings.shape.rectRoundness}
+                        onChange={handleChange}
+                        className={classes.slider}
+                        min="0"
+                        max="1"
+                        step={0.05}
+                    />
+                </Label>
+            </ConditionalPanel>
+            <ConditionalPanel
+                active={settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse}>
                 <br/>
                 <Label className={classes.label}>
                     Look to on:
@@ -32,7 +48,7 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                         </>
                     }/>
                 </Label>
-                <ConditionalPanel active={settings.shape.shape === 'line'}>
+                <ConditionalPanel active={settings.shape.shape === shapeTypes.line}>
                     <Label className={classes.label}>
                         Line rounded:
                         <Checkbox
@@ -65,7 +81,6 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                         value={settings.shape.angleRand}
                         id="shape-angleRand"
                         onChange={handleChange}
-                        type="range"
                         min="0"
                         max="1"
                         step={0.05}
@@ -103,9 +118,9 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                             Look to X:
                             <Input
                                 size="small"
-                                value={settings.shape.lineLookToX}
+                                value={settings.shape.lookToX}
                                 className={classes.number}
-                                id="shape-lineLookToX"
+                                id="shape-lookToX"
                                 onChange={handleChange}
                                 type="text"
                             />
@@ -114,9 +129,9 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                             Look to Y:
                             <Input
                                 size="small"
-                                value={settings.shape.lineLookToY}
+                                value={settings.shape.lookToY}
                                 className={classes.number}
-                                id="shape-lineLookToY"
+                                id="shape-lookToY"
                                 onChange={handleChange}
                                 type="text"
                             />

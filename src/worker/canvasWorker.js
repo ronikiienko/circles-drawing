@@ -164,7 +164,11 @@ const drawShape = (settings) => {
         ctx.fill();
     }
     if (settings.shape.shape === shapeTypes.rectangle) {
-        ctx.rect(settings.position.x, settings.position.y, settings.size.size, settings.size.size);
+        if (settings.shape.rectRoundness) {
+            ctx.roundRect(settings.position.x, settings.position.y, settings.size.size, settings.size.size, settings.shape.rectRoundness);
+        } else {
+            ctx.rect(settings.position.x, settings.position.y, settings.size.size, settings.size.size);
+        }
         ctx.fill();
     }
     if (settings.shape.shape === shapeTypes.line) {

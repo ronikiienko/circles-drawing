@@ -25,8 +25,9 @@ export const getLayerSettings = (preset) => {
             lineRounded: preset?.shape?.lineRounded || defaultPreset.shape.lineRounded,
             widthRatioRand: preset?.shape?.widthRatioRand || defaultPreset.shape.widthRatioRand,
             lookToOn: preset?.shape?.lookToOn || defaultPreset.shape.lookToOn,
-            lineLookToX: preset?.shape?.lineLookToX || defaultPreset.shape.lineLookToX,
-            lineLookToY: preset?.shape?.lineLookToY || defaultPreset.shape.lineLookToY,
+            lookToX: preset?.shape?.lookToX || defaultPreset.shape.lookToX,
+            lookToY: preset?.shape?.lookToY || defaultPreset.shape.lookToY,
+            rectRoundness: preset?.shape?.rectRoundness || defaultPreset.shape.rectRoundness,
         },
         position: {
             startX: preset?.position?.startX || defaultPreset.position.startX,
@@ -119,8 +120,9 @@ export const getRandomPreset = () => {
             lineRounded: getRandomValue(randomPresetRules.shape.lineRounded),
             widthRatioRand: getRandomValue(randomPresetRules.shape.widthRatioRand),
             lookToOn: getRandomValue(randomPresetRules.shape.lookToOn),
-            lineLookToX: getRandomValue(randomPresetRules.shape.lineLookToX),
-            lineLookToY: getRandomValue(randomPresetRules.shape.lineLookToY),
+            lookToX: getRandomValue(randomPresetRules.shape.lookToX),
+            lookToY: getRandomValue(randomPresetRules.shape.lookToY),
+            rectRoundness: getRandomValue(randomPresetRules.shape.rectRoundness),
         },
         position: {
             startX: getRandomValue(randomPresetRules.position.startX),

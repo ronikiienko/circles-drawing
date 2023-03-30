@@ -119,8 +119,9 @@ export const layerPresets = [
             lineRounded: false,
             widthRatioRand: 0.2,
             lookToOn: false,
-            lineLookToX: 100,
-            lineLookToY: 100,
+            lookToX: 100,
+            lookToY: 100,
+            rectRoundness: 0,
         },
         position: {
             startX: '0',
@@ -182,8 +183,8 @@ export const layerPresets = [
             lineRounded: false,
             widthRatioRand: 0.2,
             lookToOn: false,
-            lineLookToX: 100,
-            lineLookToY: 100,
+            lookToX: 100,
+            lookToY: 100,
         },
         position: {
             startX: 0,
@@ -221,8 +222,8 @@ export const layerPresets = [
             lineRounded: false,
             widthRatioRand: 0.1,
             lookToOn: false,
-            lineLookToX: 100,
-            lineLookToY: 100,
+            lookToX: 100,
+            lookToY: 100,
         },
         position: {
             startX: '0',
@@ -264,8 +265,8 @@ export const layerPresets = [
     //         'lineRounded': false,
     //         'widthRatioRand': 0.2,
     //         'lookToOn': false,
-    //         'lineLookToX': 100,
-    //         'lineLookToY': 100,
+    //         'lookToX': 100,
+    //         'lookToY': 100,
     //     },
     //     'position': {
     //         'startX': '0',
@@ -308,8 +309,8 @@ export const layerPresets = [
     //         'lineRounded': true,
     //         'widthRatioRand': '0.5',
     //         'lookToOn': true,
-    //         'lineLookToX': 827,
-    //         'lineLookToY': 201,
+    //         'lookToX': 827,
+    //         'lookToY': 201,
     //     },
     //     'position': {
     //         'startX': '0',
@@ -352,8 +353,8 @@ export const layerPresets = [
             'lineRounded': false,
             'widthRatioRand': 0.2,
             'lookToOn': false,
-            'lineLookToX': 100,
-            'lineLookToY': 100,
+            'lookToX': 100,
+            'lookToY': 100,
         },
         'position': {
             'biasType': 'spiral',
@@ -473,13 +474,17 @@ export const randomPresetRules = {
             max: 1,
         },
         lookToOn: [false, true],
-        lineLookToX: {
+        lookToX: {
             min: 0,
             max: window.innerWidth,
         },
-        lineLookToY: {
+        lookToY: {
             min: 0,
             max: window.innerHeight,
+        },
+        rectRoundness: {
+            min: 0,
+            max: 0.3,
         },
     },
     position: {

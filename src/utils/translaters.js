@@ -72,8 +72,9 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             widthRatioRand: parseFloat(rawSettings.shape.widthRatioRand),
             lineRounded: rawSettings.shape.lineRounded,
             lookToOn: rawSettings.shape.lookToOn,
-            lineLookToX: rawSettings.shape.lineLookToX,
-            lineLookToY: rawSettings.shape.lineLookToY,
+            lookToX: rawSettings.shape.lookToX,
+            lookToY: rawSettings.shape.lookToY,
+            rectRoundness: parseFloat(rawSettings.shape.rectRoundness),
         },
         position: {
             startX: parseFloat(rawSettings.position.startX),
@@ -241,8 +242,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
 
     let angle;
     if (settings.shape.lookToOn && (settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse)) {
-        const lookToXOffset = settings.shape.lineLookToX - xPosition;
-        const lookToYOffset = settings.shape.lineLookToY - yPosition;
+        const lookToXOffset = settings.shape.lookToX - xPosition;
+        const lookToYOffset = settings.shape.lookToY - yPosition;
         angle = turnRadiansToDegrees(Math.atan(lookToYOffset / lookToXOffset));
     } else {
         angle = settings.shape.angle;
@@ -254,15 +255,19 @@ export const getRandomizedShapeSettings = (settings, i) => {
                 ${settings.color.color[2]}%,
                 ${transp}
             )`;
+
+    const size = settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2);
+
     return {
         size: {
-            size: settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2),
+            size: size,
         },
         shape: {
             shape: settings.shape.shape,
             angle: angle + getBiasedRandomNumber(-10, 10) * (Math.pow(settings.shape.angleRand + 1, 3) - 1),
             widthRatio: settings.shape.widthRatio + getBiasedRandomNumber(-1, 1) * 0.2 * settings.shape.widthRatioRand,
             lineRounded: settings.shape.lineRounded,
+            rectRoundness: size / 2 * settings.shape.rectRoundness,
         },
         position: {
             x: Math.floor(xPosition),
