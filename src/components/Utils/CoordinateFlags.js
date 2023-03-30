@@ -48,7 +48,7 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
 
             <ConditionalPanel active={settings.shape.lookToOn}>
                 <CoordinateFlag
-                    id="shape-lineLookTo"
+                    id="shape-lookTo"
                     title="Look to point"
                     onMouseDown={setDragProp}
                     onTouchStart={setDragProp}

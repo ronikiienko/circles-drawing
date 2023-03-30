@@ -149,7 +149,7 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                                 type="text"
                             />
                         </Label>
-                        <Button size="small" id="shape-lineLookTo" onClick={setClickAndSetProp}>Click and set</Button>
+                        <Button size="small" id="shape-lookTo" onClick={setClickAndSetProp}>Click and set</Button>
                     </div>
 
                 </ConditionalPanel>
