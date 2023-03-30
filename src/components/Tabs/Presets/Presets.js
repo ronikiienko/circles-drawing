@@ -28,11 +28,6 @@ const useStyles = makeStyles({
         width: '100%',
         marginBlock: '3px',
     },
-    verticalLabel: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-    },
     savePresetButton: {
         marginTop: '5px',
         width: '100%',
@@ -118,24 +113,24 @@ export const Presets = ({settings, setSettings, classes}) => {
                     <AccordionHeader icon={<Add16Regular/>}>Create preset</AccordionHeader>
                     <AccordionPanel>
                         <div className={localClasses.presetCreationContainer}>
-                            <Label className={localClasses.verticalLabel}>
+                            <Label className={classes.verticalLabel}>
                                 Preset name:
                                 <Input
                                     id="name"
                                     onChange={handlePresetDraftMetaChange}
                                     value={presetDraftMeta.name}
-                                    className={localClasses.presetName}
+                                    className={classes.fullWidth}
                                     size="small"
                                     type="text"
                                 />
                             </Label>
-                            <Label className={localClasses.verticalLabel}>
+                            <Label className={classes.verticalLabel}>
                                 Preset description:
                                 <Textarea
                                     id="description"
                                     onChange={handlePresetDraftMetaChange}
                                     value={presetDraftMeta.description}
-                                    className={localClasses.presetDescription}
+                                    className={classes.fullWidth}
                                     size="small"
                                     type="text"
                                 />
@@ -151,3 +146,5 @@ export const Presets = ({settings, setSettings, classes}) => {
         </>
     );
 };
+
+// TODO add full width input

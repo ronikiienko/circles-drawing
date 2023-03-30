@@ -26,6 +26,12 @@ export const biasSpiralTypes = {
     custom: 'custom',
 };
 
+// angleRad * Math.pow( Math.cos(angleRad), 1))
+// angleRad * Math.asin(Math.pow( Math.cos(angleRad), 1))
+// angleRad * Math.acos(Math.pow( Math.cos(angleRad), 1))
+// angleRad * Math.acos(Math.pow( Math.cos(angleRad), 2))
+// angleRad * Math.acos(Math.pow( Math.cos(angleRad), 1/2))
+
 export const shapeTypes = {
     circle: 'circle',
     rectangle: 'rectangle',

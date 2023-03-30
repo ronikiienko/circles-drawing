@@ -137,9 +137,9 @@ const useStylesTabs = makeStyles({
     button: {
         ...shorthands.margin('3px'),
     },
-    bigText: {
-        width: '300px',
-        marginLeft: '5px',
+    fullWidth: {
+        width: '100%',
+        marginBlock: '3px',
     },
     text: {
         width: '200px',
@@ -156,6 +156,11 @@ const useStylesTabs = makeStyles({
         display: 'flex',
         alignItems: 'center',
         marginBlock: '5px',
+    },
+    verticalLabel: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
     },
 });
 
