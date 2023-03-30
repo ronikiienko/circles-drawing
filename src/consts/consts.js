@@ -144,6 +144,8 @@ export const layerPresets = [
             biasA: 0.5,
             biasB: 0.5,
             biasInf: 0.5,
+            biasRectXOn: true,
+            biasRectYOn: true,
         },
         color: {
             color: '#FF00DD',
@@ -378,6 +380,8 @@ export const randomPresetRules = {
             min: 0,
             max: 1,
         },
+        biasRectXOn: [false, true],
+        biasRectYOn: [false, true],
     },
     color: {
         color: {

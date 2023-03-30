@@ -1,5 +1,6 @@
 import {
     Button,
+    Checkbox,
     Input,
     Label,
     makeStyles,
@@ -13,6 +14,7 @@ import {
     Slider,
 } from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
+import React from 'react';
 import {biasPresets} from '../../consts/consts';
 import {biasSpiralTypes, biasTypes} from '../../consts/sharedConsts';
 import {BiasGraph} from '../Utils/BiasGraph';
@@ -106,6 +108,34 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                     </Label>
                     <Button size="small" id="position-end" onClick={setClickAndSetProp}>Click and set</Button>
                 </div>
+            </ConditionalPanel>
+            <ConditionalPanel active={settings.position.biasType === biasTypes.rectangular}>
+                <Label className={classes.label}>
+                    Bias X on:
+                    <Checkbox
+                        checked={settings.position.biasRectXOn}
+                        id="position-biasRectXOn"
+                        onChange={handleChange}
+                    />
+                    <InfoButton content={
+                        <>
+                            Choose if shapes will be biased by X axis
+                        </>
+                    }/>
+                </Label>
+                <Label className={classes.label}>
+                    Bias Y on:
+                    <Checkbox
+                        checked={settings.position.biasRectYOn}
+                        id="position-biasRectYOn"
+                        onChange={handleChange}
+                    />
+                    <InfoButton content={
+                        <>
+                            Choose if shapes will be biased by Y axis
+                        </>
+                    }/>
+                </Label>
             </ConditionalPanel>
             <ConditionalPanel active={settings.position.biasType !== biasTypes.off}>
                 <div className={classes.row}>

@@ -97,6 +97,8 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             biasA: getTranslatedBiasA(rawSettings.position.biasA),
             biasB: getTranslatedBiasB(rawSettings.position.biasB),
             biasInf: parseFloat(rawSettings.position.biasInf),
+            biasRectXOn: rawSettings.position.biasRectXOn,
+            biasRectYOn: rawSettings.position.biasRectYOn,
         },
         color: {
             color: hexToHslArray(rawSettings.color.color),
@@ -143,23 +145,23 @@ export const getRandomizedShapeSettings = (settings, i) => {
                 settings.position.startX,
                 settings.position.endX,
                 0,
-                {
+                settings.position.biasRectXOn ? {
                     bias: settings.position.biasX,
                     biasInf: settings.position.biasInf,
                     biasA: settings.position.biasA,
                     biasB: settings.position.biasB,
-                },
+                } : undefined,
             );
             yPosition = getBiasedRandomNumber(
                 settings.position.startY,
                 settings.position.endY,
                 0,
-                {
+                settings.position.biasRectYOn ? {
                     bias: settings.position.biasY,
                     biasInf: settings.position.biasInf,
                     biasA: settings.position.biasA,
                     biasB: settings.position.biasB,
-                },
+                } : undefined,
             );
         }
             break;

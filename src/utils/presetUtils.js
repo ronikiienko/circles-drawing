@@ -50,6 +50,8 @@ export const getLayerSettings = (preset) => {
             biasA: preset?.position?.biasA || defaultPreset.position.biasA,
             biasB: preset?.position?.biasB || defaultPreset.position.biasB,
             biasInf: preset?.position?.biasInf || defaultPreset.position.biasInf,
+            biasRectXOn: preset?.position?.biasRectXOn || defaultPreset.position.biasRectXOn,
+            biasRectYOn: preset?.position?.biasRectYOn || defaultPreset.position.biasRectYOn,
         },
         color: {
             color: preset?.color?.color || defaultPreset.color.color,
@@ -146,6 +148,8 @@ export const getRandomPreset = () => {
             biasA: getRandomValue(randomPresetRules.position.biasA),
             biasB: getRandomValue(randomPresetRules.position.biasB),
             biasInf: getRandomValue(randomPresetRules.position.biasInf),
+            biasRectXOn: getRandomValue(randomPresetRules.position.biasRectXOn),
+            biasRectYOn: getRandomValue(randomPresetRules.position.biasRectYOn),
         },
         color: {
             color: getRandomValue(randomPresetRules.color.color),
