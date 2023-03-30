@@ -28,13 +28,13 @@ export const getPointByDistanceAndAngle = (fromX, fromY, distance, angle) => {
     const angleRad = turnDegreesToRadians(angle);
     const x = fromX + Math.cos(angleRad) * distance;
     const y = fromY + Math.sin(angleRad) * distance;
-    return {x, y};
+    return [x, y];
 };
 
 export const getVectorByTwoPoints = (lookFromX, lookFromY, lookToX, lookToY) => {
-    const xOffset = lookFromX - lookToX;
-    const yOffset = lookFromY - lookToY;
-    const angle = turnRadiansToDegrees(Math.atan(yOffset / xOffset));
+    const xOffset = lookToX - lookFromX;
+    const yOffset = lookToY - lookFromY;
+    const angle = turnRadiansToDegrees(Math.atan2(yOffset, xOffset));
     const magnitude = Math.sqrt(Math.pow(xOffset, 2) + Math.pow(yOffset, 2));
     return [magnitude, angle];
 };

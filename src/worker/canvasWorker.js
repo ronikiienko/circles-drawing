@@ -148,6 +148,30 @@ export const makeCanvasHighPPI = (width, height, resolutionMult) => {
     canvasHeight = height;
 };
 
+// const drawCustomShape = (centerPoint, pointsArray, angle, size) => {
+//     pointsArray.forEach((currentPoint, index) => {
+//         const [originalMagnitude, originalAngle] = getVectorByTwoPoints(
+//             centerPoint[0],
+//             centerPoint[1],
+//             centerPoint[0] + (currentPoint[0] - 0.5),
+//             centerPoint[1] + (currentPoint[1] - 0.5)
+//         );
+//
+//         const actualAngle = originalAngle + angle;
+//         const actualMagnitude = originalMagnitude * size;
+//         const [actualX, actualY] = getPointByDistanceAndAngle(
+//             centerPoint[0],
+//             centerPoint[1],
+//             actualMagnitude,
+//             actualAngle
+//         );
+//
+//         ctx.lineTo(actualX, actualY);
+//     });
+//
+//     ctx.fill();
+// };
+
 const drawShape = (settings) => {
     if (settings.color.blur) ctx.filter = `blur(${settings.color.blur}px)`;
     ctx.shadowBlur = settings.color.glow;
@@ -180,7 +204,7 @@ const drawShape = (settings) => {
         }
         ctx.moveTo(settings.position.x, settings.position.y);
 
-        const {x, y} = getPointByDistanceAndAngle(
+        const [x, y] = getPointByDistanceAndAngle(
             settings.position.x,
             settings.position.y,
             settings.size.size,

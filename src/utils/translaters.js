@@ -181,10 +181,10 @@ export const getRandomizedShapeSettings = (settings, i) => {
                     biasInf: settings.position.biasInf,
                 },
             );
-            const {
+            const [
                 x,
                 y,
-            } = getPointByDistanceAndAngle(
+            ] = getPointByDistanceAndAngle(
                 realBiasX,
                 realBiasY,
                 Math.pow(distanceFromBias, 1 / 2),
@@ -233,10 +233,10 @@ export const getRandomizedShapeSettings = (settings, i) => {
                     biasB: settings.position.biasB,
                     biasInf: settings.position.biasInf,
                 });
-                const {
+                const [
                     x,
                     y,
-                } = getPointByDistanceAndAngle(realBiasX, realBiasY, radius, getBiasedRandomNumber(angle - settings.position.biasSpiralAngleRand, angle + settings.position.biasSpiralAngleRand, 2));
+                ] = getPointByDistanceAndAngle(realBiasX, realBiasY, radius, getBiasedRandomNumber(angle - settings.position.biasSpiralAngleRand, angle + settings.position.biasSpiralAngleRand, 2));
                 xPosition = x;
                 yPosition = y;
             }
