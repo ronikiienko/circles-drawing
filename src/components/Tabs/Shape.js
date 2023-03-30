@@ -31,6 +31,19 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                         step={0.05}
                     />
                 </Label>
+                <br/>
+                <Label className={classes.label}>
+                    Rectangle roundness rand:
+                    <Slider
+                        id="shape-rectRoundnessRand"
+                        value={settings.shape.rectRoundnessRand}
+                        onChange={handleChange}
+                        className={classes.slider}
+                        min="0"
+                        max="1"
+                        step={0.05}
+                    />
+                </Label>
             </ConditionalPanel>
             <ConditionalPanel
                 active={settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse}>

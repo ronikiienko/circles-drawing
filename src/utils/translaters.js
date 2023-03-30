@@ -75,6 +75,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             lookToX: rawSettings.shape.lookToX,
             lookToY: rawSettings.shape.lookToY,
             rectRoundness: parseFloat(rawSettings.shape.rectRoundness),
+            rectRoundnessRand: parseFloat(rawSettings.shape.rectRoundnessRand),
         },
         position: {
             startX: parseFloat(rawSettings.position.startX),
@@ -257,6 +258,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
             )`;
 
     const size = settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2);
+    const baseRectRoundness = size / 2 * settings.shape.rectRoundness;
 
     return {
         size: {
@@ -265,9 +267,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
         shape: {
             shape: settings.shape.shape,
             angle: angle + getBiasedRandomNumber(-10, 10) * (Math.pow(settings.shape.angleRand + 1, 3) - 1),
-            widthRatio: settings.shape.widthRatio + getBiasedRandomNumber(-1, 1) * 0.2 * settings.shape.widthRatioRand,
+            widthRatio: settings.shape.widthRatio + getBiasedRandomNumber(-1, 1, 2) * 0.2 * settings.shape.widthRatioRand,
             lineRounded: settings.shape.lineRounded,
-            rectRoundness: size / 2 * settings.shape.rectRoundness,
+            rectRoundness: baseRectRoundness + getBiasedRandomNumber(-1, 1, 2) * baseRectRoundness * settings.shape.rectRoundnessRand * 0.6,
         },
         position: {
             x: Math.floor(xPosition),

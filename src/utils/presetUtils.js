@@ -28,6 +28,7 @@ export const getLayerSettings = (preset) => {
             lookToX: preset?.shape?.lookToX || defaultPreset.shape.lookToX,
             lookToY: preset?.shape?.lookToY || defaultPreset.shape.lookToY,
             rectRoundness: preset?.shape?.rectRoundness || defaultPreset.shape.rectRoundness,
+            rectRoundnessRand: preset?.shape?.rectRoundnessRand || defaultPreset.shape.rectRoundnessRand,
         },
         position: {
             startX: preset?.position?.startX || defaultPreset.position.startX,
@@ -123,6 +124,7 @@ export const getRandomPreset = () => {
             lookToX: getRandomValue(randomPresetRules.shape.lookToX),
             lookToY: getRandomValue(randomPresetRules.shape.lookToY),
             rectRoundness: getRandomValue(randomPresetRules.shape.rectRoundness),
+            rectRoundnessRand: getRandomValue(randomPresetRules.shape.rectRoundnessRand),
         },
         position: {
             startX: getRandomValue(randomPresetRules.position.startX),
