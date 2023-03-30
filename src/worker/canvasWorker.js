@@ -206,7 +206,8 @@ const drawShape = (settings) => {
 };
 
 export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
-    if (addToHistory && isDrawingFlag) return;
+    if (isDrawingFlag) return;
+    // if (addToHistory && isDrawingFlag) return;
     isDrawingFlag = true;
     let settings = getTranslatedLayerSettings(rawSettings);
     const appSettings = getTranslatedAppSettings(rawAppSettings);

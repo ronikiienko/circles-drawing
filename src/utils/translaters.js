@@ -243,7 +243,6 @@ export const getRandomizedShapeSettings = (settings, i) => {
         }
     }
 
-
     let angle;
     if (settings.shape.lookToOn && (settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse)) {
         const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, settings.shape.lookToX, settings.shape.lookToY);
@@ -261,8 +260,6 @@ export const getRandomizedShapeSettings = (settings, i) => {
 
     const size = settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2);
     const baseRectRoundness = size / 2 * settings.shape.rectRoundness;
-
-    // TODO sometimes width radio is minor (less than 0)
 
     return {
         size: {
