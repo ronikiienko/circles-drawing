@@ -1,5 +1,5 @@
 import React from 'react';
-import {biasTypes} from '../../consts/sharedConsts';
+import {biasTypes, shapeTypes} from '../../consts/sharedConsts';
 import {ConditionalPanel} from './ConditionalPanel';
 import {CoordinateFlag} from './coordinateFlag';
 
@@ -46,7 +46,8 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                     color="gray"/>
             </ConditionalPanel>
 
-            <ConditionalPanel active={settings.shape.lookToOn}>
+            <ConditionalPanel
+                active={settings.shape.lookToOn && (settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse)}>
                 <CoordinateFlag
                     id="shape-lookTo"
                     title="Look to point"
