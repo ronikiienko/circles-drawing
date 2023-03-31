@@ -1,5 +1,5 @@
 import {defaultAppSettings, layerPresets, randomPresetRules} from '../consts/consts';
-import {getBiasedRandomNumber, rgbToHex, typeofWithArray} from './generalUtils';
+import {deepCopy, getBiasedRandomNumber, rgbToHex, typeofWithArray} from './generalUtils';
 
 
 export const getLayerSettings = (preset) => {
@@ -29,6 +29,7 @@ export const getLayerSettings = (preset) => {
             lookToY: preset?.shape?.lookToY || defaultPreset.shape.lookToY,
             rectRoundness: preset?.shape?.rectRoundness || defaultPreset.shape.rectRoundness,
             rectRoundnessRand: preset?.shape?.rectRoundnessRand || defaultPreset.shape.rectRoundnessRand,
+            customShape: deepCopy(preset?.shape?.customShape) || deepCopy(defaultPreset.shape.customShape),
         },
         position: {
             startX: preset?.position?.startX || defaultPreset.position.startX,

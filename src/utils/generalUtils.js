@@ -148,7 +148,11 @@ export const parseJSON = (value) => {
 };
 
 export const deepCopy = (value) => {
-    return JSON.parse(JSON.stringify(value));
+    try {
+        return JSON.parse(JSON.stringify(value));
+    } catch (e) {
+        return undefined;
+    }
 };
 
 /**

@@ -123,6 +123,17 @@ export const layerPresets = [
             lookToY: 100,
             rectRoundness: 0,
             rectRoundnessRand: 0.3,
+            customShape: [
+                [0, 0.2],
+                [0.2, 0],
+                [0.5, 0.5],
+                [0.8, 0],
+                [1, 0.2],
+                [1, 0.8],
+                [0.8, 1],
+                [0.2, 1],
+                [0, 0.8],
+            ],
         },
         position: {
             startX: '0',
@@ -429,5 +440,6 @@ export const randomPresetRules = {
     },
 };
 
+// TODO add custom shape to preset randomization
 
 

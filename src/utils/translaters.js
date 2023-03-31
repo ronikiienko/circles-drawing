@@ -52,6 +52,10 @@ export const getTranslatedLayerSettings = (rawSettings) => {
         case shapeTypes.ellipse: {
             shapeAdjustedSize = baseSize;
         }
+            break;
+        case shapeTypes.custom: {
+            shapeAdjustedSize = baseSize;
+        }
     }
 
     const transp = parseFloat(rawSettings.color.transp);
@@ -77,6 +81,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             lookToY: rawSettings.shape.lookToY,
             rectRoundness: parseFloat(rawSettings.shape.rectRoundness),
             rectRoundnessRand: parseFloat(rawSettings.shape.rectRoundnessRand),
+            customShape: rawSettings.shape.customShape,
         },
         position: {
             startX: parseFloat(rawSettings.position.startX),
@@ -244,7 +249,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     }
 
     let angle;
-    if (settings.shape.lookToOn && (settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse)) {
+    if (settings.shape.lookToOn && (settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse || settings.shape.shape === shapeTypes.custom)) {
         const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, settings.shape.lookToX, settings.shape.lookToY);
         angle = lookToAngle;
     } else {
@@ -266,6 +271,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
             widthRatio: clampValueToRange(0, 1, settings.shape.widthRatio + getBiasedRandomNumber(-1, 1, 2) * settings.shape.widthRatio * settings.shape.widthRatioRand),
             lineRounded: settings.shape.lineRounded,
             rectRoundness: baseRectRoundness + getBiasedRandomNumber(-1, 1, 2) * baseRectRoundness * settings.shape.rectRoundnessRand * 0.6,
+            customShape: settings.shape.customShape,
         },
         position: {
             x: Math.floor(xPosition),

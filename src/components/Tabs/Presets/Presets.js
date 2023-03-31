@@ -55,9 +55,9 @@ export const Presets = ({settings, setSettings, classes}) => {
         newPreset.preset.description = presetDraftMeta.description;
         newPreset.preset.id = nanoid();
         setUserPresets(() => {
-            const newPresets = deepCopy(userPresets);
-            newPresets.push(newPreset);
-            return newPresets;
+            const newUserPresets = deepCopy(userPresets);
+            newUserPresets.push(newPreset);
+            return newUserPresets;
         });
     };
 

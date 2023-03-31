@@ -1,6 +1,12 @@
 import {CMD, maxUndoTimes, shapeTypes} from '../consts/sharedConsts';
 import {db} from '../db';
-import {getBiasedRandomNumber, getPointByDistanceAndAngle, turnDegreesToRadians, wait} from '../utils/generalUtils';
+import {
+    getBiasedRandomNumber,
+    getPointByDistanceAndAngle,
+    getVectorByTwoPoints,
+    turnDegreesToRadians,
+    wait,
+} from '../utils/generalUtils';
 import {getRandomizedShapeSettings, getTranslatedAppSettings, getTranslatedLayerSettings} from '../utils/translaters';
 
 
@@ -148,35 +154,33 @@ export const makeCanvasHighPPI = (width, height, resolutionMult) => {
     canvasHeight = height;
 };
 
-// const draw = (centerPoint, pointsArray, angle, size) => {
-//     ctx.beginPath();
-//
-//     pointsArray.forEach((currentPoint, index) => {
-//         const [originalMagnitude, originalAngle] = getVectorByTwoPoints(
-//             0.5,
-//             0.5,
-//             currentPoint[0] - 0.5,
-//             currentPoint[1] - 0.5
-//         );
-//
-//         const actualAngle = originalAngle + angle;
-//         const actualMagnitude = originalMagnitude * size;
-//         const [actualX, actualY] = getPointByDistanceAndAngle(
-//             centerPoint[0],
-//             centerPoint[1],
-//             actualMagnitude,
-//             actualAngle
-//         );
-//
-//         if (index === 0) {
-//             ctx.moveTo(actualX, actualY);
-//         } else {
-//             ctx.lineTo(actualX, actualY);
-//         }
-//     });
-//
-//     ctx.fill();
-// };
+const drawCustomShape = (centerPoint, pointsArray, angle, size) => {
+    pointsArray.forEach((currentPoint, index) => {
+        const [originalMagnitude, originalAngle] = getVectorByTwoPoints(
+            0.5,
+            0.5,
+            currentPoint[0] - 0.5,
+            currentPoint[1] - 0.5,
+        );
+
+        const actualAngle = originalAngle + angle;
+        const actualMagnitude = originalMagnitude * size;
+        const [actualX, actualY] = getPointByDistanceAndAngle(
+            centerPoint[0],
+            centerPoint[1],
+            actualMagnitude,
+            actualAngle,
+        );
+
+        if (index === 0) {
+            ctx.moveTo(actualX, actualY);
+        } else {
+            ctx.lineTo(actualX, actualY);
+        }
+    });
+
+    ctx.fill();
+};
 
 const drawShape = (settings) => {
     if (settings.color.blur) ctx.filter = `blur(${settings.color.blur}px)`;
@@ -189,6 +193,9 @@ const drawShape = (settings) => {
     ctx.shadowColor = settings.color.color;
 
     ctx.beginPath();
+    if (settings.shape.shape === shapeTypes.custom) {
+        drawCustomShape([settings.position.x, settings.position.y], settings.shape.customShape, settings.shape.angle, settings.size.size);
+    }
     if (settings.shape.shape === shapeTypes.circle) {
         ctx.arc(settings.position.x, settings.position.y, settings.size.size, 0, Math.PI * 2, true);
         ctx.fill();

@@ -46,7 +46,7 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                 </Label>
             </ConditionalPanel>
             <ConditionalPanel
-                active={settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse}>
+                active={settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse || settings.shape.shape === shapeTypes.custom}>
                 <br/>
                 <Label className={classes.label}>
                     Look to on:
@@ -100,31 +100,33 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                     />
                 </Label>
                 <br/>
-                <Label className={classes.label}>
-                    Width ratio:
-                    <Slider
-                        className={classes.slider}
-                        value={settings.shape.widthRatio}
-                        id="shape-widthRatio"
-                        onChange={handleChange}
-                        min="0"
-                        max="1"
-                        step={0.05}
-                    />
-                </Label>
-                <Label className={classes.label}>
-                    Width ratio rand:
-                    <Slider
-                        className={classes.slider}
-                        value={settings.shape.widthRatioRand}
-                        id="shape-widthRatioRand"
-                        onChange={handleChange}
-                        min="0"
-                        max="1"
-                        step={0.05}
-                    />
-                </Label>
-                <br/>
+                <ConditionalPanel active={settings.shape.shape !== shapeTypes.custom}>
+                    <Label className={classes.label}>
+                        Width ratio:
+                        <Slider
+                            className={classes.slider}
+                            value={settings.shape.widthRatio}
+                            id="shape-widthRatio"
+                            onChange={handleChange}
+                            min="0"
+                            max="1"
+                            step={0.05}
+                        />
+                    </Label>
+                    <Label className={classes.label}>
+                        Width ratio rand:
+                        <Slider
+                            className={classes.slider}
+                            value={settings.shape.widthRatioRand}
+                            id="shape-widthRatioRand"
+                            onChange={handleChange}
+                            min="0"
+                            max="1"
+                            step={0.05}
+                        />
+                    </Label>
+                    <br/>
+                </ConditionalPanel>
                 <ConditionalPanel active={settings.shape.lookToOn}>
                     <div className={classes.row}>
                         <Label className={classes.label}>

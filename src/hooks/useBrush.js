@@ -17,6 +17,7 @@ export const useBrush = ({settings, appSettings}) => {
         if (counter < brushEventInterval) return;
         counter = 0;
 
+        // TODO maby not create deep copy
         const rawSettings = deepCopy(settings);
         rawSettings.brush.brushX = event.pageX;
         rawSettings.brush.brushY = event.pageY;
