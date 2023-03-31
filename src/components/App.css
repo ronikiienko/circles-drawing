@@ -7,9 +7,13 @@ html, body {
     width: 10px;
 }
 
-canvas {
+#main-canvas {
     margin: 0;
     padding: 0;
     position: fixed;
+}
+
+#shape-editor-canvas {
+    border: 1px solid red;
 }
 

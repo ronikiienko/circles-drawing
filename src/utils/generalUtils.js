@@ -167,3 +167,4 @@ export const typeofWithArray = (value) => {
     }
     return typeOf;
 };
+

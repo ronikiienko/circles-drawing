@@ -43,7 +43,7 @@ export const App = () => {
                 <Controls mainTab={mainTab} setMainTab={setMainTab} settings={settings} setSettings={setSettings}
                           appSettings={appSettings}
                           setAppSettings={setAppSettings}/>
-                <canvas ref={canvasRef} className={classes.canvas}></canvas>
+                <canvas id="main-canvas" ref={canvasRef} className={classes.canvas}></canvas>
             </div>
         </FluentProvider>
     );

@@ -1,17 +1,13 @@
 import React from 'react';
-import {coordinateFlagsSize} from '../../consts/consts';
 
 
-export const CoordinateFlag = ({id, onMouseDown, onTouchStart, color, settings, title}) => {
-    const categoriesArray = id.split('-');
-    const category = categoriesArray[0];
-    const subcategory1 = categoriesArray[1];
+export const CoordinateFlag = ({id, onMouseDown, color, x, y, title, size}) => {
     return (
-        <div onMouseDown={onMouseDown} onTouchStart={onTouchStart} className="settings-coords-flag" title={title}
+        <div onMouseDown={onMouseDown} onTouchStart={onMouseDown} className="settings-coords-flag" title={title}
              style={{
-                 left: settings[category][`${subcategory1}X`] - coordinateFlagsSize / 2,
-                 top: settings[category][`${subcategory1}Y`] - coordinateFlagsSize / 2,
-                 width: coordinateFlagsSize, height: coordinateFlagsSize,
+                 left: x - size / 2,
+                 top: y - size / 2,
+                 width: size, height: size,
                  backgroundColor: color,
              }}
              id={id}

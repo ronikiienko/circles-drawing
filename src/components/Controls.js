@@ -35,7 +35,7 @@ import {Position} from './Tabs/Position';
 import {Presets} from './Tabs/Presets/Presets';
 import {Saves} from './Tabs/Saves';
 import {Settings} from './Tabs/Settings';
-import {Shape} from './Tabs/Shape';
+import {Shape} from './Tabs/Shape/Shape';
 import {Size} from './Tabs/Size';
 import {ConditionalPanel} from './Utils/ConditionalPanel';
 import {CoordinateFlags} from './Utils/CoordinateFlags';
@@ -253,7 +253,7 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         <Size settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.shape.id}>
-                        <Shape settings={settings} setClickAndSetProp={setClickAndSetProp}
+                        <Shape settings={settings} setSettings={setSettings} setClickAndSetProp={setClickAndSetProp}
                                handleChange={handleChange}
                                classes={tabsClasses}/>
                     </ConditionalPanel>

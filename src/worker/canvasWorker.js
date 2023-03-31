@@ -1,12 +1,7 @@
 import {CMD, maxUndoTimes, shapeTypes} from '../consts/sharedConsts';
 import {db} from '../db';
-import {
-    getBiasedRandomNumber,
-    getPointByDistanceAndAngle,
-    getVectorByTwoPoints,
-    turnDegreesToRadians,
-    wait,
-} from '../utils/generalUtils';
+import {drawCustomShape} from '../utils/drawingUtils';
+import {getBiasedRandomNumber, getPointByDistanceAndAngle, turnDegreesToRadians, wait} from '../utils/generalUtils';
 import {getRandomizedShapeSettings, getTranslatedAppSettings, getTranslatedLayerSettings} from '../utils/translaters';
 
 
@@ -143,7 +138,7 @@ onmessage = async (event) => {
     }
 };
 
-export const makeCanvasHighPPI = (width, height, resolutionMult) => {
+const makeCanvasHighPPI = (width, height, resolutionMult) => {
 
     canvas.width = width * resolutionMult;
     canvas.height = height * resolutionMult;
@@ -152,34 +147,6 @@ export const makeCanvasHighPPI = (width, height, resolutionMult) => {
 
     canvasWidth = width;
     canvasHeight = height;
-};
-
-const drawCustomShape = (centerPoint, pointsArray, angle, size) => {
-    pointsArray.forEach((currentPoint, index) => {
-        const [originalMagnitude, originalAngle] = getVectorByTwoPoints(
-            0.5,
-            0.5,
-            currentPoint[0] - 0.5,
-            currentPoint[1] - 0.5,
-        );
-
-        const actualAngle = originalAngle + angle;
-        const actualMagnitude = originalMagnitude * size;
-        const [actualX, actualY] = getPointByDistanceAndAngle(
-            centerPoint[0],
-            centerPoint[1],
-            actualMagnitude,
-            actualAngle,
-        );
-
-        if (index === 0) {
-            ctx.moveTo(actualX, actualY);
-        } else {
-            ctx.lineTo(actualX, actualY);
-        }
-    });
-
-    ctx.fill();
 };
 
 const drawShape = (settings) => {
@@ -194,7 +161,7 @@ const drawShape = (settings) => {
 
     ctx.beginPath();
     if (settings.shape.shape === shapeTypes.custom) {
-        drawCustomShape([settings.position.x, settings.position.y], settings.shape.customShape, settings.shape.angle, settings.size.size);
+        drawCustomShape(ctx, [settings.position.x, settings.position.y], settings.shape.customShape, settings.shape.angle, settings.size.size);
     }
     if (settings.shape.shape === shapeTypes.circle) {
         ctx.arc(settings.position.x, settings.position.y, settings.size.size, 0, Math.PI * 2, true);

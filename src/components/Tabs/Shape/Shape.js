@@ -1,11 +1,11 @@
 import {Button, Checkbox, Input, Label, Select, Slider} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
-import {shapeTypes} from '../../consts/sharedConsts';
-import {ConditionalPanel} from '../Utils/ConditionalPanel';
+import {shapeTypes} from '../../../consts/sharedConsts';
+import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 
 
-export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => {
+export const Shape = ({settings, setClickAndSetProp, handleChange, setSettings, classes}) => {
     return (
         <>
             <Label className={classes.label}>
@@ -153,9 +153,14 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, classes}) => 
                         </Label>
                         <Button size="small" id="shape-lookTo" onClick={setClickAndSetProp}>Click and set</Button>
                     </div>
-
                 </ConditionalPanel>
             </ConditionalPanel>
+            {/*<ConditionalPanel active={settings.shape.shape === shapeTypes.custom}>*/}
+            {/*    <CustomShapeEditor*/}
+            {/*        settings={settings}*/}
+            {/*        setSettings={setSettings}*/}
+            {/*    />*/}
+            {/*</ConditionalPanel>*/}
         </>
     );
 };

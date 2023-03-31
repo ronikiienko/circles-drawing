@@ -7,7 +7,7 @@ let worker;
 let canvas;
 
 export const initializeOffscreenCanvas = () => {
-    canvas = document.querySelector('canvas');
+    canvas = document.getElementById('main-canvas');
     worker = new Worker(
         new URL('canvasWorker.js', import.meta.url),
         {type: 'module'},
