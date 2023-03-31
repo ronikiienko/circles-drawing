@@ -1,5 +1,6 @@
 import {useEffect} from 'react';
 import {useImmer} from 'use-immer';
+import {setObjectPropertyByStringPath} from '../utils/generalUtils';
 
 
 export const useClickAndSet = ({setSettings}) => {
@@ -11,8 +12,8 @@ export const useClickAndSet = ({setSettings}) => {
             if (!clickAndSetProperty) return;
 
             setSettings(draft => {
-                draft[clickAndSetProperty[0]][`${clickAndSetProperty[1]}X`] = event.pageX;
-                draft[clickAndSetProperty[0]][`${clickAndSetProperty[1]}Y`] = event.pageY;
+                setObjectPropertyByStringPath(draft, clickAndSetProperty + 'X', event.pageX);
+                setObjectPropertyByStringPath(draft, clickAndSetProperty + 'Y', event.pageY);
             });
             setClickAndSetProperty(null);
         };
@@ -20,8 +21,8 @@ export const useClickAndSet = ({setSettings}) => {
         const mousemoveHandler = (event) => {
             if (!dragProperty) return;
             setSettings(draft => {
-                draft[dragProperty[0]][`${dragProperty[1]}X`] = event.pageX;
-                draft[dragProperty[0]][`${dragProperty[1]}Y`] = event.pageY;
+                setObjectPropertyByStringPath(draft, dragProperty + 'X', event.pageX);
+                setObjectPropertyByStringPath(draft, dragProperty + 'Y', event.pageY);
             });
         };
         // TODO make useClick and set more universal
@@ -29,8 +30,8 @@ export const useClickAndSet = ({setSettings}) => {
             if (!dragProperty) return;
 
             setSettings(draft => {
-                draft[dragProperty[0]][`${dragProperty[1]}X`] = Math.trunc(event.targetTouches[0].pageX);
-                draft[dragProperty[0]][`${dragProperty[1]}Y`] = Math.trunc(event.targetTouches[0].pageY);
+                setObjectPropertyByStringPath(draft, dragProperty + 'X', Math.trunc(event.targetTouches[0].pageX));
+                setObjectPropertyByStringPath(draft, dragProperty + 'Y', Math.trunc(event.targetTouches[0].pageY));
             });
         };
 
@@ -58,18 +59,12 @@ export const useClickAndSet = ({setSettings}) => {
     }, [setClickAndSetProperty, clickAndSetProperty, setSettings, dragProperty, setDragProperty]);
     const setClickAndSetProp = (event) => {
         event.stopPropagation();
-        const categoriesArray = event.target.id.split('-');
-        const category = categoriesArray[0];
-        const subcategory1 = categoriesArray[1];
-        setClickAndSetProperty([category, subcategory1]);
+        setClickAndSetProperty(event.target.id);
     };
 
     const setDragProp = (event) => {
         event.stopPropagation();
-        const categoriesArray = event.target.id.split('-');
-        const category = categoriesArray[0];
-        const subcategory1 = categoriesArray[1];
-        setDragProperty([category, subcategory1]);
+        setDragProperty(event.target.id);
     };
     return {setClickAndSetProp, setDragProp};
 };

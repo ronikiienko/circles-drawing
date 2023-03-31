@@ -168,3 +168,13 @@ export const typeofWithArray = (value) => {
     return typeOf;
 };
 
+export const setObjectPropertyByStringPath = (objectToChange, path, newValue, splitter = '-') => {
+    let schema = objectToChange; // a moving reference to internal objects within obj
+    const pList = path.split(splitter);
+    for (let i = 0; i < pList.length - 1; i++) {
+        const elem = pList[i];
+        if (!schema[elem]) schema[elem] = {};
+        schema = schema[elem];
+    }
+    schema[pList[pList.length - 1]] = newValue;
+};
