@@ -128,6 +128,7 @@ export const getRandomPreset = () => {
             lookToY: getRandomValue(randomPresetRules.shape.lookToY),
             rectRoundness: getRandomValue(randomPresetRules.shape.rectRoundness),
             rectRoundnessRand: getRandomValue(randomPresetRules.shape.rectRoundnessRand),
+            customShape: [[0, 0], [0.5, 0.5], [1, 0], [1, 1], [0, 1]],
         },
         position: {
             startX: getRandomValue(randomPresetRules.position.startX),
