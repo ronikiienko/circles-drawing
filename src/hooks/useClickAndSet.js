@@ -5,6 +5,7 @@ import {useImmer} from 'use-immer';
 export const useClickAndSet = ({setSettings}) => {
     const [clickAndSetProperty, setClickAndSetProperty] = useImmer(null);
     const [dragProperty, setDragProperty] = useImmer(null);
+
     useEffect(() => {
         const clickAndSetHandler = (event) => {
             if (!clickAndSetProperty) return;
@@ -23,7 +24,7 @@ export const useClickAndSet = ({setSettings}) => {
                 draft[dragProperty[0]][`${dragProperty[1]}Y`] = event.pageY;
             });
         };
-
+        // TODO make useClick and set more universal
         const touchmoveHandler = (event) => {
             if (!dragProperty) return;
 
