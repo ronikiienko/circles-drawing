@@ -148,13 +148,15 @@ export const makeCanvasHighPPI = (width, height, resolutionMult) => {
     canvasHeight = height;
 };
 
-// const drawCustomShape = (centerPoint, pointsArray, angle, size) => {
+// const draw = (centerPoint, pointsArray, angle, size) => {
+//     ctx.beginPath();
+//
 //     pointsArray.forEach((currentPoint, index) => {
 //         const [originalMagnitude, originalAngle] = getVectorByTwoPoints(
-//             centerPoint[0],
-//             centerPoint[1],
-//             centerPoint[0] + (currentPoint[0] - 0.5),
-//             centerPoint[1] + (currentPoint[1] - 0.5)
+//             0.5,
+//             0.5,
+//             currentPoint[0] - 0.5,
+//             currentPoint[1] - 0.5
 //         );
 //
 //         const actualAngle = originalAngle + angle;
@@ -166,7 +168,11 @@ export const makeCanvasHighPPI = (width, height, resolutionMult) => {
 //             actualAngle
 //         );
 //
-//         ctx.lineTo(actualX, actualY);
+//         if (index === 0) {
+//             ctx.moveTo(actualX, actualY);
+//         } else {
+//             ctx.lineTo(actualX, actualY);
+//         }
 //     });
 //
 //     ctx.fill();
