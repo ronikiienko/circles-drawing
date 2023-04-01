@@ -178,3 +178,5 @@ export const setObjectPropertyByStringPath = (objectToChange, path, newValue, sp
     }
     schema[pList[pList.length - 1]] = newValue;
 };
+
+export const getColorByIndex = (index) => `hsl(${index * 30}, ${100 - index}%, 50%)`;

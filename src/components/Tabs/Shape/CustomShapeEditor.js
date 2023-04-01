@@ -2,6 +2,7 @@ import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
 import React, {useEffect, useRef} from 'react';
 import {useCustomShapeEditor} from '../../../hooks/useCustomShapeEditor';
 import {drawCustomShape} from '../../../utils/drawingUtils';
+import {getColorByIndex} from '../../../utils/generalUtils';
 import {CoordinateFlag} from '../../Utils/CoordinateFlag';
 
 
@@ -57,11 +58,13 @@ export const CustomShapeEditor = ({settings, setSettings}) => {
                         key={index}
                         id={`shape-customShape-${index}`}
                         onMouseDown={setDragProp}
-                        size={10}
-                        color="red"
+                        size={20}
+                        color={getColorByIndex(index)}
                         x={point[0] * canvasSize}
                         y={point[1] * canvasSize}
-                        style={{position: 'absolute'}}
+                        style={{position: 'absolute', opacity: 0.7}}
+                        dot={false}
+                        text={index}
                     />;
                 })}
             </div>
