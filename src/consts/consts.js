@@ -30,7 +30,6 @@ export const overlayModes = {
     luminosity: 'luminosity',
 };
 
-export const coordinateFlagsSize = 30;
 
 export const storageKeys = {
     layerSettings: 'layerSettings',
@@ -124,15 +123,15 @@ export const layerPresets = [
             rectRoundness: 0,
             rectRoundnessRand: 0.3,
             customShape: [
-                [0, 0.2],
-                [0.2, 0],
-                [0.5, 0.5],
-                [0.8, 0],
-                [1, 0.2],
-                [1, 0.8],
-                [0.8, 1],
-                [0.2, 1],
-                [0, 0.8],
+                [0, 0.2, 'kfasfj9'],
+                [0.2, 0, '=12958fj'],
+                [0.5, 0.5, '8901jhjfk'],
+                [0.8, 0, '=15as56'],
+                [1, 0.2, 'nvmcz'],
+                [1, 0.8, 'nboqpohg'],
+                [0.8, 1, 'pingpong'],
+                [0.2, 1, 'tabletenis'],
+                [0, 0.8, 'pongping'],
             ],
         },
         position: {

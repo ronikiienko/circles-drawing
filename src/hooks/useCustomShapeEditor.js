@@ -11,7 +11,6 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
         const canvas = canvasRef.current;
 
         const mousemoveHandler = (event) => {
-            console.log(event);
             const boundingClientRect = canvas.getBoundingClientRect();
             const eventX = event.pageX;
             const eventY = event.pageY;

@@ -1,4 +1,5 @@
-import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
+import {Button, makeStyles, shorthands, tokens} from '@fluentui/react-components';
+import {nanoid} from 'nanoid';
 import React, {useEffect, useRef} from 'react';
 import {useCustomShapeEditor} from '../../../hooks/useCustomShapeEditor';
 import {drawCustomShape} from '../../../utils/drawingUtils';
@@ -6,20 +7,22 @@ import {getColorByIndex} from '../../../utils/generalUtils';
 import {CoordinateFlag} from '../../Utils/CoordinateFlag';
 
 
+const shapeFlagsSize = 15;
+
 const canvasSize = 250;
 
 
 const useStyles = makeStyles({
-    canvas: {
-        ...shorthands.borderWidth('1px'),
-        ...shorthands.borderColor(tokens.colorNeutralBackground3Pressed),
-        ...shorthands.borderStyle('solid'),
-    },
+    canvas: {},
     canvasContainer: {
-        overflowX: 'hidden',
-        width: '300px',
-        height: '300px',
+        width: `${canvasSize}px`,
+        height: `${canvasSize}px`,
         position: 'relative',
+    },
+    superContainer: {
+        width: 'fit-content',
+        ...shorthands.border('2px', 'solid', tokens.colorNeutralStroke1),
+        ...shorthands.padding(`${shapeFlagsSize / 1.5}px`),
     },
 });
 
@@ -38,7 +41,7 @@ export const CustomShapeEditor = ({settings, setSettings}) => {
         ctxRef.current.fillStyle = 'violet';
     }, []);
     useEffect(() => {
-        ctxRef.current.clearRect(0, 0, 1000, 1000);
+        ctxRef.current.clearRect(0, 0, canvasSize, canvasSize);
         ctxRef.current.beginPath();
         drawCustomShape(
             ctxRef.current,
@@ -49,25 +52,34 @@ export const CustomShapeEditor = ({settings, setSettings}) => {
         );
     }, [settings.shape.customShape]);
 
+    const addPoint = () => {
+        setSettings(draft => {
+            draft.shape.customShape.push([0.4, 0.4, nanoid(8)]);
+        });
+    };
+
     return (
         <>
-            <div className={localClasses.canvasContainer}>
-                <canvas className={localClasses.canvas} id="shape-editor-canvas" ref={canvasRef}></canvas>
-                {settings.shape.customShape.map((point, index) => {
-                    return <CoordinateFlag
-                        key={index}
-                        id={`shape-customShape-${index}`}
-                        onMouseDown={setDragProp}
-                        size={20}
-                        color={getColorByIndex(index)}
-                        x={point[0] * canvasSize}
-                        y={point[1] * canvasSize}
-                        style={{position: 'absolute', opacity: 0.7}}
-                        dot={false}
-                        text={index}
-                    />;
-                })}
+            <div className={localClasses.superContainer}>
+                <div className={localClasses.canvasContainer}>
+                    <canvas className={localClasses.canvas} id="shape-editor-canvas" ref={canvasRef}></canvas>
+                    {settings.shape.customShape.map((point, index) => {
+                        return <CoordinateFlag
+                            key={point[2]}
+                            id={`shape-customShape-${index}`}
+                            onMouseDown={setDragProp}
+                            size={shapeFlagsSize}
+                            color={getColorByIndex(index)}
+                            x={point[0] * canvasSize}
+                            y={point[1] * canvasSize}
+                            style={{position: 'absolute', opacity: 0.7}}
+                            dot={false}
+                            text={index}
+                        />;
+                    })}
+                </div>
             </div>
+            <Button onClick={addPoint}>Add point</Button>
         </>
 
     );
