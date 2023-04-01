@@ -8,6 +8,8 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
     const [dragProperty, setDragProperty] = useImmer(null);
 
     useEffect(() => {
+        const canvas = canvasRef.current;
+
         const pageXYToShapeXY = (pageX, pageY) => {
             const boundingClientRect = canvas.getBoundingClientRect();
             let shapeX;
@@ -35,12 +37,21 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
             return {shapeX, shapeY};
         }
 
-        const canvas = canvasRef.current;
         const dragHandler = (event) => {
             if (!dragProperty) return;
 
-            const pageX = event.pageX;
-            const pageY = event.pageY;
+            let pageX;
+            let pageY;
+            if (event.type === 'touchmove') {
+                pageX = event.targetTouches[0].pageX;
+                pageY = event.targetTouches[0].pageY;
+            } else {
+                pageX = event.pageX;
+                pageY = event.pageY;
+            }
+
+            console.log('piu', pageX, pageY, event);
+
 
             const {shapeX, shapeY} = pageXYToShapeXY(pageX, pageY);
 
@@ -50,8 +61,7 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
             });
         };
 
-        const mouseUpHandler = () => {
-            if (!dragProperty) return;
+        const endHandler = () => {
             setDragProperty(null);
         };
 
@@ -75,13 +85,17 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
             window.addEventListener('click', clickAndSetHandler);
         }
         if (dragProperty) {
+            window.addEventListener('touchmove', dragHandler);
             window.addEventListener('mousemove', dragHandler);
-            window.addEventListener('mouseup', mouseUpHandler);
+            window.addEventListener('mouseup', endHandler);
+            window.addEventListener('touchend', endHandler);
         }
         return () => {
-            window.removeEventListener('click', clickAndSetHandler);
+            window.removeEventListener('touchmove', dragHandler);
             window.removeEventListener('mousemove', dragHandler);
-            window.removeEventListener('mouseup', mouseUpHandler);
+            window.removeEventListener('mouseup', endHandler);
+            window.removeEventListener('touchend', endHandler);
+            window.removeEventListener('click', clickAndSetHandler);
         };
     }, [clickAndSetProperty, setSettings, dragProperty, canvasRef, setDragProperty, setClickAndSetProperty]);
 
