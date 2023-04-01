@@ -31,8 +31,6 @@ export const useClickAndSet = ({setSettings}) => {
                 pageY = event.pageY;
             }
 
-            console.log(pageX, pageY);
-
             setSettings(draft => {
                 setObjectPropertyByStringPath(draft, dragProperty + 'X', Math.trunc(pageX));
                 setObjectPropertyByStringPath(draft, dragProperty + 'Y', Math.trunc(pageY));
