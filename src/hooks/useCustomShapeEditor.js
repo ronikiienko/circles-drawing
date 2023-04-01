@@ -50,9 +50,6 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
                 pageY = event.pageY;
             }
 
-            console.log('piu', pageX, pageY, event);
-
-
             const {shapeX, shapeY} = pageXYToShapeXY(pageX, pageY);
 
             setSettings(draft => {

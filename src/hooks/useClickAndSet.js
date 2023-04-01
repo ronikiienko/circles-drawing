@@ -18,24 +18,28 @@ export const useClickAndSet = ({setSettings}) => {
             setClickAndSetProperty(null);
         };
 
-        const mousemoveHandler = (event) => {
-            if (!dragProperty) return;
-            setSettings(draft => {
-                setObjectPropertyByStringPath(draft, dragProperty + 'X', event.pageX);
-                setObjectPropertyByStringPath(draft, dragProperty + 'Y', event.pageY);
-            });
-        };
-        // TODO make useClick and set more universal
-        const touchmoveHandler = (event) => {
+        const dragHandler = (event) => {
             if (!dragProperty) return;
 
+            let pageX;
+            let pageY;
+            if (event.type === 'touchmove') {
+                pageX = event.targetTouches[0].pageX;
+                pageY = event.targetTouches[0].pageY;
+            } else {
+                pageX = event.pageX;
+                pageY = event.pageY;
+            }
+
+            console.log(pageX, pageY);
+
             setSettings(draft => {
-                setObjectPropertyByStringPath(draft, dragProperty + 'X', Math.trunc(event.targetTouches[0].pageX));
-                setObjectPropertyByStringPath(draft, dragProperty + 'Y', Math.trunc(event.targetTouches[0].pageY));
+                setObjectPropertyByStringPath(draft, dragProperty + 'X', Math.trunc(pageX));
+                setObjectPropertyByStringPath(draft, dragProperty + 'Y', Math.trunc(pageY));
             });
         };
-
-        const mouseUpHandler = () => {
+        // TODO standartize coordinates. [x, y] or {x, y} or x: suzuki, y: suzuki
+        const endHandler = () => {
             if (!dragProperty) return;
             setDragProperty(null);
         };
@@ -44,17 +48,17 @@ export const useClickAndSet = ({setSettings}) => {
             window.addEventListener('click', clickAndSetHandler);
         }
         if (dragProperty) {
-            window.addEventListener('mousemove', mousemoveHandler);
-            window.addEventListener('touchmove', touchmoveHandler);
-            window.addEventListener('mouseup', mouseUpHandler);
-            window.addEventListener('touchend', mouseUpHandler);
+            window.addEventListener('mousemove', dragHandler);
+            window.addEventListener('touchmove', dragHandler);
+            window.addEventListener('mouseup', endHandler);
+            window.addEventListener('touchend', endHandler);
         }
         return () => {
+            window.removeEventListener('mousemove', dragHandler);
+            window.removeEventListener('touchmove', dragHandler);
+            window.removeEventListener('mouseup', endHandler);
+            window.removeEventListener('touchend', endHandler);
             window.removeEventListener('click', clickAndSetHandler);
-            window.removeEventListener('mousemove', mousemoveHandler);
-            window.removeEventListener('touchmove', touchmoveHandler);
-            window.removeEventListener('mouseup', mouseUpHandler);
-            window.removeEventListener('touchend', mouseUpHandler);
         };
     }, [setClickAndSetProperty, clickAndSetProperty, setSettings, dragProperty, setDragProperty]);
     const setClickAndSetProp = (event) => {
