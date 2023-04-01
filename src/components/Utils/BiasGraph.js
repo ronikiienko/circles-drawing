@@ -1,4 +1,4 @@
-import {makeStyles, shorthands} from '@fluentui/react-components';
+import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
 import React from 'react';
 import {biasTanhFunction} from '../../utils/generalUtils';
 import {getTranslatedBiasA, getTranslatedBiasB} from '../../utils/translaters';
@@ -34,7 +34,7 @@ export const BiasGraph = ({biasInf, biasA, biasB}) => {
 
     return (
         <svg className={localClasses.svg} width={svgSize} height={svgSize}>
-            <path d={path} fill="none" stroke="blueviolet"></path>
+            <path d={path} fill="none" stroke={tokens.colorPaletteGrapeBorderActive}></path>
         </svg>
     );
 };

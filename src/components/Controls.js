@@ -24,6 +24,7 @@ import {hotkeys, tabs} from '../consts/consts';
 import {useBrush} from '../hooks/useBrush';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import {useResizer} from '../hooks/useResizer';
+import {setObjectPropertyByStringPath} from '../utils/generalUtils';
 import {getRandomName} from '../utils/nameGenerator';
 import {clearCanvas, drawLayer, redo, saveAsImage, stopDrawing, undo} from '../worker/canvasWorkerMediators';
 import './Controls.css';
@@ -185,23 +186,20 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
     useHotkeys(hotkeys.addLayer, () => drawLayer(settings, appSettings));
 
     const handleChange = (event) => {
-        const categoriesArray = event.target.id.split('-');
-        const category = categoriesArray[0];
-        const subcategory1 = categoriesArray[1];
         setSettings(draft => {
             if (event.target.type !== 'checkbox') {
-                draft[category][subcategory1] = event.target.value;
+                setObjectPropertyByStringPath(draft, event.target.id, event.target.value);
             } else {
-                draft[category][subcategory1] = event.target.checked;
+                setObjectPropertyByStringPath(draft, event.target.id, event.target.checked);
             }
         });
     };
     const handleAppSettingsChange = (event) => {
         setAppSettings(draft => {
             if (event.target.type !== 'checkbox') {
-                draft[event.target.id] = event.target.value;
+                setObjectPropertyByStringPath(draft, event.target.id, event.target.value);
             } else {
-                draft[event.target.id] = event.target.checked;
+                setObjectPropertyByStringPath(draft, event.target.id, event.target.checked);
             }
         });
     };

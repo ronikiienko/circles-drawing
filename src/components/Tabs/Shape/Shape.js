@@ -3,6 +3,7 @@ import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
 import {shapeTypes} from '../../../consts/sharedConsts';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {CustomShapeEditor} from './CustomShapeEditor';
 
 
 export const Shape = ({settings, setClickAndSetProp, handleChange, setSettings, classes}) => {
@@ -155,12 +156,12 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, setSettings, 
                     </div>
                 </ConditionalPanel>
             </ConditionalPanel>
-            {/*<ConditionalPanel active={settings.shape.shape === shapeTypes.custom}>*/}
-            {/*    <CustomShapeEditor*/}
-            {/*        settings={settings}*/}
-            {/*        setSettings={setSettings}*/}
-            {/*    />*/}
-            {/*</ConditionalPanel>*/}
+            <ConditionalPanel active={settings.shape.shape === shapeTypes.custom}>
+                <CustomShapeEditor
+                    settings={settings}
+                    setSettings={setSettings}
+                />
+            </ConditionalPanel>
         </>
     );
 };
