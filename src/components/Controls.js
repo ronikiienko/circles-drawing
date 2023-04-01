@@ -139,6 +139,9 @@ const useStylesTabs = makeStyles({
     button: {
         ...shorthands.margin('3px'),
     },
+    buttonInline: {
+        marginInline: '3px',
+    },
     fullWidth: {
         width: '100%',
         marginBlock: '3px',

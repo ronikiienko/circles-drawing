@@ -8,39 +8,45 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
     const [dragProperty, setDragProperty] = useImmer(null);
 
     useEffect(() => {
-        const canvas = canvasRef.current;
-
-        const mousemoveHandler = (event) => {
+        const pageXYToShapeXY = (pageX, pageY) => {
             const boundingClientRect = canvas.getBoundingClientRect();
-            const eventX = event.pageX;
-            const eventY = event.pageY;
             let shapeX;
             switch (true) {
-                case eventX < boundingClientRect.left:
+                case pageX < boundingClientRect.left:
                     shapeX = 0;
                     break;
-                case eventX > boundingClientRect.right:
+                case pageX > boundingClientRect.right:
                     shapeX = 1;
                     break;
                 default:
-                    shapeX = (event.pageX - boundingClientRect.left) / canvas.width;
+                    shapeX = (pageX - boundingClientRect.left) / canvas.width;
             }
             let shapeY;
             switch (true) {
-                case eventY < boundingClientRect.top:
+                case pageY < boundingClientRect.top:
                     shapeY = 0;
                     break;
-                case eventY > boundingClientRect.bottom:
+                case pageY > boundingClientRect.bottom:
                     shapeY = 1;
                     break;
                 default:
-                    shapeY = (event.pageY - boundingClientRect.top) / canvas.height;
+                    shapeY = (pageY - boundingClientRect.top) / canvas.height;
             }
+            return {shapeX, shapeY};
+        }
 
+        const canvas = canvasRef.current;
+        const dragHandler = (event) => {
             if (!dragProperty) return;
+
+            const pageX = event.pageX;
+            const pageY = event.pageY;
+
+            const {shapeX, shapeY} = pageXYToShapeXY(pageX, pageY);
+
             setSettings(draft => {
-                setObjectPropertyByStringPath(draft, dragProperty + '-0', shapeX);
-                setObjectPropertyByStringPath(draft, dragProperty + '-1', shapeY);
+                setObjectPropertyByStringPath(draft, dragProperty + '-0', parseFloat(shapeX.toFixed(2)));
+                setObjectPropertyByStringPath(draft, dragProperty + '-1', parseFloat(shapeY.toFixed(2)));
             });
         };
 
@@ -49,19 +55,45 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
             setDragProperty(null);
         };
 
+        const clickAndSetHandler = (event) => {
+            if (!clickAndSetProperty) return;
+
+            const pageX = event.pageX;
+            const pageY = event.pageY;
+
+            const {shapeX, shapeY} = pageXYToShapeXY(pageX, pageY);
+
+            setSettings(draft => {
+                setObjectPropertyByStringPath(draft, clickAndSetProperty + '-0', shapeX);
+                setObjectPropertyByStringPath(draft, clickAndSetProperty + '-1', shapeY);
+            });
+            setClickAndSetProperty(null);
+        };
+
+
+        if (clickAndSetProperty) {
+            window.addEventListener('click', clickAndSetHandler);
+        }
         if (dragProperty) {
-            window.addEventListener('mousemove', mousemoveHandler);
+            window.addEventListener('mousemove', dragHandler);
             window.addEventListener('mouseup', mouseUpHandler);
         }
         return () => {
-            window.removeEventListener('mousemove', mousemoveHandler);
+            window.removeEventListener('click', clickAndSetHandler);
+            window.removeEventListener('mousemove', dragHandler);
             window.removeEventListener('mouseup', mouseUpHandler);
         };
-    }, [setClickAndSetProperty, clickAndSetProperty, setSettings, dragProperty, setDragProperty, canvasRef]);
+    }, [clickAndSetProperty, setSettings, dragProperty, canvasRef, setDragProperty, setClickAndSetProperty]);
 
     const setDragProp = (event) => {
         event.stopPropagation();
         setDragProperty(event.target.id);
     };
-    return {setDragProp};
+
+    const setClickAndSetProp = (event) => {
+        event.stopPropagation();
+        setClickAndSetProperty(event.target.id);
+    };
+
+    return {setDragProp, setClickAndSetProp};
 };

@@ -160,6 +160,8 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, setSettings, 
                 <CustomShapeEditor
                     settings={settings}
                     setSettings={setSettings}
+                    classes={classes}
+                    handleChange={handleChange}
                 />
             </ConditionalPanel>
         </>

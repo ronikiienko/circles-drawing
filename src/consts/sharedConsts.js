@@ -42,3 +42,7 @@ export const shapeTypes = {
     custom: 'custom',
 };
 
+export const customShapeFlagsColorSettings = {
+    s: '80%',
+    l: '40%',
+};

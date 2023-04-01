@@ -1,60 +1,73 @@
-import {Button, makeStyles, shorthands, tokens} from '@fluentui/react-components';
+import {Button, Input, makeStyles, shorthands, tokens} from '@fluentui/react-components';
+import {ArrowDown16Filled, ArrowUp16Filled, Delete16Regular} from '@fluentui/react-icons';
 import {nanoid} from 'nanoid';
 import React, {useEffect, useRef} from 'react';
+import {shapeEditorCanvasSize, shapeEditorFlagsSize} from '../../../consts/consts';
 import {useCustomShapeEditor} from '../../../hooks/useCustomShapeEditor';
 import {drawCustomShape} from '../../../utils/drawingUtils';
-import {getColorByIndex} from '../../../utils/generalUtils';
+import {getRandomHsl} from '../../../utils/generalUtils';
 import {CoordinateFlag} from '../../Utils/CoordinateFlag';
-
-
-const shapeFlagsSize = 15;
-
-const canvasSize = 250;
 
 
 const useStyles = makeStyles({
     canvas: {},
     canvasContainer: {
-        width: `${canvasSize}px`,
-        height: `${canvasSize}px`,
+        width: `${shapeEditorCanvasSize}px`,
+        height: `${shapeEditorCanvasSize}px`,
         position: 'relative',
     },
     superContainer: {
         width: 'fit-content',
         ...shorthands.border('2px', 'solid', tokens.colorNeutralStroke1),
-        ...shorthands.padding(`${shapeFlagsSize / 1.5}px`),
+        ...shorthands.padding(`${shapeEditorFlagsSize / 1.5}px`),
     },
+    pointElement: {
+        marginBlock: '5px',
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        display: 'flex',
+        alignItems: 'center',
+        height: 'fit-content',
+        width: 'fit-content',
+        ...shorthands.padding('5px'),
+    },
+    pointElementIndex: {},
 });
 
-export const CustomShapeEditor = ({settings, setSettings}) => {
+export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}) => {
     const localClasses = useStyles();
 
     const canvasRef = useRef(null);
     const ctxRef = useRef(null);
 
-    const {setDragProp} = useCustomShapeEditor({setSettings, canvasRef});
+    const {setDragProp, setClickAndSetProp} = useCustomShapeEditor({setSettings, canvasRef});
 
     useEffect(() => {
         ctxRef.current = canvasRef.current.getContext('2d');
-        canvasRef.current.width = canvasSize;
-        canvasRef.current.height = canvasSize;
+        canvasRef.current.width = shapeEditorCanvasSize;
+        canvasRef.current.height = shapeEditorCanvasSize;
         ctxRef.current.fillStyle = 'violet';
     }, []);
     useEffect(() => {
-        ctxRef.current.clearRect(0, 0, canvasSize, canvasSize);
+        ctxRef.current.clearRect(0, 0, shapeEditorCanvasSize, shapeEditorCanvasSize);
         ctxRef.current.beginPath();
         drawCustomShape(
             ctxRef.current,
-            [canvasSize / 2, canvasSize / 2],
+            [shapeEditorCanvasSize / 2, shapeEditorCanvasSize / 2],
             settings.shape.customShape,
             0,
-            canvasSize,
+            shapeEditorCanvasSize,
         );
     }, [settings.shape.customShape]);
 
     const addPoint = () => {
         setSettings(draft => {
-            draft.shape.customShape.push([0.4, 0.4, nanoid(8)]);
+            draft.shape.customShape.push([0.4, 0.4, nanoid(8), getRandomHsl()]);
+        });
+    };
+
+    const removePoint = (index) => {
+        setSettings(draft => {
+            draft.shape.customShape.splice(index, 1);
         });
     };
 
@@ -68,10 +81,10 @@ export const CustomShapeEditor = ({settings, setSettings}) => {
                             key={point[2]}
                             id={`shape-customShape-${index}`}
                             onMouseDown={setDragProp}
-                            size={shapeFlagsSize}
-                            color={getColorByIndex(index)}
-                            x={point[0] * canvasSize}
-                            y={point[1] * canvasSize}
+                            size={shapeEditorFlagsSize}
+                            color={point[3]}
+                            x={point[0] * shapeEditorCanvasSize}
+                            y={point[1] * shapeEditorCanvasSize}
                             style={{position: 'absolute', opacity: 0.7}}
                             dot={false}
                             text={index}
@@ -80,7 +93,39 @@ export const CustomShapeEditor = ({settings, setSettings}) => {
                 </div>
             </div>
             <Button onClick={addPoint}>Add point</Button>
+            {settings.shape.customShape.map((point, index) => {
+                return <span
+                    className={localClasses.pointElement}
+                    key={point[2]}
+                    style={{backgroundColor: point[3]}}
+                >
+                    <span
+                        className={localClasses.pointElementIndex}
+                    >
+                        {index}
+                    </span>
+                    <Input
+                        id={`shape-customShape-${index}-0`}
+                        value={point[0]}
+                        onChange={handleChange}
+                        className={classes.number}
+                        size="small"
+                    />
+                    <Input
+                        id={`shape-customShape-${index}-1`}
+                        value={point[1]}
+                        onChange={handleChange}
+                        className={classes.number}
+                        size="small"
+                    />
+                    <Button onClick={() => removePoint(index)} className={classes.buttonInline} size="small"
+                            icon={<Delete16Regular/>}></Button>
+                    <Button id={`shape-customShape-${index}`} onClick={setClickAndSetProp}
+                            className={classes.buttonInline} size="small">Click and set</Button>
+                    <Button className={classes.buttonInline} size="small" icon={<ArrowUp16Filled/>}></Button>
+                    <Button className={classes.buttonInline} size="small" icon={<ArrowDown16Filled/>}></Button>
+                </span>;
+            })}
         </>
-
     );
 };

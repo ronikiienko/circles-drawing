@@ -1,3 +1,6 @@
+import {customShapeFlagsColorSettings} from '../consts/sharedConsts';
+
+
 export const biasTanhFunction = (x, biasInf, biasA, biasB) => {
     return Math.tanh(Math.pow(x, 1 / biasB) * biasA) * biasInf;
 };
@@ -179,4 +182,6 @@ export const setObjectPropertyByStringPath = (objectToChange, path, newValue, sp
     schema[pList[pList.length - 1]] = newValue;
 };
 
-export const getColorByIndex = (index) => `hsl(${index * 30}, ${100 - index}%, 50%)`;
+export const getColorByIndex = (index) => `hsl(${index * 30}, ${80 - index}%, 40%)`;
+
+export const getRandomHsl = () => `hsl(${getBiasedRandomNumber(0, 357)},${customShapeFlagsColorSettings.s},${customShapeFlagsColorSettings.l})`;

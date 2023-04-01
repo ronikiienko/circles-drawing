@@ -1,5 +1,5 @@
 import {getRandomName} from '../utils/nameGenerator';
-import {biasSpiralTypes, biasTypes, shapeTypes} from './sharedConsts';
+import {biasSpiralTypes, biasTypes, customShapeFlagsColorSettings, shapeTypes} from './sharedConsts';
 
 
 export const overlayModes = {
@@ -30,15 +30,6 @@ export const overlayModes = {
     luminosity: 'luminosity',
 };
 
-
-export const storageKeys = {
-    layerSettings: 'layerSettings',
-    appSettings: 'appSettings',
-    shelvedLayerSettings: 'shelvedLayerSettings',
-    mainTab: 'mainTab',
-    presetDraftMeta: 'presetDraftMeta',
-    userPresets: 'userPresets',
-};
 
 export const tabs = {
     number: {
@@ -87,6 +78,14 @@ export const tabs = {
     },
 };
 
+export const storageKeys = {
+    layerSettings: 'layerSettings',
+    appSettings: 'appSettings',
+    shelvedLayerSettings: 'shelvedLayerSettings',
+    mainTab: 'mainTab',
+    presetDraftMeta: 'presetDraftMeta',
+    userPresets: 'userPresets',
+};
 export const hotkeys = {
     addLayer: 'a',
     clear: 'ctrl+d',
@@ -95,7 +94,16 @@ export const hotkeys = {
     hideInterface: 'Escape',
     saveAsPng: 'ctrl+s',
 };
-
+export const defaultAppSettings = {
+    drawingSpeed: 0.25,
+    darkMode: true,
+    resolutionMult: window.devicePixelRatio,
+    projectNameRand: true,
+    projectName: getRandomName(),
+};
+export const shapeEditorFlagsSize = 15;
+export const shapeEditorCanvasSize = 250;
+export const coordinateFlagsSize = 30;
 export const layerPresets = [
     {
         preset: {
@@ -123,15 +131,9 @@ export const layerPresets = [
             rectRoundness: 0,
             rectRoundnessRand: 0.3,
             customShape: [
-                [0, 0.2, 'kfasfj9'],
-                [0.2, 0, '=12958fj'],
-                [0.5, 0.5, '8901jhjfk'],
-                [0.8, 0, '=15as56'],
-                [1, 0.2, 'nvmcz'],
-                [1, 0.8, 'nboqpohg'],
-                [0.8, 1, 'pingpong'],
-                [0.2, 1, 'tabletenis'],
-                [0, 0.8, 'pongping'],
+                [0, 1, 'kfasfj9', `hsl(357, ${customShapeFlagsColorSettings.s}, ${customShapeFlagsColorSettings.l})`],
+                [0.5, 0, '=12958fj', `hsl(100, ${customShapeFlagsColorSettings.s}, ${customShapeFlagsColorSettings.l})`],
+                [1, 1, '8901jhjfk', `hsl(200, ${customShapeFlagsColorSettings.s}, ${customShapeFlagsColorSettings.l})`],
             ],
         },
         position: {
@@ -265,14 +267,6 @@ export const biasPresets = {
         biasB: 0.45,
         biasInf: 1,
     },
-};
-
-export const defaultAppSettings = {
-    drawingSpeed: 0.25,
-    darkMode: true,
-    resolutionMult: window.devicePixelRatio,
-    projectNameRand: true,
-    projectName: getRandomName(),
 };
 
 export const randomPresetRules = {
@@ -440,5 +434,7 @@ export const randomPresetRules = {
 };
 
 // TODO add custom shape to preset randomization
+
+
 
 

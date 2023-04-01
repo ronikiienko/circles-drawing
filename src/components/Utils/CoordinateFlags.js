@@ -1,4 +1,5 @@
 import React from 'react';
+import {coordinateFlagsSize} from '../../consts/consts';
 import {biasTypes, shapeTypes} from '../../consts/sharedConsts';
 import {ConditionalPanel} from './ConditionalPanel';
 import {CoordinateFlag} from './CoordinateFlag';
@@ -16,7 +17,7 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                     title="Start point"
                     onMouseDown={setDragProp}
                     color="green"
-                    size={30}
+                    size={coordinateFlagsSize}
                 />
                 <CoordinateFlag
                     id="position-end"
@@ -25,7 +26,7 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                     title="End point"
                     onMouseDown={setDragProp}
                     color="red"
-                    size={30}
+                    size={coordinateFlagsSize}
                 />
             </ConditionalPanel>
             <ConditionalPanel active={settings.position.biasType !== biasTypes.off}>
@@ -37,7 +38,7 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                     onMouseDown={setDragProp}
                     settings={settings}
                     color="blue"
-                    size={30}/>
+                    size={coordinateFlagsSize}/>
             </ConditionalPanel>
 
             <ConditionalPanel active={settings.position.biasType === biasTypes.radial}>
@@ -48,7 +49,7 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                     y={settings.position.biasRadiusY}
                     onMouseDown={setDragProp}
                     color="gray"
-                    size={30}/>
+                    size={coordinateFlagsSize}/>
             </ConditionalPanel>
 
             <ConditionalPanel
@@ -60,7 +61,7 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                     y={settings.shape.lookToY}
                     onMouseDown={setDragProp}
                     color="pink"
-                    size={30}
+                    size={coordinateFlagsSize}
                 />
             </ConditionalPanel>
         </>
