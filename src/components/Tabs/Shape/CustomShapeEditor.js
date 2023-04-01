@@ -5,12 +5,14 @@ import React, {useEffect, useRef} from 'react';
 import {shapeEditorCanvasSize, shapeEditorFlagsSize} from '../../../consts/consts';
 import {useCustomShapeEditor} from '../../../hooks/useCustomShapeEditor';
 import {drawCustomShape} from '../../../utils/drawingUtils';
-import {getRandomHsl} from '../../../utils/generalUtils';
+import {getRandomHsl, swapArrElements} from '../../../utils/generalUtils';
 import {CoordinateFlag} from '../../Utils/CoordinateFlag';
 
 
 const useStyles = makeStyles({
-    canvas: {},
+    canvas: {
+        backgroundColor: tokens.colorNeutralBackgroundAlpha2,
+    },
     canvasContainer: {
         width: `${shapeEditorCanvasSize}px`,
         height: `${shapeEditorCanvasSize}px`,
@@ -71,6 +73,18 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
         });
     };
 
+    const swapPointUp = (index) => {
+        setSettings(draft => {
+            swapArrElements(draft.shape.customShape, index, index - 1);
+        });
+    };
+
+    const swapPointDown = (index) => {
+        setSettings(draft => {
+            swapArrElements(draft.shape.customShape, index, index + 1);
+        });
+    };
+
     return (
         <>
             <div className={localClasses.superContainer}>
@@ -122,8 +136,10 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
                             icon={<Delete16Regular/>}></Button>
                     <Button id={`shape-customShape-${index}`} onClick={setClickAndSetProp}
                             className={classes.buttonInline} size="small">Click and set</Button>
-                    <Button className={classes.buttonInline} size="small" icon={<ArrowUp16Filled/>}></Button>
-                    <Button className={classes.buttonInline} size="small" icon={<ArrowDown16Filled/>}></Button>
+                    <Button onClick={() => swapPointUp(index)} className={classes.buttonInline} size="small"
+                            icon={<ArrowUp16Filled/>}></Button>
+                    <Button onClick={() => swapPointDown(index)} className={classes.buttonInline} size="small"
+                            icon={<ArrowDown16Filled/>}></Button>
                 </span>;
             })}
         </>

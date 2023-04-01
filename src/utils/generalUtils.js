@@ -182,6 +182,13 @@ export const setObjectPropertyByStringPath = (objectToChange, path, newValue, sp
     schema[pList[pList.length - 1]] = newValue;
 };
 
+export const swapArrElements = (arr, from, to) => {
+    if (!(from in arr) || !(to in arr)) return;
+    const temp = arr[from];
+    arr[from] = arr[to];
+    arr[to] = temp;
+};
+
 export const getColorByIndex = (index) => `hsl(${index * 30}, ${80 - index}%, 40%)`;
 
 export const getRandomHsl = () => `hsl(${getBiasedRandomNumber(0, 357)},${customShapeFlagsColorSettings.s},${customShapeFlagsColorSettings.l})`;
