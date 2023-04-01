@@ -1,8 +1,8 @@
 import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
 import {nanoid} from 'nanoid';
 import React, {useEffect, useRef} from 'react';
+import {useCustomShapeEditor} from '../../../hooks/useCustomShapeEditor';
 import {drawCustomShape} from '../../../utils/drawingUtils';
-import {CoordinateFlag} from '../../Utils/coordinateFlag';
 
 
 const canvasSize = 250;
@@ -15,16 +15,20 @@ const useStyles = makeStyles({
         ...shorthands.borderStyle('solid'),
     },
     canvasContainer: {
-        width: '250px',
-        height: '250px',
+        overflowX: 'hidden',
+        width: '300px',
+        height: '300px',
         position: 'relative',
     },
 });
+
 export const CustomShapeEditor = ({settings, setSettings}) => {
     const localClasses = useStyles();
 
     const canvasRef = useRef(null);
     const ctxRef = useRef(null);
+
+    const {setDragProp} = useCustomShapeEditor({setSettings, canvasRef});
 
     useEffect(() => {
         ctxRef.current = canvasRef.current.getContext('2d');
@@ -34,6 +38,7 @@ export const CustomShapeEditor = ({settings, setSettings}) => {
         ctxRef.current.fillStyle = 'violet';
     }, []);
     useEffect(() => {
+        ctxRef.current.clearRect(0, 0, 1000, 1000);
         drawCustomShape(
             ctxRef.current,
             [canvasSize / 2, canvasSize / 2],
@@ -46,14 +51,20 @@ export const CustomShapeEditor = ({settings, setSettings}) => {
         <div className={localClasses.canvasContainer}>
             <canvas className={localClasses.canvas} id="shape-editor-canvas" ref={canvasRef}></canvas>
             {settings.shape.customShape.map((point, index) => {
-                return <CoordinateFlag
+                return <div
                     id={`shape-customShape-${index}`}
-                    size={15}
                     key={nanoid()}
-                    x={point[0] * canvasSize}
-                    y={point[1] * canvasSize}
-                    color="yellow"
-                />;
+                    style={{
+                        backgroundColor: 'red',
+                        position: 'absolute',
+                        left: point[0] * canvasSize - 5,
+                        top: point[1] * canvasSize - 5,
+                        width: '10px',
+                        height: '10px',
+                        borderRadius: '10px',
+                    }}
+                    onMouseDown={setDragProp}
+                ></div>;
             })}
         </div>
     );

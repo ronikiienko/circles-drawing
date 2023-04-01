@@ -63,7 +63,8 @@ const useStyles = makeStyles({
         minHeight: '300px',
         minWidth: '200px',
         maxWidth: '95%',
-        height: '300px',
+        height: '600px',
+        // height: '300px',
     },
 
     header: {},
