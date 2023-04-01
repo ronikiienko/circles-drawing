@@ -11,15 +11,37 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
         const canvas = canvasRef.current;
 
         const mousemoveHandler = (event) => {
+            console.log(event);
             const boundingClientRect = canvas.getBoundingClientRect();
             const eventX = event.pageX;
             const eventY = event.pageY;
-            if (eventX < boundingClientRect.left || eventX > boundingClientRect.right || eventY < boundingClientRect.top || eventY > boundingClientRect.bottom) return;
-            console.log('boun', boundingClientRect);
+            let shapeX;
+            switch (true) {
+                case eventX < boundingClientRect.left:
+                    shapeX = 0;
+                    break;
+                case eventX > boundingClientRect.right:
+                    shapeX = 1;
+                    break;
+                default:
+                    shapeX = (event.pageX - boundingClientRect.left) / canvas.width;
+            }
+            let shapeY;
+            switch (true) {
+                case eventY < boundingClientRect.top:
+                    shapeY = 0;
+                    break;
+                case eventY > boundingClientRect.bottom:
+                    shapeY = 1;
+                    break;
+                default:
+                    shapeY = (event.pageY - boundingClientRect.top) / canvas.height;
+            }
+
             if (!dragProperty) return;
             setSettings(draft => {
-                setObjectPropertyByStringPath(draft, dragProperty + '-0', (event.pageX - boundingClientRect.left) / canvas.width);
-                setObjectPropertyByStringPath(draft, dragProperty + '-1', (event.pageY - boundingClientRect.top) / canvas.height);
+                setObjectPropertyByStringPath(draft, dragProperty + '-0', shapeX);
+                setObjectPropertyByStringPath(draft, dragProperty + '-1', shapeY);
             });
         };
 

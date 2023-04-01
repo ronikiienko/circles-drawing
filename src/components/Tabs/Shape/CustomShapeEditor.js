@@ -1,8 +1,8 @@
 import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
-import {nanoid} from 'nanoid';
 import React, {useEffect, useRef} from 'react';
 import {useCustomShapeEditor} from '../../../hooks/useCustomShapeEditor';
 import {drawCustomShape} from '../../../utils/drawingUtils';
+import {CoordinateFlag} from '../../Utils/CoordinateFlag';
 
 
 const canvasSize = 250;
@@ -34,11 +34,11 @@ export const CustomShapeEditor = ({settings, setSettings}) => {
         ctxRef.current = canvasRef.current.getContext('2d');
         canvasRef.current.width = canvasSize;
         canvasRef.current.height = canvasSize;
-        ctxRef.current.beginPath();
         ctxRef.current.fillStyle = 'violet';
     }, []);
     useEffect(() => {
         ctxRef.current.clearRect(0, 0, 1000, 1000);
+        ctxRef.current.beginPath();
         drawCustomShape(
             ctxRef.current,
             [canvasSize / 2, canvasSize / 2],
@@ -47,25 +47,25 @@ export const CustomShapeEditor = ({settings, setSettings}) => {
             canvasSize,
         );
     }, [settings.shape.customShape]);
+
     return (
-        <div className={localClasses.canvasContainer}>
-            <canvas className={localClasses.canvas} id="shape-editor-canvas" ref={canvasRef}></canvas>
-            {settings.shape.customShape.map((point, index) => {
-                return <div
-                    id={`shape-customShape-${index}`}
-                    key={nanoid()}
-                    style={{
-                        backgroundColor: 'red',
-                        position: 'absolute',
-                        left: point[0] * canvasSize - 5,
-                        top: point[1] * canvasSize - 5,
-                        width: '10px',
-                        height: '10px',
-                        borderRadius: '10px',
-                    }}
-                    onMouseDown={setDragProp}
-                ></div>;
-            })}
-        </div>
+        <>
+            <div className={localClasses.canvasContainer}>
+                <canvas className={localClasses.canvas} id="shape-editor-canvas" ref={canvasRef}></canvas>
+                {settings.shape.customShape.map((point, index) => {
+                    return <CoordinateFlag
+                        key={index}
+                        id={`shape-customShape-${index}`}
+                        onMouseDown={setDragProp}
+                        size={10}
+                        color="red"
+                        x={point[0] * canvasSize}
+                        y={point[1] * canvasSize}
+                        style={{position: 'absolute'}}
+                    />;
+                })}
+            </div>
+        </>
+
     );
 };

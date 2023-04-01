@@ -1,7 +1,7 @@
 import React from 'react';
 import {biasTypes, shapeTypes} from '../../consts/sharedConsts';
 import {ConditionalPanel} from './ConditionalPanel';
-import {CoordinateFlag} from './coordinateFlag';
+import {CoordinateFlag} from './CoordinateFlag';
 
 
 export const CoordinateFlags = ({settings, setDragProp}) => {
