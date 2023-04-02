@@ -170,7 +170,7 @@ const drawShape = (settings) => {
     if (settings.shape.shape === shapeTypes.rectangle) {
         ctx.save();
         ctx.translate(settings.position.x - settings.size.size / 2, settings.position.y - settings.size.size / 2);
-        ctx.rotate(settings.shape.angle);
+        ctx.rotate(turnDegreesToRadians(settings.shape.angle));
         if (settings.shape.rectRoundness) {
             ctx.roundRect(0, 0, settings.size.size, settings.size.size, settings.shape.rectRoundness);
         } else {
@@ -188,7 +188,7 @@ const drawShape = (settings) => {
         }
         ctx.save();
         ctx.translate(settings.position.x, settings.position.y);
-        ctx.rotate(settings.shape.angle);
+        ctx.rotate(turnDegreesToRadians(settings.shape.angle));
 
         ctx.moveTo(-settings.size.size, 0);
         ctx.lineTo(settings.size.size, 0);
