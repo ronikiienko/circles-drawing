@@ -82,6 +82,9 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             rectRoundness: parseFloat(rawSettings.shape.rectRoundness),
             rectRoundnessRand: parseFloat(rawSettings.shape.rectRoundnessRand),
             customShape: rawSettings.shape.customShape,
+            strokeOn: rawSettings.shape.strokeOn,
+            strokeThickness: Math.pow(parseFloat(rawSettings.shape.strokeThickness), 2),
+            fillOn: rawSettings.shape.fillOn,
         },
         position: {
             startX: parseFloat(rawSettings.position.startX),
@@ -107,6 +110,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
         },
         color: {
             color: hexToHslArray(rawSettings.color.color),
+            strokeColor: hexToHslArray(rawSettings.color.strokeColor),
             colorRand: Math.pow(parseFloat(rawSettings.color.colorRand) + 1, 5) * 5.6 - 1,
             transp: transp,
             transpRand: parseFloat(rawSettings.color.transpRand) * transp,
@@ -133,6 +137,7 @@ export const getTranslatedAppSettings = (rawSettings) => {
 
 export const getRandomizedShapeSettings = (settings, i) => {
     let color;
+    let strokeColor;
     const transp = settings.color.transp + getBiasedRandomNumber(-settings.color.transpRand, settings.color.transpRand, 2);
     const blur = !settings.color.blur ? 0 : settings.color.blur + getBiasedRandomNumber(-settings.color.blurRand, settings.color.blurRand);
     let xPosition;
@@ -257,6 +262,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     }
 
     color = `hsla(${(settings.color.color[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360},${settings.color.color[1]}%,${settings.color.color[2]}%,${transp})`;
+    strokeColor = `hsla(${(settings.color.strokeColor[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360},${settings.color.strokeColor[1]}%,${settings.color.strokeColor[2]}%,${transp})`;
 
     const size = settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2);
     const baseRectRoundness = size / 2 * settings.shape.rectRoundness;
@@ -272,6 +278,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
             lineRounded: settings.shape.lineRounded,
             rectRoundness: baseRectRoundness + getBiasedRandomNumber(-1, 1, 2) * baseRectRoundness * settings.shape.rectRoundnessRand * 0.6,
             customShape: settings.shape.customShape,
+            strokeOn: settings.shape.strokeOn,
+            fillOn: settings.shape.fillOn,
+            strokeThickness: settings.shape.strokeThickness,
         },
         position: {
             x: Math.floor(xPosition),
@@ -279,6 +288,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
         },
         color: {
             color: color,
+            strokeColor: strokeColor,
             glow: settings.color.glow,
             blur: blur,
         },

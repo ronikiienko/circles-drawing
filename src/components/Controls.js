@@ -30,7 +30,6 @@ import {clearCanvas, drawLayer, redo, saveAsImage, stopDrawing, undo} from '../w
 import './Controls.css';
 import {Brush} from './Tabs/Brush';
 import {Color} from './Tabs/Color';
-import {Generation} from './Tabs/Generation';
 import {Number} from './Tabs/Number';
 import {Position} from './Tabs/Position';
 import {Presets} from './Tabs/Presets/Presets';
@@ -271,9 +270,9 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                     <ConditionalPanel active={mainTab === tabs.presets.id}>
                         <Presets settings={settings} setSettings={setSettings} classes={tabsClasses}/>
                     </ConditionalPanel>
-                    <ConditionalPanel active={mainTab === tabs.generation.id}>
-                        <Generation settings={settings} setSettings={setSettings} classes={tabsClasses}/>
-                    </ConditionalPanel>
+                    {/*<ConditionalPanel active={mainTab === tabs.generation.id}>*/}
+                    {/*    <Generation settings={settings} setSettings={setSettings} classes={tabsClasses}/>*/}
+                    {/*</ConditionalPanel>*/}
                     <ConditionalPanel active={mainTab === tabs.settings.id}>
                         <Settings
                             setAppSettings={setAppSettings}

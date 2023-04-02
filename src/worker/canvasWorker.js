@@ -150,22 +150,28 @@ const makeCanvasHighPPI = (width, height, resolutionMult) => {
 };
 
 const drawShape = (settings) => {
+    // console.log(settings);
     if (settings.color.blur) ctx.filter = `blur(${settings.color.blur}px)`;
     ctx.shadowBlur = settings.color.glow;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
 
     ctx.fillStyle = settings.color.color;
-    ctx.strokeStyle = settings.color.color;
+    ctx.strokeStyle = settings.color.strokeColor;
     ctx.shadowColor = settings.color.color;
+
+    if (settings.shape.shape !== shapeTypes.line && settings.shape.strokeOn) ctx.lineWidth = settings.size.size * settings.shape.strokeThickness;
 
     ctx.beginPath();
     if (settings.shape.shape === shapeTypes.custom) {
         drawCustomShape(ctx, [settings.position.x, settings.position.y], settings.shape.customShape, settings.shape.angle, settings.size.size);
+        settings.shape.strokeOn && ctx.stroke();
+        settings.shape.fillOn && ctx.fill();
     }
     if (settings.shape.shape === shapeTypes.circle) {
         ctx.arc(settings.position.x, settings.position.y, settings.size.size, 0, Math.PI * 2, true);
-        ctx.fill();
+        settings.shape.strokeOn && ctx.stroke();
+        settings.shape.fillOn && ctx.fill();
     }
     if (settings.shape.shape === shapeTypes.rectangle) {
         ctx.save();
@@ -176,7 +182,8 @@ const drawShape = (settings) => {
         } else {
             ctx.rect(0, 0, settings.size.size, settings.size.size);
         }
-        ctx.fill();
+        settings.shape.strokeOn && ctx.stroke();
+        settings.shape.fillOn && ctx.fill();
         ctx.restore();
     }
     if (settings.shape.shape === shapeTypes.line) {
@@ -193,14 +200,15 @@ const drawShape = (settings) => {
         ctx.moveTo(-settings.size.size, 0);
         ctx.lineTo(settings.size.size, 0);
 
-        ctx.stroke();
+        settings.shape.strokeOn && ctx.stroke();
         ctx.restore();
     }
     if (settings.shape.shape === shapeTypes.ellipse) {
         const height = settings.size.size * settings.shape.widthRatio;
 
         ctx.ellipse(settings.position.x, settings.position.y, settings.size.size, height, turnDegreesToRadians(settings.shape.angle), 0, 2 * Math.PI);
-        ctx.fill();
+        settings.shape.strokeOn && ctx.stroke();
+        settings.shape.fillOn && ctx.fill();
     }
     if (settings.shape.shape === shapeTypes.random3 || settings.shape.shape === shapeTypes.random4) {
         ctx.moveTo(settings.position.x, settings.position.y);
@@ -208,7 +216,8 @@ const drawShape = (settings) => {
         ctx.lineTo(settings.position.x + getBiasedRandomNumber(-settings.size.size, settings.size.size), settings.position.y + getBiasedRandomNumber(-settings.size.size, settings.size.size));
         if (settings.shape.shape === shapeTypes.random4) ctx.lineTo(settings.position.x + getBiasedRandomNumber(-settings.size.size, settings.size.size), settings.position.y + getBiasedRandomNumber(-settings.size.size, settings.size.size));
         ctx.lineTo(settings.position.x, settings.position.y);
-        ctx.fill();
+        settings.shape.strokeOn && ctx.stroke();
+        settings.shape.fillOn && ctx.fill();
     }
 };
 

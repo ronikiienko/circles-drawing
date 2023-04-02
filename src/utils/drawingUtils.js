@@ -25,6 +25,4 @@ export const drawCustomShape = (ctx, centerPoint, pointsArray, angle, size) => {
             ctx.lineTo(actualX, actualY);
         }
     });
-
-    ctx.fill();
 };

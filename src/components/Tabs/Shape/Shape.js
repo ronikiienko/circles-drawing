@@ -18,6 +18,38 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, setSettings, 
                     })}
                 </Select>
             </Label>
+            <br/>
+            <Label className={classes.label}>
+                Fill:
+                <Checkbox
+                    id="shape-fillOn"
+                    onChange={handleChange}
+                    checked={settings.shape.fillOn}
+                />
+            </Label>
+            <Label className={classes.label}>
+                Stroke:
+                <Checkbox
+                    id="shape-strokeOn"
+                    onChange={handleChange}
+                    checked={settings.shape.strokeOn}
+                />
+            </Label>
+            <ConditionalPanel active={settings.shape.strokeOn}>
+                <br/>
+                <Label className={classes.label}>
+                    Stroke thickness:
+                    <Slider
+                        id="shape-strokeThickness"
+                        value={settings.shape.strokeThickness}
+                        onChange={handleChange}
+                        className={classes.slider}
+                        min="0"
+                        max="1"
+                        step={0.05}
+                    />
+                </Label>
+            </ConditionalPanel>
             <ConditionalPanel active={settings.shape.shape === shapeTypes.rectangle}>
                 <br/>
                 <Label className={classes.label}>

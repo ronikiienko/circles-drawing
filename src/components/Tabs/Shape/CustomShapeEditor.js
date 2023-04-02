@@ -65,7 +65,9 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
             0,
             shapeEditorCanvasSize,
         );
-    }, [settings.shape.customShape]);
+        settings.shape.strokeOn && ctxRef.current.stroke();
+        settings.shape.fillOn && ctxRef.current.fill();
+    }, [settings.shape.customShape, settings.shape.fillOn, settings.shape.strokeOn]);
 
     const addPoint = () => {
         setSettings(draft => {

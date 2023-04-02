@@ -72,10 +72,10 @@ export const tabs = {
         label: 'Brush',
         id: 'tab-button-brush',
     },
-    generation: {
-        label: 'Generation',
-        id: 'tab-button-generation',
-    },
+    // generation: {
+    //     label: 'Generation',
+    //     id: 'tab-button-generation',
+    // },
 };
 
 export const storageKeys = {
@@ -135,6 +135,9 @@ export const layerPresets = [
                 [0.5, 0, '=12958fj', `hsl(100, ${customShapeFlagsColorSettings.s}, ${customShapeFlagsColorSettings.l})`],
                 [1, 1, '8901jhjfk', `hsl(200, ${customShapeFlagsColorSettings.s}, ${customShapeFlagsColorSettings.l})`],
             ],
+            strokeOn: false,
+            strokeThickness: 0.2,
+            fillOn: true,
         },
         position: {
             startX: '0',
@@ -161,6 +164,7 @@ export const layerPresets = [
         },
         color: {
             color: '#FF00DD',
+            strokeColor: '#FFFF00',
             colorRand: '0.2',
             transp: '0.7',
             transpRand: '0.2',

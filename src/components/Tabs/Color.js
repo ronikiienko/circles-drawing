@@ -1,5 +1,6 @@
 import {Label, Link, Select, Slider, Switch} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
+import {Circle20Filled, Circle20Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {overlayModes} from '../../consts/consts';
 import {ConditionalPanel} from '../Utils/ConditionalPanel';
@@ -8,8 +9,8 @@ import {ConditionalPanel} from '../Utils/ConditionalPanel';
 export const Color = ({settings, handleChange, classes}) => {
     return (
         <>
-            <Label className={classes.label}>
-                Color:
+            <Label title="fill color" className={classes.label}>
+                <Circle20Filled/>
                 <input
                     value={settings.color.color}
                     className={classes.slider}
@@ -18,6 +19,19 @@ export const Color = ({settings, handleChange, classes}) => {
                     type="color"
                 />
             </Label>
+            <ConditionalPanel active={settings.shape.strokeOn}>
+                <Label title="Stroke color">
+                    <Circle20Regular/>
+                    <input
+                        value={settings.color.strokeColor}
+                        className={classes.slider}
+                        id="color-strokeColor"
+                        onChange={handleChange}
+                        type="color"
+                    />
+                </Label>
+                <br/>
+            </ConditionalPanel>
             <Label className={classes.label}>
                 Color rand:
                 <Slider

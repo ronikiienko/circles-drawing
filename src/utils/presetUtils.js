@@ -3,6 +3,7 @@ import {deepCopy, getBiasedRandomNumber, getRandomHsl, rgbToHex, typeofWithArray
 
 
 export const getLayerSettings = (preset) => {
+    // TODO all boolean flags are reseted if flase. because it goes through and takes default preset value anyway
     const defaultPreset = layerPresets[0];
     return {
         preset: {
@@ -30,6 +31,9 @@ export const getLayerSettings = (preset) => {
             rectRoundness: preset?.shape?.rectRoundness || defaultPreset.shape.rectRoundness,
             rectRoundnessRand: preset?.shape?.rectRoundnessRand || defaultPreset.shape.rectRoundnessRand,
             customShape: deepCopy(preset?.shape?.customShape) || deepCopy(defaultPreset.shape.customShape),
+            strokeOn: preset?.shape?.strokeOn || defaultPreset.shape.strokeOn,
+            strokeThickness: preset?.shape?.strokeThickness || defaultPreset.shape.strokeThickness,
+            fillOn: preset?.shape?.fillOn || defaultPreset.shape.fillOn,
         },
         position: {
             startX: preset?.position?.startX || defaultPreset.position.startX,
@@ -56,6 +60,7 @@ export const getLayerSettings = (preset) => {
         },
         color: {
             color: preset?.color?.color || defaultPreset.color.color,
+            strokeColor: preset?.color?.strokeColor || defaultPreset.color.strokeColor,
             colorRand: preset?.color?.colorRand || defaultPreset.color.colorRand,
             glow: preset?.color?.glow || defaultPreset.color.glow,
             transp: preset?.color?.transp || defaultPreset.color.transp,
