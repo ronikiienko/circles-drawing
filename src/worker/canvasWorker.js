@@ -161,6 +161,11 @@ const drawShape = (settings) => {
 
     ctx.beginPath();
     if (settings.shape.shape === shapeTypes.custom) {
+        // ctx.save()
+        // ctx.translate(settings.position.x, settings.position.y)
+        // ctx.rotate(settings.shape.angle)
+        // drawCustomShape(ctx, [0,0], settings.shape.customShape, 0, settings.size.size);
+        // ctx.restore()
         drawCustomShape(ctx, [settings.position.x, settings.position.y], settings.shape.customShape, settings.shape.angle, settings.size.size);
     }
     if (settings.shape.shape === shapeTypes.circle) {
