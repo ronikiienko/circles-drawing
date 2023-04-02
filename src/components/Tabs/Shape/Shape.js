@@ -47,7 +47,7 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, setSettings, 
                 </Label>
             </ConditionalPanel>
             <ConditionalPanel
-                active={settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse || settings.shape.shape === shapeTypes.custom}>
+                active={settings.shape.shape !== shapeTypes.circle && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4}>
                 <br/>
                 <Label className={classes.label}>
                     Look to on:

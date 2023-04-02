@@ -1,7 +1,7 @@
 import {CMD, maxUndoTimes, shapeTypes} from '../consts/sharedConsts';
 import {db} from '../db';
 import {drawCustomShape} from '../utils/drawingUtils';
-import {getBiasedRandomNumber, getPointByDistanceAndAngle, turnDegreesToRadians, wait} from '../utils/generalUtils';
+import {getBiasedRandomNumber, turnDegreesToRadians, wait} from '../utils/generalUtils';
 import {getRandomizedShapeSettings, getTranslatedAppSettings, getTranslatedLayerSettings} from '../utils/translaters';
 
 
@@ -161,11 +161,6 @@ const drawShape = (settings) => {
 
     ctx.beginPath();
     if (settings.shape.shape === shapeTypes.custom) {
-        // ctx.save()
-        // ctx.translate(settings.position.x, settings.position.y)
-        // ctx.rotate(settings.shape.angle)
-        // drawCustomShape(ctx, [0,0], settings.shape.customShape, 0, settings.size.size);
-        // ctx.restore()
         drawCustomShape(ctx, [settings.position.x, settings.position.y], settings.shape.customShape, settings.shape.angle, settings.size.size);
     }
     if (settings.shape.shape === shapeTypes.circle) {
@@ -173,12 +168,16 @@ const drawShape = (settings) => {
         ctx.fill();
     }
     if (settings.shape.shape === shapeTypes.rectangle) {
+        ctx.save();
+        ctx.translate(settings.position.x - settings.size.size / 2, settings.position.y - settings.size.size / 2);
+        ctx.rotate(settings.shape.angle);
         if (settings.shape.rectRoundness) {
-            ctx.roundRect(settings.position.x, settings.position.y, settings.size.size, settings.size.size, settings.shape.rectRoundness);
+            ctx.roundRect(0, 0, settings.size.size, settings.size.size, settings.shape.rectRoundness);
         } else {
-            ctx.rect(settings.position.x, settings.position.y, settings.size.size, settings.size.size);
+            ctx.rect(0, 0, settings.size.size, settings.size.size);
         }
         ctx.fill();
+        ctx.restore();
     }
     if (settings.shape.shape === shapeTypes.line) {
         ctx.lineWidth = settings.size.size * settings.shape.widthRatio;
@@ -187,16 +186,15 @@ const drawShape = (settings) => {
         } else {
             ctx.lineCap = 'butt';
         }
-        ctx.moveTo(settings.position.x, settings.position.y);
+        ctx.save();
+        ctx.translate(settings.position.x, settings.position.y);
+        ctx.rotate(settings.shape.angle);
 
-        const [x, y] = getPointByDistanceAndAngle(
-            settings.position.x,
-            settings.position.y,
-            settings.size.size,
-            settings.shape.angle,
-        );
-        ctx.lineTo(x, y);
+        ctx.moveTo(-settings.size.size, 0);
+        ctx.lineTo(settings.size.size, 0);
+
         ctx.stroke();
+        ctx.restore();
     }
     if (settings.shape.shape === shapeTypes.ellipse) {
         const height = settings.size.size * settings.shape.widthRatio;
