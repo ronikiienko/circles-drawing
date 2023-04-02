@@ -54,6 +54,7 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
         canvasRef.current.width = shapeEditorCanvasSize;
         canvasRef.current.height = shapeEditorCanvasSize;
         ctxRef.current.fillStyle = 'violet';
+        ctxRef.current.strokeStyle = 'violet';
     }, []);
     useEffect(() => {
         ctxRef.current.clearRect(0, 0, shapeEditorCanvasSize, shapeEditorCanvasSize);
