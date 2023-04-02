@@ -32,7 +32,13 @@ const useStyles = makeStyles({
         width: 'fit-content',
         ...shorthands.padding('5px'),
     },
-    pointElementIndex: {},
+    pointElementIndex: {
+        marginRight: '5px',
+        width: '20px',
+    },
+    pointElementId: {
+        width: '50px',
+    },
 });
 
 export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}) => {
@@ -117,6 +123,9 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
                         className={localClasses.pointElementIndex}
                     >
                         {index}
+                    </span>
+                    <span className={localClasses.pointElementId}>
+                        {point[2].substring(point[2].length - 5)}
                     </span>
                     <Input
                         id={`shape-customShape-${index}-0`}
