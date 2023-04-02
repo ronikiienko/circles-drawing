@@ -11,7 +11,7 @@ export const useDebouncedPersistedImmer = (defaultValue, storageKey, debounceTim
     });
 
     let debouncedState = useDebouncedValue(state, debounceTime);
-
+    // TODO for some reason after settings to storage rerenders happen
     useEffect(() => {
         setItemToStorage(storageKey, debouncedState);
     }, [debouncedState, storageKey]);

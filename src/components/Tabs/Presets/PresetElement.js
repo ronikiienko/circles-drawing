@@ -36,10 +36,13 @@ const useStyles = makeStyles({
 
 export const PresetElement = ({preset, settings, setSettings, removeButton, index, removeUserPreset}) => {
     const localClasses = useStyles();
+    console.log(preset);
     return (
         <>
             <span
-                onClick={() => setSettings(getLayerSettings(preset))}
+                onClick={() => {
+                    setSettings(getLayerSettings(preset));
+                }}
                 className={settings.preset.id === preset.preset.id ? mergeClasses(localClasses.presetElementContainer, localClasses.selected) : localClasses.presetElementContainer}
                 key={preset.preset.id}
                 title={preset.preset.description}

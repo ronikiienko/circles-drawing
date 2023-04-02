@@ -56,6 +56,7 @@ export const Presets = ({settings, setSettings, classes}) => {
         newPreset.preset.id = nanoid();
         setUserPresets(() => {
             const newUserPresets = deepCopy(userPresets);
+            console.log(newUserPresets);
             newUserPresets.push(newPreset);
             return newUserPresets;
         });

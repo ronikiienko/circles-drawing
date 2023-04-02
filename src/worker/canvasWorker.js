@@ -200,7 +200,7 @@ const drawShape = (settings) => {
         ctx.moveTo(-settings.size.size, 0);
         ctx.lineTo(settings.size.size, 0);
 
-        settings.shape.strokeOn && ctx.stroke();
+        ctx.stroke();
         ctx.restore();
     }
     if (settings.shape.shape === shapeTypes.ellipse) {
