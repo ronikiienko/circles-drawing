@@ -167,6 +167,7 @@ export const layerPresets = [
             strokeColor: '#FFFF00',
             colorRand: '0.2',
             transp: '0.7',
+            strokeTransp: 0.7,
             transpRand: '0.2',
             glow: '0',
             overlayMode: overlayModes.sourceOver,

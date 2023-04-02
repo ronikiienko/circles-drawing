@@ -59,6 +59,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
     }
 
     const transp = parseFloat(rawSettings.color.transp);
+    const strokeTransp = parseFloat(rawSettings.color.strokeTransp);
     const blur = parseFloat(rawSettings.color.blur);
     const actualBlur = rawSettings.color.blurOn ? Math.pow(blur + 1, 4) - 1 : 0;
     return {
@@ -113,7 +114,8 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             strokeColor: hexToHslArray(rawSettings.color.strokeColor),
             colorRand: Math.pow(parseFloat(rawSettings.color.colorRand) + 1, 5) * 5.6 - 1,
             transp: transp,
-            transpRand: parseFloat(rawSettings.color.transpRand) * transp,
+            strokeTransp: strokeTransp,
+            transpRand: parseFloat(rawSettings.color.transpRand) / 2,
             glow: parseFloat(rawSettings.color.glow) * 100,
             overlayMode: rawSettings.color.overlayMode,
             blur: actualBlur,
@@ -138,7 +140,8 @@ export const getTranslatedAppSettings = (rawSettings) => {
 export const getRandomizedShapeSettings = (settings, i) => {
     let color;
     let strokeColor;
-    const transp = settings.color.transp + getBiasedRandomNumber(-settings.color.transpRand, settings.color.transpRand, 2);
+    const transp = clampValueToRange(0.01, 1, settings.color.transp + getBiasedRandomNumber(-settings.color.transpRand, settings.color.transpRand, 2));
+    const strokeTransp = clampValueToRange(0.01, 1, settings.color.strokeTransp + getBiasedRandomNumber(-settings.color.transpRand, settings.color.transpRand, 2));
     const blur = !settings.color.blur ? 0 : settings.color.blur + getBiasedRandomNumber(-settings.color.blurRand, settings.color.blurRand);
     let xPosition;
     let yPosition;
@@ -262,7 +265,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     }
 
     color = `hsla(${(settings.color.color[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360},${settings.color.color[1]}%,${settings.color.color[2]}%,${transp})`;
-    strokeColor = `hsla(${(settings.color.strokeColor[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360},${settings.color.strokeColor[1]}%,${settings.color.strokeColor[2]}%,${transp})`;
+    strokeColor = `hsla(${(settings.color.strokeColor[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360},${settings.color.strokeColor[1]}%,${settings.color.strokeColor[2]}%,${strokeTransp})`;
 
     const size = settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2);
     const baseRectRoundness = size / 2 * settings.shape.rectRoundness;
