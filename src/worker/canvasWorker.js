@@ -274,6 +274,8 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
                 if (addToHistory) {
                     history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult))
                         .then(() => isDrawingFlag = false);
+                } else {
+                    isDrawingFlag = false;
                 }
             }
 

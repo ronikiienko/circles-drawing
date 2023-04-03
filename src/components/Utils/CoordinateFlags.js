@@ -6,6 +6,8 @@ import {CoordinateFlag} from './CoordinateFlag';
 
 
 export const CoordinateFlags = ({settings, setDragProp}) => {
+    // TODO look to on is visible even if turned of (at least with custom shape)
+
     return (
         <>
             <ConditionalPanel
@@ -40,7 +42,6 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                     color="blue"
                     size={coordinateFlagsSize}/>
             </ConditionalPanel>
-
             <ConditionalPanel active={settings.position.biasType === biasTypes.radial}>
                 <CoordinateFlag
                     id="position-biasRadius"
