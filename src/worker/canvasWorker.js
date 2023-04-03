@@ -1,7 +1,7 @@
 import {CMD, maxUndoTimes, shapeTypes} from '../consts/sharedConsts';
 import {db} from '../db';
 import {drawCustomShape} from '../utils/drawingUtils';
-import {getBiasedRandomNumber, turnDegreesToRadians, wait} from '../utils/generalUtils';
+import {getBiasedRandomNumber, turnDegreesToRadians} from '../utils/generalUtils';
 import {getRandomizedShapeSettings, getTranslatedAppSettings, getTranslatedLayerSettings} from '../utils/translaters';
 
 
@@ -10,7 +10,6 @@ let ctx;
 let canvasWidth;
 let canvasHeight;
 
-let drawingStoppedFlag = false;
 let isDrawingFlag = false;
 
 // TODO needs more testing
@@ -118,7 +117,7 @@ onmessage = async (event) => {
         }
             break;
         case CMD.stopDrawing: {
-            drawingStoppedFlag = true;
+            isDrawingFlag = false;
         }
             break;
         case CMD.clear: {
@@ -224,7 +223,6 @@ const drawShape = (settings) => {
 export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
     if (isDrawingFlag) return;
     // if (addToHistory && isDrawingFlag) return;
-    isDrawingFlag = true;
     let settings = getTranslatedLayerSettings(rawSettings);
     const appSettings = getTranslatedAppSettings(rawAppSettings);
 
@@ -232,27 +230,53 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
     ctx.globalCompositeOperation = settings.color.overlayMode;
     if (!settings.color.blurOn) ctx.filter = 'none';
 
-    const waitInterval = appSettings.waitInterval;
-    let lastWaited = 0;
+    const smartDraw = () => {
+        if (isDrawingFlag) return;
+        isDrawingFlag = true;
 
-    drawingStoppedFlag = false;
+        const number = settings.number.number;
 
-    for (let i = 0; i < settings.number.number; i++) {
-        if (i - lastWaited === waitInterval) {
-            await wait(4);
-            lastWaited = i;
-        }
-        const randomizedShapeSettings = getRandomizedShapeSettings(settings, i);
-        drawShape(randomizedShapeSettings);
+        const targetFps = 60;
+        const maxShapesPerFrame = 10000;
 
-        if (drawingStoppedFlag) {
-            break;
-        }
-    }
+        const drawShapes = (startIndex, endIndex) => {
+            for (let i = startIndex; i < endIndex; i++) {
+                const randomizedShapeSettings = getRandomizedShapeSettings(settings, i);
+                drawShape(randomizedShapeSettings);
+            }
+        };
 
-    if (addToHistory) await history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
-    isDrawingFlag = false;
+        const scheduleFrame = (timestamp, shapesDrawn, init) => {
+            const elapsedTime = init ? 1000 / targetFps : timestamp - prevTimestamp;
+            const currentFps = 1000 / elapsedTime;
+
+            let maxShapesToMaintainFps = init ? 10 : Math.round(currentFps / targetFps * (shapesDrawn - prevShapesDrawn)) + 0.5;
+            const shapesPerFrame = Math.min(maxShapesPerFrame, maxShapesToMaintainFps, number - shapesDrawn);
+
+            console.log(shapesPerFrame);
+
+            const endIndex = shapesDrawn + shapesPerFrame;
+            drawShapes(shapesDrawn, endIndex);
+
+            if (endIndex < number && isDrawingFlag) {
+                requestAnimationFrame((newTimestamp) => scheduleFrame(newTimestamp, endIndex));
+            } else {
+                isDrawingFlag = false;
+                if (addToHistory) history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
+            }
+
+            prevTimestamp = timestamp;
+            prevShapesDrawn = shapesDrawn;
+        };
+
+        let prevTimestamp = 0;
+        let prevShapesDrawn = 0;
+
+        requestAnimationFrame((timestamp) => scheduleFrame(timestamp, 0, true));
+    };
+    smartDraw();
 };
+
 
 export const clear = async (appSettings) => {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
