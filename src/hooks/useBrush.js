@@ -9,7 +9,6 @@ let counter;
 export const useBrush = ({settings, appSettings}) => {
     const isBrushOn = useIsKeyPressed('Space');
     const mousemoveHandler = useCallback((event) => {
-        console.log('mousemove');
         if (!isBrushOn) return;
 
         const brushEventInterval = getTranslatedBrushDensity(settings.brush.brushDensity);

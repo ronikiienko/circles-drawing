@@ -231,13 +231,13 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
     if (!settings.color.blurOn) ctx.filter = 'none';
 
     const smartDraw = () => {
+        // TODO use drawing speed as max number of shapes per frame
         if (isDrawingFlag) return;
         isDrawingFlag = true;
 
         const number = settings.number.number;
 
         const targetFps = 60;
-        const maxShapesPerFrame = 10000;
 
         const drawShapes = (startIndex, endIndex) => {
             for (let i = startIndex; i < endIndex; i++) {
@@ -245,15 +245,26 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
                 drawShape(randomizedShapeSettings);
             }
         };
-
         const scheduleFrame = (timestamp, shapesDrawn, init) => {
-            const elapsedTime = init ? 1000 / targetFps : timestamp - prevTimestamp;
-            const currentFps = 1000 / elapsedTime;
+            const elapsedTime = !init && timestamp - prevTimestamp;
+            const currentFps = !init && 1000 / elapsedTime;
 
-            let maxShapesToMaintainFps = init ? 10 : Math.round(currentFps / targetFps * (shapesDrawn - prevShapesDrawn)) + 0.5;
-            const shapesPerFrame = Math.min(maxShapesPerFrame, maxShapesToMaintainFps, number - shapesDrawn);
+            const maxShapesToMaintainFps = !init && currentFps / targetFps * (shapesDrawn - prevShapesDrawn);
+            let maxShapesToMaintainFpsAltered;
+            if (init) {
+                maxShapesToMaintainFpsAltered = 1;
+            } else if (currentFps < 10) {
+                maxShapesToMaintainFpsAltered = 1;
+            } else if (maxShapesToMaintainFps < 50) {
+                maxShapesToMaintainFpsAltered = maxShapesToMaintainFps + 0.5;
+            } else if (maxShapesToMaintainFps < 100) {
+                maxShapesToMaintainFpsAltered = maxShapesToMaintainFps + 5;
+            } else if (maxShapesToMaintainFps >= 100) {
+                maxShapesToMaintainFpsAltered = maxShapesToMaintainFps + 10;
+            }
+            let shapesPerFrame = Math.round(Math.max(Math.min(maxShapesToMaintainFpsAltered, number - maxShapesToMaintainFpsAltered), 1));
 
-            console.log(shapesPerFrame);
+            console.log(currentFps, shapesPerFrame);
 
             const endIndex = shapesDrawn + shapesPerFrame;
             drawShapes(shapesDrawn, endIndex);
@@ -261,8 +272,10 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
             if (endIndex < number && isDrawingFlag) {
                 requestAnimationFrame((newTimestamp) => scheduleFrame(newTimestamp, endIndex));
             } else {
-                isDrawingFlag = false;
-                if (addToHistory) history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
+                if (addToHistory) {
+                    history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult))
+                        .then(() => isDrawingFlag = false);
+                }
             }
 
             prevTimestamp = timestamp;
