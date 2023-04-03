@@ -232,7 +232,6 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
 
     const smartDraw = () => {
         // TODO use drawing speed as max number of shapes per frame
-        if (isDrawingFlag) return;
         isDrawingFlag = true;
 
         const number = settings.number.number;
