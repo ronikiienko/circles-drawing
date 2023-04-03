@@ -186,6 +186,7 @@ const drawShape = (settings) => {
         ctx.restore();
     }
     if (settings.shape.shape === shapeTypes.line) {
+        // TODO if shape is line, use fill color instead of stroke color
         ctx.lineWidth = settings.size.size * settings.shape.widthRatio;
         if (settings.shape.lineRounded) {
             ctx.lineCap = 'round';
