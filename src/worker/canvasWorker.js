@@ -151,7 +151,7 @@ const makeCanvasHighPPI = (width, height, resolutionMult) => {
 
 const drawShape = (settings) => {
     // console.log(settings);
-    if (settings.color.blur) ctx.filter = `blur(${settings.color.blur}px)`;
+    if (settings.color.blurOn) ctx.filter = `blur(${settings.color.blur}px)`;
     ctx.shadowBlur = settings.color.glow;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
@@ -230,7 +230,7 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
 
 
     ctx.globalCompositeOperation = settings.color.overlayMode;
-    if (!settings.color.blur) ctx.filter = 'none';
+    if (!settings.color.blurOn) ctx.filter = 'none';
 
     const waitInterval = appSettings.waitInterval;
     let lastWaited = 0;

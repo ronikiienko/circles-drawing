@@ -60,8 +60,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
 
     const transp = parseFloat(rawSettings.color.transp);
     const strokeTransp = parseFloat(rawSettings.color.strokeTransp);
-    const blur = parseFloat(rawSettings.color.blur);
-    const actualBlur = rawSettings.color.blurOn ? Math.pow(blur + 1, 4) - 1 : 0;
+
     return {
         size: {
             size: shapeAdjustedSize,
@@ -118,7 +117,8 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             transpRand: parseFloat(rawSettings.color.transpRand) / 2,
             glow: parseFloat(rawSettings.color.glow) * 100,
             overlayMode: rawSettings.color.overlayMode,
-            blur: actualBlur,
+            blurOn: rawSettings.color.blurOn,
+            blur: Math.pow(parseFloat(rawSettings.color.blur) + 1, 4) - 1,
             blurRand: Math.pow(parseFloat(rawSettings.color.blurRand) + 1, 3) - 1,
         },
         brush: {
@@ -142,7 +142,6 @@ export const getRandomizedShapeSettings = (settings, i) => {
     let strokeColor;
     const transp = clampValueToRange(0.01, 1, settings.color.transp + getBiasedRandomNumber(-settings.color.transpRand, settings.color.transpRand, 2));
     const strokeTransp = clampValueToRange(0.01, 1, settings.color.strokeTransp + getBiasedRandomNumber(-settings.color.transpRand, settings.color.transpRand, 2));
-    const blur = !settings.color.blur ? 0 : settings.color.blur + getBiasedRandomNumber(-settings.color.blurRand, settings.color.blurRand);
     let xPosition;
     let yPosition;
     const realBiasX = settings.brush.brushOn ? settings.brush.brushX : settings.position.biasX;
@@ -293,7 +292,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
             color: color,
             strokeColor: strokeColor,
             glow: settings.color.glow,
-            blur: blur,
+            blur: settings.color.blur + getBiasedRandomNumber(-settings.color.blurRand, settings.color.blurRand, 1),
+            blurOn: settings.color.blurOn,
         },
     };
 };
