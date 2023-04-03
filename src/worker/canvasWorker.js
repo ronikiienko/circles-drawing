@@ -246,10 +246,10 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
             }
         };
         const scheduleFrame = (timestamp, shapesDrawn, init) => {
-            const elapsedTime = !init && timestamp - prevTimestamp;
-            const currentFps = !init && 1000 / elapsedTime;
+            const elapsedTime = timestamp - prevTimestamp;
+            const currentFps = 1000 / elapsedTime;
 
-            const maxShapesToMaintainFps = !init && currentFps / targetFps * (shapesDrawn - prevShapesDrawn);
+            const maxShapesToMaintainFps = currentFps / targetFps * (shapesDrawn - prevShapesDrawn);
             let maxShapesToMaintainFpsAltered;
             if (init) {
                 maxShapesToMaintainFpsAltered = 1;
