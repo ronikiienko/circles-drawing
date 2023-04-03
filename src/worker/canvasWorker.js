@@ -150,7 +150,6 @@ const makeCanvasHighPPI = (width, height, resolutionMult) => {
 };
 
 const drawShape = (settings) => {
-    // console.log(settings);
     if (settings.color.blurOn) ctx.filter = `blur(${settings.color.blur}px)`;
     ctx.shadowBlur = settings.color.glow;
     ctx.shadowOffsetX = 0;

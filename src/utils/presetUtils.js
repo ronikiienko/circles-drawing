@@ -63,6 +63,7 @@ export const getLayerSettings = (preset) => {
             colorRand: preset?.color?.colorRand ?? defaultPreset.color.colorRand,
             glow: preset?.color?.glow ?? defaultPreset.color.glow,
             transp: preset?.color?.transp ?? defaultPreset.color.transp,
+            strokeTransp: preset?.color?.strokeTransp ?? defaultPreset.color.strokeTransp,
             transpRand: preset?.color?.transpRand ?? defaultPreset.color.transpRand,
             overlayMode: preset?.color?.overlayMode ?? defaultPreset.color.overlayMode,
             blurOn: preset?.color?.blurOn ?? defaultPreset.color.blurOn,
