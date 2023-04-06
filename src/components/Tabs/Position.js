@@ -480,6 +480,14 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                         </Menu>
                     </div>
                 </div>
+                <Label className={classes.label}>
+                    Gradient on:
+                    <Checkbox
+                        checked={settings.position.gradOn}
+                        id="position-gradOn"
+                        onChange={handleChange}
+                    />
+                </Label>
             </ConditionalPanel>
         </>
     );

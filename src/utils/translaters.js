@@ -94,6 +94,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             biasInf: parseFloat(rawSettings.position.biasInf),
             biasRectXOn: rawSettings.position.biasRectXOn,
             biasRectYOn: rawSettings.position.biasRectYOn,
+            gradOn: rawSettings.position.gradOn,
         },
         color: {
             color: hexToHslArray(rawSettings.color.color),
@@ -164,6 +165,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
                     biasB: settings.position.biasB,
                 } : undefined,
             );
+
+
+            // gradientPosition = getVectorByTwoPoints(settings.position.biasX, settings.position.biasY, xPosition, yPosition)
         }
             break;
         case biasTypes.radial: {
@@ -262,7 +266,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     strokeColor = `hsla(${(settings.color.strokeColor[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360},${settings.color.strokeColor[1]}%,${settings.color.strokeColor[2]}%,${strokeTransp})`;
 
     let size;
-    if (settings.size.sizeGradOn) {
+    if (settings.size.sizeGradOn && settings.position.gradOn) {
         size = sumWithCoefficient(settings.size.size2, settings.size.size, gradientPosition) +
             getBiasedRandomNumber(
                 sumWithCoefficient(-settings.size.sizeRand2, -settings.size.sizeRand, gradientPosition),

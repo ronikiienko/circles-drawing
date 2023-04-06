@@ -163,9 +163,12 @@ export const layerPresets = [
             biasInf: 0.5,
             biasRectXOn: true,
             biasRectYOn: true,
+            gradOn: false,
         },
         color: {
             color: '#FF00DD',
+            colorGradOn: false,
+            color2: '#2a00ff',
             strokeColor: '#FFFF00',
             colorRand: '0.2',
             transp: '0.7',
