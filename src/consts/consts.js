@@ -170,6 +170,8 @@ export const layerPresets = [
             colorGradOn: false,
             color2: '#2a00ff',
             strokeColor: '#FFFF00',
+            strokeColorGradOn: false,
+            strokeColor2: '#00fffb',
             colorRand: '0.2',
             transp: '0.7',
             strokeTransp: 0.7,
@@ -179,6 +181,8 @@ export const layerPresets = [
             blurOn: false,
             blur: '0',
             blurRand: '0',
+            blurGradOn: false,
+            blur2: '0.5',
         },
         brush: {
             brushDensity: 0.5,

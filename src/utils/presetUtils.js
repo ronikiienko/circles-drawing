@@ -62,7 +62,11 @@ export const getLayerSettings = (preset) => {
         },
         color: {
             color: preset?.color?.color ?? defaultPreset.color.color,
+            colorGradOn: preset?.color?.colorGradOn ?? defaultPreset.color.colorGradOn,
+            color2: preset?.color?.color2 ?? defaultPreset.color.color2,
             strokeColor: preset?.color?.strokeColor ?? defaultPreset.color.strokeColor,
+            strokeColorGradOn: preset?.color?.strokeColorGradOn ?? defaultPreset.color.strokeColorGradOn,
+            strokeColor2: preset?.color?.strokeColor2 ?? defaultPreset.color.strokeColor2,
             colorRand: preset?.color?.colorRand ?? defaultPreset.color.colorRand,
             glow: preset?.color?.glow ?? defaultPreset.color.glow,
             transp: preset?.color?.transp ?? defaultPreset.color.transp,
@@ -72,6 +76,8 @@ export const getLayerSettings = (preset) => {
             blurOn: preset?.color?.blurOn ?? defaultPreset.color.blurOn,
             blur: preset?.color?.blur ?? defaultPreset.color.blur,
             blurRand: preset?.color?.blurRand ?? defaultPreset.color.blurRand,
+            blurGradOn: preset?.color?.blurGradOn ?? defaultPreset.color.blurGradOn,
+            blur2: preset?.color?.blur2 ?? defaultPreset.color.blur2,
         },
         brush: {
             brushDensity: preset?.brush?.brushDensity ?? defaultPreset.brush.brushDensity,

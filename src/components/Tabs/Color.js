@@ -1,4 +1,4 @@
-import {Label, Link, Select, Slider, Switch} from '@fluentui/react-components';
+import {Checkbox, Label, Link, Select, Slider, Switch} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import {Circle20Regular, PaintBucket20Filled} from '@fluentui/react-icons';
 import React from 'react';
@@ -30,6 +30,56 @@ export const Color = ({settings, handleChange, classes}) => {
                         type="color"
                     />
                 </Label>
+                <br/>
+            </ConditionalPanel>
+            <ConditionalPanel active={settings.position.gradOn}>
+                <div className={classes.label}>
+                    <Label className={classes.label}>
+                        Color gradient on:
+                        <Checkbox
+                            id="color-colorGradOn"
+                            onChange={handleChange}
+                            checked={settings.color.colorGradOn}
+                        />
+                    </Label>
+                    <ConditionalPanel active={settings.color.colorGradOn}>
+                        <Label title="fill color" className={classes.label}>
+                            <PaintBucket20Filled/>2
+                            <input
+                                value={settings.color.color2}
+                                className={classes.slider}
+                                id="color-color2"
+                                onChange={handleChange}
+                                type="color"
+                            />
+                        </Label>
+                    </ConditionalPanel>
+                </div>
+                <ConditionalPanel active={settings.shape.strokeOn}>
+                    <br/>
+                    <div className={classes.label}>
+                        <Label className={classes.label}>
+                            Stroke color gradient on:
+                            <Checkbox
+                                id="color-strokeColorGradOn"
+                                onChange={handleChange}
+                                checked={settings.color.strokeColorGradOn}
+                            />
+                        </Label>
+                        <ConditionalPanel active={settings.color.strokeColorGradOn}>
+                            <Label title="fill color" className={classes.label}>
+                                <Circle20Regular/>2
+                                <input
+                                    value={settings.color.strokeColor2}
+                                    className={classes.slider}
+                                    id="color-strokeColor2"
+                                    onChange={handleChange}
+                                    type="color"
+                                />
+                            </Label>
+                        </ConditionalPanel>
+                    </div>
+                </ConditionalPanel>
                 <br/>
             </ConditionalPanel>
             <Label className={classes.label}>
@@ -130,7 +180,7 @@ export const Color = ({settings, handleChange, classes}) => {
                     </>
                 }/>
             </Label>
-            <div className={classes.row}>
+            <div>
                 <Label className={classes.label}>
                     Blur on:
                     <Switch
@@ -165,6 +215,33 @@ export const Color = ({settings, handleChange, classes}) => {
                             id="color-blurRand"
                         />
                     </Label>
+                    <ConditionalPanel active={settings.position.gradOn}>
+                        <br/>
+                        <div className={classes.label}>
+                            <Label className={classes.label}>
+                                Blur gradient on:
+                                <Checkbox
+                                    id="color-blurGradOn"
+                                    onChange={handleChange}
+                                    checked={settings.color.blurGradOn}
+                                />
+                            </Label>
+                            <ConditionalPanel active={settings.color.blurGradOn}>
+                                <Label title="fill color" className={classes.label}>
+                                    Blur 2:
+                                    <Slider
+                                        className={classes.slider}
+                                        min={0}
+                                        max={1}
+                                        step={0.05}
+                                        value={settings.color.blur2}
+                                        onChange={handleChange}
+                                        id="color-blur2"
+                                    />
+                                </Label>
+                            </ConditionalPanel>
+                        </div>
+                    </ConditionalPanel>
                 </ConditionalPanel>
             </div>
         </>

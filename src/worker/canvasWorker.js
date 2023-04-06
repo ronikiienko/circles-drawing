@@ -263,7 +263,7 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
             }
             let shapesPerFrame = Math.round(Math.max(Math.min(maxShapesToMaintainFpsAltered, number - maxShapesToMaintainFpsAltered), 1));
 
-            console.log(currentFps, shapesPerFrame);
+            // console.log(currentFps, shapesPerFrame);
 
             const endIndex = shapesDrawn + shapesPerFrame;
             drawShapes(shapesDrawn, endIndex);
