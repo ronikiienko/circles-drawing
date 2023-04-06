@@ -13,6 +13,8 @@ export const getLayerSettings = (preset) => {
         size: {
             size: preset?.size?.size ?? defaultPreset.size.size,
             sizeRand: preset?.size?.sizeRand ?? defaultPreset.size.sizeRand,
+            sizeGradOn: preset?.size?.sizeGradOn ?? defaultPreset.size.sizeGradOn,
+            size2: preset?.size?.size2 ?? defaultPreset.size.size2,
         },
         number: {
             number: preset?.number?.number ?? defaultPreset.number.number,

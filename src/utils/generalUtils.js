@@ -193,3 +193,12 @@ export const swapArrElements = (arr, from, to) => {
 export const getColorByIndex = (index) => `hsl(${index * 30}, ${80 - index}%, 40%)`;
 
 export const getRandomHsl = () => `hsl(${getBiasedRandomNumber(0, 357)},${customShapeFlagsColorSettings.s},${customShapeFlagsColorSettings.l})`;
+
+export const average = (...args) => {
+    const sum = args.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    return sum / args.length;
+};
+
+export const sumWithCoefficient = (first, second, coef) => {
+    return first * coef + second * (1 - coef);
+};

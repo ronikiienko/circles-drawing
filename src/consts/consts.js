@@ -114,6 +114,8 @@ export const layerPresets = [
         size: {
             size: '0.5',
             sizeRand: '0',
+            sizeGradOn: false,
+            size2: '0.2',
         },
         number: {
             number: '10',

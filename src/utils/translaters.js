@@ -5,6 +5,7 @@ import {
     getPointByDistanceAndAngle,
     getVectorByTwoPoints,
     hexToHslArray,
+    sumWithCoefficient,
     turnDegreesToRadians,
 } from './generalUtils';
 
@@ -27,35 +28,18 @@ export const getTranslatedLayerSettings = (rawSettings) => {
     // reused values
     const shape = rawSettings.shape.shape;
     const baseSize = Math.pow(parseFloat(rawSettings.size.size) + 1, 7) * 2;
+    const baseSize2 = Math.pow(parseFloat(rawSettings.size.size2) + 1, 7) * 2;
     let shapeAdjustedSize;
+    let shapeAdjustedSize2;
     switch (shape) {
-        case shapeTypes.circle: {
+        case shapeTypes.circle:
+        case shapeTypes.ellipse:
             shapeAdjustedSize = baseSize;
-        }
+            shapeAdjustedSize2 = baseSize2;
             break;
-        case shapeTypes.rectangle: {
+        default:
             shapeAdjustedSize = baseSize * 2;
-        }
-            break;
-        case shapeTypes.line: {
-            shapeAdjustedSize = baseSize * 2;
-        }
-            break;
-        case shapeTypes.random3: {
-            shapeAdjustedSize = baseSize * 2;
-        }
-            break;
-        case shapeTypes.random4: {
-            shapeAdjustedSize = baseSize * 2;
-        }
-            break;
-        case shapeTypes.ellipse: {
-            shapeAdjustedSize = baseSize;
-        }
-            break;
-        case shapeTypes.custom: {
-            shapeAdjustedSize = baseSize;
-        }
+            shapeAdjustedSize2 = baseSize2 * 2;
     }
 
     const transp = parseFloat(rawSettings.color.transp);
@@ -64,7 +48,10 @@ export const getTranslatedLayerSettings = (rawSettings) => {
     return {
         size: {
             size: shapeAdjustedSize,
+            size2: shapeAdjustedSize2,
+            sizeGradOn: rawSettings.size.sizeGradOn,
             sizeRand: parseFloat(rawSettings.size.sizeRand) * shapeAdjustedSize * 0.8,
+            sizeRand2: parseFloat(rawSettings.size.sizeRand) * shapeAdjustedSize2 * 0.8,
         },
         number: {
             number: Math.trunc(parseFloat(rawSettings.number.number)),
@@ -138,6 +125,8 @@ export const getTranslatedAppSettings = (rawSettings) => {
 };
 
 export const getRandomizedShapeSettings = (settings, i) => {
+    let gradientPosition = 0;
+
     let color;
     let strokeColor;
     const transp = clampValueToRange(0.01, 1, settings.color.transp + getBiasedRandomNumber(-settings.color.transpRand, settings.color.transpRand, 2));
@@ -182,28 +171,34 @@ export const getRandomizedShapeSettings = (settings, i) => {
 
             const diapason = Math.pow(settings.position.biasRadius, 2);
 
-            const distanceFromBias = getBiasedRandomNumber(
-                0,
-                diapason,
-                0,
-                {
-                    bias: 0,
-                    biasA: settings.position.biasA,
-                    biasB: settings.position.biasB,
-                    biasInf: settings.position.biasInf,
-                },
+            const distanceFromBias = Math.pow(
+                getBiasedRandomNumber(
+                    0,
+                    diapason,
+                    0,
+                    {
+                        bias: 0,
+                        biasA: settings.position.biasA,
+                        biasB: settings.position.biasB,
+                        biasInf: settings.position.biasInf,
+                    },
+                ),
+                1 / 2,
             );
+
             const [
                 x,
                 y,
             ] = getPointByDistanceAndAngle(
                 realBiasX,
                 realBiasY,
-                Math.pow(distanceFromBias, 1 / 2),
+                distanceFromBias,
                 angle,
             );
             xPosition = x;
             yPosition = y;
+
+            gradientPosition = distanceFromBias / settings.position.biasRadius;
         }
             break;
         case biasTypes.spiral: {
@@ -266,7 +261,17 @@ export const getRandomizedShapeSettings = (settings, i) => {
     color = `hsla(${(settings.color.color[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360},${settings.color.color[1]}%,${settings.color.color[2]}%,${transp})`;
     strokeColor = `hsla(${(settings.color.strokeColor[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360},${settings.color.strokeColor[1]}%,${settings.color.strokeColor[2]}%,${strokeTransp})`;
 
-    const size = settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2);
+    let size;
+    if (settings.size.sizeGradOn) {
+        size = sumWithCoefficient(settings.size.size2, settings.size.size, gradientPosition) +
+            getBiasedRandomNumber(
+                sumWithCoefficient(-settings.size.sizeRand2, -settings.size.sizeRand, gradientPosition),
+                sumWithCoefficient(settings.size.sizeRand2, settings.size.sizeRand, gradientPosition),
+                2);
+    } else {
+        size = settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2);
+    }
+
     const baseRectRoundness = size / 2 * settings.shape.rectRoundness;
 
     return {
