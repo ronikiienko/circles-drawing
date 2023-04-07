@@ -29,7 +29,7 @@ import {getRandomName} from '../utils/nameGenerator';
 import {clearCanvas, drawLayer, redo, saveAsImage, stopDrawing, undo} from '../worker/canvasWorkerMediators';
 import './Controls.css';
 import {Brush} from './Tabs/Brush';
-import {Color} from './Tabs/Color';
+import {Color} from './Tabs/Color/Color';
 import {Number} from './Tabs/Number';
 import {Position} from './Tabs/Position';
 import {Presets} from './Tabs/Presets/Presets';
