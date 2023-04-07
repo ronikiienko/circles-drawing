@@ -29,7 +29,7 @@ import {getRandomName} from '../utils/nameGenerator';
 import {clearCanvas, drawLayer, redo, saveAsImage, stopDrawing, undo} from '../worker/canvasWorkerMediators';
 import './Controls.css';
 import {Brush} from './Tabs/Brush';
-import {Color} from './Tabs/Color/Color';
+import {MainColor} from './Tabs/Color/MainColor';
 import {Number} from './Tabs/Number';
 import {Position} from './Tabs/Position';
 import {Presets} from './Tabs/Presets/Presets';
@@ -79,7 +79,7 @@ const useStyles = makeStyles({
         '@media (max-width: 1250px)': {},
         scrollbarWidth: '40px',
         overflowY: 'auto',
-        marginInline: '30px',
+        marginInline: '20px',
         flexGrow: '1',
         paddingRight: '10px',
     },
@@ -259,7 +259,7 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                                classes={tabsClasses}/>
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.color.id}>
-                        <Color settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                        <MainColor settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.position.id}>
                         <Position settings={settings} setSettings={setSettings}
