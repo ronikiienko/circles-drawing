@@ -319,7 +319,6 @@ export const getRandomizedShapeSettings = (settings, i) => {
     }
 
     if (settings.position.gradOn && settings.color.blurGradOn && settings.color.blurOn) {
-        console.log(settings.color.blur2);
         blur = sumWithCoefficient(settings.color.blur2, settings.color.blur, gradientPosition) + getBiasedRandomNumber(-settings.color.blurRand, settings.color.blurRand, 1);
     } else {
         blur = settings.color.blur + getBiasedRandomNumber(-settings.color.blurRand, settings.color.blurRand, 1);
