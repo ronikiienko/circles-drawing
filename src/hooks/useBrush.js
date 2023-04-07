@@ -37,6 +37,8 @@ export const useBrush = ({settings, appSettings}) => {
         };
 
         const mouseupHandler = () => {
+            // TODO if mouseup while drawing, many unneeded undo steps add
+            // TODO drawing starts from low speed every time
             console.log('mouseup');
             window.removeEventListener('mousemove', mousemoveHandler);
             window.removeEventListener('mouseup', mouseupHandler);

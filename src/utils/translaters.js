@@ -317,7 +317,6 @@ export const getRandomizedShapeSettings = (settings, i) => {
     } else {
         strokeColor = `hsla(${(settings.color.strokeColor[0] + getBiasedRandomNumber(-settings.color.colorRand, settings.color.colorRand, 1)) % 360},${settings.color.strokeColor[1]}%,${settings.color.strokeColor[2]}%,${strokeTransp})`;
     }
-    console.log(settings.position.gradOn && settings.color.blurGradOn && settings.color.blurOn);
 
     if (settings.position.gradOn && settings.color.blurGradOn && settings.color.blurOn) {
         console.log(settings.color.blur2);
