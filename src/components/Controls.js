@@ -166,6 +166,12 @@ const useStylesTabs = makeStyles({
         flexDirection: 'column',
         alignItems: 'flex-start',
     },
+    block: {
+        ...shorthands.padding('8px'),
+        marginBlock: '5px',
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        backgroundColor: tokens.colorNeutralStencil1Alpha,
+    },
 });
 
 
