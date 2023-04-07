@@ -26,3 +26,19 @@ export const drawCustomShape = (ctx, centerPoint, pointsArray, angle, size) => {
         }
     });
 };
+
+export const drawPixelShape = (ctx, pixelMatrix, size) => {
+    const onePixelSize = size / pixelMatrix.length;
+    pixelMatrix.forEach((row, i) => {
+        row.forEach((pixel, j) => {
+            if (pixel) {
+                ctx.rect(
+                    onePixelSize * j,
+                    onePixelSize * i,
+                    onePixelSize,
+                    onePixelSize,
+                );
+            }
+        });
+    });
+};

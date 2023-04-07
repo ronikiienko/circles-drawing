@@ -1,6 +1,6 @@
 import {CMD, maxUndoTimes, shapeTypes} from '../consts/sharedConsts';
 import {db} from '../db';
-import {drawCustomShape} from '../utils/drawingUtils';
+import {drawCustomShape, drawPixelShape} from '../utils/drawingUtils';
 import {getBiasedRandomNumber, turnDegreesToRadians} from '../utils/generalUtils';
 import {getRandomizedShapeSettings, getTranslatedAppSettings, getTranslatedLayerSettings} from '../utils/translaters';
 
@@ -165,6 +165,15 @@ const drawShape = (settings) => {
         drawCustomShape(ctx, [settings.position.x, settings.position.y], settings.shape.customShape, settings.shape.angle, settings.size.size);
         settings.shape.strokeOn && ctx.stroke();
         settings.shape.fillOn && ctx.fill();
+    }
+    if (settings.shape.shape === shapeTypes.pixel) {
+        ctx.save();
+        ctx.translate(settings.position.x, settings.position.y);
+        ctx.rotate(turnDegreesToRadians(settings.shape.angle));
+        drawPixelShape(ctx, settings.shape.pixelShape, settings.size.size);
+        settings.shape.strokeOn && ctx.stroke();
+        settings.shape.fillOn && ctx.fill();
+        ctx.restore();
     }
     if (settings.shape.shape === shapeTypes.circle) {
         ctx.arc(settings.position.x, settings.position.y, settings.size.size, 0, Math.PI * 2, true);

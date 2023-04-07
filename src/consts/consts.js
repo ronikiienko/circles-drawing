@@ -139,7 +139,7 @@ export const layerPresets = [
             strokeOn: false,
             strokeThickness: 0.2,
             fillOn: true,
-            pixelShapeSize: 8,
+            pixelShapeDims: 8,
             pixelShape: [
                 [false, false, false, false, false, false, false, false],
                 [false, false, false, false, false, false, false, false],

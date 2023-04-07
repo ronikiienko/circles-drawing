@@ -74,6 +74,8 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             strokeOn: rawSettings.shape.strokeOn,
             strokeThickness: Math.pow(parseFloat(rawSettings.shape.strokeThickness), 2),
             fillOn: rawSettings.shape.fillOn,
+            pixelShapeDims: parseFloat(rawSettings.shape.pixelShapeDims),
+            pixelShape: rawSettings.shape.pixelShape,
         },
         position: {
             startX: parseFloat(rawSettings.position.startX),
@@ -338,6 +340,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
             strokeOn: settings.shape.strokeOn,
             fillOn: settings.shape.fillOn,
             strokeThickness: settings.shape.strokeThickness,
+            pixelShape: settings.shape.pixelShape,
         },
         position: {
             x: Math.floor(xPosition),
