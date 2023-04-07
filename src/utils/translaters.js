@@ -1,5 +1,6 @@
 import {biasSpiralTypes, biasTypes, shapeTypes} from '../consts/sharedConsts';
 import {
+    biasTanhFunction,
     clampValueToRange,
     getBiasedRandomNumber,
     getPointByDistanceAndAngle,
@@ -97,6 +98,9 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             biasRectXOn: rawSettings.position.biasRectXOn,
             biasRectYOn: rawSettings.position.biasRectYOn,
             gradOn: rawSettings.position.gradOn && rawSettings.position.biasType !== biasTypes.off,
+            gradA: getTranslatedBiasA(rawSettings.position.gradA),
+            gradB: getTranslatedBiasB(rawSettings.position.gradB),
+            gradInf: parseFloat(rawSettings.position.gradInf),
         },
         color: {
             color: hexToHslArray(rawSettings.color.color),
@@ -269,6 +273,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
     } else {
         angle = settings.shape.angle;
     }
+
+    gradientPosition = biasTanhFunction(gradientPosition, settings.position.gradInf, settings.position.gradA, settings.position.gradB);
 
     let color;
     let strokeColor;

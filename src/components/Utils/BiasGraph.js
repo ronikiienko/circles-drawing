@@ -1,5 +1,5 @@
 import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
-import React from 'react';
+import React, {memo} from 'react';
 import {biasTanhFunction} from '../../utils/generalUtils';
 import {getTranslatedBiasA, getTranslatedBiasB} from '../../utils/translaters';
 
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
         ...shorthands.borderStyle('solid'),
     },
 });
-export const BiasGraph = ({biasInf, biasA, biasB}) => {
+export const BiasGraph = memo(({biasInf, biasA, biasB}) => {
     const localClasses = useStyles();
     const [path, setPath] = React.useState(`M 0 ${svgSize}`);
 
@@ -37,6 +37,6 @@ export const BiasGraph = ({biasInf, biasA, biasB}) => {
             <path d={path} fill="none" stroke={tokens.colorPaletteGrapeBorderActive}></path>
         </svg>
     );
-};
+});
 
 // TODO rerenders a lot

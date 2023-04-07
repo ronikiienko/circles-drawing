@@ -164,6 +164,9 @@ export const layerPresets = [
             biasRectXOn: true,
             biasRectYOn: true,
             gradOn: false,
+            gradA: 0.5,
+            gradB: 0.5,
+            gradInf: 1,
         },
         color: {
             color: '#FF00DD',

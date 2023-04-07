@@ -59,6 +59,9 @@ export const getLayerSettings = (preset) => {
             biasRectXOn: preset?.position?.biasRectXOn ?? defaultPreset.position.biasRectXOn,
             biasRectYOn: preset?.position?.biasRectYOn ?? defaultPreset.position.biasRectYOn,
             gradOn: preset?.position?.gradOn ?? defaultPreset.position.gradOn,
+            gradA: preset?.position?.gradA ?? defaultPreset.position.gradA,
+            gradB: preset?.position?.gradB ?? defaultPreset.position.gradB,
+            gradInf: preset?.position?.gradInf ?? defaultPreset.position.gradInf,
         },
         color: {
             color: preset?.color?.color ?? defaultPreset.color.color,

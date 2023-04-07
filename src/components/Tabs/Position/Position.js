@@ -65,7 +65,8 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                                    setSettings={setSettings}/>
                 </div>
                 <div className={classes.block}>
-                    <Gradient handleChange={handleChange} classes={classes} settings={settings}/>
+                    <Gradient setSettings={setSettings} handleChange={handleChange} classes={classes}
+                              settings={settings}/>
                 </div>
             </ConditionalPanel>
         </>
