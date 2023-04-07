@@ -20,20 +20,18 @@ export const Angle = ({settings, classes, handleChange, setClickAndSetProp}) => 
                     </>
                 }/>
             </Label>
-            <ConditionalPanel active={!settings.shape.lookToOn}>
-                <Label className={classes.label}>
-                    Angle:
-                    <Slider
-                        className={classes.slider}
-                        value={settings.shape.angle}
-                        id="shape-angle"
-                        onChange={handleChange}
-                        min="0"
-                        max="1"
-                        step={0.05}
-                    />
-                </Label>
-            </ConditionalPanel>
+            <Label className={classes.label}>
+                Angle:
+                <Slider
+                    className={classes.slider}
+                    value={settings.shape.angle}
+                    id="shape-angle"
+                    onChange={handleChange}
+                    min="0"
+                    max="1"
+                    step={0.05}
+                />
+            </Label>
             <Label className={classes.label}>
                 Angle rand:
                 <Slider

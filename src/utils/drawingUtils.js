@@ -27,14 +27,15 @@ export const drawCustomShape = (ctx, centerPoint, pointsArray, angle, size) => {
     });
 };
 
+// TODO placement is wrong
 export const drawPixelShape = (ctx, pixelMatrix, size) => {
     const onePixelSize = size / pixelMatrix.length;
     pixelMatrix.forEach((row, i) => {
         row.forEach((pixel, j) => {
             if (pixel) {
                 ctx.rect(
-                    onePixelSize * j,
-                    onePixelSize * i,
+                    onePixelSize * j - size / 2,
+                    onePixelSize * i - size / 2,
                     onePixelSize,
                     onePixelSize,
                 );

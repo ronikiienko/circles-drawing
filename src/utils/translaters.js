@@ -268,9 +268,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
     }
 
     let angle;
-    if (settings.shape.lookToOn && (settings.shape.shape === shapeTypes.ellipse || settings.shape.shape === shapeTypes.custom || settings.shape.shape === shapeTypes.rectangle)) {
+    if (settings.shape.lookToOn && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4 && settings.shape.shape !== shapeTypes.circle) {
         const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, settings.shape.lookToX, settings.shape.lookToY);
-        angle = lookToAngle;
+        angle = lookToAngle + settings.shape.angle;
     } else {
         angle = settings.shape.angle;
     }
