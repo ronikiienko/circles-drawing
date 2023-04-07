@@ -54,7 +54,7 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
             </ConditionalPanel>
 
             <ConditionalPanel
-                active={settings.shape.lookToOn && (settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse) || settings.shape.shape === shapeTypes.custom}>
+                active={settings.shape.lookToOn && (settings.shape.shape === shapeTypes.rectangle || settings.shape.shape === shapeTypes.ellipse) || settings.shape.shape === shapeTypes.custom}>
                 <CoordinateFlag
                     id="shape-lookTo"
                     title="Look to point"

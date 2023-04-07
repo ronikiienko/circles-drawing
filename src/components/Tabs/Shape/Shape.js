@@ -4,7 +4,6 @@ import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 import {Angle} from './Angle';
 import {Common} from './Common';
 import {CustomShapeEditor} from './CustomShapeEditor';
-import {LineSpecific} from './LineSpecific';
 import {RectangleSpecific} from './RectangleSpecific';
 import {WidthRatio} from './WidthRatio';
 
@@ -28,14 +27,9 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, setSettings, 
                 </div>
             </ConditionalPanel>
             <ConditionalPanel
-                active={settings.shape.shape === shapeTypes.line || settings.shape.shape === shapeTypes.ellipse}>
+                active={settings.shape.shape === shapeTypes.ellipse || settings.shape.shape === shapeTypes.rectangle}>
                 <div className={classes.block}>
                     <WidthRatio settings={settings} handleChange={handleChange} classes={classes}/>
-                </div>
-            </ConditionalPanel>
-            <ConditionalPanel active={settings.shape.shape === shapeTypes.line}>
-                <div className={classes.block}>
-                    <LineSpecific settings={settings} handleChange={handleChange} classes={classes}/>
                 </div>
             </ConditionalPanel>
             <ConditionalPanel active={settings.shape.shape === shapeTypes.custom}>

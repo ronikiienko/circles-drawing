@@ -158,7 +158,7 @@ const drawShape = (settings) => {
     ctx.strokeStyle = settings.color.strokeColor;
     ctx.shadowColor = settings.color.color;
 
-    if (settings.shape.shape !== shapeTypes.line && settings.shape.strokeOn) ctx.lineWidth = settings.size.size * settings.shape.strokeThickness;
+    if (settings.shape.strokeOn) ctx.lineWidth = settings.size.size * settings.shape.strokeThickness;
 
     ctx.beginPath();
     if (settings.shape.shape === shapeTypes.custom) {
@@ -172,34 +172,18 @@ const drawShape = (settings) => {
         settings.shape.fillOn && ctx.fill();
     }
     if (settings.shape.shape === shapeTypes.rectangle) {
-        ctx.save();
-        ctx.translate(settings.position.x - settings.size.size / 2, settings.position.y - settings.size.size / 2);
-        ctx.rotate(turnDegreesToRadians(settings.shape.angle));
-        if (settings.shape.rectRoundness) {
-            ctx.roundRect(0, 0, settings.size.size, settings.size.size, settings.shape.rectRoundness);
-        } else {
-            ctx.rect(0, 0, settings.size.size, settings.size.size);
-        }
-        settings.shape.strokeOn && ctx.stroke();
-        settings.shape.fillOn && ctx.fill();
-        ctx.restore();
-    }
-    if (settings.shape.shape === shapeTypes.line) {
-        // TODO if shape is line, use fill color instead of stroke color
-        ctx.lineWidth = settings.size.size * settings.shape.widthRatio;
-        if (settings.shape.lineRounded) {
-            ctx.lineCap = 'round';
-        } else {
-            ctx.lineCap = 'butt';
-        }
+        const width = settings.size.size;
+        const height = settings.size.size * settings.shape.widthRatio;
         ctx.save();
         ctx.translate(settings.position.x, settings.position.y);
         ctx.rotate(turnDegreesToRadians(settings.shape.angle));
-
-        ctx.moveTo(-settings.size.size, 0);
-        ctx.lineTo(settings.size.size, 0);
-
-        ctx.stroke();
+        if (settings.shape.rectRoundness) {
+            ctx.roundRect(-width / 2, -height / 2, width, height, settings.shape.rectRoundness);
+        } else {
+            ctx.rect(0, 0, width, height);
+        }
+        settings.shape.strokeOn && ctx.stroke();
+        settings.shape.fillOn && ctx.fill();
         ctx.restore();
     }
     if (settings.shape.shape === shapeTypes.ellipse) {

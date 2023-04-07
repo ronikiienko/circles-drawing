@@ -35,11 +35,11 @@ export const biasSpiralTypes = {
 export const shapeTypes = {
     circle: 'circle',
     rectangle: 'rectangle',
-    line: 'line',
     random3: 'random3',
     random4: 'random4',
     ellipse: 'ellipse',
     custom: 'custom',
+    pixel: 'pixel',
 };
 
 export const customShapeFlagsColorSettings = {
