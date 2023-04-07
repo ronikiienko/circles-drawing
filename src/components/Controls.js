@@ -31,7 +31,7 @@ import './Controls.css';
 import {Brush} from './Tabs/Brush';
 import {MainColor} from './Tabs/Color/MainColor';
 import {Number} from './Tabs/Number';
-import {Position} from './Tabs/Position';
+import {Position} from './Tabs/Position/Position';
 import {Presets} from './Tabs/Presets/Presets';
 import {Saves} from './Tabs/Saves';
 import {Settings} from './Tabs/Settings';
