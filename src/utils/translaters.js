@@ -74,7 +74,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             strokeOn: rawSettings.shape.strokeOn,
             strokeThickness: Math.pow(parseFloat(rawSettings.shape.strokeThickness), 2),
             fillOn: rawSettings.shape.fillOn,
-            pixelShapeDims: parseFloat(rawSettings.shape.pixelShapeDims),
+            pixelShapeRes: parseFloat(rawSettings.shape.pixelShapeRes),
             pixelShape: rawSettings.shape.pixelShape,
         },
         position: {

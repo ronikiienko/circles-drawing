@@ -1,8 +1,10 @@
-import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
-import React, {useEffect, useRef} from 'react';
+import {Input, Label, makeStyles, shorthands, Slider, tokens} from '@fluentui/react-components';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {shapeEditorCanvasSize} from '../../../consts/consts';
+import {useDebouncedCallback} from '../../../hooks/useDebouncedCallback';
 import {usePixelShapeEditor} from '../../../hooks/usePixelShapeEditor';
 import {drawPixelShape} from '../../../utils/drawingUtils';
+import {squareMatrixByRes} from '../../../utils/generalUtils';
 
 
 const useStyles = makeStyles({
@@ -43,14 +45,27 @@ export const PixelShapeEditor = ({settings, setSettings, classes, handleChange})
     const canvasRef = useRef(null);
     const ctxRef = useRef(null);
 
+    const pixelShapeReset = useCallback(() => {
+        setSettings(draft => {
+            draft.shape.pixelShape = squareMatrixByRes(settings.shape.pixelShapeRes, 0);
+        });
+    }, [setSettings, settings.shape.pixelShapeRes]);
+
+    const debouncedPixelShapeReset = useDebouncedCallback(pixelShapeReset, 500);
+
+    const handlePixelResChange = (event) => {
+        handleChange(event);
+        debouncedPixelShapeReset();
+    };
+
     usePixelShapeEditor({canvasRef, setSettings, settings});
 
     useEffect(() => {
         ctxRef.current = canvasRef.current.getContext('2d');
         canvasRef.current.width = shapeEditorCanvasSize;
         canvasRef.current.height = shapeEditorCanvasSize;
-        ctxRef.current.fillStyle = 'violet';
-        ctxRef.current.strokeStyle = 'violet';
+        ctxRef.current.fillStyle = 'purple';
+        ctxRef.current.strokeStyle = 'purple';
     }, []);
 
     useEffect(() => {
@@ -59,7 +74,7 @@ export const PixelShapeEditor = ({settings, setSettings, classes, handleChange})
         drawPixelShape(ctxRef.current, settings.shape.pixelShape, shapeEditorCanvasSize, [shapeEditorCanvasSize / 2, shapeEditorCanvasSize / 2]);
         settings.shape.strokeOn && ctxRef.current.stroke();
         settings.shape.fillOn && ctxRef.current.fill();
-    }, [settings.shape.customShape, settings.shape.fillOn, settings.shape.pixelShape, settings.shape.strokeOn]);
+    }, [settings.shape.fillOn, settings.shape.pixelShape, settings.shape.strokeOn]);
 
     return (
         <>
@@ -68,6 +83,25 @@ export const PixelShapeEditor = ({settings, setSettings, classes, handleChange})
                     <canvas className={localClasses.canvas} id="shape-editor-canvas" ref={canvasRef}></canvas>
                 </div>
             </div>
+            <Label className={classes.label}>
+                Shape res:
+                <Slider
+                    id="shape-pixelShapeRes"
+                    value={settings.shape.pixelShapeRes}
+                    onChange={handlePixelResChange}
+                    step={1}
+                    min={2}
+                    max={50}
+                    className={classes.slider}
+                />
+                <Input
+                    className={classes.number}
+                    id="shape-pixelShapeRes"
+                    value={settings.shape.pixelShapeRes}
+                    onChange={handlePixelResChange}
+                    readonly={true}
+                />
+            </Label>
         </>
     );
 };

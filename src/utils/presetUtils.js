@@ -34,7 +34,7 @@ export const getLayerSettings = (preset) => {
             strokeOn: preset?.shape?.strokeOn ?? defaultPreset.shape.strokeOn,
             strokeThickness: preset?.shape?.strokeThickness ?? defaultPreset.shape.strokeThickness,
             fillOn: preset?.shape?.fillOn ?? defaultPreset.shape.fillOn,
-            pixelShapeDims: preset?.shape?.pixelShapeDims ?? defaultPreset.shape.pixelShapeDims,
+            pixelShapeRes: preset?.shape?.pixelShapeRes ?? defaultPreset.shape.pixelShapeRes,
             pixelShape: deepCopy(preset?.shape?.pixelShape) ?? deepCopy(defaultPreset.shape.pixelShape),
         },
         position: {

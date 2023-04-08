@@ -6,7 +6,7 @@ export const usePixelShapeEditor = ({canvasRef, setSettings, settings}) => {
     const isRemoving = useIsKeyPressed('AltLeft');
     useEffect(() => {
         const canvas = canvasRef.current;
-        const pixelSize = canvas.width / settings.shape.pixelShapeDims;
+        const pixelSize = canvas.width / settings.shape.pixelShapeRes;
 
         const pageXYToPixelXY = (pageX, pageY) => {
             const boundingClientRect = canvas.getBoundingClientRect();
@@ -45,5 +45,5 @@ export const usePixelShapeEditor = ({canvasRef, setSettings, settings}) => {
             canvas.removeEventListener('mousedown', mousedownHandler);
             canvas.removeEventListener('mousemove', mousemoveHandler);
         };
-    }, [setSettings, canvasRef, settings.shape.pixelShapeDims, isRemoving]);
+    }, [setSettings, canvasRef, settings.shape.pixelShapeRes, isRemoving]);
 };

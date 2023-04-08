@@ -202,3 +202,21 @@ export const average = (...args) => {
 export const sumWithCoefficient = (first, second, coef) => {
     return first * coef + second * (1 - coef);
 };
+
+export const squareMatrixByRes = (res, fillValue) => {
+    const arr = new Array(res);
+    for (let i = 0; i < res; i++) {
+        arr[i] = new Array(res).fill(fillValue);
+    }
+    return arr;
+};
+
+export const debounce = (callback, timeout) => {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            callback.apply(this, args);
+        }, timeout);
+    };
+};
