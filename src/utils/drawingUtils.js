@@ -30,16 +30,16 @@ export const drawCustomShape = (ctx, centerPoint, pointsArray, angle, size) => {
 // TODO placement is wrong
 export const drawPixelShape = (ctx, pixelMatrix, size, centerPoint = [0, 0]) => {
     const onePixelSize = size / pixelMatrix.length;
-    pixelMatrix.forEach((row, i) => {
-        row.forEach((pixel, j) => {
-            if (pixel) {
+    for (let rowInd = 0; rowInd < pixelMatrix.length; rowInd++) {
+        for (let columnInd = 0; columnInd < pixelMatrix.length; columnInd++) {
+            if (pixelMatrix?.[rowInd]?.[columnInd]) {
                 ctx.rect(
-                    centerPoint[0] + onePixelSize * j - size / 2,
-                    centerPoint[1] + onePixelSize * i - size / 2,
+                    centerPoint[0] + onePixelSize * columnInd - size / 2,
+                    centerPoint[1] + onePixelSize * rowInd - size / 2,
                     onePixelSize,
                     onePixelSize,
                 );
             }
-        });
-    });
+        }
+    }
 };
