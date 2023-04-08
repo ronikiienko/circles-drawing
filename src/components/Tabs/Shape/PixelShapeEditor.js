@@ -51,7 +51,7 @@ export const PixelShapeEditor = ({settings, setSettings, classes, handleChange})
         });
     }, [setSettings, settings.shape.pixelShapeRes]);
 
-    const debouncedPixelShapeReset = useDebouncedCallback(pixelShapeReset, 500);
+    const debouncedPixelShapeReset = useDebouncedCallback(pixelShapeReset, 200);
 
     const handlePixelResChange = (event) => {
         handleChange(event);
