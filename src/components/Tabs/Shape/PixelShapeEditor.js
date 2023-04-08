@@ -1,6 +1,7 @@
 import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
 import React, {useEffect, useRef} from 'react';
 import {shapeEditorCanvasSize} from '../../../consts/consts';
+import {usePixelShapeEditor} from '../../../hooks/usePixelShapeEditor';
 import {drawPixelShape} from '../../../utils/drawingUtils';
 
 
@@ -41,6 +42,8 @@ export const PixelShapeEditor = ({settings, setSettings, classes, handleChange})
 
     const canvasRef = useRef(null);
     const ctxRef = useRef(null);
+
+    usePixelShapeEditor({canvasRef, setSettings, settings});
 
     useEffect(() => {
         ctxRef.current = canvasRef.current.getContext('2d');

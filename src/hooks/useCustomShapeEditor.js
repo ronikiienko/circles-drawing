@@ -34,7 +34,7 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
                 default:
                     shapeY = (pageY - boundingClientRect.top) / canvas.height;
             }
-            return {shapeX, shapeY};
+            return [shapeX, shapeY];
         }
 
         const dragHandler = (event) => {
@@ -50,7 +50,7 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
                 pageY = event.pageY;
             }
 
-            const {shapeX, shapeY} = pageXYToShapeXY(pageX, pageY);
+            const [shapeX, shapeY] = pageXYToShapeXY(pageX, pageY);
 
             setSettings(draft => {
                 setObjectPropertyByStringPath(draft, dragProperty + '-0', parseFloat(shapeX.toFixed(2)));
@@ -68,7 +68,7 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
             const pageX = event.pageX;
             const pageY = event.pageY;
 
-            const {shapeX, shapeY} = pageXYToShapeXY(pageX, pageY);
+            const [shapeX, shapeY] = pageXYToShapeXY(pageX, pageY);
 
             setSettings(draft => {
                 setObjectPropertyByStringPath(draft, clickAndSetProperty + '-0', shapeX);
