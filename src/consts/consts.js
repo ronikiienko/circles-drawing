@@ -102,7 +102,7 @@ export const defaultAppSettings = {
     projectName: getRandomName(),
 };
 export const shapeEditorFlagsSize = 15;
-export const shapeEditorCanvasSize = 250;
+export const shapeEditorCanvasSize = 300;
 export const coordinateFlagsSize = 30;
 export const layerPresets = [
     {
