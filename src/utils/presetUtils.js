@@ -103,6 +103,7 @@ export const getAppSettings = (settings) => {
         drawingSpeed: settings?.drawingSpeed ?? defaultSettings.drawingSpeed,
         darkMode: settings?.darkMode ?? defaultSettings.darkMode,
         resolutionMult: settings?.resolutionMult ?? defaultSettings.resolutionMult,
+        pixelShapeBrushSize: settings?.pixelShapeBrushSize ?? defaultSettings.pixelShapeBrushSize,
     };
 };
 

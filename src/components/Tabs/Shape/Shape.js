@@ -9,7 +9,15 @@ import {RectangleSpecific} from './RectangleSpecific';
 import {WidthRatio} from './WidthRatio';
 
 
-export const Shape = ({settings, setClickAndSetProp, handleChange, setSettings, classes}) => {
+export const Shape = ({
+                          settings,
+                          setClickAndSetProp,
+                          handleChange,
+                          setSettings,
+                          classes,
+                          appSettings,
+                          handleAppSettingsChange,
+                      }) => {
     return (
         <>
             <div className={classes.block}>
@@ -46,6 +54,8 @@ export const Shape = ({settings, setClickAndSetProp, handleChange, setSettings, 
             <ConditionalPanel active={settings.shape.shape === shapeTypes.pixel}>
                 <div className={classes.block}>
                     <PixelShapeEditor
+                        handleAppSettingsChange={handleAppSettingsChange}
+                        appSettings={appSettings}
                         setSettings={setSettings}
                         classes={classes}
                         handleChange={handleChange}

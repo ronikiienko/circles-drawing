@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {useIsKeyPressed} from './useIsKeyPressed';
 
 
-export const usePixelShapeEditor = ({canvasRef, setSettings, settings}) => {
+export const usePixelShapeEditor = ({canvasRef, setSettings, settings, appSettings}) => {
     const isRemoving = useIsKeyPressed('AltLeft');
     useEffect(() => {
         const canvas = canvasRef.current;

@@ -100,6 +100,7 @@ export const defaultAppSettings = {
     resolutionMult: window.devicePixelRatio,
     projectNameRand: true,
     projectName: getRandomName(),
+    pixelShapeBrushSize: 0.2,
 };
 export const shapeEditorFlagsSize = 15;
 export const shapeEditorCanvasSize = 300;

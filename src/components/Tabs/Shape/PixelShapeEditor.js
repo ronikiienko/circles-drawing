@@ -39,7 +39,14 @@ const useStyles = makeStyles({
 });
 
 
-export const PixelShapeEditor = ({settings, setSettings, classes, handleChange}) => {
+export const PixelShapeEditor = ({
+                                     settings,
+                                     setSettings,
+                                     classes,
+                                     handleChange,
+                                     appSettings,
+                                     handleAppSettingsChange,
+                                 }) => {
     const localClasses = useStyles();
 
     const canvasRef = useRef(null);
@@ -58,7 +65,7 @@ export const PixelShapeEditor = ({settings, setSettings, classes, handleChange})
         debouncedPixelShapeReset();
     };
 
-    usePixelShapeEditor({canvasRef, setSettings, settings});
+    usePixelShapeEditor({canvasRef, setSettings, settings, appSettings});
 
     useEffect(() => {
         ctxRef.current = canvasRef.current.getContext('2d');
@@ -100,6 +107,19 @@ export const PixelShapeEditor = ({settings, setSettings, classes, handleChange})
                     value={settings.shape.pixelShapeRes}
                     onChange={handlePixelResChange}
                     readonly={true}
+                />
+            </Label>
+
+            <Label className={classes.label}>
+                Brush size res:
+                <Slider
+                    id="pixelShapeBrushSize"
+                    value={appSettings.pixelShapeBrushSize}
+                    onChange={handleAppSettingsChange}
+                    step={0.05}
+                    min={0}
+                    max={1}
+                    className={classes.slider}
                 />
             </Label>
         </>
