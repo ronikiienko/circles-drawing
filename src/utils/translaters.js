@@ -135,7 +135,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
     };
 };
 
-export const getTranslatedPixelShapeBrushSize = (pixelShapeBrushSize) => Math.trunc(Math.pow(parseFloat(pixelShapeBrushSize) + 1, 4)) - 1;
+export const getTranslatedPixelShapeBrushSize = (pixelShapeBrushSize) => Math.trunc(parseFloat(pixelShapeBrushSize) * 8);
 export const getTranslatedAppSettings = (rawSettings) => {
     return {
         waitInterval: Math.trunc(Math.pow(parseFloat(rawSettings.drawingSpeed) + 1, 10)),

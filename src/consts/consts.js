@@ -1,5 +1,11 @@
 import {getRandomName} from '../utils/nameGenerator';
-import {biasSpiralTypes, biasTypes, customShapeFlagsColorSettings, shapeTypes} from './sharedConsts';
+import {
+    biasSpiralTypes,
+    biasTypes,
+    customShapeFlagsColorSettings,
+    pixelShapeBrushTypes,
+    shapeTypes,
+} from './sharedConsts';
 
 
 export const overlayModes = {
@@ -101,6 +107,7 @@ export const defaultAppSettings = {
     projectNameRand: true,
     projectName: getRandomName(),
     pixelShapeBrushSize: 0.2,
+    pixelShapeBrushType: pixelShapeBrushTypes.pencil,
 };
 export const shapeEditorFlagsSize = 15;
 export const shapeEditorCanvasSize = 300;

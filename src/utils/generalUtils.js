@@ -204,9 +204,10 @@ export const sumWithCoefficient = (first, second, coef) => {
 };
 
 export const squareMatrixByRes = (res, fillValue) => {
-    const arr = new Array(res);
-    for (let i = 0; i < res; i++) {
-        arr[i] = new Array(res).fill(fillValue);
+    const resolution = parseInt(res, 10);
+    const arr = new Array(resolution);
+    for (let i = 0; i < resolution; i++) {
+        arr[i] = new Array(resolution).fill(fillValue);
     }
     return arr;
 };

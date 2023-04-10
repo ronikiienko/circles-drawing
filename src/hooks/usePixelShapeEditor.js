@@ -1,38 +1,53 @@
 import {useEffect} from 'react';
-import {useIsKeyPressed} from './useIsKeyPressed';
+import {pixelShapeBrushTypes} from '../consts/sharedConsts';
+import {getTranslatedPixelShapeBrushSize} from '../utils/translaters';
 
 
 export const usePixelShapeEditor = ({canvasRef, setSettings, settings, appSettings}) => {
-    const isRemoving = useIsKeyPressed('AltLeft');
     useEffect(() => {
         const canvas = canvasRef.current;
         const pixelSize = canvas.width / settings.shape.pixelShapeRes;
 
-        const pageXYToPixelXY = (pageX, pageY) => {
+        const pageXYToPixels = (pageX, pageY) => {
             const boundingClientRect = canvas.getBoundingClientRect();
             const canvasX = pageX - boundingClientRect.left;
             const canvasY = pageY - boundingClientRect.top;
-            const pixelX = Math.trunc(canvasX / pixelSize);
-            const pixelY = Math.trunc(canvasY / pixelSize);
-            return [pixelX, pixelY];
+            const centerX = Math.trunc(canvasX / pixelSize);
+            const centerY = Math.trunc(canvasY / pixelSize);
+            const pixels = [];
+            const brushSize = getTranslatedPixelShapeBrushSize(appSettings.pixelShapeBrushSize);
+            for (let x = centerX - brushSize; x <= centerX + brushSize; x++) {
+                for (let y = centerY - brushSize; y <= centerY + brushSize; y++) {
+                    pixels.push([x, y]);
+                }
+            }
+            return pixels;
         };
 
         const mousedownHandler = (event) => {
             event.stopPropagation();
-            const [pixelX, pixelY] = pageXYToPixelXY(event.pageX, event.pageY);
-            setSettings(draft => {
-                draft.shape.pixelShape[pixelY][pixelX] = !isRemoving;
-            });
+            setPixels(pageXYToPixels(event.pageX, event.pageY));
             canvas.addEventListener('mousemove', mousemoveHandler);
             window.addEventListener('mouseup', mouseupHandler);
         };
 
+        const setPixels = (pixels) => {
+            setSettings(draft => {
+                for (const pixel of pixels) {
+                    if (typeof draft.shape.pixelShape[pixel[0]] === 'undefined' ||
+                        typeof draft.shape.pixelShape[pixel[0]]?.[pixel[1]] === 'undefined'
+                    ) continue;
+                    let newPixelValue;
+                    if (appSettings.pixelShapeBrushType === pixelShapeBrushTypes.pencil) newPixelValue = 1;
+                    if (appSettings.pixelShapeBrushType === pixelShapeBrushTypes.eraser) newPixelValue = 0;
+                    draft.shape.pixelShape[pixel[0]][pixel[1]] = newPixelValue;
+                }
+            });
+        };
+
         const mousemoveHandler = (event) => {
             event.stopPropagation();
-            const [pixelX, pixelY] = pageXYToPixelXY(event.pageX, event.pageY);
-            setSettings(draft => {
-                draft.shape.pixelShape[pixelY][pixelX] = !isRemoving;
-            });
+            setPixels(pageXYToPixels(event.pageX, event.pageY));
         };
 
         const mouseupHandler = () => {
@@ -45,5 +60,5 @@ export const usePixelShapeEditor = ({canvasRef, setSettings, settings, appSettin
             canvas.removeEventListener('mousedown', mousedownHandler);
             canvas.removeEventListener('mousemove', mousemoveHandler);
         };
-    }, [setSettings, canvasRef, settings.shape.pixelShapeRes, isRemoving]);
+    }, [setSettings, canvasRef, settings.shape.pixelShapeRes, appSettings.pixelShapeBrushSize, appSettings.pixelShapeBrushType]);
 };

@@ -104,6 +104,7 @@ export const getAppSettings = (settings) => {
         darkMode: settings?.darkMode ?? defaultSettings.darkMode,
         resolutionMult: settings?.resolutionMult ?? defaultSettings.resolutionMult,
         pixelShapeBrushSize: settings?.pixelShapeBrushSize ?? defaultSettings.pixelShapeBrushSize,
+        pixelShapeBrushType: settings?.pixelShapeBrushType ?? defaultSettings.pixelShapeBrushType,
     };
 };
 

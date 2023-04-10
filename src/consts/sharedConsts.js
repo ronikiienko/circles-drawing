@@ -46,3 +46,8 @@ export const customShapeFlagsColorSettings = {
     s: '80%',
     l: '40%',
 };
+
+export const pixelShapeBrushTypes = {
+    pencil: 'pencil',
+    eraser: 'eraser',
+};
