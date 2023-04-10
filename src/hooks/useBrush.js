@@ -34,6 +34,14 @@ export const useBrush = ({settings, appSettings}) => {
             console.log('mousedown');
             window.addEventListener('mouseup', mouseupHandler);
             window.addEventListener('mousemove', mousemoveHandler);
+
+            // TODO maby not create deep copy
+            const rawSettings = deepCopy(settings);
+            rawSettings.brush.brushX = event.pageX;
+            rawSettings.brush.brushY = event.pageY;
+            rawSettings.brush.brushOn = true;
+
+            drawLayer(rawSettings, appSettings, false);
         };
 
         const mouseupHandler = () => {
