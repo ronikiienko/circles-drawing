@@ -145,6 +145,7 @@ export const PixelShapeEditor = ({
                 />
             </Label>
             <Button
+                className={classes.row}
                 onClick={pixelShapeReset}
                 icon={<Delete16Regular/>}
             >Clear</Button>
