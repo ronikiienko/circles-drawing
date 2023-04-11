@@ -221,3 +221,24 @@ export const debounce = (callback, timeout) => {
         }, timeout);
     };
 };
+
+const mergeWithDefault = (myValue, defaults) => {
+    const merged = {};
+
+    const merge = (obj, def, current = merged) => {
+        for (let key in def) {
+            // TODO !!!!!!!!!!!!!!!!!!!!!!!! my app uses array to save custom shape.. But if i will make array default too, i will lose items that have bigger index that last default array item..
+            if (!Object.prototype.hasOwnProperty.call(obj, key)) {
+                current[key] = deepCopy(def[key]);
+            } else if (typeof def[key] === 'object') {
+                current[key] = {};
+                merge(obj[key], def[key], current[key]);
+            } else {
+                current[key] = obj[key];
+            }
+        }
+    };
+    merge(myValue, defaults);
+    return merged;
+};
+
