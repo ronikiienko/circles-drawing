@@ -1,7 +1,7 @@
 import {Checkbox, Label, makeStyles, Slider} from '@fluentui/react-components';
 import React from 'react';
-import {BiasRemapGraph} from '../../Utils/BiasRemapGraph';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {BiasRemapGraph} from './BiasRemapGraph';
 
 
 const useStyles = makeStyles({

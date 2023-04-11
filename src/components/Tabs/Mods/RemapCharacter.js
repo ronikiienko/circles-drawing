@@ -1,6 +1,6 @@
 import {Label, makeStyles, Slider} from '@fluentui/react-components';
 import React from 'react';
-import {ModRemapGraph} from '../../Utils/ModRemapGraph';
+import {ModRemapGraph} from './ModRemapGraph';
 
 
 const useStyles = makeStyles({

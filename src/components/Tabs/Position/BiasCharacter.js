@@ -12,7 +12,7 @@ import {
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
 import {biasPresets} from '../../../consts/consts';
-import {BiasRemapGraph} from '../../Utils/BiasRemapGraph';
+import {BiasRemapGraph} from './BiasRemapGraph';
 
 
 const useStyles = makeStyles({

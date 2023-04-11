@@ -39,18 +39,14 @@ export const getTranslatedLayerSettings = (rawSettings) => {
     // reused values
     const shape = rawSettings.shape.shape;
     const baseSize = Math.pow(parseFloat(rawSettings.size.size) + 1, 7) * 2;
-    const baseSize2 = Math.pow(parseFloat(rawSettings.size.size2) + 1, 7) * 2;
     let shapeAdjustedSize;
-    let shapeAdjustedSize2;
     switch (shape) {
         case shapeTypes.circle:
         case shapeTypes.ellipse:
             shapeAdjustedSize = baseSize;
-            shapeAdjustedSize2 = baseSize2;
             break;
         default:
             shapeAdjustedSize = baseSize * 2;
-            shapeAdjustedSize2 = baseSize2 * 2;
     }
 
     const transp = parseFloat(rawSettings.color.transp);
@@ -61,10 +57,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
     return {
         size: {
             size: shapeAdjustedSize,
-            size2: shapeAdjustedSize2,
-            sizeGradOn: rawSettings.size.sizeGradOn,
             sizeRand: parseFloat(rawSettings.size.sizeRand) * shapeAdjustedSize * 0.8,
-            sizeRand2: parseFloat(rawSettings.size.sizeRand) * shapeAdjustedSize2 * 0.8,
         },
         number: {
             number: Math.trunc(parseFloat(rawSettings.number.number)),
@@ -291,19 +284,10 @@ export const getRandomizedShapeSettings = (settings, i) => {
 
     let color;
     let strokeColor;
-    let size;
+    let size = settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2);
     let blur;
     let transp;
     let strokeTransp;
-    if (settings.position.gradOn && settings.size.sizeGradOn) {
-        size = sumWithCoefficient(settings.size.size2, settings.size.size, gradientPosition) +
-            getBiasedRandomNumber(
-                sumWithCoefficient(-settings.size.sizeRand2, -settings.size.sizeRand, gradientPosition),
-                sumWithCoefficient(settings.size.sizeRand2, settings.size.sizeRand, gradientPosition),
-                2);
-    } else {
-        size = settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2);
-    }
     if (settings.position.gradOn && settings.color.transpGradOn) {
         transp = clampValueToRange(0.01, 1, sumWithCoefficient(settings.color.transp2, settings.color.transp, gradientPosition) + getBiasedRandomNumber(-settings.color.transpRand, settings.color.transpRand, 2));
     } else {
