@@ -1,7 +1,7 @@
 import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
-import React, {memo} from 'react';
-import {biasTanhFunction} from '../../utils/generalUtils';
-import {getTranslatedBiasA, getTranslatedBiasB} from '../../utils/translaters';
+import React from 'react';
+import {modRemap} from '../../utils/generalUtils';
+import {getTranslatedModA, getTranslatedModB} from '../../utils/translaters';
 
 
 const numberOfCircles = 50;
@@ -14,29 +14,27 @@ const useStyles = makeStyles({
         ...shorthands.borderStyle('solid'),
     },
 });
-export const BiasGraph = memo(({biasInf, biasA, biasB}) => {
+export const ModRemapGraph = ({modA, modB}) => {
     const localClasses = useStyles();
     const [path, setPath] = React.useState(`M 0 ${svgSize}`);
 
     React.useEffect(() => {
         let internalPath = `M 0 ${svgSize}`;
-        const biasATranslated = getTranslatedBiasA(biasA);
-        const biasBTranslated = getTranslatedBiasB(biasB);
+        const modATranslated = getTranslatedModA(modA);
+        const modBTranslated = getTranslatedModB(modB);
         new Array(numberOfCircles).fill(undefined).forEach((value, index) => {
             const x = 1 / (numberOfCircles - 1) * index;
-            const y = biasTanhFunction(x, biasInf, biasATranslated, biasBTranslated);
+            const y = modRemap(x, modATranslated, modBTranslated);
             const svgX = x * svgSize;
             const svgY = svgSize - y * svgSize;
             internalPath = internalPath + `L ${svgX} ${svgY}`;
         });
         setPath(internalPath);
-    }, [biasInf, biasA, biasB]);
+    }, [modA, modB]);
 
     return (
         <svg className={localClasses.svg} width={svgSize} height={svgSize}>
             <path d={path} fill="none" stroke={tokens.colorPaletteGrapeBorderActive}></path>
         </svg>
     );
-});
-
-// TODO rerenders a lot
+};

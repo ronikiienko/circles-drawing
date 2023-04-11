@@ -1,8 +1,10 @@
+import {nanoid} from 'nanoid';
 import {getRandomName} from '../utils/nameGenerator';
 import {
     biasSpiralTypes,
     biasTypes,
     customShapeFlagsColorSettings,
+    modTypes,
     pixelShapeBrushTypes,
     shapeTypes,
 } from './sharedConsts';
@@ -58,6 +60,10 @@ export const tabs = {
         label: 'Position',
         id: 'tab-button-position',
     },
+    mods: {
+        label: 'Mods',
+        id: 'tab-button-mods',
+    },
     presets: {
         label: 'Presets',
         id: 'tab-button-presets',
@@ -112,6 +118,20 @@ export const defaultAppSettings = {
 export const shapeEditorFlagsSize = 15;
 export const shapeEditorCanvasSize = 300;
 export const coordinateFlagsSize = 30;
+
+export const getDefaultMod = (name) => {
+    return {
+        name: name || 'Default',
+        type: modTypes.radial,
+        id: nanoid(8),
+        radialRadiusX: 200,
+        radialRadiusY: 200,
+        radialCenterX: 100,
+        radialCenterY: 100,
+        modA: 1,
+        modB: 1,
+    };
+};
 export const layerPresets = [
     {
         preset: {
@@ -188,6 +208,7 @@ export const layerPresets = [
             gradB: 0.5,
             gradInf: 1,
         },
+        mods: [getDefaultMod()],
         color: {
             color: '#FF00DD',
             colorGradOn: false,

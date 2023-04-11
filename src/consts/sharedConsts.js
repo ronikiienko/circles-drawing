@@ -51,3 +51,7 @@ export const pixelShapeBrushTypes = {
     pencil: 'pencil',
     eraser: 'eraser',
 };
+
+export const modTypes = {
+    radial: 'radial',
+};

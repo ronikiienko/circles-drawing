@@ -6,7 +6,7 @@ import {pixelShapeBrushTypes} from '../../../consts/sharedConsts';
 import {useDebouncedCallback} from '../../../hooks/useDebouncedCallback';
 import {usePixelShapeEditor} from '../../../hooks/usePixelShapeEditor';
 import {drawPixelShape} from '../../../utils/drawingUtils';
-import {squareMatrixByRes} from '../../../utils/generalUtils';
+import {getEventObj, squareMatrixByRes} from '../../../utils/generalUtils';
 import {getTranslatedPixelShapeBrushSize} from '../../../utils/translaters';
 
 
@@ -96,12 +96,8 @@ export const PixelShapeEditor = ({
                     value={pixelShapeBrushTypes.eraser}
                     id="pixelShapeBrushType"
                     className={classes.button}
-                    icon={<Eraser20Regular onClick={() => handleAppSettingsChange({
-                        target: {
-                            id: 'pixelShapeBrushType',
-                            value: pixelShapeBrushTypes.eraser,
-                        },
-                    })}/>}
+                    icon={<Eraser20Regular
+                        onClick={() => handleAppSettingsChange(getEventObj(pixelShapeBrushTypes.eraser, 'pixelShapeBrushType'))}/>}
                     onClick={handleAppSettingsChange}
                 ></Button>
             </div>

@@ -1,6 +1,6 @@
 import {Checkbox, Label, makeStyles, Slider} from '@fluentui/react-components';
 import React from 'react';
-import {BiasGraph} from '../../Utils/BiasGraph';
+import {BiasRemapGraph} from '../../Utils/BiasRemapGraph';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 
 
@@ -75,8 +75,8 @@ export const Gradient = ({classes, settings, handleChange}) => {
                         </Label>
                     </div>
                     <div>
-                        <BiasGraph biasInf={settings.position.gradInf} biasA={settings.position.gradA}
-                                   biasB={settings.position.gradB}/>
+                        <BiasRemapGraph biasInf={settings.position.gradInf} biasA={settings.position.gradA}
+                                        biasB={settings.position.gradB}/>
 
                     </div>
                 </div>

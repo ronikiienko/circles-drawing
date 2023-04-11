@@ -1,5 +1,12 @@
-import {defaultAppSettings, layerPresets, randomPresetRules} from '../consts/consts';
-import {deepCopy, getBiasedRandomNumber, getRandomHsl, rgbToHex, typeofWithArray} from './generalUtils';
+import {defaultAppSettings, getDefaultMod, layerPresets, randomPresetRules} from '../consts/consts';
+import {
+    deepCopy,
+    getBiasedRandomNumber,
+    getRandomHsl,
+    mergeWithDefault,
+    rgbToHex,
+    typeofWithArray,
+} from './generalUtils';
 
 
 export const getLayerSettings = (preset) => {
@@ -30,6 +37,7 @@ export const getLayerSettings = (preset) => {
             lookToY: preset?.shape?.lookToY ?? defaultPreset.shape.lookToY,
             rectRoundness: preset?.shape?.rectRoundness ?? defaultPreset.shape.rectRoundness,
             rectRoundnessRand: preset?.shape?.rectRoundnessRand ?? defaultPreset.shape.rectRoundnessRand,
+            // TODO also merge with default custom shape array
             customShape: deepCopy(preset?.shape?.customShape) ?? deepCopy(defaultPreset.shape.customShape),
             strokeOn: preset?.shape?.strokeOn ?? defaultPreset.shape.strokeOn,
             strokeThickness: preset?.shape?.strokeThickness ?? defaultPreset.shape.strokeThickness,
@@ -37,6 +45,8 @@ export const getLayerSettings = (preset) => {
             pixelShapeRes: preset?.shape?.pixelShapeRes ?? defaultPreset.shape.pixelShapeRes,
             pixelShape: deepCopy(preset?.shape?.pixelShape) ?? deepCopy(defaultPreset.shape.pixelShape),
         },
+        // TODO id is possibly the same is preset values not contain id
+        mods: preset?.mods?.map(mod => mergeWithDefault(mod, getDefaultMod())) ?? [],
         position: {
             startX: preset?.position?.startX ?? defaultPreset.position.startX,
             startY: preset?.position?.startY ?? defaultPreset.position.startY,

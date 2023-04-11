@@ -1,6 +1,6 @@
 import {biasSpiralTypes, biasTypes, shapeTypes} from '../consts/sharedConsts';
 import {
-    biasTanhFunction,
+    biasTanhRemap,
     clampValueToRange,
     getBiasedRandomNumber,
     getPointByDistanceAndAngle,
@@ -19,6 +19,16 @@ export const getTranslatedBiasA = (biasA) => {
 export const getTranslatedBiasB = (biasB) => {
     return parseFloat((Math.pow(parseFloat(biasB) + 1, 8) * 0.0390625).toFixed(2));
     // return parseFloat(biasB) * 10;
+};
+
+export const getTranslatedModA = (modA) => {
+    console.log(Math.pow(parseFloat(modA) + 1, 3) - 1);
+    return Math.pow(parseFloat(modA) + 1, 3) - 1;
+};
+
+export const getTranslatedModB = (modB) => {
+    console.log(Math.pow(parseFloat(modB) + 1, 3) - 1);
+    return Math.pow(parseFloat(modB) + 1, 3) - 1;
 };
 
 export const getTranslatedBrushDensity = (brushDensity) => {
@@ -277,7 +287,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
         angle = settings.shape.angle;
     }
 
-    gradientPosition = biasTanhFunction(gradientPosition, settings.position.gradInf, settings.position.gradA, settings.position.gradB);
+    gradientPosition = biasTanhRemap(gradientPosition, settings.position.gradInf, settings.position.gradA, settings.position.gradB);
 
     let color;
     let strokeColor;

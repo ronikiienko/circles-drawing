@@ -12,7 +12,7 @@ import {
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
 import {biasPresets} from '../../../consts/consts';
-import {BiasGraph} from '../../Utils/BiasGraph';
+import {BiasRemapGraph} from '../../Utils/BiasRemapGraph';
 
 
 const useStyles = makeStyles({
@@ -77,8 +77,8 @@ export const BiasCharacter = ({settings, handleChange, classes, setSettings}) =>
                     </Label>
                 </div>
                 <div>
-                    <BiasGraph biasInf={settings.position.biasInf} biasA={settings.position.biasA}
-                               biasB={settings.position.biasB}/>
+                    <BiasRemapGraph biasInf={settings.position.biasInf} biasA={settings.position.biasA}
+                                    biasB={settings.position.biasB}/>
 
                 </div>
                 <div className={localClasses.biasGraphHelpersContainer}>

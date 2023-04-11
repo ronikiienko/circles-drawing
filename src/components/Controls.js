@@ -30,6 +30,7 @@ import {clearCanvas, drawLayer, redo, saveAsImage, stopDrawing, undo} from '../w
 import './Controls.css';
 import {Brush} from './Tabs/Brush';
 import {MainColor} from './Tabs/Color/MainColor';
+import {Mods} from './Tabs/Mods/Mods';
 import {Number} from './Tabs/Number';
 import {Position} from './Tabs/Position/Position';
 import {Presets} from './Tabs/Presets/Presets';
@@ -172,6 +173,18 @@ const useStylesTabs = makeStyles({
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
         backgroundColor: tokens.colorNeutralStencil1Alpha,
     },
+    verticalBlock: {
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        backgroundColor: tokens.colorNeutralStencil1Alpha,
+        paddingBlock: '2px',
+        marginBlock: '5px',
+    },
+    outlineVerticalBlock: {
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        ...shorthands.border('2px', 'solid', tokens.colorNeutralStencil1Alpha),
+        paddingBlock: '2px',
+        marginBlock: '5px',
+    },
 });
 
 
@@ -269,6 +282,10 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.color.id}>
                         <MainColor settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                    </ConditionalPanel>
+                    <ConditionalPanel active={mainTab === tabs.mods.id}>
+                        <Mods setClickAndSetProp={setClickAndSetProp} setSettings={setSettings} settings={settings}
+                              handleChange={handleChange} classes={tabsClasses}/>
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.position.id}>
                         <Position settings={settings} setSettings={setSettings}

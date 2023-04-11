@@ -1,8 +1,12 @@
 import {customShapeFlagsColorSettings} from '../consts/sharedConsts';
 
 
-export const biasTanhFunction = (x, biasInf, biasA, biasB) => {
+export const biasTanhRemap = (x, biasInf, biasA, biasB) => {
     return Math.tanh(Math.pow(x, 1 / biasB) * biasA) * biasInf;
+};
+
+export const modRemap = (x, a, b) => {
+    return (1 - x ** a) ** b * -1 + 1;
 };
 
 export const getBiasedRandomNumber = (min, max, decimals = 0, biasSettings) => {
@@ -11,7 +15,7 @@ export const getBiasedRandomNumber = (min, max, decimals = 0, biasSettings) => {
     if (!biasSettings) return randomNumber;
     const {bias, biasInf, biasA, biasB} = biasSettings;
     const randomMix = Math.random();
-    const mix = biasTanhFunction(randomMix, biasInf, biasA, biasB);
+    const mix = biasTanhRemap(randomMix, biasInf, biasA, biasB);
     return randomNumber * (1 - mix) + bias * mix;
 };
 
@@ -222,7 +226,7 @@ export const debounce = (callback, timeout) => {
     };
 };
 
-const mergeWithDefault = (myValue, defaults) => {
+export const mergeWithDefault = (myValue, defaults) => {
     const merged = {};
 
     const merge = (obj, def, current = merged) => {
@@ -240,5 +244,14 @@ const mergeWithDefault = (myValue, defaults) => {
     };
     merge(myValue, defaults);
     return merged;
+};
+
+export const getEventObj = (value, id) => {
+    return {
+        target: {
+            id: id,
+            value: value,
+        },
+    };
 };
 
