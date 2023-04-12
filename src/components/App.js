@@ -24,7 +24,7 @@ export const App = () => {
 
     const classes = useStyles();
 
-    const [settings, setSettings] = useDebouncedPersistedImmer(layerPresets.default, storageKeys.layerSettings, 500, getLayerSettings);
+    const [settings, setSettings] = useDebouncedPersistedImmer(layerPresets[0], storageKeys.layerSettings, 500, getLayerSettings);
     const [appSettings, setAppSettings] = useDebouncedPersistedImmer(defaultAppSettings, storageKeys.appSettings, 500, getAppSettings);
     const [mainTab, setMainTab] = usePersistedImmer(tabs.number.id, storageKeys.mainTab);
 

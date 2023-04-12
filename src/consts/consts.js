@@ -119,6 +119,17 @@ export const shapeEditorFlagsSize = 15;
 export const shapeEditorCanvasSize = 300;
 export const coordinateFlagsSize = 30;
 
+export const modOutputDests = {
+    size: 'size',
+};
+
+export const getDefaultModOutput = () => {
+    return {
+        to: modOutputDests.size,
+        '2': 0.5,
+        id: nanoid(),
+    };
+};
 export const getDefaultMod = (name) => {
     return {
         name: name || 'Default',
@@ -130,6 +141,7 @@ export const getDefaultMod = (name) => {
         radialCenterY: 100,
         modA: 1,
         modB: 1,
+        outputs: [],
     };
 };
 export const layerPresets = [
@@ -141,7 +153,6 @@ export const layerPresets = [
         },
         size: {
             size: '0.5',
-            sizeRand: '0',
         },
         number: {
             number: '10',
@@ -157,6 +168,7 @@ export const layerPresets = [
             lookToY: 100,
             rectRoundness: 0,
             rectRoundnessRand: 0.3,
+            // TODO add default getter function for custom shape points
             customShape: [
                 [0, 1, 'kfasfj9', `hsl(357, ${customShapeFlagsColorSettings.s}, ${customShapeFlagsColorSettings.l})`],
                 [0.5, 0, '=12958fj', `hsl(100, ${customShapeFlagsColorSettings.s}, ${customShapeFlagsColorSettings.l})`],
@@ -177,7 +189,7 @@ export const layerPresets = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 1, 1, 0, 0, 0, 0, 1, 1, 0],
                 [1, 0, 0, 1, 1, 1, 1, 0, 0, 1],
-            ]
+            ],
         },
         position: {
             startX: '0',

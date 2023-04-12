@@ -1,12 +1,11 @@
-import {defaultAppSettings, getDefaultMod, layerPresets, randomPresetRules} from '../consts/consts';
 import {
-    deepCopy,
-    getBiasedRandomNumber,
-    getRandomHsl,
-    mergeWithDefault,
-    rgbToHex,
-    typeofWithArray,
-} from './generalUtils';
+    defaultAppSettings,
+    getDefaultMod,
+    getDefaultModOutput,
+    layerPresets,
+    randomPresetRules,
+} from '../consts/consts';
+import {deepCopy, getBiasedRandomNumber, getRandomHsl, rgbToHex, typeofWithArray} from './generalUtils';
 
 
 export const getLayerSettings = (preset) => {
@@ -19,7 +18,6 @@ export const getLayerSettings = (preset) => {
         },
         size: {
             size: preset?.size?.size ?? defaultPreset.size.size,
-            sizeRand: preset?.size?.sizeRand ?? defaultPreset.size.sizeRand,
         },
         number: {
             number: preset?.number?.number ?? defaultPreset.number.number,
@@ -43,8 +41,28 @@ export const getLayerSettings = (preset) => {
             pixelShapeRes: preset?.shape?.pixelShapeRes ?? defaultPreset.shape.pixelShapeRes,
             pixelShape: deepCopy(preset?.shape?.pixelShape) ?? deepCopy(defaultPreset.shape.pixelShape),
         },
-        // TODO id is possibly the same is preset values not contain id
-        mods: preset?.mods?.map(mod => mergeWithDefault(mod, getDefaultMod())) ?? [],
+        mods: preset?.mods.map((mod) => {
+            const defaultMod = getDefaultMod();
+            return {
+                name: mod?.name ?? defaultMod.name,
+                type: mod?.type ?? defaultMod.type,
+                id: mod?.id ?? defaultMod.id,
+                radialRadiusX: mod?.radialRadiusX ?? defaultMod.radialRadiusX,
+                radialRadiusY: mod?.radialRadiusY ?? defaultMod.radialRadiusY,
+                radialCenterX: mod?.radialCenterX ?? defaultMod.radialCenterX,
+                radialCenterY: mod?.radialCenterY ?? defaultMod.radialCenterY,
+                modA: mod?.modA ?? defaultMod.modA,
+                modB: mod?.modB ?? defaultMod.modB,
+                outputs: mod?.outputs?.map((output, index) => {
+                    const defaultModOutput = getDefaultModOutput();
+                    return {
+                        to: output?.to ?? defaultModOutput.to,
+                        '2': output?.['2'] ?? defaultModOutput['2'],
+                        id: output?.id ?? defaultModOutput.id,
+                    };
+                }) ?? [],
+            };
+        }) ?? [],
         position: {
             startX: preset?.position?.startX ?? defaultPreset.position.startX,
             startY: preset?.position?.startY ?? defaultPreset.position.startY,

@@ -6,7 +6,8 @@ import {useDebouncedValue} from './useDebouncedValue';
 
 export const useDebouncedPersistedImmer = (defaultValue, storageKey, debounceTime, getterFunction) => {
     const [state, setState] = useImmer(() => {
-        const storageValue = getterFunction ? getterFunction(getItemFromStorage(storageKey)) : getItemFromStorage(storageKey);
+        let storageValue = getItemFromStorage(storageKey);
+        if (storageValue && getterFunction) storageValue = getterFunction(storageValue);
         return storageValue || defaultValue;
     });
 

@@ -35,20 +35,6 @@ export const Size = ({settings, handleChange, classes}) => {
                         type="text"
                     />
                 </Label>
-                <br/>
-                <Label className={classes.label}>
-                    Size rand:
-                    <Slider
-                        className={classes.number}
-                        value={settings.size.sizeRand}
-                        id="size-sizeRand"
-                        onChange={handleChange}
-                        min="0"
-                        max="1"
-                        step="0.1"
-                        size="small"
-                    />
-                </Label>
             </div>
         </>
     );

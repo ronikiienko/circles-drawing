@@ -22,12 +22,10 @@ export const getTranslatedBiasB = (biasB) => {
 };
 
 export const getTranslatedModA = (modA) => {
-    console.log(Math.pow(parseFloat(modA) + 1, 3) - 1);
     return Math.pow(parseFloat(modA) + 1, 3) - 1;
 };
 
 export const getTranslatedModB = (modB) => {
-    console.log(Math.pow(parseFloat(modB) + 1, 3) - 1);
     return Math.pow(parseFloat(modB) + 1, 3) - 1;
 };
 
