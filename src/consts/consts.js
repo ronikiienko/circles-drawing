@@ -141,7 +141,7 @@ export const getDefaultMod = (name) => {
         radialCenterY: 100,
         modA: 1,
         modB: 1,
-        outputs: [],
+        outputs: [getDefaultModOutput()],
     };
 };
 export const layerPresets = [

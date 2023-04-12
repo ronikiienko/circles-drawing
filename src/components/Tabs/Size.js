@@ -1,5 +1,18 @@
-import {Input, Label, makeStyles, Slider} from '@fluentui/react-components';
+import {
+    Accordion,
+    AccordionHeader,
+    AccordionItem,
+    AccordionPanel,
+    Button,
+    Input,
+    Label,
+    makeStyles,
+    Slider,
+    Text,
+} from '@fluentui/react-components';
+import {Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
+import {modOutputDests} from '../../consts/consts';
 
 
 const useStyles = makeStyles({
@@ -9,7 +22,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const Size = ({settings, handleChange, classes}) => {
+export const Size = ({settings, setSettings, handleChange, classes}) => {
     const localClasses = useStyles();
     return (
         <>
@@ -35,6 +48,58 @@ export const Size = ({settings, handleChange, classes}) => {
                         type="text"
                     />
                 </Label>
+                <Accordion
+                    collapsible
+                    multiple
+                >
+                    <AccordionItem value="modulators">
+                        <AccordionHeader>
+                            Modulators
+                        </AccordionHeader>
+                        <AccordionPanel>
+                            {settings.mods.map((mod, index) => {
+                                return (
+                                    <React.Fragment key={mod.id}>
+                                        <Text>{mod.name} ({mod.type})</Text>
+                                        <Button onClick={() =>} size="small" icon={<Delete16Regular/>}></Button>
+                                        <br/>
+                                    </React.Fragment>
+                                );
+                            })}
+                        </AccordionPanel>
+                    </AccordionItem>
+                    <AccordionItem value="inputs">
+                        <AccordionHeader>
+                            Inputs
+                        </AccordionHeader>
+                        <AccordionPanel>
+                            {settings.mods.map((mod, modIndex) => {
+                                return (
+                                    mod.outputs.map((output, outputIndex) => {
+                                        if (output.to !== modOutputDests.size) return null;
+                                        return (
+                                            <div className={classes.row} key={output.id}>
+                                                <Text key={output.id}>{mod.name} ({mod.type})</Text>
+                                                <Label>
+                                                    <Slider
+                                                        min={0}
+                                                        max={1}
+                                                        step={0.005}
+                                                        size="small"
+                                                        value={output['2']}
+                                                        id={`mods-${modIndex}-outputs-${outputIndex}-2`}
+                                                        onChange={handleChange}
+                                                    />
+                                                </Label>
+                                                <br/>
+                                            </div>
+                                        );
+                                    })
+                                );
+                            })}
+                        </AccordionPanel>
+                    </AccordionItem>
+                </Accordion>
             </div>
         </>
     );
