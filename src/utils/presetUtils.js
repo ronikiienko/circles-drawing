@@ -1,10 +1,4 @@
-import {
-    defaultAppSettings,
-    getDefaultMod,
-    getDefaultModOutput,
-    layerPresets,
-    randomPresetRules,
-} from '../consts/consts';
+import {defaultAppSettings, getDefaultMod, layerPresets, randomPresetRules} from '../consts/consts';
 import {deepCopy, getBiasedRandomNumber, getRandomHsl, rgbToHex, typeofWithArray} from './generalUtils';
 
 
@@ -53,14 +47,12 @@ export const getLayerSettings = (preset) => {
                 radialCenterY: mod?.radialCenterY ?? defaultMod.radialCenterY,
                 modA: mod?.modA ?? defaultMod.modA,
                 modB: mod?.modB ?? defaultMod.modB,
-                outputs: mod?.outputs?.map((output, index) => {
-                    const defaultModOutput = getDefaultModOutput();
-                    return {
-                        to: output?.to ?? defaultModOutput.to,
-                        '2': output?.['2'] ?? defaultModOutput['2'],
-                        id: output?.id ?? defaultModOutput.id,
-                    };
-                }) ?? [],
+                outputs: {
+                    size: {
+                        enabled: mod?.outputs?.size?.enabled ?? defaultMod.outputs.size.enabled,
+                        val2: mod?.outputs?.size?.val2 ?? defaultMod.outputs.size.val2,
+                    },
+                },
             };
         }) ?? [],
         position: {

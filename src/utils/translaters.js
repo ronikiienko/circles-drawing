@@ -33,18 +33,22 @@ export const getTranslatedBrushDensity = (brushDensity) => {
     return Math.trunc(Math.pow(parseFloat(brushDensity) + 1, 5));
 };
 
+export const getTranslatedSize = (size) => {
+    return Math.pow(parseFloat(size) + 1, 7) * 2;
+};
+
 export const getTranslatedLayerSettings = (rawSettings) => {
+    console.log(rawSettings);
     // reused values
     const shape = rawSettings.shape.shape;
-    const baseSize = Math.pow(parseFloat(rawSettings.size.size) + 1, 7) * 2;
-    let shapeAdjustedSize;
+    let shapeAdjustedSizeMult;
     switch (shape) {
         case shapeTypes.circle:
         case shapeTypes.ellipse:
-            shapeAdjustedSize = baseSize;
+            shapeAdjustedSizeMult = 1;
             break;
         default:
-            shapeAdjustedSize = baseSize * 2;
+            shapeAdjustedSizeMult = 2;
     }
 
     const transp = parseFloat(rawSettings.color.transp);
@@ -54,7 +58,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
 
     return {
         size: {
-            size: shapeAdjustedSize,
+            size: getTranslatedSize(rawSettings.size.size) * shapeAdjustedSizeMult,
         },
         number: {
             number: Math.trunc(parseFloat(rawSettings.number.number)),
@@ -77,6 +81,23 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             pixelShapeRes: parseFloat(rawSettings.shape.pixelShapeRes),
             pixelShape: rawSettings.shape.pixelShape,
         },
+        mods: rawSettings.mods.map(mod => {
+            return {
+                type: mod.type,
+                radialRadiusX: parseFloat(mod.radialRadiusX),
+                radialRadiusY: parseFloat(mod.radialRadiusY),
+                radialCenterX: parseFloat(mod.radialCenterX),
+                radialCenterY: parseFloat(mod.radialCenterY),
+                modA: getTranslatedModA(mod.modA),
+                modB: getTranslatedModB(mod.modB),
+                outputs: {
+                    size: {
+                        enabled: mod.outputs.size.enabled,
+                        val2: getTranslatedSize(mod.outputs.size.val2) * shapeAdjustedSizeMult,
+                    },
+                },
+            };
+        }),
         position: {
             startX: parseFloat(rawSettings.position.startX),
             startY: parseFloat(rawSettings.position.startY),

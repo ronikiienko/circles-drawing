@@ -3,16 +3,14 @@ import {
     AccordionHeader,
     AccordionItem,
     AccordionPanel,
-    Button,
+    Checkbox,
     Input,
     Label,
     makeStyles,
     Slider,
-    Text,
 } from '@fluentui/react-components';
-import {Add16Regular, Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
-import {getDefaultModOutput, modOutputDests} from '../../consts/consts';
+import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
 
 const useStyles = makeStyles({
@@ -60,37 +58,25 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                             {settings.mods.map((mod, modIndex) => {
                                 return (
                                     <React.Fragment key={mod.id}>
-                                        <Button onClick={() => {
-                                            setSettings(draft => {
-                                                draft.mods[modIndex].outputs.push(getDefaultModOutput());
-                                            });
-                                        }} size="small" icon={<Add16Regular/>}>{mod.name} ({mod.type})</Button>
+                                        <Label className={classes.label}>
+                                            {mod.name} ({mod.type})
+                                            <Checkbox
+                                                id={`mods-${modIndex}-outputs-size-enabled`}
+                                                checked={mod.outputs.size.enabled}
+                                                onChange={handleChange}
+                                            />
+                                            <ConditionalPanel active={mod.outputs.size.enabled}>
+                                                <Slider
+                                                    min={0}
+                                                    max={1}
+                                                    step={0.005}
+                                                    value={mod.outputs.size.val2}
+                                                    id={`mods-${modIndex}-outputs-size-val2`}
+                                                    onChange={handleChange}
+                                                />
+                                            </ConditionalPanel>
+                                        </Label>
                                         <br/>
-                                        {mod.outputs.map((output, outputIndex) => {
-                                            if (output.to !== modOutputDests.size) return null;
-                                            return (
-                                                <div className={classes.row} key={output.id}>
-                                                    <Text key={output.id}>{mod.name} ({mod.type})</Text>
-                                                    <Label>
-                                                        <Slider
-                                                            min={0}
-                                                            max={1}
-                                                            step={0.005}
-                                                            size="small"
-                                                            value={output['2']}
-                                                            id={`mods-${modIndex}-outputs-${outputIndex}-2`}
-                                                            onChange={handleChange}
-                                                        />
-                                                    </Label>
-                                                    <Button onClick={() => {
-                                                        setSettings(draft => {
-                                                            draft.mods[modIndex].outputs.splice(outputIndex, 1);
-                                                        });
-                                                    }} size="small" icon={<Delete16Regular/>}></Button>
-                                                    <br/>
-                                                </div>
-                                            );
-                                        })}
                                     </React.Fragment>
                                 );
                             })}
