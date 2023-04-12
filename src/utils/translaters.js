@@ -38,7 +38,6 @@ export const getTranslatedSize = (size) => {
 };
 
 export const getTranslatedLayerSettings = (rawSettings) => {
-    console.log(rawSettings);
     // reused values
     const shape = rawSettings.shape.shape;
     let shapeAdjustedSizeMult;
@@ -302,6 +301,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     let color;
     let strokeColor;
     let size = settings.size.size;
+    // let size = (settings.size.size + settings.mods[0].outputs.size.val2 * radialMod(xPosition, yPosition, settings.mods[0])) / 2;
     let blur;
     let transp;
     let strokeTransp;
