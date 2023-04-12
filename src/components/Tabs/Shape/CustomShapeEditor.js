@@ -1,11 +1,10 @@
 import {Button, Input, makeStyles, shorthands, tokens} from '@fluentui/react-components';
 import {ArrowDown16Filled, ArrowUp16Filled, Delete16Regular} from '@fluentui/react-icons';
-import {nanoid} from 'nanoid';
 import React, {useEffect, useRef} from 'react';
-import {shapeEditorCanvasSize, shapeEditorFlagsSize} from '../../../consts/consts';
+import {getCustomShapePoint, shapeEditorCanvasSize, shapeEditorFlagsSize} from '../../../consts/consts';
 import {useCustomShapeEditor} from '../../../hooks/useCustomShapeEditor';
 import {drawCustomShape} from '../../../utils/drawingUtils';
-import {getRandomHsl, swapArrElements} from '../../../utils/generalUtils';
+import {hslArrToHsl, swapArrElements} from '../../../utils/generalUtils';
 import {CoordinateFlag} from '../../Utils/CoordinateFlag';
 
 
@@ -72,7 +71,7 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
 
     const addPoint = () => {
         setSettings(draft => {
-            draft.shape.customShape.push([0.4, 0.4, nanoid(8), getRandomHsl()]);
+            draft.shape.customShape.push(getCustomShapePoint());
         });
     };
 
@@ -101,13 +100,13 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
                     <canvas className={localClasses.canvas} id="shape-editor-canvas" ref={canvasRef}></canvas>
                     {settings.shape.customShape.map((point, index) => {
                         return <CoordinateFlag
-                            key={point[2]}
+                            key={point.id}
                             id={`shape-customShape-${index}`}
                             onMouseDown={setDragProp}
                             size={shapeEditorFlagsSize}
-                            color={point[3]}
-                            x={point[0] * shapeEditorCanvasSize}
-                            y={point[1] * shapeEditorCanvasSize}
+                            color={hslArrToHsl(point.color)}
+                            x={point.x * shapeEditorCanvasSize}
+                            y={point.y * shapeEditorCanvasSize}
                             style={{position: 'absolute', opacity: 0.7}}
                             dot={false}
                             text={index}
@@ -119,8 +118,8 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
             {settings.shape.customShape.map((point, index) => {
                 return <span
                     className={localClasses.pointElement}
-                    key={point[2]}
-                    style={{backgroundColor: point[3]}}
+                    key={point.id}
+                    style={{backgroundColor: hslArrToHsl(point.color)}}
                 >
                     <span
                         className={localClasses.pointElementIndex}
@@ -128,18 +127,18 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
                         {index}
                     </span>
                     <span className={localClasses.pointElementId}>
-                        {point[2].substring(point[2].length - 5)}
+                        {point.id.substring(point.id.length - 5)}
                     </span>
                     <Input
-                        id={`shape-customShape-${index}-0`}
-                        value={point[0]}
+                        id={`shape-customShape-${index}-x`}
+                        value={point.x}
                         onChange={handleChange}
                         className={classes.number}
                         size="small"
                     />
                     <Input
-                        id={`shape-customShape-${index}-1`}
-                        value={point[1]}
+                        id={`shape-customShape-${index}-y`}
+                        value={point.y}
                         onChange={handleChange}
                         className={classes.number}
                         size="small"

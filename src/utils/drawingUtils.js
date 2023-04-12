@@ -6,8 +6,8 @@ export const drawCustomShape = (ctx, centerPoint, pointsArray, angle, size) => {
         const [originalMagnitude, originalAngle] = getVectorByTwoPoints(
             0.5,
             0.5,
-            currentPoint[0],
-            currentPoint[1],
+            currentPoint.x,
+            currentPoint.y,
         );
 
         const actualAngle = originalAngle + angle;

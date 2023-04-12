@@ -53,8 +53,8 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
             const [shapeX, shapeY] = pageXYToShapeXY(pageX, pageY);
 
             setSettings(draft => {
-                setObjectPropertyByStringPath(draft, dragProperty + '-0', parseFloat(shapeX.toFixed(2)));
-                setObjectPropertyByStringPath(draft, dragProperty + '-1', parseFloat(shapeY.toFixed(2)));
+                setObjectPropertyByStringPath(draft, dragProperty + '-x', parseFloat(shapeX.toFixed(2)));
+                setObjectPropertyByStringPath(draft, dragProperty + '-y', parseFloat(shapeY.toFixed(2)));
             });
         };
 
@@ -71,8 +71,8 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
             const [shapeX, shapeY] = pageXYToShapeXY(pageX, pageY);
 
             setSettings(draft => {
-                setObjectPropertyByStringPath(draft, clickAndSetProperty + '-0', shapeX);
-                setObjectPropertyByStringPath(draft, clickAndSetProperty + '-1', shapeY);
+                setObjectPropertyByStringPath(draft, clickAndSetProperty + '-x', shapeX);
+                setObjectPropertyByStringPath(draft, clickAndSetProperty + '-y', shapeY);
             });
             setClickAndSetProperty(null);
         };

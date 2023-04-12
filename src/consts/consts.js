@@ -1,14 +1,7 @@
 import {nanoid} from 'nanoid';
-import {getRandomHsl} from '../utils/generalUtils';
+import {getRandomHslArr} from '../utils/generalUtils';
 import {getRandomName} from '../utils/nameGenerator';
-import {
-    biasSpiralTypes,
-    biasTypes,
-    customShapeFlagsColorSettings,
-    modTypes,
-    pixelShapeBrushTypes,
-    shapeTypes,
-} from './sharedConsts';
+import {biasSpiralTypes, biasTypes, modTypes, pixelShapeBrushTypes, shapeTypes} from './sharedConsts';
 
 
 export const overlayModes = {
@@ -123,7 +116,7 @@ export const getDefaultMod = (name) => {
     return {
         name: name || 'Default',
         type: modTypes.radial,
-        color: getRandomHsl(),
+        color: getRandomHslArr(),
         id: nanoid(8),
         radialRadiusX: 200,
         radialRadiusY: 200,
@@ -137,6 +130,15 @@ export const getDefaultMod = (name) => {
                 val2: 0.8,
             },
         },
+    };
+};
+
+export const getCustomShapePoint = (x = 0.4, y = 0.4) => {
+    return {
+        x,
+        y,
+        id: nanoid(),
+        color: getRandomHslArr([undefined, 60, 50, 1]),
     };
 };
 export const layerPresets = [
@@ -165,9 +167,9 @@ export const layerPresets = [
             rectRoundnessRand: 0.3,
             // TODO add default getter function for custom shape points
             customShape: [
-                [0, 1, 'kfasfj9', `hsl(357, ${customShapeFlagsColorSettings.s}, ${customShapeFlagsColorSettings.l})`],
-                [0.5, 0, '=12958fj', `hsl(100, ${customShapeFlagsColorSettings.s}, ${customShapeFlagsColorSettings.l})`],
-                [1, 1, '8901jhjfk', `hsl(200, ${customShapeFlagsColorSettings.s}, ${customShapeFlagsColorSettings.l})`],
+                getCustomShapePoint(0, 1),
+                getCustomShapePoint(0, 0.5),
+                getCustomShapePoint(1, 1),
             ],
             strokeOn: false,
             strokeThickness: 0.2,

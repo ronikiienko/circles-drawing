@@ -45,7 +45,8 @@ export const ModElement = ({index, handleChange, settings, removeMod, classes, s
     const localClasses = useStyles();
     return (
         <>
-            <AccordionItem className={localClasses.block} value={settings.mods[index].id}>
+            <AccordionItem style={{backgroundColor: settings.mods[index].color}} className={localClasses.block}
+                           value={settings.mods[index].id}>
                 <AccordionHeader className={localClasses.accordionHeader}>
                     <Input
                         id={`mods-${index}-name`}

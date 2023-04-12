@@ -1,6 +1,3 @@
-import {customShapeFlagsColorSettings} from '../consts/sharedConsts';
-
-
 export const biasTanhRemap = (x, biasInf, biasA, biasB) => {
     return Math.tanh(Math.pow(x, 1 / biasB) * biasA) * biasInf;
 };
@@ -194,9 +191,13 @@ export const swapArrElements = (arr, from, to) => {
     arr[to] = temp;
 };
 
-export const getColorByIndex = (index) => `hsl(${index * 30}, ${80 - index}%, 40%)`;
-
-export const getRandomHsl = () => `hsl(${getBiasedRandomNumber(0, 357)},${customShapeFlagsColorSettings.s},${customShapeFlagsColorSettings.l})`;
+export const getRandomHslArr = (rules = []) => [
+    rules[0] ?? getBiasedRandomNumber(0, 357),
+    rules[1] ?? getBiasedRandomNumber(0, 100),
+    rules[2] ?? getBiasedRandomNumber(0, 100),
+    rules[2] ?? getBiasedRandomNumber(0, 1, 2),
+];
+export const hslArrToHsl = (hslArr) => `hsla(${hslArr[0] ?? 0},${hslArr[1] ?? 0}%,${hslArr[2] ?? 0}%,${hslArr[3] ?? 1})`;
 
 export const average = (...args) => {
     const sum = args.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
