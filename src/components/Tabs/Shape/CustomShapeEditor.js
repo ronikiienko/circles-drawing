@@ -104,10 +104,10 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
                             id={`shape-customShape-${index}`}
                             onMouseDown={setDragProp}
                             size={shapeEditorFlagsSize}
-                            color={hslArrToHsl(point.color)}
+                            color={hslArrToHsl(point.color, 0.7)}
                             x={point.x * shapeEditorCanvasSize}
                             y={point.y * shapeEditorCanvasSize}
-                            style={{position: 'absolute', opacity: 0.7}}
+                            style={{position: 'absolute'}}
                             dot={false}
                             text={index}
                         />;
@@ -119,7 +119,7 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
                 return <span
                     className={localClasses.pointElement}
                     key={point.id}
-                    style={{backgroundColor: hslArrToHsl(point.color)}}
+                    style={{backgroundColor: hslArrToHsl(point.color, 0.5)}}
                 >
                     <span
                         className={localClasses.pointElementIndex}

@@ -302,20 +302,23 @@ export const getRandomizedShapeSettings = (settings, i) => {
 
     let color;
     let strokeColor;
-    let sizeRatios = settings.mods?.reduce((accumulator, mod) => {
+    let modDeltas = settings.mods?.reduce((accumulator, mod) => {
         if (mod.outputs.size.enabled) {
+            console.log('mod');
             if (mod.type === modTypes.radial) {
-                accumulator.push([mod.outputs.size.val2, radialMod(xPosition, yPosition, mod)]);
+                const modResult = radialMod(xPosition, yPosition, mod);
+                accumulator.push([(mod.outputs.size.val2 - settings.size.size) * modResult, modResult]);
             }
             if (mod.type === modTypes.random) {
-                accumulator.push([mod.outputs.size.val2, randomMod(mod)]);
+                const modResult = randomMod(mod);
+                accumulator.push([(mod.outputs.size.val2 - settings.size.size) * modResult, modResult]);
             }
         }
         return accumulator;
     }, []);
-    // TODO 1 strength to basic size is idk
-    let size = getWeightedSum(...[...sizeRatios, [settings.size.size, 1]]);
-    console.log(size);
+    console.log(modDeltas);
+    let size = settings.size.size + (getWeightedSum(...modDeltas) || 0);
+    // console.log(size, 'base:', settings.size.size, 'val2:', settings.mods[0].outputs.size.val2);
     let blur;
     let transp;
     let strokeTransp;

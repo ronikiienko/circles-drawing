@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const ModElement = ({index, handleChange, settings, removeMod, classes, setClickAndSetProp}) => {
+export const ModElement = ({index, handleChange, settings, removeMod, classes, setDragProp, setClickAndSetProp}) => {
     const localClasses = useStyles();
     return (
         <>
@@ -93,6 +93,7 @@ export const ModElement = ({index, handleChange, settings, removeMod, classes, s
                                     settings={settings}
                                     classes={classes}
                                     handleChange={handleChange}
+                                    setDragProp={setDragProp}
                                     setClickAndSetProp={setClickAndSetProp}
                                     index={index}
                                 />

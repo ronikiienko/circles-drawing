@@ -285,8 +285,14 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         <MainColor settings={settings} handleChange={handleChange} classes={tabsClasses}/>
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.mods.id}>
-                        <Mods setClickAndSetProp={setClickAndSetProp} setSettings={setSettings} settings={settings}
-                              handleChange={handleChange} classes={tabsClasses}/>
+                        <Mods
+                            setClickAndSetProp={setClickAndSetProp}
+                            setSettings={setSettings}
+                            settings={settings}
+                            setDragProp={setDragProp}
+                            handleChange={handleChange}
+                            classes={tabsClasses}
+                        />
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.position.id}>
                         <Position settings={settings} setSettings={setSettings}

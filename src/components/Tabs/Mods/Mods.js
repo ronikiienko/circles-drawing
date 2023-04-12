@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const Mods = ({settings, setSettings, handleChange, classes, setClickAndSetProp}) => {
+export const Mods = ({settings, setSettings, handleChange, classes, setClickAndSetProp, setDragProp}) => {
     const localClasses = useStyles();
 
     const removeMod = (event, index) => {
@@ -31,6 +31,8 @@ export const Mods = ({settings, setSettings, handleChange, classes, setClickAndS
             >
                 {settings.mods.map((mod, index) => {
                     return <ModElement
+                        setDragProp={setDragProp}
+                        setClickAndSetProp={setClickAndSetProp}
                         key={settings.mods[index].id}
                         handleChange={handleChange}
                         settings={settings}
