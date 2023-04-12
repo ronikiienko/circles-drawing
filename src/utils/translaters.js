@@ -1,14 +1,16 @@
-import {biasSpiralTypes, biasTypes, shapeTypes} from '../consts/sharedConsts';
+import {biasSpiralTypes, biasTypes, modTypes, shapeTypes} from '../consts/sharedConsts';
 import {
     biasTanhRemap,
     clampValueToRange,
     getBiasedRandomNumber,
     getPointByDistanceAndAngle,
     getVectorByTwoPoints,
+    getWeightedSum,
     hexToHslArray,
     sumWithCoefficient,
     turnDegreesToRadians,
 } from './generalUtils';
+import {radialMod, randomMod} from './mods';
 
 
 export const getTranslatedBiasA = (biasA) => {
@@ -96,7 +98,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                     },
                 },
             };
-        }),
+        }) ?? [],
         position: {
             startX: parseFloat(rawSettings.position.startX),
             startY: parseFloat(rawSettings.position.startY),
@@ -300,8 +302,20 @@ export const getRandomizedShapeSettings = (settings, i) => {
 
     let color;
     let strokeColor;
-    let size = settings.size.size;
-    // let size = (settings.size.size + settings.mods[0].outputs.size.val2 * radialMod(xPosition, yPosition, settings.mods[0])) / 2;
+    let sizeRatios = settings.mods?.reduce((accumulator, mod) => {
+        if (mod.outputs.size.enabled) {
+            if (mod.type === modTypes.radial) {
+                accumulator.push([mod.outputs.size.val2, radialMod(xPosition, yPosition, mod)]);
+            }
+            if (mod.type === modTypes.random) {
+                accumulator.push([mod.outputs.size.val2, randomMod(mod)]);
+            }
+        }
+        return accumulator;
+    }, []);
+    // TODO 1 strength to basic size is idk
+    let size = getWeightedSum(...[...sizeRatios, [settings.size.size, 1]]);
+    console.log(size);
     let blur;
     let transp;
     let strokeTransp;

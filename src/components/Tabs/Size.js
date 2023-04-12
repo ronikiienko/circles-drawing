@@ -74,6 +74,11 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                                                     id={`mods-${modIndex}-outputs-size-val2`}
                                                     onChange={handleChange}
                                                 />
+                                                <Input
+                                                    className={classes.number}
+                                                    size="small"
+                                                    value={mod.outputs.size.val2}
+                                                />
                                             </ConditionalPanel>
                                         </Label>
                                         <br/>

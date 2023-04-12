@@ -12,6 +12,9 @@ export const radialMod = (x, y, mod) => {
         ratio = 0;
     }
     ratio = modRemap(ratio, mod.modA, mod.modB);
-    console.log(ratio);
     return ratio;
+};
+
+export const randomMod = (mod) => {
+    return modRemap(Math.random(), mod.modA, mod.modB);
 };

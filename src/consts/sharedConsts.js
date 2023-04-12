@@ -54,4 +54,5 @@ export const pixelShapeBrushTypes = {
 
 export const modTypes = {
     radial: 'radial',
+    random: 'random',
 };

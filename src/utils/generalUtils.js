@@ -255,3 +255,12 @@ export const getEventObj = (value, id) => {
     };
 };
 
+export const getWeightedSum = (...args) => {
+    const coefsSum = args.reduce((accumulator, arg) => accumulator + arg[1], 0);
+    const toOneMult = 1 / coefsSum;
+    return args.reduce(
+        (accumulator, arg) => accumulator + arg[0] * arg[1] * toOneMult,
+        0,
+    );
+};
+

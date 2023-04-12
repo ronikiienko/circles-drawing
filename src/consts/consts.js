@@ -1,4 +1,5 @@
 import {nanoid} from 'nanoid';
+import {getRandomHsl} from '../utils/generalUtils';
 import {getRandomName} from '../utils/nameGenerator';
 import {
     biasSpiralTypes,
@@ -122,6 +123,7 @@ export const getDefaultMod = (name) => {
     return {
         name: name || 'Default',
         type: modTypes.radial,
+        color: getRandomHsl(),
         id: nanoid(8),
         radialRadiusX: 200,
         radialRadiusY: 200,
