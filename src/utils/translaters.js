@@ -310,6 +310,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
                 accumulator.push([(mod.outputs.size.val2 - settings.size.size) * modResult, modResult]);
             }
             if (mod.type === modTypes.random) {
+                // TODO makes everything bad if used (because not adapted to size, and if something small it just makes it big)
                 const modResult = randomMod(mod);
                 accumulator.push([(mod.outputs.size.val2 - settings.size.size) * modResult, modResult]);
             }

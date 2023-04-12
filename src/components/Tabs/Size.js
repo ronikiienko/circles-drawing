@@ -7,9 +7,12 @@ import {
     Input,
     Label,
     makeStyles,
+    shorthands,
     Slider,
+    tokens,
 } from '@fluentui/react-components';
 import React from 'react';
+import {hslArrToHsl} from '../../utils/generalUtils';
 import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
 
@@ -17,6 +20,11 @@ const useStyles = makeStyles({
     sliderSize: {
         marginLeft: '10px',
         width: '250px',
+    },
+    modItem: {
+        paddingInline: '5px',
+        marginBlock: '5px',
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
     },
 });
 
@@ -57,7 +65,8 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                         <AccordionPanel>
                             {settings.mods.map((mod, modIndex) => {
                                 return (
-                                    <React.Fragment key={mod.id}>
+                                    <div className={localClasses.modItem}
+                                         style={{backgroundColor: hslArrToHsl(mod.color, 0.3)}} key={mod.id}>
                                         <Label className={classes.label}>
                                             {mod.name} ({mod.type})
                                             <Checkbox
@@ -82,7 +91,7 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                                             </ConditionalPanel>
                                         </Label>
                                         <br/>
-                                    </React.Fragment>
+                                    </div>
                                 );
                             })}
                         </AccordionPanel>
