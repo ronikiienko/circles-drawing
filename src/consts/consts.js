@@ -116,7 +116,7 @@ export const getDefaultMod = (name) => {
     return {
         name: name || 'Default',
         type: modTypes.radial,
-        color: getRandomHslArr(),
+        color: getRandomHslArr([null, 70, 50, 0.5]),
         id: nanoid(8),
         radialRadiusX: 200,
         radialRadiusY: 200,

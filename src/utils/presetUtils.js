@@ -41,6 +41,7 @@ export const getLayerSettings = (preset) => {
                 name: mod?.name ?? defaultMod.name,
                 type: mod?.type ?? defaultMod.type,
                 id: mod?.id ?? defaultMod.id,
+                color: mod?.color ?? defaultMod.color,
                 radialRadiusX: mod?.radialRadiusX ?? defaultMod.radialRadiusX,
                 radialRadiusY: mod?.radialRadiusY ?? defaultMod.radialRadiusY,
                 radialCenterX: mod?.radialCenterX ?? defaultMod.radialCenterX,

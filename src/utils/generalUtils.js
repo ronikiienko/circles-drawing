@@ -197,7 +197,7 @@ export const getRandomHslArr = (rules = []) => [
     rules[2] ?? getBiasedRandomNumber(0, 100),
     rules[2] ?? getBiasedRandomNumber(0, 1, 2),
 ];
-export const hslArrToHsl = (hslArr) => `hsla(${hslArr[0] ?? 0},${hslArr[1] ?? 0}%,${hslArr[2] ?? 0}%,${hslArr[3] ?? 1})`;
+export const hslArrToHsl = (hslArr, transp) => `hsla(${hslArr[0] ?? 0},${hslArr[1] ?? 0}%,${hslArr[2] ?? 0}%,${transp ?? hslArr[3] ?? 1})`;
 
 export const average = (...args) => {
     const sum = args.reduce((accumulator, currentValue) => accumulator + currentValue, 0);

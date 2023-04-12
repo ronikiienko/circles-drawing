@@ -12,6 +12,7 @@ import {
 import {Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {modTypes} from '../../../consts/sharedConsts';
+import {hslArrToHsl} from '../../../utils/generalUtils';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 import {Radial} from './Radial';
 import {RemapCharacter} from './RemapCharacter';
@@ -45,7 +46,8 @@ export const ModElement = ({index, handleChange, settings, removeMod, classes, s
     const localClasses = useStyles();
     return (
         <>
-            <AccordionItem style={{backgroundColor: settings.mods[index].color}} className={localClasses.block}
+            <AccordionItem style={{backgroundColor: hslArrToHsl(settings.mods[index].color, 0.3)}}
+                           className={localClasses.block}
                            value={settings.mods[index].id}>
                 <AccordionHeader className={localClasses.accordionHeader}>
                     <Input
