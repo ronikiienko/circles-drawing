@@ -57,53 +57,41 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                             Modulators
                         </AccordionHeader>
                         <AccordionPanel>
-                            {settings.mods.map((mod, index) => {
-                                return (
-                                    <React.Fragment key={mod.id}>
-                                        <Text>{mod.name} ({mod.type})</Text>
-                                        <Button onClick={() => {
-                                            setSettings(draft => {
-                                                draft.mods[index].outputs.push(getDefaultModOutput());
-                                            });
-                                        }} size="small" icon={<Add16Regular/>}></Button>
-                                        <br/>
-                                    </React.Fragment>
-                                );
-                            })}
-                        </AccordionPanel>
-                    </AccordionItem>
-                    <AccordionItem value="inputs">
-                        <AccordionHeader>
-                            Inputs
-                        </AccordionHeader>
-                        <AccordionPanel>
                             {settings.mods.map((mod, modIndex) => {
                                 return (
-                                    mod.outputs.map((output, outputIndex) => {
-                                        if (output.to !== modOutputDests.size) return null;
-                                        return (
-                                            <div className={classes.row} key={output.id}>
-                                                <Text key={output.id}>{mod.name} ({mod.type})</Text>
-                                                <Label>
-                                                    <Slider
-                                                        min={0}
-                                                        max={1}
-                                                        step={0.005}
-                                                        size="small"
-                                                        value={output['2']}
-                                                        id={`mods-${modIndex}-outputs-${outputIndex}-2`}
-                                                        onChange={handleChange}
-                                                    />
-                                                </Label>
-                                                <Button onClick={() => {
-                                                    setSettings(draft => {
-                                                        draft.mods[modIndex].outputs.splice(outputIndex, 1);
-                                                    });
-                                                }} size="small" icon={<Delete16Regular/>}></Button>
-                                                <br/>
-                                            </div>
-                                        );
-                                    })
+                                    <React.Fragment key={mod.id}>
+                                        <Button onClick={() => {
+                                            setSettings(draft => {
+                                                draft.mods[modIndex].outputs.push(getDefaultModOutput());
+                                            });
+                                        }} size="small" icon={<Add16Regular/>}>{mod.name} ({mod.type})</Button>
+                                        <br/>
+                                        {mod.outputs.map((output, outputIndex) => {
+                                            if (output.to !== modOutputDests.size) return null;
+                                            return (
+                                                <div className={classes.row} key={output.id}>
+                                                    <Text key={output.id}>{mod.name} ({mod.type})</Text>
+                                                    <Label>
+                                                        <Slider
+                                                            min={0}
+                                                            max={1}
+                                                            step={0.005}
+                                                            size="small"
+                                                            value={output['2']}
+                                                            id={`mods-${modIndex}-outputs-${outputIndex}-2`}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </Label>
+                                                    <Button onClick={() => {
+                                                        setSettings(draft => {
+                                                            draft.mods[modIndex].outputs.splice(outputIndex, 1);
+                                                        });
+                                                    }} size="small" icon={<Delete16Regular/>}></Button>
+                                                    <br/>
+                                                </div>
+                                            );
+                                        })}
+                                    </React.Fragment>
                                 );
                             })}
                         </AccordionPanel>
