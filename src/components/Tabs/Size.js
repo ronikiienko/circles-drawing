@@ -10,9 +10,9 @@ import {
     Slider,
     Text,
 } from '@fluentui/react-components';
-import {Delete16Regular} from '@fluentui/react-icons';
+import {Add16Regular, Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
-import {modOutputDests} from '../../consts/consts';
+import {getDefaultModOutput, modOutputDests} from '../../consts/consts';
 
 
 const useStyles = makeStyles({
@@ -61,7 +61,11 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                                 return (
                                     <React.Fragment key={mod.id}>
                                         <Text>{mod.name} ({mod.type})</Text>
-                                        <Button onClick={() =>} size="small" icon={<Delete16Regular/>}></Button>
+                                        <Button onClick={() => {
+                                            setSettings(draft => {
+                                                draft.mods[index].outputs.push(getDefaultModOutput());
+                                            });
+                                        }} size="small" icon={<Add16Regular/>}></Button>
                                         <br/>
                                     </React.Fragment>
                                 );
@@ -91,6 +95,11 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                                                         onChange={handleChange}
                                                     />
                                                 </Label>
+                                                <Button onClick={() => {
+                                                    setSettings(draft => {
+                                                        draft.mods[modIndex].outputs.splice(outputIndex, 1);
+                                                    });
+                                                }} size="small" icon={<Delete16Regular/>}></Button>
                                                 <br/>
                                             </div>
                                         );

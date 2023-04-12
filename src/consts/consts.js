@@ -123,12 +123,16 @@ export const modOutputDests = {
     size: 'size',
 };
 
-export const getDefaultModOutput = () => {
-    return {
-        to: modOutputDests.size,
-        '2': 0.5,
-        id: nanoid(),
-    };
+export const getDefaultModOutput = (dest = modOutputDests.size) => {
+    switch (dest) {
+        case modOutputDests.size: {
+            return {
+                to: modOutputDests.size,
+                '2': 0.5,
+                id: nanoid(),
+            };
+        }
+    }
 };
 export const getDefaultMod = (name) => {
     return {

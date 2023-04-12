@@ -270,7 +270,8 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                                 classes={tabsClasses}/>
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.size.id}>
-                        <Size settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                        <Size setSettings={setSettings} settings={settings} handleChange={handleChange}
+                              classes={tabsClasses}/>
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.shape.id}>
                         <Shape settings={settings} setSettings={setSettings} setClickAndSetProp={setClickAndSetProp}
