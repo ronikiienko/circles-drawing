@@ -257,7 +257,6 @@ export const layerPresets = [
         },
         'size': {
             'size': '0.155',
-            'sizeRand': '0.1',
         },
         'number': {
             'number': '10000',
@@ -348,10 +347,6 @@ export const randomPresetRules = {
     },
     size: {
         size: {
-            min: 0,
-            max: 1,
-        },
-        sizeRand: {
             min: 0,
             max: 1,
         },

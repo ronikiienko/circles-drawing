@@ -161,7 +161,6 @@ export const getRandomPreset = () => {
         },
         size: {
             size: getRandomValue(randomPresetRules.size.size),
-            sizeRand: getRandomValue(randomPresetRules.size.sizeRand),
         },
         number: {
             number: getRandomValue(randomPresetRules.number.number),

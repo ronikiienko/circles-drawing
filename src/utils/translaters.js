@@ -55,7 +55,6 @@ export const getTranslatedLayerSettings = (rawSettings) => {
     return {
         size: {
             size: shapeAdjustedSize,
-            sizeRand: parseFloat(rawSettings.size.sizeRand) * shapeAdjustedSize * 0.8,
         },
         number: {
             number: Math.trunc(parseFloat(rawSettings.number.number)),
@@ -277,12 +276,11 @@ export const getRandomizedShapeSettings = (settings, i) => {
     } else {
         angle = settings.shape.angle;
     }
-
     gradientPosition = biasTanhRemap(gradientPosition, settings.position.gradInf, settings.position.gradA, settings.position.gradB);
 
     let color;
     let strokeColor;
-    let size = settings.size.size + getBiasedRandomNumber(-settings.size.sizeRand, settings.size.sizeRand, 2);
+    let size = settings.size.size;
     let blur;
     let transp;
     let strokeTransp;
