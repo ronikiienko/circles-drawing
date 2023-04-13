@@ -91,6 +91,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                 radialCenterY: parseFloat(mod.radialCenterY),
                 modA: getTranslatedModA(mod.modA),
                 modB: getTranslatedModB(mod.modB),
+                blendRatio: parseFloat(mod.blendRatio),
                 outputs: {
                     size: {
                         enabled: mod.outputs.size.enabled,
@@ -307,12 +308,12 @@ export const getRandomizedShapeSettings = (settings, i) => {
             console.log('mod');
             if (mod.type === modTypes.radial) {
                 const modResult = radialMod(xPosition, yPosition, mod);
-                accumulator.push([(mod.outputs.size.val2 - settings.size.size) * modResult, modResult]);
+                accumulator.push([(mod.outputs.size.val2 - settings.size.size) * modResult, modResult * mod.blendRatio]);
             }
             if (mod.type === modTypes.random) {
                 // TODO makes everything bad if used (because not adapted to size, and if something small it just makes it big)
                 const modResult = randomMod(mod);
-                accumulator.push([(mod.outputs.size.val2 - settings.size.size) * modResult, modResult]);
+                accumulator.push([(mod.outputs.size.val2 - settings.size.size) * modResult, modResult * mod.blendRatio]);
             }
         }
         return accumulator;

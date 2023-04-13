@@ -48,6 +48,7 @@ export const getLayerSettings = (preset) => {
                 radialCenterY: mod?.radialCenterY ?? defaultMod.radialCenterY,
                 modA: mod?.modA ?? defaultMod.modA,
                 modB: mod?.modB ?? defaultMod.modB,
+                blendRatio: mod?.blendRatio ?? defaultMod.blendRatio,
                 outputs: {
                     size: {
                         enabled: mod?.outputs?.size?.enabled ?? defaultMod.outputs.size.enabled,

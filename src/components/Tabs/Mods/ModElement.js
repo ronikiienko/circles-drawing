@@ -7,6 +7,8 @@ import {
     makeStyles,
     Select,
     shorthands,
+    Slider,
+    Text,
     tokens,
 } from '@fluentui/react-components';
 import {Delete16Regular} from '@fluentui/react-icons';
@@ -41,7 +43,7 @@ const useStyles = makeStyles({
         width: '100%',
     },
 });
-
+// TODO while typing mod name many things happen...
 export const ModElement = ({index, handleChange, settings, removeMod, classes, setDragProp, setClickAndSetProp}) => {
     const localClasses = useStyles();
     return (
@@ -100,6 +102,21 @@ export const ModElement = ({index, handleChange, settings, removeMod, classes, s
                             </div>
                         </ConditionalPanel>
                         <div className={classes.block}>
+                            <Label className={classes.label}>
+                                Blend ratio:
+                                <Slider
+                                    min={0.01}
+                                    max={1}
+                                    step={0.01}
+                                    id={`mods-${index}-blendRatio`}
+                                    onChange={handleChange}
+                                    value={settings.mods[index].blendRatio}
+                                    size="small"
+                                />
+                                <Text>
+                                    {settings.mods[index].blendRatio}
+                                </Text>
+                            </Label>
                             <RemapCharacter
                                 index={index}
                                 handleChange={handleChange}

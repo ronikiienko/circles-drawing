@@ -124,6 +124,7 @@ export const getDefaultMod = (name) => {
         radialCenterY: 100,
         modA: 1,
         modB: 1,
+        blendRatio: 0.1,
         outputs: {
             size: {
                 enabled: false,
