@@ -36,7 +36,7 @@ export const getTranslatedBrushDensity = (brushDensity) => {
 };
 
 export const getTranslatedSize = (size) => {
-    return Math.pow(parseFloat(size) + 1, 7) * 2;
+    return Math.pow(parseFloat(size) + 1, 7) * 2 - 1.9;
 };
 
 export const getTranslatedLayerSettings = (rawSettings) => {
@@ -317,9 +317,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
         }
         return accumulator;
     }, []);
-    console.log(modDeltas);
     let size = settings.size.size + (getWeightedSum(...modDeltas) || 0);
-    // console.log(size, 'base:', settings.size.size, 'val2:', settings.mods[0].outputs.size.val2);
+    console.log('size:', size);
     let blur;
     let transp;
     let strokeTransp;
