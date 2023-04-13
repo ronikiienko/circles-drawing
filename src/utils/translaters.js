@@ -319,7 +319,6 @@ export const getRandomizedShapeSettings = (settings, i) => {
         return accumulator;
     }, []);
     let size = settings.size.size + (getWeightedSum(...modDeltas) || 0);
-    console.log('size:', size);
     let blur;
     let transp;
     let strokeTransp;

@@ -1,14 +1,18 @@
 import {
-    Accordion,
-    AccordionHeader,
-    AccordionItem,
-    AccordionPanel,
     Checkbox,
     Input,
     Label,
     makeStyles,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    MenuPopover,
+    MenuTrigger,
+    mergeClasses,
     shorthands,
     Slider,
+    Text,
     tokens,
 } from '@fluentui/react-components';
 import React from 'react';
@@ -18,13 +22,15 @@ import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
 const useStyles = makeStyles({
     sliderSize: {
-        marginLeft: '10px',
         width: '250px',
     },
     modItem: {
-        paddingInline: '5px',
+        ...shorthands.padding('5px'),
         marginBlock: '5px',
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
+    },
+    modItemBase: {
+        backgroundColor: hslArrToHsl([255, 100, 100, 0.3]),
     },
 });
 
@@ -33,70 +39,95 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
     return (
         <>
             <div className={classes.block}>
-                <Label className={classes.label}>
-                    Size:
-                    <Slider
-                        min={0}
-                        max={1}
-                        step={0.005}
-                        id="size-size"
-                        value={settings.size.size}
-                        onChange={handleChange}
-                        className={localClasses.sliderSize}
-                        size="small"
-                    />
-                    <Input
-                        size="small"
-                        value={settings.size.size}
-                        className={classes.number}
-                        id="size-size"
-                        onChange={handleChange}
-                        type="text"
-                    />
-                </Label>
-                <Accordion
-                    collapsible
-                    multiple
-                >
-                    <AccordionItem value="modulators">
-                        <AccordionHeader>
-                            Modulators
-                        </AccordionHeader>
-                        <AccordionPanel>
-                            {settings.mods.map((mod, modIndex) => {
-                                return (
-                                    <div className={localClasses.modItem}
-                                         style={{backgroundColor: hslArrToHsl(mod.color, 0.3)}} key={mod.id}>
+                <Text size={600} block>Size</Text>
+                <div className={mergeClasses(localClasses.modItemBase, localClasses.modItem)}>
+                    <Label className={classes.label}>
+                        {/*Size:*/}
+                        <Slider
+                            min={0}
+                            max={1}
+                            step={0.005}
+                            id="size-size"
+                            value={settings.size.size}
+                            onChange={handleChange}
+                            className={localClasses.sliderSize}
+                            size="small"
+                        />
+                        <Input
+                            size="small"
+                            value={settings.size.size}
+                            className={classes.number}
+                            id="size-size"
+                            onChange={handleChange}
+                            type="text"
+                        />
+                    </Label>
+                </div>
+                {settings.mods.map((mod, modIndex) => {
+                    if (!mod.outputs.size.enabled) return null;
+                    return (
+                        <div className={localClasses.modItem}
+                             style={{backgroundColor: hslArrToHsl(mod.color, 0.3)}} key={mod.id}>
+                                <span>
+                                    {mod.name} ({mod.type})
+                                    <Checkbox
+                                        id={`mods-${modIndex}-outputs-size-enabled`}
+                                        checked={mod.outputs.size.enabled}
+                                        onChange={handleChange}
+                                    />
+                                </span>
+                            <br/>
+                            <span>
+                                    <ConditionalPanel active={mod.outputs.size.enabled}>
                                         <Label className={classes.label}>
-                                            {mod.name} ({mod.type})
-                                            <Checkbox
-                                                id={`mods-${modIndex}-outputs-size-enabled`}
-                                                checked={mod.outputs.size.enabled}
+                                            <Slider
+                                                className={localClasses.sliderSize}
+                                                min={0}
+                                                max={1}
+                                                step={0.005}
+                                                value={mod.outputs.size.val2}
+                                                id={`mods-${modIndex}-outputs-size-val2`}
                                                 onChange={handleChange}
+                                                size="small"
                                             />
-                                            <ConditionalPanel active={mod.outputs.size.enabled}>
-                                                <Slider
-                                                    min={0}
-                                                    max={1}
-                                                    step={0.005}
-                                                    value={mod.outputs.size.val2}
-                                                    id={`mods-${modIndex}-outputs-size-val2`}
-                                                    onChange={handleChange}
-                                                />
-                                                <Input
-                                                    className={classes.number}
-                                                    size="small"
-                                                    value={mod.outputs.size.val2}
-                                                />
-                                            </ConditionalPanel>
+                                        <Input
+                                            className={classes.number}
+                                            size="small"
+                                            value={mod.outputs.size.val2}
+                                        />
                                         </Label>
-                                        <br/>
-                                    </div>
-                                );
-                            })}
-                        </AccordionPanel>
-                    </AccordionItem>
-                </Accordion>
+                                    </ConditionalPanel>
+                                </span>
+                            <br/>
+                        </div>
+                    );
+                })}
+                <Menu>
+                    <MenuTrigger>
+                        <MenuButton
+                            disabled={!settings.mods.some(element => !element.outputs.size.enabled)}
+                            className={classes.fullWidth}
+                            size="small"
+                        >Choose mod
+                        </MenuButton>
+                    </MenuTrigger>
+                    <MenuPopover>
+                        <MenuList>
+                            {
+                                settings.mods.map((mod, modIndex) => {
+                                    if (mod.outputs.size.enabled) return null;
+                                    return (
+                                        <MenuItem style={{backgroundColor: hslArrToHsl(mod.color, 0.2)}} key={mod.id}
+                                                  onClick={() => setSettings((draft) => {
+                                                      draft.mods[modIndex].outputs.size.enabled = true;
+                                                  })}>
+                                            {mod.name} ({mod.type})
+                                        </MenuItem>
+                                    );
+                                })}
+                        </MenuList>
+                    </MenuPopover>
+                </Menu>
             </div>
         </>
     );

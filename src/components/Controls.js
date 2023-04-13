@@ -172,6 +172,7 @@ const useStylesTabs = makeStyles({
         marginBlock: '5px',
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
         backgroundColor: tokens.colorNeutralStencil1Alpha,
+        minWidth: 'fit-content',
     },
     verticalBlock: {
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
@@ -208,8 +209,6 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
     useHotkeys(hotkeys.addLayer, () => drawLayer(settings, appSettings));
 
     const handleChange = (event) => {
-        event.stopPropagation();
-        event.preventDefault();
         setSettings(draft => {
             if (event.target.type !== 'checkbox') {
                 setObjectPropertyByStringPath(draft, event.target.id, event.target.value);
@@ -219,8 +218,6 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
         });
     };
     const handleAppSettingsChange = (event) => {
-        event.stopPropagation();
-        event.preventDefault();
         setAppSettings(draft => {
             if (event.target.type !== 'checkbox') {
                 setObjectPropertyByStringPath(draft, event.target.id, event.target.value);

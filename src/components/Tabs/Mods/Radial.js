@@ -68,7 +68,7 @@ export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp,
                 onMouseDown={setDragProp}
                 dot={false}
                 title={`Radial center (${settings.mods[index].name})`}
-                color={hslArrToHsl(settings.mods[index].color)}
+                color={hslArrToHsl(settings.mods[index].color, 0.7)}
             />
             <CoordinateFlag
                 size={25}
@@ -79,7 +79,7 @@ export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp,
                 onMouseDown={setDragProp}
                 dot={false}
                 title={`Radial radius (${settings.mods[index].name})`}
-                color={hslArrToHsl(settings.mods[index].color)}
+                color={hslArrToHsl(settings.mods[index].color, 0.7)}
             />
         </>
     );
