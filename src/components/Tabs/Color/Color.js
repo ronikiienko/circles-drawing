@@ -1,20 +1,8 @@
-import {
-    Checkbox,
-    Label,
-    makeStyles,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
-    MenuPopover,
-    MenuTrigger,
-    shorthands,
-    tokens,
-} from '@fluentui/react-components';
-import {Circle20Regular, PaintBucket20Filled} from '@fluentui/react-icons';
+import {Label, makeStyles, shorthands, tokens} from '@fluentui/react-components';
+import {Circle20Regular} from '@fluentui/react-icons';
 import React from 'react';
-import {hslArrToHsl} from '../../../utils/generalUtils';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {ParamAddModButton, ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
 
 
 const useStyles = makeStyles({
@@ -27,15 +15,17 @@ const useStyles = makeStyles({
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
     },
     modItemBase: {
-        backgroundColor: hslArrToHsl([255, 100, 100, 0.3]),
+        backgroundColor: tokens.colorNeutralStencil1Alpha,
     },
 });
 export const Color = ({classes, handleChange, settings, setSettings}) => {
     const localClasses = useStyles();
     return (
         <>
-            <Label title="fill color" className={classes.label}>
-                <PaintBucket20Filled/>
+            <ParamHeader header="Fill color">
+                <span>
+                    Base value:
+                </span>
                 <input
                     value={settings.color.color}
                     className={classes.slider}
@@ -43,64 +33,34 @@ export const Color = ({classes, handleChange, settings, setSettings}) => {
                     onChange={handleChange}
                     type="color"
                 />
-            </Label>
+            </ParamHeader>
             {settings.mods.map((mod, modIndex) => {
-                if (!mod.outputs.color.enabled) return null;
                 return (
-                    <div className={localClasses.modItem}
-                         style={{backgroundColor: hslArrToHsl(mod.color, 0.3)}} key={mod.id}>
-                                <span>
-                                    {mod.name} ({mod.type})
-                                    <Checkbox
-                                        id={`mods-${modIndex}-outputs-color-enabled`}
-                                        checked={mod.outputs.color.enabled}
-                                        onChange={handleChange}
-                                    />
-                                </span>
-                        <br/>
-                        <span>
-                                    <ConditionalPanel active={mod.outputs.color.enabled}>
-                                        <Label className={classes.label}>
-                                            <input
-                                                value={mod.outputs.color.val2}
-                                                className={classes.slider}
-                                                id={`mods-${modIndex}-outputs-color-val2`}
-                                                onChange={handleChange}
-                                                type="color"
-                                            />
-                                        </Label>
-                                    </ConditionalPanel>
-                                </span>
-                        <br/>
-                    </div>
+                    <ParamMod
+                        key={mod.id}
+                        modIndex={modIndex}
+                        handleChange={handleChange}
+                        settings={settings}
+                        paramName="color"
+                    >
+                        <Label className={classes.label}>
+                            <input
+                                value={mod.outputs.color.val2}
+                                className={classes.slider}
+                                id={`mods-${modIndex}-outputs-color-val2`}
+                                onChange={handleChange}
+                                type="color"
+                            />
+                        </Label>
+                    </ParamMod>
                 );
             })}
-            <Menu>
-                <MenuTrigger>
-                    <MenuButton
-                        disabled={!settings.mods.some(element => !element.outputs.color.enabled)}
-                        className={classes.fullWidth}
-                        size="small"
-                    >Choose mod
-                    </MenuButton>
-                </MenuTrigger>
-                <MenuPopover>
-                    <MenuList>
-                        {
-                            settings.mods.map((mod, modIndex) => {
-                                if (mod.outputs.color.enabled) return null;
-                                return (
-                                    <MenuItem style={{backgroundColor: hslArrToHsl(mod.color, 0.2)}} key={mod.id}
-                                              onClick={() => setSettings((draft) => {
-                                                  draft.mods[modIndex].outputs.color.enabled = true;
-                                              })}>
-                                        {mod.name} ({mod.type})
-                                    </MenuItem>
-                                );
-                            })}
-                    </MenuList>
-                </MenuPopover>
-            </Menu>
+            <ParamAddModButton
+                settings={settings}
+                classes={classes}
+                setSettings={setSettings}
+                paramName="color"
+            />
             <br/>
             <ConditionalPanel active={settings.shape.strokeOn}>
                 <Label title="Stroke color">
@@ -117,4 +77,5 @@ export const Color = ({classes, handleChange, settings, setSettings}) => {
             </ConditionalPanel>
         </>
     );
-};
+    }
+;

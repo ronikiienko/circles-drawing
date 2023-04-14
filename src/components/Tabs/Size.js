@@ -1,23 +1,7 @@
-import {
-    Checkbox,
-    Input,
-    Label,
-    makeStyles,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
-    MenuPopover,
-    MenuTrigger,
-    mergeClasses,
-    shorthands,
-    Slider,
-    Text,
-    tokens,
-} from '@fluentui/react-components';
+import {Input, Label, makeStyles, shorthands, Slider, tokens} from '@fluentui/react-components';
 import React from 'react';
 import {hslArrToHsl} from '../../utils/generalUtils';
-import {ConditionalPanel} from '../Utils/ConditionalPanel';
+import {ParamAddModButton, ParamHeader, ParamMod} from '../Utils/ParamWrappers';
 
 
 const useStyles = makeStyles({
@@ -39,10 +23,8 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
     return (
         <>
             <div className={classes.block}>
-                <Text size={600} block>Size</Text>
-                <div className={mergeClasses(localClasses.modItemBase, localClasses.modItem)}>
+                <ParamHeader header="Size">
                     <Label className={classes.label}>
-                        {/*Size:*/}
                         <Slider
                             min={0}
                             max={1}
@@ -62,72 +44,43 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                             type="text"
                         />
                     </Label>
-                </div>
+                </ParamHeader>
                 {settings.mods.map((mod, modIndex) => {
-                    if (!mod.outputs.size.enabled) return null;
                     return (
-                        <div className={localClasses.modItem}
-                             style={{backgroundColor: hslArrToHsl(mod.color, 0.3)}} key={mod.id}>
-                                <span>
-                                    {mod.name} ({mod.type})
-                                    <Checkbox
-                                        id={`mods-${modIndex}-outputs-size-enabled`}
-                                        checked={mod.outputs.size.enabled}
-                                        onChange={handleChange}
-                                    />
-                                </span>
+                        <ParamMod
+                            key={mod.id}
+                            settings={settings}
+                            handleChange={handleChange}
+                            paramName="size"
+                            modIndex={modIndex}
+                        >
                             <br/>
-                            <span>
-                                    <ConditionalPanel active={mod.outputs.size.enabled}>
-                                        <Label className={classes.label}>
-                                            <Slider
-                                                className={localClasses.sliderSize}
-                                                min={0}
-                                                max={1}
-                                                step={0.005}
-                                                value={mod.outputs.size.val2}
-                                                id={`mods-${modIndex}-outputs-size-val2`}
-                                                onChange={handleChange}
-                                                size="small"
-                                            />
-                                        <Input
-                                            className={classes.number}
-                                            size="small"
-                                            value={mod.outputs.size.val2}
-                                        />
-                                        </Label>
-                                    </ConditionalPanel>
-                                </span>
-                            <br/>
-                        </div>
+                            <Label className={classes.label}>
+                                <Slider
+                                    className={localClasses.sliderSize}
+                                    min={0}
+                                    max={1}
+                                    step={0.005}
+                                    value={mod.outputs.size.val2}
+                                    id={`mods-${modIndex}-outputs-size-val2`}
+                                    onChange={handleChange}
+                                    size="small"
+                                />
+                                <Input
+                                    className={classes.number}
+                                    size="small"
+                                    value={mod.outputs.size.val2}
+                                />
+                            </Label>
+                        </ParamMod>
                     );
                 })}
-                <Menu>
-                    <MenuTrigger>
-                        <MenuButton
-                            disabled={!settings.mods.some(element => !element.outputs.size.enabled)}
-                            className={classes.fullWidth}
-                            size="small"
-                        >Choose mod
-                        </MenuButton>
-                    </MenuTrigger>
-                    <MenuPopover>
-                        <MenuList>
-                            {
-                                settings.mods.map((mod, modIndex) => {
-                                    if (mod.outputs.size.enabled) return null;
-                                    return (
-                                        <MenuItem style={{backgroundColor: hslArrToHsl(mod.color, 0.2)}} key={mod.id}
-                                                  onClick={() => setSettings((draft) => {
-                                                      draft.mods[modIndex].outputs.size.enabled = true;
-                                                  })}>
-                                            {mod.name} ({mod.type})
-                                        </MenuItem>
-                                    );
-                                })}
-                        </MenuList>
-                    </MenuPopover>
-                </Menu>
+                <ParamAddModButton
+                    settings={settings}
+                    setSettings={setSettings}
+                    paramName="size"
+                    classes={classes}
+                />
             </div>
         </>
     );
