@@ -122,13 +122,17 @@ export const getDefaultMod = (name) => {
         radialRadiusY: 200,
         radialCenterX: 100,
         radialCenterY: 100,
-        modA: 1,
-        modB: 1,
+        modA: 0.3,
+        modB: 0.3,
         blendRatio: 0.1,
         outputs: {
             size: {
                 enabled: false,
                 val2: 0.8,
+            },
+            color: {
+                enabled: false,
+                val2: '#009dff',
             },
         },
     };

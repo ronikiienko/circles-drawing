@@ -283,7 +283,8 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         />
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.color.id}>
-                        <MainColor settings={settings} handleChange={handleChange} classes={tabsClasses}/>
+                        <MainColor setSettings={setSettings} settings={settings} handleChange={handleChange}
+                                   classes={tabsClasses}/>
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.mods.id}>
                         <Mods

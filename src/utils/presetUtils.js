@@ -54,6 +54,10 @@ export const getLayerSettings = (preset) => {
                         enabled: mod?.outputs?.size?.enabled ?? defaultMod.outputs.size.enabled,
                         val2: mod?.outputs?.size?.val2 ?? defaultMod.outputs.size.val2,
                     },
+                    color: {
+                        enabled: mod?.outputs?.color?.enabled ?? defaultMod.outputs.color.enabled,
+                        val2: mod?.outputs?.color?.val2 ?? defaultMod.outputs.color.val2,
+                    },
                 },
             };
         }) ?? [],

@@ -6,11 +6,11 @@ import {Overlay} from './Overlay';
 import {Transp} from './Transp';
 
 
-export const MainColor = ({settings, handleChange, classes}) => {
+export const MainColor = ({setSettings, settings, handleChange, classes}) => {
     return (
         <>
             <div className={classes.block}>
-                <Color settings={settings} handleChange={handleChange} classes={classes}/>
+                <Color setSettings={setSettings} settings={settings} handleChange={handleChange} classes={classes}/>
             </div>
             <div className={classes.block}>
                 <Transp settings={settings} handleChange={handleChange} classes={classes}/>

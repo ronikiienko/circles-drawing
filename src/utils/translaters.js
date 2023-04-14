@@ -2,6 +2,7 @@ import {biasSpiralTypes, biasTypes, modTypes, shapeTypes} from '../consts/shared
 import {
     clampValueToRange,
     getBiasedRandomNumber,
+    getColorsWeightedSum,
     getPointByDistanceAndAngle,
     getVectorByTwoPoints,
     getWeightedSum,
@@ -93,6 +94,10 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                     size: {
                         enabled: mod.outputs.size.enabled,
                         val2: getTranslatedSize(mod.outputs.size.val2) * shapeAdjustedSizeMult,
+                    },
+                    color: {
+                        enabled: mod.outputs.color.enabled,
+                        val2: hexToHslArray(mod.outputs.color.val2),
                     },
                 },
             };
@@ -276,9 +281,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
         angle = settings.shape.angle;
     }
 
-    let modDeltas = settings.mods?.reduce((accumulator, mod) => {
+    let sizeModDeltas = settings.mods?.reduce((accumulator, mod) => {
         if (mod.outputs.size.enabled) {
-            console.log('mod');
             if (mod.type === modTypes.radial) {
                 const modResult = radialMod(xPosition, yPosition, mod);
                 accumulator.push([(mod.outputs.size.val2 - settings.size.size) * modResult, modResult * mod.blendRatio]);
@@ -292,11 +296,39 @@ export const getRandomizedShapeSettings = (settings, i) => {
         return accumulator;
     }, []);
 
-    let size = settings.size.size + (getWeightedSum(...modDeltas) || 0);
+    let colorModDeltas = settings.mods?.reduce((accumulator, mod) => {
+        if (mod.outputs.color.enabled) {
+            let modResult;
+            switch (mod.type) {
+                case modTypes.radial:
+                    modResult = radialMod(xPosition, yPosition, mod);
+                    break;
+                case modTypes.random:
+                    modResult = randomMod(mod);
+            }
+            accumulator.push([
+                [
+                    (mod.outputs.color.val2[0] - settings.color.color[0]) * modResult,
+                    (mod.outputs.color.val2[1] - settings.color.color[1]) * modResult,
+                    (mod.outputs.color.val2[2] - settings.color.color[2]) * modResult,
+
+                ],
+                modResult * mod.blendRatio,
+            ]);
+        }
+        return accumulator;
+    }, []);
+
+    let size = settings.size.size + (getWeightedSum(...sizeModDeltas) || 0);
     let blur = settings.color.blur;
     let transp = settings.color.transp;
     let strokeTransp = settings.color.strokeTransp;
-    let color = hslArrToHsl(settings.color.color, transp);
+    const colorModsWeightedSum = getColorsWeightedSum(...colorModDeltas);
+    let color = hslArrToHsl([
+        settings.color.color[0] + colorModsWeightedSum[0],
+        settings.color.color[1] + colorModsWeightedSum[1],
+        settings.color.color[2] + colorModsWeightedSum[2],
+    ], transp);
     let strokeColor = hslArrToHsl(settings.color.strokeColor, strokeTransp);
 
     const baseRectRoundness = size / 2 * settings.shape.rectRoundness;

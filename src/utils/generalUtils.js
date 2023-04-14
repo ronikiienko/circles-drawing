@@ -258,6 +258,7 @@ export const getEventObj = (value, id) => {
 
 export const getWeightedSum = (...args) => {
     const coefsSum = args.reduce((accumulator, arg) => accumulator + arg[1], 0);
+    if (coefsSum === 0) return 0;
     const toOneMult = 1 / coefsSum;
     return args.reduce(
         (accumulator, arg) => accumulator + arg[0] * arg[1] * toOneMult,
@@ -265,3 +266,18 @@ export const getWeightedSum = (...args) => {
     );
 };
 
+// TODO review this
+export const getColorsWeightedSum = (...args) => {
+    const coefsSum = args.reduce((accumulator, arg) => accumulator + arg[1], 0);
+    if (coefsSum === 0) return [0, 0, 0];
+    const toOneMult = 1 / coefsSum;
+    return args.reduce(
+        (accumulator, arg) => {
+            accumulator[0] = accumulator[0] + arg[0][0] * arg[1] * toOneMult;
+            accumulator[1] = accumulator[1] + arg[0][1] * arg[1] * toOneMult;
+            accumulator[2] = accumulator[2] + arg[0][2] * arg[1] * toOneMult;
+            return accumulator;
+        },
+        [0, 0, 0],
+    );
+};
