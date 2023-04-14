@@ -60,8 +60,9 @@ export const ModElement = ({index, handleChange, settings, removeMod, classes, s
                         onClick={(event) => {
                             event.preventDefault();
                             event.stopPropagation();
-                        }} size="small">
-                    </Input>
+                        }}
+                        size="small"
+                    />
                     {settings.mods[index].type}
                     <div onClick={(event) => removeMod(event, index)} className={localClasses.removeButton}>
                         <Delete16Regular/></div>
