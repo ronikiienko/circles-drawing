@@ -1,3 +1,4 @@
+import {createNoise2D} from 'simplex-noise';
 import {biasSpiralTypes, biasTypes, modTypes, shapeTypes} from '../consts/sharedConsts';
 import {
     clampValueToRange,
@@ -10,7 +11,7 @@ import {
     hslArrToHsl,
     turnDegreesToRadians,
 } from './generalUtils';
-import {radialMod, randomMod} from './mods';
+import {perlinMod, radialMod, randomMod} from './mods';
 
 
 export const getTranslatedBiasA = (biasA) => {
@@ -83,6 +84,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
         mods: rawSettings.mods.map(mod => {
             return {
                 type: mod.type,
+                perlin: mod.type === modTypes.perlin ? createNoise2D() : null,
                 radialRadiusX: parseFloat(mod.radialRadiusX),
                 radialRadiusY: parseFloat(mod.radialRadiusY),
                 radialCenterX: parseFloat(mod.radialCenterX),
@@ -293,13 +295,15 @@ export const getRandomizedShapeSettings = (settings, i) => {
         angle = settings.shape.angle;
     }
 
-    const modResults = settings.mods.map((mod, modIndex) => {
+    const modResults = settings.mods.map((mod) => {
         if (Object.values(mod.outputs).some(output => output.enabled)) {
             switch (mod.type) {
                 case modTypes.random:
                     return randomMod(mod);
                 case modTypes.radial:
                     return radialMod(xPosition, yPosition, mod);
+                case modTypes.perlin:
+                    return perlinMod(xPosition, yPosition, mod);
             }
         } else {
             return null;

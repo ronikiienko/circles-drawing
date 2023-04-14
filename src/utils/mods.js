@@ -18,3 +18,7 @@ export const radialMod = (x, y, mod) => {
 export const randomMod = (mod) => {
     return modRemap(Math.random(), mod.modA, mod.modB);
 };
+
+export const perlinMod = (x, y, mod) => {
+    return modRemap((mod.perlin(x / 500, y / 500) + 1) / 2, mod.modA, mod.modB);
+};
