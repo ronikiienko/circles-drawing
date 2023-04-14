@@ -11,7 +11,7 @@ import {
     hslArrToHsl,
     turnDegreesToRadians,
 } from './generalUtils';
-import {perlinMod, radialMod, randomMod} from './mods';
+import {perlinMod, radialMod, randomMod, sineMod} from './mods';
 
 
 export const getTranslatedBiasA = (biasA) => {
@@ -85,6 +85,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             return {
                 type: mod.type,
                 perlin: mod.type === modTypes.perlin ? createNoise2D() : null,
+                perlinZoom: Math.pow((1.0000001 - parseFloat(mod.perlinZoom)) / 5, 2),
                 radialRadiusX: parseFloat(mod.radialRadiusX),
                 radialRadiusY: parseFloat(mod.radialRadiusY),
                 radialCenterX: parseFloat(mod.radialCenterX),
@@ -304,6 +305,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
                     return radialMod(xPosition, yPosition, mod);
                 case modTypes.perlin:
                     return perlinMod(xPosition, yPosition, mod);
+                case modTypes.sine:
+                    return sineMod(xPosition, yPosition, mod);
             }
         } else {
             return null;

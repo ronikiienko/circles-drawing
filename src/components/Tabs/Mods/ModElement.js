@@ -90,6 +90,30 @@ export const ModElement = ({index, handleChange, settings, removeMod, classes, s
                                 </Select>
                             </Label>
                         </div>
+                        <ConditionalPanel active={settings.mods[index].type === modTypes.perlin}>
+                            <div className={classes.block}>
+                                <Label className={classes.label}>
+                                    Perlin zoom:
+                                    <Slider
+                                        size="small"
+                                        min={0}
+                                        max={1}
+                                        step={0.01}
+                                        id={`mods-${index}-perlinZoom`}
+                                        onChange={handleChange}
+                                        value={settings.mods[index].perlinZoom}
+                                    />
+                                    <Input
+                                        className={classes.number}
+                                        size="small"
+                                        appearance="underline"
+                                        id={`mods-${index}-perlinZoom`}
+                                        onChange={handleChange}
+                                        value={settings.mods[index].perlinZoom}
+                                    />
+                                </Label>
+                            </div>
+                        </ConditionalPanel>
                         <ConditionalPanel active={settings.mods[index].type === modTypes.radial}>
                             <div className={classes.block}>
                                 <Radial

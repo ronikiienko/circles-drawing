@@ -46,6 +46,7 @@ export const getLayerSettings = (preset) => {
                 radialRadiusY: mod?.radialRadiusY ?? defaultMod.radialRadiusY,
                 radialCenterX: mod?.radialCenterX ?? defaultMod.radialCenterX,
                 radialCenterY: mod?.radialCenterY ?? defaultMod.radialCenterY,
+                perlinZoom: mod?.perlinZoom ?? defaultMod.perlinZoom,
                 modA: mod?.modA ?? defaultMod.modA,
                 modB: mod?.modB ?? defaultMod.modB,
                 blendRatio: mod?.blendRatio ?? defaultMod.blendRatio,

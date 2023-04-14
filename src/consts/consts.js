@@ -122,6 +122,7 @@ export const getDefaultMod = (name) => {
         radialRadiusY: 200,
         radialCenterX: 100,
         radialCenterY: 100,
+        perlinZoom: 0.2,
         modA: 0.3,
         modB: 0.3,
         blendRatio: 0.1,
