@@ -1,7 +1,7 @@
 import {Input, Label, makeStyles, shorthands, Slider, tokens} from '@fluentui/react-components';
 import React from 'react';
 import {hslArrToHsl} from '../../utils/generalUtils';
-import {ParamAddModButton, ParamHeader, ParamMod} from '../Utils/ParamWrappers';
+import {ParamHeader, ParamMod} from '../Utils/ParamWrappers';
 
 
 const useStyles = makeStyles({
@@ -23,7 +23,13 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
     return (
         <>
             <div className={classes.block}>
-                <ParamHeader header="Size">
+                <ParamHeader
+                    header="Size"
+                    settings={settings}
+                    classes={classes}
+                    paramName="size"
+                    setSettings={setSettings}
+                >
                     <Label className={classes.label}>
                         <Slider
                             min={0}
@@ -75,12 +81,6 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                         </ParamMod>
                     );
                 })}
-                <ParamAddModButton
-                    settings={settings}
-                    setSettings={setSettings}
-                    paramName="size"
-                    classes={classes}
-                />
             </div>
         </>
     );

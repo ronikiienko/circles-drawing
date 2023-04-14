@@ -1,12 +1,18 @@
 import {Label, Slider} from '@fluentui/react-components';
 import React from 'react';
-import {ParamAddModButton, ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
+import {ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
 
 
 export const Transp = ({classes, handleChange, settings, setSettings}) => {
     return (
         <>
-            <ParamHeader header="Transparency">
+            <ParamHeader
+                header="Transparency"
+                settings={settings}
+                setSettings={setSettings}
+                classes={classes}
+                paramName="transp"
+            >
                 <Label className={classes.label}>
                     Base value:
                     <Slider
@@ -45,12 +51,6 @@ export const Transp = ({classes, handleChange, settings, setSettings}) => {
                     </ParamMod>
                 );
             })}
-            <ParamAddModButton
-                settings={settings}
-                classes={classes}
-                paramName="transp"
-                setSettings={setSettings}
-            />
         </>
     );
 };

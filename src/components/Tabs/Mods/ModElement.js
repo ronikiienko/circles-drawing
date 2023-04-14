@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     },
     block: {
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
-        ...shorthands.border('3px', 'solid', tokens.colorNeutralStencil1Alpha),
+        // ...shorthands.border('3px', 'solid', tokens.colorNeutralStencil1Alpha),
         marginBlock: '5px',
     },
     removeButton: {
@@ -48,7 +48,7 @@ export const ModElement = ({index, handleChange, settings, removeMod, classes, s
     const localClasses = useStyles();
     return (
         <>
-            <AccordionItem style={{borderColor: hslArrToHsl(settings.mods[index].color, 0.4)}}
+            <AccordionItem style={{backgroundColor: hslArrToHsl(settings.mods[index].color, 0.3)}}
                            className={localClasses.block}
                            value={settings.mods[index].id}>
                 <AccordionHeader className={localClasses.accordionHeader}>

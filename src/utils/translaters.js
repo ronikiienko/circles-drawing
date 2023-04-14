@@ -99,6 +99,18 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                         enabled: mod.outputs.color.enabled,
                         val2: hexToHslArray(mod.outputs.color.val2),
                     },
+                    strokeColor: {
+                        enabled: mod.outputs.strokeColor.enabled,
+                        val2: hexToHslArray(mod.outputs.strokeColor.val2),
+                    },
+                    transp: {
+                        enabled: mod.outputs.transp.enabled,
+                        val2: parseFloat(mod.outputs.transp.val2),
+                    },
+                    strokeTransp: {
+                        enabled: mod.outputs.strokeTransp.enabled,
+                        val2: parseFloat(mod.outputs.strokeTransp.val2),
+                    },
                 },
             };
         }) ?? [],

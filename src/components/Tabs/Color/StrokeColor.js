@@ -1,12 +1,18 @@
 import {Label} from '@fluentui/react-components';
 import React from 'react';
-import {ParamAddModButton, ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
+import {ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
 
 
 export const StrokeColor = ({classes, handleChange, settings, setSettings}) => {
     return (
         <>
-            <ParamHeader header="Stroke color">
+            <ParamHeader
+                header="Stroke color"
+                settings={settings}
+                paramName="strokeColor"
+                classes={classes}
+                setSettings={setSettings}
+            >
                 <span>
                     Base value:
                 </span>
@@ -39,12 +45,6 @@ export const StrokeColor = ({classes, handleChange, settings, setSettings}) => {
                     </ParamMod>
                 );
             })}
-            <ParamAddModButton
-                settings={settings}
-                classes={classes}
-                setSettings={setSettings}
-                paramName="strokeColor"
-            />
         </>
     );
 };

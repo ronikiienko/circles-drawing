@@ -1,6 +1,6 @@
 import {Label, makeStyles, shorthands, tokens} from '@fluentui/react-components';
 import React from 'react';
-import {ParamAddModButton, ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
+import {ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
 
 
 const useStyles = makeStyles({
@@ -19,7 +19,13 @@ const useStyles = makeStyles({
 export const Color = ({classes, handleChange, settings, setSettings}) => {
     return (
         <>
-            <ParamHeader header="Fill color">
+            <ParamHeader
+                header="Fill color"
+                settings={settings}
+                paramName="color"
+                classes={classes}
+                setSettings={setSettings}
+            >
                 <span>
                     Base value:
                 </span>
@@ -52,12 +58,6 @@ export const Color = ({classes, handleChange, settings, setSettings}) => {
                     </ParamMod>
                 );
             })}
-            <ParamAddModButton
-                settings={settings}
-                classes={classes}
-                setSettings={setSettings}
-                paramName="color"
-            />
         </>
     );
     }

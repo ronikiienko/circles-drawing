@@ -1,12 +1,18 @@
 import {Label, Slider} from '@fluentui/react-components';
 import React from 'react';
-import {ParamAddModButton, ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
+import {ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
 
 
 export const StrokeTransp = ({classes, handleChange, settings, setSettings}) => {
     return (
         <>
-            <ParamHeader header="Stroke transparency">
+            <ParamHeader
+                header="Stroke transparency"
+                settings={settings}
+                paramName="strokeTransp"
+                classes={classes}
+                setSettings={setSettings}
+            >
                 <Label className={classes.label}>
                     Base value:
                     <Slider
@@ -45,12 +51,6 @@ export const StrokeTransp = ({classes, handleChange, settings, setSettings}) => 
                     </ParamMod>
                 );
             })}
-            <ParamAddModButton
-                settings={settings}
-                classes={classes}
-                paramName="strokeTransp"
-                setSettings={setSettings}
-            />
         </>
     );
 };

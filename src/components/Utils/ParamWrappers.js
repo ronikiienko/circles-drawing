@@ -28,13 +28,45 @@ const useStyles = makeStyles({
     modItemBase: {
         backgroundColor: tokens.colorNeutralStencil1Alpha,
     },
+    headerMenuButton: {
+        // marginLeft: '50px',
+        float: 'right',
+    },
 });
 
-export const ParamHeader = ({header, children}) => {
+export const ParamHeader = ({header, children, settings, classes, paramName, setSettings}) => {
     const localClasses = useStyles();
     return (
         <>
-            <Text size={400} block>{header}</Text>
+            <Text size={400}>{header}</Text>
+            <Menu>
+                <MenuTrigger>
+                    <MenuButton
+                        className={localClasses.headerMenuButton}
+                        appearance="subtle"
+                        disabled={!settings.mods.some(element => !element.outputs[paramName].enabled)}
+                        size="small"
+                    >
+                        {settings.mods.some(element => !element.outputs[paramName].enabled) ? 'Choose mods' : 'No mods left. Create new'}
+                    </MenuButton>
+                </MenuTrigger>
+                <MenuPopover>
+                    <MenuList>
+                        {
+                            settings.mods.map((mod, modIndex) => {
+                                if (mod.outputs[paramName].enabled) return null;
+                                return (
+                                    <MenuItem style={{backgroundColor: hslArrToHsl(mod.color, 0.2)}} key={mod.id}
+                                              onClick={() => setSettings((draft) => {
+                                                  draft.mods[modIndex].outputs[paramName].enabled = true;
+                                              })}>
+                                        {mod.name} ({mod.type})
+                                    </MenuItem>
+                                );
+                            })}
+                    </MenuList>
+                </MenuPopover>
+            </Menu>
             <div className={mergeClasses(localClasses.modItemBase, localClasses.modItem)}>
                 {children}
             </div>
@@ -66,37 +98,5 @@ export const ParamMod = ({handleChange, paramName, settings, modIndex, children}
             </div>
         </>
 
-    );
-};
-
-export const ParamAddModButton = ({settings, classes, setSettings, paramName}) => {
-    return (
-        <Menu>
-            <MenuTrigger>
-                <MenuButton
-                    disabled={!settings.mods.some(element => !element.outputs[paramName].enabled)}
-                    className={classes.fullWidth}
-                    size="small"
-                >
-                    {settings.mods.some(element => !element.outputs[paramName].enabled) ? 'Choose mods' : 'No mods left. Create new'}
-                </MenuButton>
-            </MenuTrigger>
-            <MenuPopover>
-                <MenuList>
-                    {
-                        settings.mods.map((mod, modIndex) => {
-                            if (mod.outputs[paramName].enabled) return null;
-                            return (
-                                <MenuItem style={{backgroundColor: hslArrToHsl(mod.color, 0.2)}} key={mod.id}
-                                          onClick={() => setSettings((draft) => {
-                                              draft.mods[modIndex].outputs[paramName].enabled = true;
-                                          })}>
-                                    {mod.name} ({mod.type})
-                                </MenuItem>
-                            );
-                        })}
-                </MenuList>
-            </MenuPopover>
-        </Menu>
     );
 };
