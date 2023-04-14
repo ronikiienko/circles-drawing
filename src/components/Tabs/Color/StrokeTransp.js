@@ -16,7 +16,6 @@ export const StrokeTransp = ({classes, handleChange, settings, setSettings}) => 
                 <Label className={classes.label}>
                     <Slider
                         value={settings.color.strokeTransp}
-                        className={classes.slider}
                         id="color-strokeTransp"
                         onChange={handleChange}
                         min="0"
@@ -40,7 +39,6 @@ export const StrokeTransp = ({classes, handleChange, settings, setSettings}) => 
                         <Label className={classes.label}>
                             <Slider
                                 value={mod.outputs.strokeTransp.val2}
-                                className={classes.slider}
                                 id={`mods-${modIndex}-outputs-strokeTransp-val2`}
                                 onChange={handleChange}
                                 min="0"

@@ -36,7 +36,7 @@ const useStyles = makeStyles({
         marginLeft: '10px',
     },
     baseValueLabel: {
-        marginRight: '10px',
+        marginRight: '5px',
     },
 });
 
@@ -99,7 +99,7 @@ export const ParamMod = ({paramName, settings, modIndex, children, setSettings, 
                 <div>
                     {children}
                 </div>
-                <span className={classes.label}>
+                <span className={classes.verticallyCentered}>
                     <Text>{mod.name} ({mod.type})</Text>
                     <Button
                         className={localClasses.removeModButton}

@@ -6,7 +6,7 @@ import {ParamHeader, ParamMod} from '../Utils/ParamWrappers';
 
 const useStyles = makeStyles({
     sliderSize: {
-        width: '150px',
+        width: '200px',
     },
     modItem: {
         ...shorthands.padding('5px'),

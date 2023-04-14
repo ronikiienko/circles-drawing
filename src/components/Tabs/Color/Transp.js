@@ -16,7 +16,6 @@ export const Transp = ({classes, handleChange, settings, setSettings}) => {
                 <Label className={classes.label}>
                     <Slider
                         value={settings.color.transp}
-                        className={classes.slider}
                         id="color-transp"
                         onChange={handleChange}
                         min="0"
@@ -40,7 +39,6 @@ export const Transp = ({classes, handleChange, settings, setSettings}) => {
                         <Label className={classes.label}>
                             <Slider
                                 value={mod.outputs.transp.val2}
-                                className={classes.slider}
                                 id={`mods-${modIndex}-outputs-transp-val2`}
                                 onChange={handleChange}
                                 min="0"

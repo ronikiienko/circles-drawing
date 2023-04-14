@@ -186,6 +186,10 @@ const useStylesTabs = makeStyles({
         paddingBlock: '2px',
         marginBlock: '5px',
     },
+    verticallyCentered: {
+        display: 'flex',
+        alignItems: 'center',
+    },
 });
 
 
