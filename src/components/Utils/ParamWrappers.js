@@ -53,7 +53,7 @@ export const ParamHeader = ({header, children, settings, classes, paramName, set
                         disabled={!settings.mods.some(element => !element.outputs[paramName].enabled)}
                         size="small"
                     >
-                        {settings.mods.some(element => !element.outputs[paramName].enabled) ? 'Choose mods' : 'No mods left. Create new'}
+                        {settings.mods.some(element => !element.outputs[paramName].enabled) ? 'Choose mods' : 'No mods left. Create more'}
                     </MenuButton>
                 </MenuTrigger>
                 <MenuPopover>

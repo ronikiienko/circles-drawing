@@ -1,4 +1,4 @@
-import {Label, makeStyles, shorthands, tokens} from '@fluentui/react-components';
+import {Label, makeStyles, shorthands, Text, tokens} from '@fluentui/react-components';
 import React from 'react';
 import {ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
 
@@ -33,6 +33,7 @@ export const Color = ({classes, handleChange, settings, setSettings}) => {
                     onChange={handleChange}
                     type="color"
                 />
+                <Text style={{marginLeft: '5px'}}>{settings.color.color.toUpperCase()}</Text>
             </ParamHeader>
             {settings.mods.map((mod, modIndex) => {
                 return (
@@ -53,6 +54,7 @@ export const Color = ({classes, handleChange, settings, setSettings}) => {
                                 onChange={handleChange}
                                 type="color"
                             />
+                            <Text style={{marginLeft: '5px'}}>{mod.outputs.color.val2.toUpperCase()}</Text>
                         </Label>
                     </ParamMod>
                 );

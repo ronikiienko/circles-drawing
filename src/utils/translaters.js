@@ -293,55 +293,79 @@ export const getRandomizedShapeSettings = (settings, i) => {
         angle = settings.shape.angle;
     }
 
-    let sizeModDeltas = settings.mods?.reduce((accumulator, mod) => {
-        if (mod.outputs.size.enabled) {
-            if (mod.type === modTypes.radial) {
-                const modResult = radialMod(xPosition, yPosition, mod);
-                accumulator.push([(mod.outputs.size.val2 - settings.size.size) * modResult, modResult * mod.blendRatio]);
-            }
-            if (mod.type === modTypes.random) {
-                // TODO makes everything bad if used (because not adapted to size, and if something small it just makes it big)
-                const modResult = randomMod(mod);
-                accumulator.push([(mod.outputs.size.val2 - settings.size.size) * modResult, modResult * mod.blendRatio]);
-            }
-        }
-        return accumulator;
-    }, []);
-
-    let colorModDeltas = settings.mods?.reduce((accumulator, mod) => {
-        if (mod.outputs.color.enabled) {
-            let modResult;
+    const modResults = settings.mods.map((mod, modIndex) => {
+        if (Object.values(mod.outputs).some(output => output.enabled)) {
             switch (mod.type) {
-                case modTypes.radial:
-                    modResult = radialMod(xPosition, yPosition, mod);
-                    break;
                 case modTypes.random:
-                    modResult = randomMod(mod);
+                    return randomMod(mod);
+                case modTypes.radial:
+                    return radialMod(xPosition, yPosition, mod);
             }
-            accumulator.push([
+        } else {
+            return null;
+        }
+    });
+
+    let sizeModsDeltas = [];
+    let colorModsDeltas = [];
+    let strokeColorModsDeltas = [];
+    let transpModsDeltas = [];
+    let strokeTranspModsDeltas = [];
+
+    settings.mods?.forEach((mod, modIndex) => {
+        if (mod.outputs.size.enabled) {
+            sizeModsDeltas.push([(mod.outputs.size.val2 - settings.size.size) * modResults[modIndex], modResults[modIndex] * mod.blendRatio]);
+        }
+        if (mod.outputs.color.enabled) {
+            colorModsDeltas.push([
                 [
-                    (mod.outputs.color.val2[0] - settings.color.color[0]) * modResult,
-                    (mod.outputs.color.val2[1] - settings.color.color[1]) * modResult,
-                    (mod.outputs.color.val2[2] - settings.color.color[2]) * modResult,
+                    (mod.outputs.color.val2[0] - settings.color.color[0]) * modResults[modIndex],
+                    (mod.outputs.color.val2[1] - settings.color.color[1]) * modResults[modIndex],
+                    (mod.outputs.color.val2[2] - settings.color.color[2]) * modResults[modIndex],
 
                 ],
-                modResult * mod.blendRatio,
+                modResults[modIndex] * mod.blendRatio,
             ]);
         }
-        return accumulator;
-    }, []);
+        if (mod.outputs.transp.enabled) {
+            transpModsDeltas.push([(mod.outputs.transp.val2 - settings.color.transp) * modResults[modIndex], modResults[modIndex] * mod.blendRatio]);
+        }
+        if (mod.outputs.strokeColor.enabled) {
+            strokeColorModsDeltas.push([
+                [
+                    (mod.outputs.strokeColor.val2[0] - settings.color.strokeColor[0]) * modResults[modIndex],
+                    (mod.outputs.strokeColor.val2[1] - settings.color.strokeColor[1]) * modResults[modIndex],
+                    (mod.outputs.strokeColor.val2[2] - settings.color.strokeColor[2]) * modResults[modIndex],
 
-    let size = settings.size.size + (getWeightedSum(...sizeModDeltas) || 0);
+                ],
+                modResults[modIndex] * mod.blendRatio,
+            ]);
+        }
+        if (mod.outputs.strokeTransp.enabled) {
+            strokeTranspModsDeltas.push([(mod.outputs.strokeTransp.val2 - settings.color.strokeTransp) * modResults[modIndex], modResults[modIndex] * mod.blendRatio]);
+        }
+    });
+
+    const sizeModsSum = getWeightedSum(...sizeModsDeltas) || 0;
+    const colorModsSum = getColorsWeightedSum(...colorModsDeltas);
+    const strokeColorModsSum = getColorsWeightedSum(...strokeColorModsDeltas);
+    const transpModsSum = getWeightedSum(...transpModsDeltas);
+    const strokeTranspModsSum = getWeightedSum(...strokeTranspModsDeltas);
+
+    let size = settings.size.size + sizeModsSum;
     let blur = settings.color.blur;
-    let transp = settings.color.transp;
-    let strokeTransp = settings.color.strokeTransp;
-    const colorModsWeightedSum = getColorsWeightedSum(...colorModDeltas);
+    let transp = settings.color.transp + transpModsSum;
+    let strokeTransp = settings.color.strokeTransp + strokeTranspModsSum;
     let color = hslArrToHsl([
-        settings.color.color[0] + colorModsWeightedSum[0],
-        settings.color.color[1] + colorModsWeightedSum[1],
-        settings.color.color[2] + colorModsWeightedSum[2],
+        settings.color.color[0] + colorModsSum[0],
+        settings.color.color[1] + colorModsSum[1],
+        settings.color.color[2] + colorModsSum[2],
     ], transp);
-    let strokeColor = hslArrToHsl(settings.color.strokeColor, strokeTransp);
+    let strokeColor = hslArrToHsl([
+        settings.color.strokeColor[0] + strokeColorModsSum[0],
+        settings.color.strokeColor[1] + strokeColorModsSum[1],
+        settings.color.strokeColor[2] + strokeColorModsSum[2],
+    ], strokeTransp);
 
     const baseRectRoundness = size / 2 * settings.shape.rectRoundness;
 
