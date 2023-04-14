@@ -1,32 +1,19 @@
-import {Label, makeStyles, shorthands, tokens} from '@fluentui/react-components';
+import {Label} from '@fluentui/react-components';
 import React from 'react';
 import {ParamAddModButton, ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
 
 
-const useStyles = makeStyles({
-    sliderSize: {
-        width: '250px',
-    },
-    modItem: {
-        ...shorthands.padding('5px'),
-        marginBlock: '5px',
-        ...shorthands.borderRadius(tokens.borderRadiusMedium),
-    },
-    modItemBase: {
-        backgroundColor: tokens.colorNeutralStencil1Alpha,
-    },
-});
-export const Color = ({classes, handleChange, settings, setSettings}) => {
+export const StrokeColor = ({classes, handleChange, settings, setSettings}) => {
     return (
         <>
-            <ParamHeader header="Fill color">
+            <ParamHeader header="Stroke color">
                 <span>
                     Base value:
                 </span>
                 <input
-                    value={settings.color.color}
+                    value={settings.color.strokeColor}
                     className={classes.slider}
-                    id="color-color"
+                    id="color-strokeColor"
                     onChange={handleChange}
                     type="color"
                 />
@@ -38,13 +25,13 @@ export const Color = ({classes, handleChange, settings, setSettings}) => {
                         modIndex={modIndex}
                         handleChange={handleChange}
                         settings={settings}
-                        paramName="color"
+                        paramName="strokeColor"
                     >
                         <Label className={classes.label}>
                             <input
-                                value={mod.outputs.color.val2}
+                                value={mod.outputs.strokeColor.val2}
                                 className={classes.slider}
-                                id={`mods-${modIndex}-outputs-color-val2`}
+                                id={`mods-${modIndex}-outputs-strokeColor-val2`}
                                 onChange={handleChange}
                                 type="color"
                             />
@@ -56,9 +43,8 @@ export const Color = ({classes, handleChange, settings, setSettings}) => {
                 settings={settings}
                 classes={classes}
                 setSettings={setSettings}
-                paramName="color"
+                paramName="strokeColor"
             />
         </>
     );
-    }
-;
+};

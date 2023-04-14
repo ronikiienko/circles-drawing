@@ -58,6 +58,18 @@ export const getLayerSettings = (preset) => {
                         enabled: mod?.outputs?.color?.enabled ?? defaultMod.outputs.color.enabled,
                         val2: mod?.outputs?.color?.val2 ?? defaultMod.outputs.color.val2,
                     },
+                    strokeColor: {
+                        enabled: mod?.outputs?.strokeColor?.enabled ?? defaultMod.outputs.strokeColor.enabled,
+                        val2: mod?.outputs?.strokeColor?.val2 ?? defaultMod.outputs.strokeColor.val2,
+                    },
+                    transp: {
+                        enabled: mod?.outputs?.transp?.enabled ?? defaultMod.outputs.transp.enabled,
+                        val2: mod?.outputs?.transp?.val2 ?? defaultMod.outputs.transp.val2,
+                    },
+                    strokeTransp: {
+                        enabled: mod?.outputs?.strokeTransp?.enabled ?? defaultMod.outputs.strokeTransp.enabled,
+                        val2: mod?.outputs?.strokeTransp?.val2 ?? defaultMod.outputs.strokeTransp.val2,
+                    },
                 },
             };
         }) ?? [],

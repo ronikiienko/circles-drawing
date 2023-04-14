@@ -3,16 +3,16 @@ import React from 'react';
 import {ParamAddModButton, ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
 
 
-export const Transp = ({classes, handleChange, settings, setSettings}) => {
+export const StrokeTransp = ({classes, handleChange, settings, setSettings}) => {
     return (
         <>
-            <ParamHeader header="Transparency">
+            <ParamHeader header="Stroke transparency">
                 <Label className={classes.label}>
                     Base value:
                     <Slider
-                        value={settings.color.transp}
+                        value={settings.color.strokeTransp}
                         className={classes.slider}
-                        id="color-transp"
+                        id="color-strokeTransp"
                         onChange={handleChange}
                         min="0"
                         max="1"
@@ -28,13 +28,13 @@ export const Transp = ({classes, handleChange, settings, setSettings}) => {
                         settings={settings}
                         handleChange={handleChange}
                         modIndex={modIndex}
-                        paramName="transp"
+                        paramName="strokeTransp"
                     >
                         <Label className={classes.label}>
                             <Slider
-                                value={mod.outputs.transp.val2}
+                                value={mod.outputs.strokeTransp.val2}
                                 className={classes.slider}
-                                id={`mods-${modIndex}-outputs-transp-val2`}
+                                id={`mods-${modIndex}-outputs-strokeTransp-val2`}
                                 onChange={handleChange}
                                 min="0"
                                 max="1"
@@ -48,7 +48,7 @@ export const Transp = ({classes, handleChange, settings, setSettings}) => {
             <ParamAddModButton
                 settings={settings}
                 classes={classes}
-                paramName="transp"
+                paramName="strokeTransp"
                 setSettings={setSettings}
             />
         </>

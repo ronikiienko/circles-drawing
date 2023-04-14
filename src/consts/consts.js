@@ -134,6 +134,18 @@ export const getDefaultMod = (name) => {
                 enabled: false,
                 val2: '#009dff',
             },
+            strokeColor: {
+                enabled: false,
+                val2: '#caeeff',
+            },
+            transp: {
+                enabled: false,
+                val2: 0.2,
+            },
+            strokeTransp: {
+                enabled: false,
+                val2: 0.5,
+            },
         },
     };
 };

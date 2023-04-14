@@ -34,7 +34,7 @@ export const ParamHeader = ({header, children}) => {
     const localClasses = useStyles();
     return (
         <>
-            <Text size={600} block>{header}</Text>
+            <Text size={400} block>{header}</Text>
             <div className={mergeClasses(localClasses.modItemBase, localClasses.modItem)}>
                 {children}
             </div>
@@ -78,7 +78,7 @@ export const ParamAddModButton = ({settings, classes, setSettings, paramName}) =
                     className={classes.fullWidth}
                     size="small"
                 >
-                    {settings.mods.some(element => !element.outputs.color.enabled) ? 'Choose mod' : 'No mods left. Create new'}
+                    {settings.mods.some(element => !element.outputs[paramName].enabled) ? 'Choose mods' : 'No mods left. Create new'}
                 </MenuButton>
             </MenuTrigger>
             <MenuPopover>
