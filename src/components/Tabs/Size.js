@@ -6,7 +6,7 @@ import {ParamHeader, ParamMod} from '../Utils/ParamWrappers';
 
 const useStyles = makeStyles({
     sliderSize: {
-        width: '250px',
+        width: '150px',
     },
     modItem: {
         ...shorthands.padding('5px'),
@@ -54,13 +54,14 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                 {settings.mods.map((mod, modIndex) => {
                     return (
                         <ParamMod
+                            classes={classes}
+                            setSettings={setSettings}
                             key={mod.id}
                             settings={settings}
                             handleChange={handleChange}
                             paramName="size"
                             modIndex={modIndex}
                         >
-                            <br/>
                             <Label className={classes.label}>
                                 <Slider
                                     className={localClasses.sliderSize}

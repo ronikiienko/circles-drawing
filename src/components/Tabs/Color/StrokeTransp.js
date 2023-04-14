@@ -14,7 +14,6 @@ export const StrokeTransp = ({classes, handleChange, settings, setSettings}) => 
                 setSettings={setSettings}
             >
                 <Label className={classes.label}>
-                    Base value:
                     <Slider
                         value={settings.color.strokeTransp}
                         className={classes.slider}
@@ -30,6 +29,8 @@ export const StrokeTransp = ({classes, handleChange, settings, setSettings}) => 
             {settings.mods.map((mod, modIndex) => {
                 return (
                     <ParamMod
+                        classes={classes}
+                        setSettings={setSettings}
                         key={mod.id}
                         settings={settings}
                         handleChange={handleChange}

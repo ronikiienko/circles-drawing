@@ -1,5 +1,5 @@
 import {
-    Checkbox,
+    Button,
     makeStyles,
     Menu,
     MenuButton,
@@ -12,16 +12,17 @@ import {
     Text,
     tokens,
 } from '@fluentui/react-components';
+import {Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {hslArrToHsl} from '../../utils/generalUtils';
 
 
 const useStyles = makeStyles({
-    sliderSize: {
-        width: '250px',
-    },
     modItem: {
-        ...shorthands.padding('5px'),
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        ...shorthands.padding('3px'),
         marginBlock: '5px',
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
     },
@@ -29,8 +30,13 @@ const useStyles = makeStyles({
         backgroundColor: tokens.colorNeutralStencil1Alpha,
     },
     headerMenuButton: {
-        // marginLeft: '50px',
         float: 'right',
+    },
+    removeModButton: {
+        marginLeft: '10px',
+    },
+    baseValueLabel: {
+        marginRight: '10px',
     },
 });
 
@@ -68,32 +74,44 @@ export const ParamHeader = ({header, children, settings, classes, paramName, set
                 </MenuPopover>
             </Menu>
             <div className={mergeClasses(localClasses.modItemBase, localClasses.modItem)}>
-                {children}
+                <span>
+                    {children}
+                </span>
+                <span className={localClasses.baseValueLabel}>
+                    Base value
+                </span>
             </div>
         </>
     );
 
 };
-export const ParamMod = ({handleChange, paramName, settings, modIndex, children}) => {
+export const ParamMod = ({paramName, settings, modIndex, children, setSettings, classes}) => {
     const localClasses = useStyles();
     const mod = settings.mods[modIndex];
     if (!mod.outputs[paramName].enabled) return null;
     return (
         <>
             <div
-                key={mod.id} className={localClasses.modItem}
+                key={mod.id}
+                className={localClasses.modItem}
                 style={{backgroundColor: hslArrToHsl(mod.color, 0.3)}}
             >
-                <span>
-                    {mod.name} ({mod.type})
-                    <Checkbox
-                        id={`mods-${modIndex}-outputs-${paramName}-enabled`}
-                        checked={mod.outputs[paramName].enabled}
-                        onChange={handleChange}
-                    />
-                </span>
-                <span>
+                <div>
                     {children}
+                </div>
+                <span className={classes.label}>
+                    <Text>{mod.name} ({mod.type})</Text>
+                    <Button
+                        className={localClasses.removeModButton}
+                        appearance="subtle"
+                        size="small"
+                        icon={<Delete16Regular/>}
+                        onClick={() => {
+                            setSettings(draft => {
+                                draft.mods[modIndex].outputs[paramName].enabled = false;
+                            });
+                        }}
+                    ></Button>
                 </span>
             </div>
         </>

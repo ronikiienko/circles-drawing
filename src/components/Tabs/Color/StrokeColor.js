@@ -13,9 +13,6 @@ export const StrokeColor = ({classes, handleChange, settings, setSettings}) => {
                 classes={classes}
                 setSettings={setSettings}
             >
-                <span>
-                    Base value:
-                </span>
                 <input
                     value={settings.color.strokeColor}
                     className={classes.slider}
@@ -27,6 +24,8 @@ export const StrokeColor = ({classes, handleChange, settings, setSettings}) => {
             {settings.mods.map((mod, modIndex) => {
                 return (
                     <ParamMod
+                        classes={classes}
+                        setSettings={setSettings}
                         key={mod.id}
                         modIndex={modIndex}
                         handleChange={handleChange}
