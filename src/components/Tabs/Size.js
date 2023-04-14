@@ -42,6 +42,7 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                             size="small"
                         />
                         <Input
+                            appearance="underline"
                             size="small"
                             value={settings.size.size}
                             className={classes.number}
@@ -74,6 +75,7 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                                     size="small"
                                 />
                                 <Input
+                                    appearance="underline"
                                     className={classes.number}
                                     size="small"
                                     value={mod.outputs.size.val2}

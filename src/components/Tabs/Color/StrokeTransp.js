@@ -1,4 +1,4 @@
-import {Label, Slider} from '@fluentui/react-components';
+import {Input, Label, Slider} from '@fluentui/react-components';
 import React from 'react';
 import {ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
 
@@ -23,6 +23,14 @@ export const StrokeTransp = ({classes, handleChange, settings, setSettings}) => 
                         step="0.05"
                         size="small"
                     />
+                    <Input
+                        size="small"
+                        className={classes.number}
+                        value={settings.color.strokeTransp}
+                        id="color-strokeTransp"
+                        onChange={handleChange}
+                        appearance="underline"
+                    />
                 </Label>
             </ParamHeader>
             {settings.mods.map((mod, modIndex) => {
@@ -45,6 +53,14 @@ export const StrokeTransp = ({classes, handleChange, settings, setSettings}) => 
                                 max="1"
                                 step="0.05"
                                 size="small"
+                            />
+                            <Input
+                                size="small"
+                                className={classes.number}
+                                value={mod.outputs.strokeTransp.val2}
+                                id={`mods-${modIndex}-outputs-strokeTransp-val2`}
+                                onChange={handleChange}
+                                appearance="underline"
                             />
                         </Label>
                     </ParamMod>
