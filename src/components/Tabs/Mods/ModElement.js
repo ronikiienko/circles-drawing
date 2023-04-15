@@ -2,6 +2,7 @@ import {
     AccordionHeader,
     AccordionItem,
     AccordionPanel,
+    Button,
     Input,
     Label,
     makeStyles,
@@ -11,11 +12,11 @@ import {
     MenuList,
     MenuPopover,
     MenuTrigger,
+    mergeClasses,
     Select,
     shorthands,
     Slider,
     Text,
-    tokens,
 } from '@fluentui/react-components';
 import {Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
@@ -36,11 +37,11 @@ const useStyles = makeStyles({
         paddingInline: '0px',
     },
     accordionPanel: {
-        paddingBlock: '5px',
+        ...shorthands.margin('0px'),
+        // paddingInline: '4px'
     },
     block: {
-        ...shorthands.borderRadius(tokens.borderRadiusMedium),
-        // ...shorthands.border('3px', 'solid', tokens.colorNeutralStencil1Alpha),
+        // ...shorthands.border('1px', 'solid', tokens.colorNeutralStencil1Alpha),
         marginBlock: '5px',
     },
     removeButton: {
@@ -49,17 +50,14 @@ const useStyles = makeStyles({
     addButton: {
         width: '100%',
     },
-    outputsContainer: {
-        float: 'right',
-        width: '200px',
-    },
-    outputContainer: {
-        ...shorthands.margin('0px'),
-        lineHeight: '8px',
-        fontSize: '10px',
+    inputsContainer: {
+        ...shorthands.overflow('hidden', 'hidden'),
     },
     addModInputButton: {
         float: 'right',
+    },
+    modInputButton: {
+        ...shorthands.margin('2px'),
     },
 });
 // TODO while typing mod name many things happen...
@@ -76,10 +74,11 @@ export const ModElement = ({
     const localClasses = useStyles();
     return (
         <>
-            <AccordionItem style={{backgroundColor: hslArrToHsl(settings.mods[index].color, 0.3)}}
-                           className={localClasses.block}
-                           value={settings.mods[index].id}>
-                <AccordionHeader className={localClasses.accordionHeader}>
+            <AccordionItem
+                className={localClasses.block}
+                value={settings.mods[index].id}>
+                <AccordionHeader className={localClasses.accordionHeader}
+                                 style={{backgroundColor: hslArrToHsl(settings.mods[index].color, 0.3)}}>
                     <Input
                         id={`mods-${index}-name`}
                         value={settings.mods[index].name}
@@ -181,7 +180,7 @@ export const ModElement = ({
                                 settings={settings}
                             />
                         </div>
-                        <div className={classes.block}>
+                        <div className={mergeClasses(localClasses.inputsContainer, classes.block)}>
                             <Menu>
                                 <MenuTrigger>
                                     <MenuButton
@@ -218,7 +217,21 @@ export const ModElement = ({
                                     return modOutput.id === settings.mods[index].id;
                                 });
                                 if (hasThisModOutput) return (
-                                    <Text style={{margin: '2px'}} key={mod.id}>{mod.name}</Text>
+                                    <Button
+                                        style={{backgroundColor: hslArrToHsl(mod.color, 0.3)}}
+                                        size="small"
+                                        key={mod.id}
+                                        className={localClasses.modInputButton}
+                                        onClick={() => {
+                                            setSettings((draft) => {
+                                                const indexOfMod = draft.mods.findIndex((element) => element.id === mod.id);
+                                                const indexOfModOutput = draft.mods[indexOfMod].modOutputs.find(element => element.id === draft.mods[index].id);
+                                                draft.mods[indexOfMod].modOutputs.splice(indexOfModOutput, 1);
+                                            });
+                                        }}
+                                    >
+                                        {mod.name}
+                                    </Button>
                                 );
                             })}
                         </div>

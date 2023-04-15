@@ -168,11 +168,14 @@ const useStylesTabs = makeStyles({
         alignItems: 'flex-start',
     },
     block: {
-        ...shorthands.padding('8px'),
+        paddingInline: '8px',
+        paddingBlock: '4px',
+        // ...shorthands.padding('8px'),
         marginBlock: '5px',
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
         backgroundColor: tokens.colorNeutralStencil1Alpha,
         minWidth: 'fit-content',
+        minHeight: 'fit-content',
     },
     verticalBlock: {
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
