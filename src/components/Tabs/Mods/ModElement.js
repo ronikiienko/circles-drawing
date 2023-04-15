@@ -5,6 +5,12 @@ import {
     Input,
     Label,
     makeStyles,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    MenuPopover,
+    MenuTrigger,
     Select,
     shorthands,
     Slider,
@@ -13,6 +19,7 @@ import {
 } from '@fluentui/react-components';
 import {Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
+import {getDefaultModOutput} from '../../../consts/consts';
 import {modTypes} from '../../../consts/sharedConsts';
 import {hslArrToHsl} from '../../../utils/generalUtils';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
@@ -42,9 +49,30 @@ const useStyles = makeStyles({
     addButton: {
         width: '100%',
     },
+    outputsContainer: {
+        float: 'right',
+        width: '200px',
+    },
+    outputContainer: {
+        ...shorthands.margin('0px'),
+        lineHeight: '8px',
+        fontSize: '10px',
+    },
+    addModInputButton: {
+        float: 'right',
+    },
 });
 // TODO while typing mod name many things happen...
-export const ModElement = ({index, handleChange, settings, removeMod, classes, setDragProp, setClickAndSetProp}) => {
+export const ModElement = ({
+                               index,
+                               handleChange,
+                               settings,
+                               removeMod,
+                               classes,
+                               setDragProp,
+                               setClickAndSetProp,
+                               setSettings,
+                           }) => {
     const localClasses = useStyles();
     return (
         <>
@@ -64,8 +92,12 @@ export const ModElement = ({index, handleChange, settings, removeMod, classes, s
                         size="small"
                     />
                     {settings.mods[index].type}
-                    <div onClick={(event) => removeMod(event, index)} className={localClasses.removeButton}>
-                        <Delete16Regular/></div>
+                    <div
+                        onClick={(event) => removeMod(event, index)}
+                        className={localClasses.removeButton}
+                    >
+                        <Delete16Regular/>
+                    </div>
                 </AccordionHeader>
                 <AccordionPanel className={localClasses.accordionPanel}>
                     <div>
@@ -148,6 +180,47 @@ export const ModElement = ({index, handleChange, settings, removeMod, classes, s
                                 classes={classes}
                                 settings={settings}
                             />
+                        </div>
+                        <div className={classes.block}>
+                            <Menu>
+                                <MenuTrigger>
+                                    <MenuButton
+                                        className={localClasses.addModInputButton}
+                                        appearance="subtle"
+                                        disabled={!settings.mods.some(mod => !mod.modOutputs.some(modOutput => modOutput.id === settings.mods[index].id))}
+                                        size="small"
+                                    >
+                                        {settings.mods.some(mod => !mod.modOutputs.some(modOutput => modOutput.id === settings.mods[index].id)) ? 'Choose mods' : 'No mods left. Create more'}
+                                    </MenuButton>
+                                </MenuTrigger>
+                                <MenuPopover>
+                                    <MenuList>
+                                        {
+                                            settings.mods.map((mod, modIndex) => {
+                                                if (mod.modOutputs.some(modOutput => modOutput.id === settings.mods[index].id)) return null;
+                                                return (
+                                                    <MenuItem
+                                                        style={{backgroundColor: hslArrToHsl(mod.color, 0.2)}}
+                                                        key={mod.id}
+                                                        onClick={() => setSettings((draft) => {
+                                                            draft.mods[modIndex].modOutputs.push(getDefaultModOutput(settings.mods[index].id));
+                                                        })}
+                                                    >
+                                                        {mod.name} ({mod.type})
+                                                    </MenuItem>
+                                                );
+                                            })}
+                                    </MenuList>
+                                </MenuPopover>
+                            </Menu>
+                            {settings.mods.map((mod, modIndex) => {
+                                const hasThisModOutput = mod.modOutputs.some(modOutput => {
+                                    return modOutput.id === settings.mods[index].id;
+                                });
+                                if (hasThisModOutput) return (
+                                    <Text style={{margin: '2px'}} key={mod.id}>{mod.name}</Text>
+                                );
+                            })}
                         </div>
                     </div>
                 </AccordionPanel>

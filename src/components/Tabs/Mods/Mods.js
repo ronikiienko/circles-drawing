@@ -18,7 +18,13 @@ export const Mods = ({settings, setSettings, handleChange, classes, setClickAndS
     const removeMod = (event, index) => {
         event.stopPropagation();
         setSettings(draft => {
+            const deletedId = settings.mods[index].id;
             draft.mods.splice(index, 1);
+            draft.mods.forEach(mod => {
+                for (let i = mod.modOutputs.length - 1; i >= 0; i--) {
+                    if (mod.modOutputs[i].id === deletedId) mod.modOutputs.splice(i, 1);
+                }
+            });
         });
     };
 
@@ -39,6 +45,7 @@ export const Mods = ({settings, setSettings, handleChange, classes, setClickAndS
                         removeMod={removeMod}
                         classes={classes}
                         index={index}
+                        setSettings={setSettings}
                     />;
                 })}
             </Accordion>

@@ -72,6 +72,12 @@ export const getLayerSettings = (preset) => {
                         val2: mod?.outputs?.strokeTransp?.val2 ?? defaultMod.outputs.strokeTransp.val2,
                     },
                 },
+                modOutputs: mod?.modOutputs?.reduce((accumulator, modOutput, modOutputIndex) => {
+                    if (modOutput?.id) accumulator.push({
+                        id: modOutput?.id,
+                    });
+                    return accumulator;
+                }, []) ?? [],
             };
         }) ?? [],
         position: {

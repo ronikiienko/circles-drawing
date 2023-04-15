@@ -51,5 +51,4 @@ export const modTypes = {
     radial: 'radial',
     random: 'random',
     perlin: 'perlin',
-    sine: 'sine',
 };

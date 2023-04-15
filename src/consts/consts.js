@@ -112,6 +112,12 @@ export const defaultAppSettings = {
 export const shapeEditorFlagsSize = 15;
 export const shapeEditorCanvasSize = 300;
 export const coordinateFlagsSize = 30;
+
+export const getDefaultModOutput = (id) => {
+    return {
+        id: id,
+    };
+};
 export const getDefaultMod = (name) => {
     return {
         name: name || 'Default',
@@ -148,8 +154,10 @@ export const getDefaultMod = (name) => {
                 val2: 0.5,
             },
         },
+        modOutputs: [],
     };
 };
+
 
 export const getCustomShapePoint = (x = 0.4, y = 0.4) => {
     return {
