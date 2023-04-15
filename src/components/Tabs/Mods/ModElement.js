@@ -17,6 +17,7 @@ import {
     shorthands,
     Slider,
     Text,
+    tokens,
 } from '@fluentui/react-components';
 import {Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
@@ -38,10 +39,11 @@ const useStyles = makeStyles({
     },
     accordionPanel: {
         ...shorthands.margin('0px'),
-        // paddingInline: '4px'
+        paddingInline: '4px',
     },
     block: {
-        // ...shorthands.border('1px', 'solid', tokens.colorNeutralStencil1Alpha),
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        ...shorthands.border('1px', 'solid', tokens.colorNeutralStencil1Alpha),
         marginBlock: '5px',
     },
     removeButton: {
