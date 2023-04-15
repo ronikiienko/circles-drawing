@@ -214,7 +214,7 @@ export const ModElement = ({
                                     </MenuList>
                                 </MenuPopover>
                             </Menu>
-                            {settings.mods.map((mod, modIndex) => {
+                            {settings.mods.map((mod) => {
                                 const hasThisModOutput = mod.modOutputs.some(modOutput => {
                                     return modOutput.id === settings.mods[index].id;
                                 });

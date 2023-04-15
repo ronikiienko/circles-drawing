@@ -84,6 +84,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
         mods: rawSettings.mods.map(mod => {
             return {
                 type: mod.type,
+                id: mod.id,
                 perlin: mod.type === modTypes.perlin ? createNoise2D() : null,
                 perlinZoom: Math.pow((1.0000001 - parseFloat(mod.perlinZoom)) / 5, 2),
                 radialRadiusX: parseFloat(mod.radialRadiusX),
@@ -115,6 +116,11 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                         val2: parseFloat(mod.outputs.strokeTransp.val2),
                     },
                 },
+                modOutputs: mod.modOutputs.map(modOutput => {
+                    return {
+                        id: modOutput.id,
+                    };
+                }),
             };
         }) ?? [],
         position: {
@@ -172,6 +178,7 @@ export const getTranslatedAppSettings = (rawSettings) => {
 };
 
 export const getRandomizedShapeSettings = (settings, i) => {
+    console.log(settings);
     let xPosition;
     let yPosition;
     const realBiasX = settings.brush.brushOn ? settings.brush.brushX : settings.position.biasX;
