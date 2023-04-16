@@ -5,9 +5,9 @@ import {shapeEditorCanvasSize} from '../../../consts/consts';
 import {pixelShapeBrushTypes} from '../../../consts/sharedConsts';
 import {useDebouncedCallback} from '../../../hooks/useDebouncedCallback';
 import {usePixelShapeEditor} from '../../../hooks/usePixelShapeEditor';
+import {getTranslatedPixelShapeBrushSize} from '../../../utils/appSettings/remappers';
 import {drawPixelShape} from '../../../utils/drawingUtils';
 import {getEventObj, squareMatrixByRes} from '../../../utils/generalUtils';
-import {getTranslatedPixelShapeBrushSize} from '../../../utils/translaters';
 
 
 const useStyles = makeStyles({

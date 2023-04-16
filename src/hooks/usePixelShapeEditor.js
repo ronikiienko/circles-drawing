@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import {pixelShapeBrushTypes} from '../consts/sharedConsts';
-import {getTranslatedPixelShapeBrushSize} from '../utils/translaters';
+import {getTranslatedPixelShapeBrushSize} from '../utils/appSettings/remappers';
 
 
 export const usePixelShapeEditor = ({canvasRef, setSettings, settings, appSettings}) => {

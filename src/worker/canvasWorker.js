@@ -1,8 +1,10 @@
 import {CMD, maxUndoTimes, shapeTypes} from '../consts/sharedConsts';
 import {db} from '../db';
+import {getTranslatedAppSettings} from '../utils/appSettings/translater';
 import {drawCustomShape, drawPixelShape} from '../utils/drawingUtils';
 import {getBiasedRandomNumber, turnDegreesToRadians} from '../utils/generalUtils';
-import {getRandomizedShapeSettings, getTranslatedAppSettings, getTranslatedLayerSettings} from '../utils/translaters';
+import {getRandomizedShapeSettings} from '../utils/layerSettings/shapeSettingsGetter';
+import {getTranslatedLayerSettings} from '../utils/layerSettings/translater';
 
 
 let canvas;
@@ -187,7 +189,7 @@ const drawShape = (settings) => {
         ctx.translate(settings.position.x, settings.position.y);
         ctx.rotate(turnDegreesToRadians(settings.shape.angle));
         if (settings.shape.rectRoundness) {
-            ctx.roundRect(-width / 2, -height / 2, width, height, settings.shape.rectRoundness);
+            ctx.roundRect(-width / 2, -height / 2, width, height, settings.size.size / 2 * settings.shape.rectRoundness);
         } else {
             ctx.rect(0, 0, width, height);
         }

@@ -17,19 +17,6 @@ export const RectangleSpecific = ({settings, classes, handleChange}) => {
                     step={0.05}
                 />
             </Label>
-            <br/>
-            <Label className={classes.label}>
-                Rectangle roundness rand:
-                <Slider
-                    id="shape-rectRoundnessRand"
-                    value={settings.shape.rectRoundnessRand}
-                    onChange={handleChange}
-                    className={classes.slider}
-                    min="0"
-                    max="1"
-                    step={0.05}
-                />
-            </Label>
         </>
     );
 };

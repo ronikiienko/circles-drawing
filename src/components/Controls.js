@@ -25,7 +25,7 @@ import {useBrush} from '../hooks/useBrush';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import {useResizer} from '../hooks/useResizer';
 import {setObjectPropertyByStringPath} from '../utils/generalUtils';
-import {getRandomName} from '../utils/nameGenerator';
+import {getRandomName} from '../utils/nameGenerators';
 import {clearCanvas, drawLayer, redo, saveAsImage, stopDrawing, undo} from '../worker/canvasWorkerMediators';
 import './Controls.css';
 import {Brush} from './Tabs/Brush';

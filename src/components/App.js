@@ -4,7 +4,8 @@ import {defaultAppSettings, layerPresets, storageKeys, tabs} from '../consts/con
 import {useDebouncedPersistedImmer} from '../hooks/useDebouncedPersistedImmer';
 import {useDebouncedValue} from '../hooks/useDebouncedValue';
 import {usePersistedImmer} from '../hooks/usePersistedImmer';
-import {getAppSettings, getLayerSettings} from '../utils/presetUtils';
+import {getAppSettings} from '../utils/appSettings/getter';
+import {getLayerSettings} from '../utils/layerSettings/getter';
 import {initializeOffscreenCanvas, setCanvasResolution} from '../worker/canvasWorkerMediators';
 import './App.css';
 import {Controls} from './Controls';

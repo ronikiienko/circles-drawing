@@ -1,6 +1,6 @@
 import {nanoid} from 'nanoid';
 import {getRandomHslArr} from '../utils/generalUtils';
-import {getRandomName} from '../utils/nameGenerator';
+import {getRandomName} from '../utils/nameGenerators';
 import {biasSpiralTypes, biasTypes, modTypes, pixelShapeBrushTypes, shapeTypes} from './sharedConsts';
 
 
@@ -154,8 +154,12 @@ export const getDefaultMod = (name) => {
                 enabled: false,
                 val2: 0.5,
             },
+            blur: {
+                enabled: false,
+                val2: 0.5,
+            },
         },
-        modOutputs: [{id: id}],
+        modOutputs: [],
     };
 };
 
@@ -186,12 +190,10 @@ export const layerPresets = [
             angle: 30 / 360,
             angleRand: 0,
             widthRatio: 0.2,
-            widthRatioRand: 0.2,
             lookToOn: false,
             lookToX: 100,
             lookToY: 100,
             rectRoundness: 0,
-            rectRoundnessRand: 0.3,
             // TODO add default getter function for custom shape points
             customShape: [
                 getCustomShapePoint(0, 1),

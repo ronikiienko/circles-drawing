@@ -2,7 +2,7 @@ import {Accordion, Button, makeStyles} from '@fluentui/react-components';
 import React from 'react';
 import {getDefaultMod} from '../../../consts/consts';
 import {getEventObj} from '../../../utils/generalUtils';
-import {getRandomAdjective} from '../../../utils/nameGenerator';
+import {getRandomAdjective} from '../../../utils/nameGenerators';
 import {ModElement} from './ModElement';
 
 

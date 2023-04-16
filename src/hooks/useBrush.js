@@ -1,6 +1,6 @@
 import {useCallback, useEffect} from 'react';
 import {deepCopy} from '../utils/generalUtils';
-import {getTranslatedBrushDensity} from '../utils/translaters';
+import {getTranslatedBrushDensity} from '../utils/layerSettings/remappers';
 import {addToHistory, drawLayer} from '../worker/canvasWorkerMediators';
 import {useIsKeyPressed} from './useIsKeyPressed';
 

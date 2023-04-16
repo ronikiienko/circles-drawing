@@ -1,181 +1,15 @@
-import {createNoise2D} from 'simplex-noise';
-import {biasSpiralTypes, biasTypes, modTypes, shapeTypes} from '../consts/sharedConsts';
+import {biasSpiralTypes, biasTypes, modTypes, shapeTypes} from '../../consts/sharedConsts';
 import {
-    clampValueToRange,
     getBiasedRandomNumber,
     getColorsWeightedSum,
     getPointByDistanceAndAngle,
     getVectorByTwoPoints,
     getWeightedSum,
-    hexToHslArray,
     hslArrToHsl,
     turnDegreesToRadians,
-} from './generalUtils';
+} from '../generalUtils';
 import {perlinMod, radialMod, randomMod} from './mods';
 
-
-export const getTranslatedBiasA = (biasA) => {
-    return parseFloat((Math.pow(parseFloat(biasA) + 1, 8) * 0.0390625).toFixed(2));
-    // return parseFloat(biasA) * 10;
-};
-
-export const getTranslatedBiasB = (biasB) => {
-    return parseFloat((Math.pow(parseFloat(biasB) + 1, 8) * 0.0390625).toFixed(2));
-    // return parseFloat(biasB) * 10;
-};
-
-export const getTranslatedModA = (modA) => {
-    return Math.pow(parseFloat(modA) + 1, 3) - 1;
-};
-
-export const getTranslatedModB = (modB) => {
-    return Math.pow(parseFloat(modB) + 1, 3) - 1;
-};
-
-export const getTranslatedBrushDensity = (brushDensity) => {
-    return Math.trunc(Math.pow(parseFloat(brushDensity) + 1, 5));
-};
-
-export const getTranslatedSize = (size) => {
-    return Math.pow(parseFloat(size) + 1, 7) * 2 - 1.9;
-};
-
-export const getTranslatedLayerSettings = (rawSettings) => {
-    // reused values
-    const shape = rawSettings.shape.shape;
-    let shapeAdjustedSizeMult;
-    switch (shape) {
-        case shapeTypes.circle:
-        case shapeTypes.ellipse:
-            shapeAdjustedSizeMult = 1;
-            break;
-        default:
-            shapeAdjustedSizeMult = 2;
-    }
-
-    const transp = parseFloat(rawSettings.color.transp);
-    const strokeTransp = parseFloat(rawSettings.color.strokeTransp);
-
-    return {
-        size: {
-            size: getTranslatedSize(rawSettings.size.size) * shapeAdjustedSizeMult,
-        },
-        number: {
-            number: Math.trunc(parseFloat(rawSettings.number.number)),
-        },
-        shape: {
-            shape: shape,
-            angle: parseFloat(rawSettings.shape.angle) * 360,
-            angleRand: parseFloat(rawSettings.shape.angleRand),
-            widthRatio: parseFloat(rawSettings.shape.widthRatio),
-            widthRatioRand: parseFloat(rawSettings.shape.widthRatioRand),
-            lookToOn: rawSettings.shape.lookToOn,
-            lookToX: rawSettings.shape.lookToX,
-            lookToY: rawSettings.shape.lookToY,
-            rectRoundness: parseFloat(rawSettings.shape.rectRoundness),
-            rectRoundnessRand: parseFloat(rawSettings.shape.rectRoundnessRand),
-            customShape: rawSettings.shape.customShape,
-            strokeOn: rawSettings.shape.strokeOn,
-            strokeThickness: Math.pow(parseFloat(rawSettings.shape.strokeThickness), 2),
-            fillOn: rawSettings.shape.fillOn,
-            pixelShapeRes: parseFloat(rawSettings.shape.pixelShapeRes),
-            pixelShape: rawSettings.shape.pixelShape,
-        },
-        mods: rawSettings.mods.map(mod => {
-            return {
-                type: mod.type,
-                id: mod.id,
-                perlin: mod.type === modTypes.perlin ? createNoise2D() : null,
-                perlinZoom: Math.pow((1.0000001 - parseFloat(mod.perlinZoom)) / 5, 2),
-                radialRadiusX: parseFloat(mod.radialRadiusX),
-                radialRadiusY: parseFloat(mod.radialRadiusY),
-                radialCenterX: parseFloat(mod.radialCenterX),
-                radialCenterY: parseFloat(mod.radialCenterY),
-                modA: getTranslatedModA(mod.modA),
-                modB: getTranslatedModB(mod.modB),
-                blendRatio: parseFloat(mod.blendRatio),
-                outputs: {
-                    size: {
-                        enabled: mod.outputs.size.enabled,
-                        val2: getTranslatedSize(mod.outputs.size.val2) * shapeAdjustedSizeMult,
-                    },
-                    color: {
-                        enabled: mod.outputs.color.enabled,
-                        val2: hexToHslArray(mod.outputs.color.val2),
-                    },
-                    strokeColor: {
-                        enabled: mod.outputs.strokeColor.enabled,
-                        val2: hexToHslArray(mod.outputs.strokeColor.val2),
-                    },
-                    transp: {
-                        enabled: mod.outputs.transp.enabled,
-                        val2: parseFloat(mod.outputs.transp.val2),
-                    },
-                    strokeTransp: {
-                        enabled: mod.outputs.strokeTransp.enabled,
-                        val2: parseFloat(mod.outputs.strokeTransp.val2),
-                    },
-                },
-                modOutputs: mod.modOutputs.map(modOutput => {
-                    return {
-                        id: modOutput.id,
-                    };
-                }),
-            };
-        }) ?? [],
-        position: {
-            startX: parseFloat(rawSettings.position.startX),
-            startY: parseFloat(rawSettings.position.startY),
-            endX: parseFloat(rawSettings.position.endX),
-            endY: parseFloat(rawSettings.position.endY),
-            biasSpiralType: rawSettings.position.biasSpiralType,
-            biasSpiralCustom: rawSettings.position.biasSpiralCustom,
-            biasSpiralThickness: Math.trunc(Math.pow(parseFloat(rawSettings.position.biasSpiralThickness) + 1, 6)),
-            biasSpiralDensity: Math.pow(parseFloat(rawSettings.position.biasSpiralDensity) + 1, 7),
-            biasSpiralSpread: Math.pow(parseFloat(rawSettings.position.biasSpiralSpread) + 1, 7) - 1,
-            biasSpiralAngleRand: parseFloat(rawSettings.position.biasSpiralAngleRand) * 5,
-            biasSpiralMult: Math.pow(parseFloat(rawSettings.position.biasSpiralMult) * 20, 2.3) * 0.05,
-            biasType: rawSettings.position.biasType,
-            biasRadius: Math.pow(Math.pow(rawSettings.position.biasX - rawSettings.position.biasRadiusX, 2) + Math.pow(rawSettings.position.biasY - rawSettings.position.biasRadiusY, 2), 1 / 2),
-            biasX: parseFloat(rawSettings.position.biasX),
-            biasY: parseFloat(rawSettings.position.biasY),
-            biasA: getTranslatedBiasA(rawSettings.position.biasA),
-            biasB: getTranslatedBiasB(rawSettings.position.biasB),
-            biasInf: parseFloat(rawSettings.position.biasInf),
-            biasRectXOn: rawSettings.position.biasRectXOn,
-            biasRectYOn: rawSettings.position.biasRectYOn,
-            gradOn: rawSettings.position.gradOn && rawSettings.position.biasType !== biasTypes.off,
-            gradA: getTranslatedBiasA(rawSettings.position.gradA),
-            gradB: getTranslatedBiasB(rawSettings.position.gradB),
-            gradInf: parseFloat(rawSettings.position.gradInf),
-        },
-        color: {
-            color: hexToHslArray(rawSettings.color.color),
-            strokeColor: hexToHslArray(rawSettings.color.strokeColor),
-            transp: transp,
-            strokeTransp: strokeTransp,
-            glow: parseFloat(rawSettings.color.glow) * 100,
-            overlayMode: rawSettings.color.overlayMode,
-            blurOn: rawSettings.color.blurOn,
-            blur: Math.pow(parseFloat(rawSettings.color.blur) + 1, 4) - 1,
-        },
-        brush: {
-            brushDensity: getTranslatedBrushDensity(rawSettings.brush.brushDensity),
-            brushOn: rawSettings.brush.brushOn,
-            brushX: rawSettings.brush.brushX,
-            brushY: rawSettings.brush.brushY,
-        },
-    };
-};
-
-export const getTranslatedPixelShapeBrushSize = (pixelShapeBrushSize) => Math.trunc(parseFloat(pixelShapeBrushSize) * 8);
-export const getTranslatedAppSettings = (rawSettings) => {
-    return {
-        waitInterval: Math.trunc(Math.pow(parseFloat(rawSettings.drawingSpeed) + 1, 10)),
-        resolutionMult: rawSettings.resolutionMult,
-        pixelShapeBrushSize: getTranslatedPixelShapeBrushSize(rawSettings.pixelShapeBrushSize),
-    };
-};
 
 export const getRandomizedShapeSettings = (settings, i) => {
     let xPosition;
@@ -332,6 +166,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     let strokeColorModsDeltas = [];
     let transpModsDeltas = [];
     let strokeTranspModsDeltas = [];
+    let blurModsDeltas = [];
 
     settings.mods?.forEach((mod) => {
         if (mod.outputs.size.enabled) {
@@ -365,6 +200,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
         if (mod.outputs.strokeTransp.enabled) {
             strokeTranspModsDeltas.push([(mod.outputs.strokeTransp.val2 - settings.color.strokeTransp) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
         }
+        if (mod.outputs.blur.enabled) {
+            blurModsDeltas.push([(mod.outputs.blur.val2 - settings.color.blur) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
+        }
     });
 
     const sizeModsSum = getWeightedSum(...sizeModsDeltas) || 0;
@@ -372,9 +210,10 @@ export const getRandomizedShapeSettings = (settings, i) => {
     const strokeColorModsSum = getColorsWeightedSum(...strokeColorModsDeltas);
     const transpModsSum = getWeightedSum(...transpModsDeltas);
     const strokeTranspModsSum = getWeightedSum(...strokeTranspModsDeltas);
+    const blurModsSum = getWeightedSum(...blurModsDeltas);
 
     let size = settings.size.size + sizeModsSum;
-    let blur = settings.color.blur;
+    let blur = settings.color.blur + blurModsSum;
     let transp = settings.color.transp + transpModsSum;
     let strokeTransp = settings.color.strokeTransp + strokeTranspModsSum;
     let color = hslArrToHsl([
@@ -388,8 +227,6 @@ export const getRandomizedShapeSettings = (settings, i) => {
         settings.color.strokeColor[2] + strokeColorModsSum[2],
     ], strokeTransp);
 
-    const baseRectRoundness = size / 2 * settings.shape.rectRoundness;
-
     return {
         size: {
             size: size,
@@ -397,8 +234,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
         shape: {
             shape: settings.shape.shape,
             angle: angle + getBiasedRandomNumber(-10, 10) * (Math.pow(settings.shape.angleRand + 1, 3) - 1),
-            widthRatio: clampValueToRange(0, 1, settings.shape.widthRatio + getBiasedRandomNumber(-1, 1, 2) * settings.shape.widthRatio * settings.shape.widthRatioRand),
-            rectRoundness: baseRectRoundness + getBiasedRandomNumber(-1, 1, 2) * baseRectRoundness * settings.shape.rectRoundnessRand * 0.6,
+            widthRatio: settings.shape.widthRatio,
+            rectRoundness: settings.shape.rectRoundness,
             customShape: settings.shape.customShape,
             strokeOn: settings.shape.strokeOn,
             fillOn: settings.shape.fillOn,
@@ -418,4 +255,3 @@ export const getRandomizedShapeSettings = (settings, i) => {
         },
     };
 };
-

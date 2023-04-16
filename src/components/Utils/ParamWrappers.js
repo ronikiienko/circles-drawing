@@ -15,6 +15,7 @@ import {
 import {Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {hslArrToHsl} from '../../utils/generalUtils';
+import {ConditionalPanel} from './ConditionalPanel';
 
 
 const useStyles = makeStyles({
@@ -40,66 +41,69 @@ const useStyles = makeStyles({
     },
 });
 
-export const ParamHeader = ({header, children, settings, classes, paramName, setSettings}) => {
+export const ParamHeader = ({header, children, settings, classes, paramName, setSettings, off}) => {
     const localClasses = useStyles();
     return (
         <>
-            <Text size={400}>{header}</Text>
-            <Menu>
-                <MenuTrigger>
-                    <MenuButton
-                        className={localClasses.headerMenuButton}
-                        appearance="subtle"
-                        disabled={!settings.mods.some(element => !element.outputs[paramName].enabled)}
-                        size="small"
-                    >
-                        {settings.mods.some(element => !element.outputs[paramName].enabled) ? 'Choose mods' : 'No mods left. Create more'}
-                    </MenuButton>
-                </MenuTrigger>
-                <MenuPopover>
-                    <MenuList>
-                        {
-                            settings.mods.map((mod, modIndex) => {
-                                if (mod.outputs[paramName].enabled) return null;
-                                return (
-                                    <MenuItem style={{backgroundColor: hslArrToHsl(mod.color, 0.2)}} key={mod.id}
-                                              onClick={() => setSettings((draft) => {
-                                                  draft.mods[modIndex].outputs[paramName].enabled = true;
-                                              })}>
-                                        {mod.name} ({mod.type})
-                                    </MenuItem>
-                                );
-                            })}
-                    </MenuList>
-                </MenuPopover>
-            </Menu>
-            <div className={mergeClasses(localClasses.modItemBase, localClasses.modItem)}>
+            <Text className={classes.label} size={400}>{header}</Text>
+            <ConditionalPanel active={!off}>
+                <Menu>
+                    <MenuTrigger>
+                        <MenuButton
+                            className={localClasses.headerMenuButton}
+                            appearance="subtle"
+                            disabled={!settings.mods.some(element => !element.outputs[paramName].enabled)}
+                            size="small"
+                        >
+                            {settings.mods.some(element => !element.outputs[paramName].enabled) ? 'Choose mods' : 'No mods left. Create more'}
+                        </MenuButton>
+                    </MenuTrigger>
+                    <MenuPopover>
+                        <MenuList>
+                            {
+                                settings.mods.map((mod, modIndex) => {
+                                    if (mod.outputs[paramName].enabled) return null;
+                                    return (
+                                        <MenuItem style={{backgroundColor: hslArrToHsl(mod.color, 0.2)}} key={mod.id}
+                                                  onClick={() => setSettings((draft) => {
+                                                      draft.mods[modIndex].outputs[paramName].enabled = true;
+                                                  })}>
+                                            {mod.name} ({mod.type})
+                                        </MenuItem>
+                                    );
+                                })}
+                        </MenuList>
+                    </MenuPopover>
+                </Menu>
+                <div className={mergeClasses(localClasses.modItemBase, localClasses.modItem)}>
                 <span>
                     {children}
                 </span>
-                <span className={localClasses.baseValueLabel}>
+                    <span className={localClasses.baseValueLabel}>
                     Base value
                 </span>
-            </div>
+                </div>
+            </ConditionalPanel>
         </>
     );
 
 };
-export const ParamMod = ({paramName, settings, modIndex, children, setSettings, classes}) => {
+export const ParamMod = ({paramName, settings, modIndex, children, setSettings, classes, off}) => {
     const localClasses = useStyles();
     const mod = settings.mods[modIndex];
     if (!mod.outputs[paramName].enabled) return null;
     return (
         <>
-            <div
-                key={mod.id}
-                className={localClasses.modItem}
-                style={{backgroundColor: hslArrToHsl(mod.color, 0.3)}}
-            >
-                <div>
-                    {children}
-                </div>
-                <span className={classes.verticallyCentered}>
+            <ConditionalPanel active={!off}>
+                <div
+                    key={mod.id}
+                    className={localClasses.modItem}
+                    style={{backgroundColor: hslArrToHsl(mod.color, 0.3)}}
+                >
+                    <div>
+                        {children}
+                    </div>
+                    <span className={classes.verticallyCentered}>
                     <Text>{mod.name} ({mod.type})</Text>
                     <Button
                         className={localClasses.removeModButton}
@@ -113,8 +117,8 @@ export const ParamMod = ({paramName, settings, modIndex, children, setSettings, 
                         }}
                     ></Button>
                 </span>
-            </div>
+                </div>
+            </ConditionalPanel>
         </>
-
     );
 };

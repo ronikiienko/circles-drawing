@@ -59,7 +59,7 @@ export const MainColor = ({setSettings, settings, handleChange, classes}) => {
                 <Overlay settings={settings} handleChange={handleChange} classes={classes}/>
             </div>
             <div className={classes.block}>
-                <Blur settings={settings} handleChange={handleChange} classes={classes}/>
+                <Blur setSettings={setSettings} settings={settings} handleChange={handleChange} classes={classes}/>
             </div>
         </>
     );

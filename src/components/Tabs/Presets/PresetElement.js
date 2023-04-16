@@ -1,7 +1,7 @@
 import {Button, makeStyles, mergeClasses, shorthands, tokens} from '@fluentui/react-components';
 import {Delete48Regular} from '@fluentui/react-icons';
 import React from 'react';
-import {getLayerSettings} from '../../../utils/presetUtils';
+import {getLayerSettings} from '../../../utils/layerSettings/getter';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 
 

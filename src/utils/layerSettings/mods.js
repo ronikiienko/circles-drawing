@@ -1,4 +1,4 @@
-import {getVectorByTwoPoints, modRemap} from './generalUtils';
+import {getVectorByTwoPoints, modRemap} from '../generalUtils';
 
 
 export const radialMod = (x, y, mod) => {

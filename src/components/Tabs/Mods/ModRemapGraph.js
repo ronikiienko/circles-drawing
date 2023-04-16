@@ -1,7 +1,7 @@
 import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
 import React from 'react';
 import {modRemap} from '../../../utils/generalUtils';
-import {getTranslatedModA, getTranslatedModB} from '../../../utils/translaters';
+import {getTranslatedModA, getTranslatedModB} from '../../../utils/layerSettings/remappers';
 
 
 const numberOfCircles = 50;

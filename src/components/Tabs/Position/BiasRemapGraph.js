@@ -1,7 +1,7 @@
 import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
 import React, {memo} from 'react';
 import {biasTanhRemap} from '../../../utils/generalUtils';
-import {getTranslatedBiasA, getTranslatedBiasB} from '../../../utils/translaters';
+import {getTranslatedBiasA, getTranslatedBiasB} from '../../../utils/layerSettings/remappers';
 
 
 const numberOfCircles = 50;
