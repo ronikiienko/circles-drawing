@@ -11,7 +11,7 @@ import {
     hslArrToHsl,
     turnDegreesToRadians,
 } from './generalUtils';
-import {perlinMod, radialMod, randomMod, sineMod} from './mods';
+import {perlinMod, radialMod, randomMod} from './mods';
 
 
 export const getTranslatedBiasA = (biasA) => {
@@ -178,7 +178,6 @@ export const getTranslatedAppSettings = (rawSettings) => {
 };
 
 export const getRandomizedShapeSettings = (settings, i) => {
-    console.log(settings);
     let xPosition;
     let yPosition;
     const realBiasX = settings.brush.brushOn ? settings.brush.brushX : settings.position.biasX;
@@ -303,21 +302,29 @@ export const getRandomizedShapeSettings = (settings, i) => {
         angle = settings.shape.angle;
     }
 
-    const modResults = settings.mods.map((mod) => {
-        if (Object.values(mod.outputs).some(output => output.enabled)) {
-            switch (mod.type) {
-                case modTypes.random:
-                    return randomMod(mod);
-                case modTypes.radial:
-                    return radialMod(xPosition, yPosition, mod);
-                case modTypes.perlin:
-                    return perlinMod(xPosition, yPosition, mod);
-                case modTypes.sine:
-                    return sineMod(xPosition, yPosition, mod);
-            }
-        } else {
-            return null;
+    const modResultsTemp = {};
+    const modResults = {};
+    settings.mods.forEach((mod) => {
+        // TODO launch this conditionaly (if no outputs not calculate)
+        let value;
+        switch (mod.type) {
+            case modTypes.random:
+                value = randomMod(mod);
+                break;
+            case modTypes.radial:
+                value = radialMod(xPosition, yPosition, mod);
+                break;
+            case modTypes.perlin:
+                value = perlinMod(xPosition, yPosition, mod);
         }
+        modResultsTemp[mod.id] = value;
+        modResults[mod.id] = value;
+    });
+
+    settings.mods.forEach(mod => {
+        mod.modOutputs.forEach((output) => {
+            modResults[output.id] *= modResultsTemp[mod.id];
+        });
     });
 
     let sizeModsDeltas = [];
@@ -326,37 +333,37 @@ export const getRandomizedShapeSettings = (settings, i) => {
     let transpModsDeltas = [];
     let strokeTranspModsDeltas = [];
 
-    settings.mods?.forEach((mod, modIndex) => {
+    settings.mods?.forEach((mod) => {
         if (mod.outputs.size.enabled) {
-            sizeModsDeltas.push([(mod.outputs.size.val2 - settings.size.size) * modResults[modIndex], modResults[modIndex] * mod.blendRatio]);
+            sizeModsDeltas.push([(mod.outputs.size.val2 - settings.size.size) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
         }
         if (mod.outputs.color.enabled) {
             colorModsDeltas.push([
                 [
-                    (mod.outputs.color.val2[0] - settings.color.color[0]) * modResults[modIndex],
-                    (mod.outputs.color.val2[1] - settings.color.color[1]) * modResults[modIndex],
-                    (mod.outputs.color.val2[2] - settings.color.color[2]) * modResults[modIndex],
+                    (mod.outputs.color.val2[0] - settings.color.color[0]) * modResults[mod.id],
+                    (mod.outputs.color.val2[1] - settings.color.color[1]) * modResults[mod.id],
+                    (mod.outputs.color.val2[2] - settings.color.color[2]) * modResults[mod.id],
 
                 ],
-                modResults[modIndex] * mod.blendRatio,
+                modResults[mod.id] * mod.blendRatio,
             ]);
         }
         if (mod.outputs.transp.enabled) {
-            transpModsDeltas.push([(mod.outputs.transp.val2 - settings.color.transp) * modResults[modIndex], modResults[modIndex] * mod.blendRatio]);
+            transpModsDeltas.push([(mod.outputs.transp.val2 - settings.color.transp) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
         }
         if (mod.outputs.strokeColor.enabled) {
             strokeColorModsDeltas.push([
                 [
-                    (mod.outputs.strokeColor.val2[0] - settings.color.strokeColor[0]) * modResults[modIndex],
-                    (mod.outputs.strokeColor.val2[1] - settings.color.strokeColor[1]) * modResults[modIndex],
-                    (mod.outputs.strokeColor.val2[2] - settings.color.strokeColor[2]) * modResults[modIndex],
+                    (mod.outputs.strokeColor.val2[0] - settings.color.strokeColor[0]) * modResults[mod.id],
+                    (mod.outputs.strokeColor.val2[1] - settings.color.strokeColor[1]) * modResults[mod.id],
+                    (mod.outputs.strokeColor.val2[2] - settings.color.strokeColor[2]) * modResults[mod.id],
 
                 ],
-                modResults[modIndex] * mod.blendRatio,
+                modResults[mod.id] * mod.blendRatio,
             ]);
         }
         if (mod.outputs.strokeTransp.enabled) {
-            strokeTranspModsDeltas.push([(mod.outputs.strokeTransp.val2 - settings.color.strokeTransp) * modResults[modIndex], modResults[modIndex] * mod.blendRatio]);
+            strokeTranspModsDeltas.push([(mod.outputs.strokeTransp.val2 - settings.color.strokeTransp) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
         }
     });
 

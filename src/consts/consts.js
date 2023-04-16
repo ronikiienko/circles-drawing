@@ -119,11 +119,12 @@ export const getDefaultModOutput = (id) => {
     };
 };
 export const getDefaultMod = (name) => {
+    const id = nanoid(8);
     return {
         name: name || 'Default',
         type: modTypes.radial,
         color: getRandomHslArr([null, 100, 70, 0.5]),
-        id: nanoid(8),
+        id: id,
         radialRadiusX: 200,
         radialRadiusY: 200,
         radialCenterX: 100,
@@ -154,7 +155,7 @@ export const getDefaultMod = (name) => {
                 val2: 0.5,
             },
         },
-        modOutputs: [],
+        modOutputs: [{id: id}],
     };
 };
 
