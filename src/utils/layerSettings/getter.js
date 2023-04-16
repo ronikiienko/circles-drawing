@@ -73,6 +73,14 @@ export const getLayerSettings = (preset) => {
                         enabled: mod?.outputs?.blur?.enabled ?? defaultMod.outputs.blur.enabled,
                         val2: mod?.outputs?.blur?.val2 ?? defaultMod.outputs.blur.val2,
                     },
+                    widthRatio: {
+                        enabled: mod?.outputs?.widthRatio?.enabled ?? defaultMod.outputs.widthRatio.enabled,
+                        val2: mod?.outputs?.widthRatio?.val2 ?? defaultMod.outputs.widthRatio.val2,
+                    },
+                    rectRoundness: {
+                        enabled: mod?.outputs?.rectRoundness?.enabled ?? defaultMod.outputs.blur.enabled,
+                        val2: mod?.outputs?.rectRoundness?.val2 ?? defaultMod.outputs.rectRoundness.val2,
+                    },
                 },
                 modOutputs: mod?.modOutputs?.reduce((accumulator, modOutput, modOutputIndex) => {
                     if (modOutput?.id) accumulator.push({

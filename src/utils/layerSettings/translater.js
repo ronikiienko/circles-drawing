@@ -8,7 +8,9 @@ import {
     getTranslatedBrushDensity,
     getTranslatedModA,
     getTranslatedModB,
+    getTranslatedRectRoundness,
     getTranslatedSize,
+    getTranslatedWidthRatio,
 } from './remappers';
 
 
@@ -88,6 +90,14 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                     blur: {
                         enabled: mod.outputs.blur.enabled,
                         val2: getTranslatedBlur(mod.outputs.blur.val2),
+                    },
+                    widthRatio: {
+                        enabled: mod.outputs.widthRatio.enabled,
+                        val2: getTranslatedWidthRatio(mod.outputs.widthRatio.val2),
+                    },
+                    rectRoundness: {
+                        enabled: mod.outputs.rectRoundness.enabled,
+                        val2: getTranslatedRectRoundness(mod.outputs.rectRoundness.val2),
                     },
                 },
                 modOutputs: mod.modOutputs.map(modOutput => {

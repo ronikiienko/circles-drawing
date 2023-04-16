@@ -25,7 +25,8 @@ export const Shape = ({
             </div>
             <ConditionalPanel active={settings.shape.shape === shapeTypes.rectangle}>
                 <div className={classes.block}>
-                    <RectangleSpecific settings={settings} handleChange={handleChange} classes={classes}/>
+                    <RectangleSpecific setSettings={setSettings} settings={settings} handleChange={handleChange}
+                                       classes={classes}/>
                 </div>
             </ConditionalPanel>
             <ConditionalPanel
@@ -38,7 +39,8 @@ export const Shape = ({
             <ConditionalPanel
                 active={settings.shape.shape === shapeTypes.ellipse || settings.shape.shape === shapeTypes.rectangle}>
                 <div className={classes.block}>
-                    <WidthRatio settings={settings} handleChange={handleChange} classes={classes}/>
+                    <WidthRatio setSettings={setSettings} settings={settings} handleChange={handleChange}
+                                classes={classes}/>
                 </div>
             </ConditionalPanel>
             <ConditionalPanel active={settings.shape.shape === shapeTypes.custom}>

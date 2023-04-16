@@ -158,6 +158,14 @@ export const getDefaultMod = (name) => {
                 enabled: false,
                 val2: 0.5,
             },
+            widthRatio: {
+                enabled: false,
+                val2: 0.2,
+            },
+            rectRoundness: {
+                enabled: false,
+                val2: 0.4,
+            },
         },
         modOutputs: [],
     };

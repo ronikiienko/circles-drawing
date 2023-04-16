@@ -167,6 +167,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
     let transpModsDeltas = [];
     let strokeTranspModsDeltas = [];
     let blurModsDeltas = [];
+    let widthRatioModsDeltas = [];
+    let rectRoundnessModsDeltas = [];
 
     settings.mods?.forEach((mod) => {
         if (mod.outputs.size.enabled) {
@@ -203,6 +205,12 @@ export const getRandomizedShapeSettings = (settings, i) => {
         if (mod.outputs.blur.enabled) {
             blurModsDeltas.push([(mod.outputs.blur.val2 - settings.color.blur) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
         }
+        if (mod.outputs.widthRatio.enabled) {
+            widthRatioModsDeltas.push([(mod.outputs.widthRatio.val2 - settings.shape.widthRatio) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
+        }
+        if (mod.outputs.rectRoundness.enabled) {
+            rectRoundnessModsDeltas.push([(mod.outputs.rectRoundness.val2 - settings.shape.rectRoundness) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
+        }
     });
 
     const sizeModsSum = getWeightedSum(...sizeModsDeltas) || 0;
@@ -211,7 +219,11 @@ export const getRandomizedShapeSettings = (settings, i) => {
     const transpModsSum = getWeightedSum(...transpModsDeltas);
     const strokeTranspModsSum = getWeightedSum(...strokeTranspModsDeltas);
     const blurModsSum = getWeightedSum(...blurModsDeltas);
+    const widthRatioModsSum = getWeightedSum(...widthRatioModsDeltas);
+    const rectRoundnessModsSum = getWeightedSum(...rectRoundnessModsDeltas);
 
+    let widthRatio = settings.shape.widthRatio + widthRatioModsSum;
+    let rectRoundness = settings.shape.rectRoundness + rectRoundnessModsSum;
     let size = settings.size.size + sizeModsSum;
     let blur = settings.color.blur + blurModsSum;
     let transp = settings.color.transp + transpModsSum;
@@ -234,8 +246,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
         shape: {
             shape: settings.shape.shape,
             angle: angle + getBiasedRandomNumber(-10, 10) * (Math.pow(settings.shape.angleRand + 1, 3) - 1),
-            widthRatio: settings.shape.widthRatio,
-            rectRoundness: settings.shape.rectRoundness,
+            widthRatio: widthRatio,
+            rectRoundness: rectRoundness,
             customShape: settings.shape.customShape,
             strokeOn: settings.shape.strokeOn,
             fillOn: settings.shape.fillOn,

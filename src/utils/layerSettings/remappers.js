@@ -21,3 +21,9 @@ export const getTranslatedSize = (size) => {
 export const getTranslatedBlur = (blur) => {
     return Math.pow(parseFloat(blur) + 1, 4) - 1;
 };
+export const getTranslatedWidthRatio = (widthRatio) => {
+    return parseFloat(widthRatio);
+};
+export const getTranslatedRectRoundness = (rectRoundness) => {
+    return parseFloat(rectRoundness);
+};
