@@ -2,6 +2,7 @@ import {createNoise2D} from 'simplex-noise';
 import {biasTypes, modTypes, shapeTypes} from '../../consts/sharedConsts';
 import {hexToHslArray} from '../generalUtils';
 import {
+    getTranslatedAngle,
     getTranslatedBiasA,
     getTranslatedBiasB,
     getTranslatedBlur,
@@ -39,8 +40,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
         },
         shape: {
             shape: shape,
-            angle: parseFloat(rawSettings.shape.angle) * 360,
-            angleRand: parseFloat(rawSettings.shape.angleRand),
+            angle: getTranslatedAngle(rawSettings.shape.angle),
             widthRatio: parseFloat(rawSettings.shape.widthRatio),
             lookToOn: rawSettings.shape.lookToOn,
             lookToPos: {
@@ -104,6 +104,10 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                     rectRoundness: {
                         enabled: mod.outputs.rectRoundness.enabled,
                         val2: getTranslatedRectRoundness(mod.outputs.rectRoundness.val2),
+                    },
+                    angle: {
+                        enabled: mod.outputs.angle.enabled,
+                        val2: getTranslatedAngle(mod.outputs.angle.val2),
                     },
                 },
                 modOutputs: mod.modOutputs.map(modOutput => {

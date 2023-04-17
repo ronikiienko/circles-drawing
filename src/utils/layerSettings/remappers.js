@@ -27,3 +27,10 @@ export const getTranslatedWidthRatio = (widthRatio) => {
 export const getTranslatedRectRoundness = (rectRoundness) => {
     return parseFloat(rectRoundness);
 };
+export const getTranslatedAngle = (angle) => {
+    return parseFloat(angle) * 360;
+};
+
+export const getAngle = (angle) => {
+    return parseFloat(angle) / 360;
+};

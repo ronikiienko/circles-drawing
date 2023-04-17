@@ -1,76 +1,52 @@
-import {Button, Checkbox, Input, Label, Slider} from '@fluentui/react-components';
-import {InfoButton} from '@fluentui/react-components/unstable';
+import {Label, Text} from '@fluentui/react-components';
 import React from 'react';
+import {getTranslatedAngle} from '../../../utils/layerSettings/remappers';
 import {AngularInput} from '../../Utils/AngularInput';
-import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
 
 
-export const Angle = ({settings, classes, handleChange, setClickAndSetProp}) => {
+export const Angle = ({settings, classes, handleChange, setClickAndSetProp, setSettings}) => {
     return (
         <>
-            <Label className={classes.label}>
-                Look to on:
-                <Checkbox
-                    checked={settings.shape.lookToOn}
-                    id="shape-lookToOn"
-                    onChange={handleChange}
-                />
-                <InfoButton content={
-                    <>
-                        Choose if all shapes will be rotated such way to look at one point ("Look to" point)
-                    </>
-                }/>
-            </Label>
-            <Label className={classes.label}>
-                Angle:
+            <ParamHeader
+                settings={settings}
+                classes={classes}
+                setSettings={setSettings}
+                header="Angle"
+                paramName="angle"
+            >
                 <AngularInput
-                    className={classes.slider}
                     value={settings.shape.angle}
                     id="shape-angle"
                     onChange={handleChange}
                     size={30}
                 />
-            </Label>
-            <Label className={classes.label}>
-                Angle rand:
-                <Slider
-                    className={classes.slider}
-                    value={settings.shape.angleRand}
-                    id="shape-angleRand"
-                    onChange={handleChange}
-                    min="0"
-                    max="1"
-                    step={0.05}
-                />
-            </Label>
-            <br/>
-            <ConditionalPanel active={settings.shape.lookToOn}>
-                <div className={classes.row}>
-                    <Label className={classes.label}>
-                        Look to X:
-                        <Input
-                            size="small"
-                            value={settings.shape.lookToPos.x}
-                            className={classes.number}
-                            id="shape-lookToPos-x"
-                            onChange={handleChange}
-                            type="text"
-                        />
-                    </Label>
-                    <Label className={classes.label}>
-                        Look to Y:
-                        <Input
-                            size="small"
-                            value={settings.shape.lookToPos.y}
-                            className={classes.number}
-                            id="shape-lookToPos-y"
-                            onChange={handleChange}
-                            type="text"
-                        />
-                    </Label>
-                    <Button size="small" id="shape-lookToPos" onClick={setClickAndSetProp}>Click and set</Button>
-                </div>
-            </ConditionalPanel>
+                <Text className={classes.slider}>{getTranslatedAngle(settings.shape.angle).toFixed(0)}</Text>
+            </ParamHeader>
+            {settings.mods.map((mod, modIndex) => {
+                return (
+                    <ParamMod
+                        classes={classes}
+                        setSettings={setSettings}
+                        key={mod.id}
+                        settings={settings}
+                        handleChange={handleChange}
+                        paramName="angle"
+                        modIndex={modIndex}
+                    >
+                        <Label className={classes.label}>
+                            <AngularInput
+                                value={mod.outputs.angle.val2}
+                                id={`mods-${modIndex}-outputs-angle-val2`}
+                                onChange={handleChange}
+                                size={30}
+                            />
+                            <Text
+                                className={classes.slider}>{getTranslatedAngle(mod.outputs.angle.val2).toFixed(0)}</Text>
+                        </Label>
+                    </ParamMod>
+                );
+            })}
         </>
     );
 };

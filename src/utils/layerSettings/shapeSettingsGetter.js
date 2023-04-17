@@ -169,6 +169,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     let blurModsDeltas = [];
     let widthRatioModsDeltas = [];
     let rectRoundnessModsDeltas = [];
+    let angleModsDeltas = [];
 
     settings.mods?.forEach((mod) => {
         if (mod.outputs.size.enabled) {
@@ -211,6 +212,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
         if (mod.outputs.rectRoundness.enabled) {
             rectRoundnessModsDeltas.push([(mod.outputs.rectRoundness.val2 - settings.shape.rectRoundness) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
         }
+        if (mod.outputs.angle.enabled) {
+            angleModsDeltas.push([(mod.outputs.angle.val2 - settings.shape.angle) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
+        }
     });
 
     const sizeModsSum = getWeightedSum(...sizeModsDeltas) || 0;
@@ -221,6 +225,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     const blurModsSum = getWeightedSum(...blurModsDeltas);
     const widthRatioModsSum = getWeightedSum(...widthRatioModsDeltas);
     const rectRoundnessModsSum = getWeightedSum(...rectRoundnessModsDeltas);
+    const angleModsSum = getWeightedSum(...angleModsDeltas);
 
     let widthRatio = settings.shape.widthRatio + widthRatioModsSum;
     let rectRoundness = settings.shape.rectRoundness + rectRoundnessModsSum;
@@ -238,6 +243,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
         settings.color.strokeColor[1] + strokeColorModsSum[1],
         settings.color.strokeColor[2] + strokeColorModsSum[2],
     ], strokeTransp);
+    angle = angle + settings.shape.angle + angleModsSum;
 
     return {
         size: {
@@ -245,7 +251,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
         },
         shape: {
             shape: settings.shape.shape,
-            angle: angle + getBiasedRandomNumber(-10, 10) * (Math.pow(settings.shape.angleRand + 1, 3) - 1),
+            angle: angle,
             widthRatio: widthRatio,
             rectRoundness: rectRoundness,
             customShape: settings.shape.customShape,

@@ -1,6 +1,7 @@
 import {makeStyles, mergeClasses, shorthands, tokens} from '@fluentui/react-components';
 import React, {useEffect, useState} from 'react';
 import {getEventObj} from '../../utils/generalUtils';
+import {getTranslatedAngle} from '../../utils/layerSettings/remappers';
 
 
 const useStyles = makeStyles({
@@ -24,11 +25,12 @@ const useStyles = makeStyles({
     },
 });
 
-export const AngularInput = ({value, onChange, id, style, className, size = 40}) => {
+export const AngularInput = ({value, onChange, id, style, className, size = 30}) => {
     const localClasses = useStyles();
     const start = useAngularInput({value, onChange, id});
     return (
-        <div onMouseDown={start} style={{transform: `rotate(${360 * value}deg)`, height: size, width: size, ...style}}
+        <div onMouseDown={start}
+             style={{transform: `rotate(${getTranslatedAngle(value)}deg)`, height: size, width: size, ...style}}
              className={mergeClasses(localClasses.container, className)}>
             <div style={{width: size, height: size / 10, top: size / 2 - size / 10 / 2, left: size / 2 - size / 10 / 2}}
                  className={localClasses.arrow}></div>
@@ -43,7 +45,7 @@ const useAngularInput = ({value, onChange, id}) => {
             event.preventDefault();
             event.stopPropagation();
             let newValue = parseFloat(value) + event.movementY / 90;
-            newValue.toFixed(2);
+            newValue = parseFloat(newValue.toFixed(2));
             if (newValue > 0) newValue = newValue % 1;
             if (newValue < 0) newValue = 1 + newValue;
             onChange(getEventObj(newValue, id));

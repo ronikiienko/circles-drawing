@@ -1,5 +1,6 @@
 import {nanoid} from 'nanoid';
 import {getRandomHslArr} from '../utils/generalUtils';
+import {getAngle} from '../utils/layerSettings/remappers';
 import {getRandomName} from '../utils/nameGenerators';
 import {biasSpiralTypes, biasTypes, modTypes, pixelShapeBrushTypes, shapeTypes} from './sharedConsts';
 
@@ -170,6 +171,10 @@ export const getDefaultMod = (name) => {
                 enabled: false,
                 val2: 0.4,
             },
+            angle: {
+                enabled: false,
+                val2: 0.4,
+            },
         },
         modOutputs: [],
     };
@@ -199,8 +204,7 @@ export const layerPresets = [
         },
         shape: {
             shape: shapeTypes.rectangle,
-            angle: 30 / 360,
-            angleRand: 0,
+            angle: getAngle(30),
             widthRatio: 0.2,
             lookToOn: false,
             lookToPos: {

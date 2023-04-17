@@ -19,7 +19,6 @@ export const getLayerSettings = (preset) => {
         shape: {
             shape: preset?.shape?.shape ?? defaultPreset.shape.shape,
             angle: preset?.shape?.angle ?? defaultPreset.shape.angle,
-            angleRand: preset?.shape?.angleRand ?? defaultPreset.shape.angleRand,
             widthRatio: preset?.shape?.widthRatio ?? defaultPreset.shape.widthRatio,
             lookToOn: preset?.shape?.lookToOn ?? defaultPreset.shape.lookToOn,
             lookToPos: {
@@ -84,8 +83,12 @@ export const getLayerSettings = (preset) => {
                         val2: mod?.outputs?.widthRatio?.val2 ?? defaultMod.outputs.widthRatio.val2,
                     },
                     rectRoundness: {
-                        enabled: mod?.outputs?.rectRoundness?.enabled ?? defaultMod.outputs.blur.enabled,
+                        enabled: mod?.outputs?.rectRoundness?.enabled ?? defaultMod.outputs.rectRoundness.enabled,
                         val2: mod?.outputs?.rectRoundness?.val2 ?? defaultMod.outputs.rectRoundness.val2,
+                    },
+                    angle: {
+                        enabled: mod?.outputs?.angle?.enabled ?? defaultMod.outputs.angle.enabled,
+                        val2: mod?.outputs?.angle?.val2 ?? defaultMod.outputs.angle.val2,
                     },
                 },
                 modOutputs: mod?.modOutputs?.reduce((accumulator, modOutput, modOutputIndex) => {

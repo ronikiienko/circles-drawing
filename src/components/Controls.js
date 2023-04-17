@@ -133,7 +133,7 @@ const useStylesTabs = makeStyles({
         marginLeft: '5px',
     },
     number: {
-        width: '50px',
+        maxWidth: '50px',
         marginLeft: '5px',
     },
     button: {

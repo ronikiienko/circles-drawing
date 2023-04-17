@@ -4,6 +4,7 @@ import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 import {Angle} from './Angle';
 import {Common} from './Common';
 import {CustomShapeEditor} from './CustomShapeEditor';
+import {LookTo} from './LookTo';
 import {PixelShapeEditor} from './PixelShapeEditor';
 import {RectangleSpecific} from './RectangleSpecific';
 import {WidthRatio} from './WidthRatio';
@@ -32,8 +33,22 @@ export const Shape = ({
             <ConditionalPanel
                 active={settings.shape.shape !== shapeTypes.circle && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4}>
                 <div className={classes.block}>
-                    <Angle settings={settings} handleChange={handleChange} classes={classes}
-                           setClickAndSetProp={setClickAndSetProp}/>
+                    <Angle
+                        settings={settings}
+                        handleChange={handleChange}
+                        classes={classes}
+                        setSettings={setSettings}
+                        setClickAndSetProp={setClickAndSetProp}
+                    />
+                </div>
+                <div className={classes.block}>
+                    <LookTo
+                        classes={classes}
+                        handleChange={handleChange}
+                        settings={settings}
+                        setClickAndSetProp={setClickAndSetProp}
+                        setSettings={setSettings}
+                    />
                 </div>
             </ConditionalPanel>
             <ConditionalPanel
