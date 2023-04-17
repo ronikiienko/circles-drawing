@@ -11,8 +11,8 @@ export const BiasCoords = ({settings, classes, handleChange, setClickAndSetProp}
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.position.biasX}
-                        id="position-biasX"
+                        value={settings.position.biasPos.x}
+                        id="position-biasPos-x"
                         onChange={handleChange}
                         type="text"
                     />
@@ -22,13 +22,13 @@ export const BiasCoords = ({settings, classes, handleChange, setClickAndSetProp}
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.position.biasY}
-                        id="position-biasY"
+                        value={settings.position.biasPos.y}
+                        id="position-biasPos-y"
                         onChange={handleChange}
                         type="text"
                     />
                 </Label>
-                <Button size="small" id="position-bias" onClick={setClickAndSetProp}>Click and set</Button>
+                <Button size="small" id="position-biasPos" onClick={setClickAndSetProp}>Click and set</Button>
             </div>
         </>
     );

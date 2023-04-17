@@ -43,8 +43,10 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             angleRand: parseFloat(rawSettings.shape.angleRand),
             widthRatio: parseFloat(rawSettings.shape.widthRatio),
             lookToOn: rawSettings.shape.lookToOn,
-            lookToX: rawSettings.shape.lookToX,
-            lookToY: rawSettings.shape.lookToY,
+            lookToPos: {
+                x: parseFloat(rawSettings.shape.lookToPos.x),
+                y: parseFloat(rawSettings.shape.lookToPos.y),
+            },
             rectRoundness: parseFloat(rawSettings.shape.rectRoundness),
             customShape: rawSettings.shape.customShape,
             strokeOn: rawSettings.shape.strokeOn,
@@ -59,10 +61,14 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                 id: mod.id,
                 perlin: mod.type === modTypes.perlin ? createNoise2D() : null,
                 perlinZoom: Math.pow((1.0000001 - parseFloat(mod.perlinZoom)) / 5, 2),
-                radialRadiusX: parseFloat(mod.radialRadiusX),
-                radialRadiusY: parseFloat(mod.radialRadiusY),
-                radialCenterX: parseFloat(mod.radialCenterX),
-                radialCenterY: parseFloat(mod.radialCenterY),
+                radialRadiusPos: {
+                    x: parseFloat(mod.radialRadiusPos.x),
+                    y: parseFloat(mod.radialRadiusPos.y),
+                },
+                radialCenterPos: {
+                    x: parseFloat(mod.radialCenterPos.x),
+                    y: parseFloat(mod.radialCenterPos.y),
+                },
                 modA: getTranslatedModA(mod.modA),
                 modB: getTranslatedModB(mod.modB),
                 blendRatio: parseFloat(mod.blendRatio),
@@ -108,10 +114,14 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             };
         }) ?? [],
         position: {
-            startX: parseFloat(rawSettings.position.startX),
-            startY: parseFloat(rawSettings.position.startY),
-            endX: parseFloat(rawSettings.position.endX),
-            endY: parseFloat(rawSettings.position.endY),
+            startPos: {
+                x: parseFloat(rawSettings.position.startPos.x),
+                y: parseFloat(rawSettings.position.startPos.y),
+            },
+            endPos: {
+                x: parseFloat(rawSettings.position.endPos.x),
+                y: parseFloat(rawSettings.position.endPos.y),
+            },
             biasSpiralType: rawSettings.position.biasSpiralType,
             biasSpiralCustom: rawSettings.position.biasSpiralCustom,
             biasSpiralThickness: Math.trunc(Math.pow(parseFloat(rawSettings.position.biasSpiralThickness) + 1, 6)),
@@ -120,9 +130,11 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             biasSpiralAngleRand: parseFloat(rawSettings.position.biasSpiralAngleRand) * 5,
             biasSpiralMult: Math.pow(parseFloat(rawSettings.position.biasSpiralMult) * 20, 2.3) * 0.05,
             biasType: rawSettings.position.biasType,
-            biasRadius: Math.pow(Math.pow(rawSettings.position.biasX - rawSettings.position.biasRadiusX, 2) + Math.pow(rawSettings.position.biasY - rawSettings.position.biasRadiusY, 2), 1 / 2),
-            biasX: parseFloat(rawSettings.position.biasX),
-            biasY: parseFloat(rawSettings.position.biasY),
+            biasRadius: Math.pow(Math.pow(rawSettings.position.biasPos.x - rawSettings.position.biasRadiusPos.x, 2) + Math.pow(rawSettings.position.biasPos.y - rawSettings.position.biasRadiusPos.y, 2), 1 / 2),
+            biasPos: {
+                x: parseFloat(rawSettings.position.biasPos.x),
+                y: parseFloat(rawSettings.position.biasPos.y),
+            },
             biasA: getTranslatedBiasA(rawSettings.position.biasA),
             biasB: getTranslatedBiasB(rawSettings.position.biasB),
             biasInf: parseFloat(rawSettings.position.biasInf),
@@ -146,8 +158,10 @@ export const getTranslatedLayerSettings = (rawSettings) => {
         brush: {
             brushDensity: getTranslatedBrushDensity(rawSettings.brush.brushDensity),
             brushOn: rawSettings.brush.brushOn,
-            brushX: rawSettings.brush.brushX,
-            brushY: rawSettings.brush.brushY,
+            brushPos: {
+                x: parseFloat(rawSettings.brush.brushPos.x),
+                y: parseFloat(rawSettings.brush.brushPos.y),
+            },
         },
     };
 };

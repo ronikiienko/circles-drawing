@@ -20,7 +20,6 @@ const useStyles = makeStyles({
     arrow: {
         backgroundColor: tokens.colorBrandBackground,
         position: 'absolute',
-        left: '19px',
         ...shorthands.borderRadius(tokens.borderRadiusCircular),
     },
 });

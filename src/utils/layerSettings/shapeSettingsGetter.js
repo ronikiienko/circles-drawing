@@ -14,32 +14,32 @@ import {perlinMod, radialMod, randomMod} from './mods';
 export const getRandomizedShapeSettings = (settings, i) => {
     let xPosition;
     let yPosition;
-    const realBiasX = settings.brush.brushOn ? settings.brush.brushX : settings.position.biasX;
-    const realBiasY = settings.brush.brushOn ? settings.brush.brushY : settings.position.biasY;
+    const realBiasX = settings.brush.brushOn ? settings.brush.brushPos.x : settings.position.biasPos.x;
+    const realBiasY = settings.brush.brushOn ? settings.brush.brushPos.y : settings.position.biasPos.y;
     switch (settings.position.biasType) {
         case biasTypes.off: {
-            xPosition = getBiasedRandomNumber(settings.position.startX, settings.position.endX);
-            yPosition = getBiasedRandomNumber(settings.position.startY, settings.position.endY);
+            xPosition = getBiasedRandomNumber(settings.position.startPos.x, settings.position.endPos.x);
+            yPosition = getBiasedRandomNumber(settings.position.startPos.y, settings.position.endPos.y);
         }
             break;
         case biasTypes.rectangular: {
             xPosition = getBiasedRandomNumber(
-                settings.position.startX,
-                settings.position.endX,
+                settings.position.startPos.x,
+                settings.position.endPos.x,
                 0,
                 settings.position.biasRectXOn ? {
-                    bias: settings.position.biasX,
+                    bias: settings.position.biasPos.x,
                     biasInf: settings.position.biasInf,
                     biasA: settings.position.biasA,
                     biasB: settings.position.biasB,
                 } : undefined,
             );
             yPosition = getBiasedRandomNumber(
-                settings.position.startY,
-                settings.position.endY,
+                settings.position.startPos.y,
+                settings.position.endPos.y,
                 0,
                 settings.position.biasRectYOn ? {
-                    bias: settings.position.biasY,
+                    bias: settings.position.biasPos.y,
                     biasInf: settings.position.biasInf,
                     biasA: settings.position.biasA,
                     biasB: settings.position.biasB,
@@ -130,7 +130,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
 
     let angle;
     if (settings.shape.lookToOn && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4 && settings.shape.shape !== shapeTypes.circle) {
-        const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, settings.shape.lookToX, settings.shape.lookToY);
+        const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, settings.shape.lookToPos.x, settings.shape.lookToPos.y);
         angle = lookToAngle + settings.shape.angle;
     } else {
         angle = settings.shape.angle;

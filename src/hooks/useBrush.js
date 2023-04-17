@@ -18,8 +18,8 @@ export const useBrush = ({settings, appSettings}) => {
 
         // TODO maby not create deep copy
         const rawSettings = deepCopy(settings);
-        rawSettings.brush.brushX = event.pageX;
-        rawSettings.brush.brushY = event.pageY;
+        rawSettings.brush.brushPos.x = event.pageX;
+        rawSettings.brush.brushPos.y = event.pageY;
         rawSettings.brush.brushOn = true;
 
         drawLayer(rawSettings, appSettings, false);
@@ -30,15 +30,15 @@ export const useBrush = ({settings, appSettings}) => {
     useEffect(() => {
         if (!isBrushOn) return;
 
-        const mousedownHandler = () => {
+        const mousedownHandler = (event) => {
             console.log('mousedown');
             window.addEventListener('mouseup', mouseupHandler);
             window.addEventListener('mousemove', mousemoveHandler);
 
             // TODO maby not create deep copy
             const rawSettings = deepCopy(settings);
-            rawSettings.brush.brushX = event.pageX;
-            rawSettings.brush.brushY = event.pageY;
+            rawSettings.brush.brushPos.x = event.pageX;
+            rawSettings.brush.brushPos.y = event.pageY;
             rawSettings.brush.brushOn = true;
 
             drawLayer(rawSettings, appSettings, false);
@@ -62,5 +62,5 @@ export const useBrush = ({settings, appSettings}) => {
             window.removeEventListener('mousedown', mousedownHandler);
         };
 
-    }, [appSettings, isBrushOn, mousemoveHandler]);
+    }, [appSettings, isBrushOn, mousemoveHandler, settings]);
 };

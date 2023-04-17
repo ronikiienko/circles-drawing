@@ -13,10 +13,10 @@ export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp,
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.mods[index].radialCenterX}
+                        value={settings.mods[index].radialCenterPos.x}
                         type="text"
                         onChange={handleChange}
-                        id={`mods-${index}-radialCenterX`}
+                        id={`mods-${index}-radialCenterPos-x`}
                     />
                 </Label>
                 <Label className={classes.label}>
@@ -24,13 +24,13 @@ export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp,
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.mods[index].radialCenterY}
+                        value={settings.mods[index].radialCenterPos.y}
                         type="text"
                         onChange={handleChange}
-                        id={`mods-${index}-radialCenterY`}
+                        id={`mods-${index}-radialCenterPos-y`}
                     />
                 </Label>
-                <Button onClick={setClickAndSetProp} id={`mods-${index}-radialCenter`} size="small">Click and
+                <Button onClick={setClickAndSetProp} id={`mods-${index}-radialCenterPos`} size="small">Click and
                     set</Button>
             </div>
             <div className={classes.row}>
@@ -39,10 +39,10 @@ export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp,
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.mods[index].radialRadiusX}
+                        value={settings.mods[index].radialRadiusPos.x}
                         type="text"
                         onChange={handleChange}
-                        id={`mods-${index}-radialRadiusX`}
+                        id={`mods-${index}-radialRadiusPos-x`}
                     />
                 </Label>
                 <Label className={classes.label}>
@@ -50,20 +50,20 @@ export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp,
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.mods[index].radialRadiusY}
+                        value={settings.mods[index].radialRadiusPos.y}
                         type="text"
                         onChange={handleChange}
-                        id={`mods-${index}-radialRadiusY`}
+                        id={`mods-${index}-radialRadiusPos-y`}
                     />
                 </Label>
-                <Button onClick={setClickAndSetProp} id={`mods-${index}-radialRadius`} size="small">Click and
+                <Button onClick={setClickAndSetProp} id={`mods-${index}-radialRadiusPos`} size="small">Click and
                     set</Button>
             </div>
             <CoordinateFlag
                 size={25}
-                id={`mods-${index}-radialCenter`}
-                x={settings.mods[index].radialCenterX}
-                y={settings.mods[index].radialCenterY}
+                id={`mods-${index}-radialCenterPos`}
+                x={settings.mods[index].radialCenterPos.x}
+                y={settings.mods[index].radialCenterPos.y}
                 text="C"
                 onMouseDown={setDragProp}
                 dot={false}
@@ -72,9 +72,9 @@ export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp,
             />
             <CoordinateFlag
                 size={25}
-                id={`mods-${index}-radialRadius`}
-                x={settings.mods[index].radialRadiusX}
-                y={settings.mods[index].radialRadiusY}
+                id={`mods-${index}-radialRadiusPos`}
+                x={settings.mods[index].radialRadiusPos.x}
+                y={settings.mods[index].radialRadiusPos.y}
                 text="R"
                 onMouseDown={setDragProp}
                 dot={false}

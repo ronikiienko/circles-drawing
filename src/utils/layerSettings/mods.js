@@ -2,8 +2,8 @@ import {getVectorByTwoPoints, modRemap} from '../generalUtils';
 
 
 export const radialMod = (x, y, mod) => {
-    const [distanceFromCenterToPoint] = getVectorByTwoPoints(mod.radialCenterX, mod.radialCenterY, x, y);
-    const [radius] = getVectorByTwoPoints(mod.radialCenterX, mod.radialCenterY, mod.radialRadiusX, mod.radialRadiusY);
+    const [distanceFromCenterToPoint] = getVectorByTwoPoints(mod.radialCenterPos.x, mod.radialCenterPos.y, x, y);
+    const [radius] = getVectorByTwoPoints(mod.radialCenterPos.x, mod.radialCenterPos.y, mod.radialRadiusPos.x, mod.radialRadiusPos.y);
     const distanceFromPointToRadius = radius - distanceFromCenterToPoint;
     let ratio;
     if (distanceFromPointToRadius >= 0) {

@@ -13,18 +13,18 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
             <ConditionalPanel
                 active={settings.position.biasType === biasTypes.rectangular || settings.position.biasType === biasTypes.off}>
                 <CoordinateFlag
-                    id="position-start"
-                    x={settings.position.startX}
-                    y={settings.position.startY}
+                    id="position-startPos"
+                    x={settings.position.startPos.x}
+                    y={settings.position.startPos.y}
                     title="Start point"
                     onMouseDown={setDragProp}
                     color="green"
                     size={coordinateFlagsSize}
                 />
                 <CoordinateFlag
-                    id="position-end"
-                    x={settings.position.endX}
-                    y={settings.position.endY}
+                    id="position-endPos"
+                    x={settings.position.endPos.x}
+                    y={settings.position.endPos.y}
                     title="End point"
                     onMouseDown={setDragProp}
                     color="red"
@@ -33,10 +33,10 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
             </ConditionalPanel>
             <ConditionalPanel active={settings.position.biasType !== biasTypes.off}>
                 <CoordinateFlag
-                    id="position-bias"
+                    id="position-biasPos"
                     title="Bias point"
-                    x={settings.position.biasX}
-                    y={settings.position.biasY}
+                    x={settings.position.biasPos.x}
+                    y={settings.position.biasPos.y}
                     onMouseDown={setDragProp}
                     settings={settings}
                     color="blue"
@@ -44,10 +44,10 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
             </ConditionalPanel>
             <ConditionalPanel active={settings.position.biasType === biasTypes.radial}>
                 <CoordinateFlag
-                    id="position-biasRadius"
+                    id="position-biasRadiusPos"
                     title="Bias radius point"
-                    x={settings.position.biasRadiusX}
-                    y={settings.position.biasRadiusY}
+                    x={settings.position.biasRadiusPos.x}
+                    y={settings.position.biasRadiusPos.y}
                     onMouseDown={setDragProp}
                     color="gray"
                     size={coordinateFlagsSize}/>
@@ -55,10 +55,10 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
             <ConditionalPanel
                 active={settings.shape.lookToOn && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4 && settings.shape.shape !== shapeTypes.circle}>
                 <CoordinateFlag
-                    id="shape-lookTo"
+                    id="shape-lookToPos"
                     title="Look to point"
-                    x={settings.shape.lookToX}
-                    y={settings.shape.lookToY}
+                    x={settings.shape.lookToPos.x}
+                    y={settings.shape.lookToPos.y}
                     onMouseDown={setDragProp}
                     color="pink"
                     size={coordinateFlagsSize}

@@ -50,9 +50,9 @@ export const Angle = ({settings, classes, handleChange, setClickAndSetProp}) => 
                         Look to X:
                         <Input
                             size="small"
-                            value={settings.shape.lookToX}
+                            value={settings.shape.lookToPos.x}
                             className={classes.number}
-                            id="shape-lookToX"
+                            id="shape-lookToPos-x"
                             onChange={handleChange}
                             type="text"
                         />
@@ -61,14 +61,14 @@ export const Angle = ({settings, classes, handleChange, setClickAndSetProp}) => 
                         Look to Y:
                         <Input
                             size="small"
-                            value={settings.shape.lookToY}
+                            value={settings.shape.lookToPos.y}
                             className={classes.number}
-                            id="shape-lookToY"
+                            id="shape-lookToPos-y"
                             onChange={handleChange}
                             type="text"
                         />
                     </Label>
-                    <Button size="small" id="shape-lookTo" onClick={setClickAndSetProp}>Click and set</Button>
+                    <Button size="small" id="shape-lookToPos" onClick={setClickAndSetProp}>Click and set</Button>
                 </div>
             </ConditionalPanel>
         </>

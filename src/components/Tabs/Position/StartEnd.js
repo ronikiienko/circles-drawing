@@ -11,8 +11,8 @@ export const StartEnd = ({classes, settings, handleChange, setClickAndSetProp}) 
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.position.startX}
-                        id="position-startX"
+                        value={settings.position.startPos.x}
+                        id="position-startPos-x"
                         onChange={handleChange}
                         type="text"
                     />
@@ -22,13 +22,13 @@ export const StartEnd = ({classes, settings, handleChange, setClickAndSetProp}) 
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.position.startY}
-                        id="position-startY"
+                        value={settings.position.startPos.y}
+                        id="position-startPos-y"
                         onChange={handleChange}
                         type="text"
                     />
                 </Label>
-                <Button size="small" id="position-start" onClick={setClickAndSetProp}>Click and set</Button>
+                <Button size="small" id="position-startPos" onClick={setClickAndSetProp}>Click and set</Button>
             </div>
             <div className={classes.row}>
                 <Label className={classes.label}>
@@ -36,8 +36,8 @@ export const StartEnd = ({classes, settings, handleChange, setClickAndSetProp}) 
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.position.endX}
-                        id="position-endX"
+                        value={settings.position.endPos.x}
+                        id="position-endPos-x"
                         onChange={handleChange}
                         type="text"
                     />
@@ -47,12 +47,13 @@ export const StartEnd = ({classes, settings, handleChange, setClickAndSetProp}) 
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.position.endY}
+                        value={settings.position.endPos.y}
+                        id="position-endPos-y"
                         onChange={handleChange}
                         type="text"
                     />
                 </Label>
-                <Button size="small" id="position-end" onClick={setClickAndSetProp}>Click and set</Button>
+                <Button size="small" id="position-endPos" onClick={setClickAndSetProp}>Click and set</Button>
             </div>
         </>
     );

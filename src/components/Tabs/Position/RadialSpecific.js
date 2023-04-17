@@ -12,8 +12,8 @@ export const RadialSpecific = ({settings, classes, handleChange, setClickAndSetP
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.position.biasRadiusX}
-                        id="position-biasRadiusX"
+                        value={settings.position.biasRadiusPos.x}
+                        id="position-biasRadiusPos-x"
                         onChange={handleChange}
                         type="text"
                     />
@@ -23,13 +23,13 @@ export const RadialSpecific = ({settings, classes, handleChange, setClickAndSetP
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.position.biasRadiusY}
-                        id="position-biasRadiusY"
+                        value={settings.position.biasRadiusPos.y}
+                        id="position-biasRadiusPos-y"
                         onChange={handleChange}
                         type="text"
                     />
                 </Label>
-                <Button size="small" id="position-biasRadius" onClick={setClickAndSetProp}>Click and
+                <Button size="small" id="position-biasRadiusPos" onClick={setClickAndSetProp}>Click and
                     set</Button>
             </div>
             <BiasCoords setClickAndSetProp={setClickAndSetProp} settings={settings} handleChange={handleChange}

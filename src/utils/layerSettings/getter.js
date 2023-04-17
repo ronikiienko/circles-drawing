@@ -22,8 +22,10 @@ export const getLayerSettings = (preset) => {
             angleRand: preset?.shape?.angleRand ?? defaultPreset.shape.angleRand,
             widthRatio: preset?.shape?.widthRatio ?? defaultPreset.shape.widthRatio,
             lookToOn: preset?.shape?.lookToOn ?? defaultPreset.shape.lookToOn,
-            lookToX: preset?.shape?.lookToX ?? defaultPreset.shape.lookToX,
-            lookToY: preset?.shape?.lookToY ?? defaultPreset.shape.lookToY,
+            lookToPos: {
+                x: preset?.shape?.lookToPos?.x ?? defaultPreset.shape.lookToPos.x,
+                y: preset?.shape?.lookToPos?.y ?? defaultPreset.shape.lookToPos.y,
+            },
             rectRoundness: preset?.shape?.rectRoundness ?? defaultPreset.shape.rectRoundness,
             // TODO also merge with default custom shape array
             customShape: deepCopy(preset?.shape?.customShape) ?? deepCopy(defaultPreset.shape.customShape),
@@ -40,10 +42,14 @@ export const getLayerSettings = (preset) => {
                 type: mod?.type ?? defaultMod.type,
                 id: mod?.id ?? defaultMod.id,
                 color: mod?.color ?? defaultMod.color,
-                radialRadiusX: mod?.radialRadiusX ?? defaultMod.radialRadiusX,
-                radialRadiusY: mod?.radialRadiusY ?? defaultMod.radialRadiusY,
-                radialCenterX: mod?.radialCenterX ?? defaultMod.radialCenterX,
-                radialCenterY: mod?.radialCenterY ?? defaultMod.radialCenterY,
+                radialRadiusPos: {
+                    x: mod?.radialRadiusPos?.x ?? defaultMod.radialRadiusPos.x,
+                    y: mod?.radialRadiusPos?.y ?? defaultMod.radialRadiusPos.y,
+                },
+                radialCenterPos: {
+                    x: mod?.radialCenterPos?.x ?? defaultMod.radialCenterPos.x,
+                    y: mod?.radialCenterPos?.y ?? defaultMod.radialCenterPos.y,
+                },
                 perlinZoom: mod?.perlinZoom ?? defaultMod.perlinZoom,
                 modA: mod?.modA ?? defaultMod.modA,
                 modB: mod?.modB ?? defaultMod.modB,
@@ -91,10 +97,14 @@ export const getLayerSettings = (preset) => {
             };
         }) ?? [],
         position: {
-            startX: preset?.position?.startX ?? defaultPreset.position.startX,
-            startY: preset?.position?.startY ?? defaultPreset.position.startY,
-            endX: preset?.position?.endX ?? defaultPreset.position.endX,
-            endY: preset?.position?.endY ?? defaultPreset.position.endY,
+            startPos: {
+                x: preset?.position?.startPos?.x ?? defaultPreset.position.startPos.x,
+                y: preset?.position?.startPos?.y ?? defaultPreset.position.startPos.y,
+            },
+            endPos: {
+                x: preset?.position?.endPos?.x ?? defaultPreset.position.endPos.x,
+                y: preset?.position?.endPos?.y ?? defaultPreset.position.endPos.y,
+            },
             biasType: preset?.position?.biasType ?? defaultPreset.position.biasType,
             biasSpiralType: preset?.position?.biasSpiralType ?? defaultPreset.position.biasSpiralType,
             biasSpiralCustom: preset?.position?.biasSpiralCustom ?? defaultPreset.position.biasSpiralCustom,
@@ -103,10 +113,14 @@ export const getLayerSettings = (preset) => {
             biasSpiralSpread: preset?.position?.biasSpiralSpread ?? defaultPreset.position.biasSpiralSpread,
             biasSpiralAngleRand: preset?.position?.biasSpiralAngleRand ?? defaultPreset.position.biasSpiralAngleRand,
             biasSpiralMult: preset?.position?.biasSpiralMult ?? defaultPreset.position.biasSpiralMult,
-            biasRadiusX: preset?.position?.biasRadiusX ?? defaultPreset.position.biasRadiusX,
-            biasRadiusY: preset?.position?.biasRadiusY ?? defaultPreset.position.biasRadiusY,
-            biasX: preset?.position?.biasX ?? defaultPreset.position.biasX,
-            biasY: preset?.position?.biasY ?? defaultPreset.position.biasY,
+            biasRadiusPos: {
+                x: preset?.position?.biasRadiusPos?.x ?? defaultPreset.position.biasRadiusPos.x,
+                y: preset?.position?.biasRadiusPos?.y ?? defaultPreset.position.biasRadiusPos.y,
+            },
+            biasPos: {
+                x: preset?.position?.biasPos?.x ?? defaultPreset.position.biasPos.x,
+                y: preset?.position?.biasPos?.y ?? defaultPreset.position.biasPos.y,
+            },
             biasA: preset?.position?.biasA ?? defaultPreset.position.biasA,
             biasB: preset?.position?.biasB ?? defaultPreset.position.biasB,
             biasInf: preset?.position?.biasInf ?? defaultPreset.position.biasInf,
@@ -130,8 +144,10 @@ export const getLayerSettings = (preset) => {
         brush: {
             brushDensity: preset?.brush?.brushDensity ?? defaultPreset.brush.brushDensity,
             brushOn: preset?.brush?.brushOn ?? defaultPreset.brush.brushOn,
-            brushX: preset?.brush?.brushX ?? defaultPreset.brush.brushX,
-            brushY: preset?.brush?.brushY ?? defaultPreset.brush.brushY,
+            brushPos: {
+                x: preset?.brush?.brushPos?.x ?? defaultPreset.brush.brushPos.x,
+                y: preset?.brush?.brushPos?.y ?? defaultPreset.brush.brushPos.y,
+            },
         },
     };
 };

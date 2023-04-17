@@ -12,8 +12,8 @@ export const useClickAndSet = ({setSettings}) => {
             if (!clickAndSetProperty) return;
 
             setSettings(draft => {
-                setObjectPropertyByStringPath(draft, clickAndSetProperty + 'X', event.pageX);
-                setObjectPropertyByStringPath(draft, clickAndSetProperty + 'Y', event.pageY);
+                setObjectPropertyByStringPath(draft, clickAndSetProperty + '-x', event.pageX);
+                setObjectPropertyByStringPath(draft, clickAndSetProperty + '-y', event.pageY);
             });
             setClickAndSetProperty(null);
         };
@@ -32,8 +32,8 @@ export const useClickAndSet = ({setSettings}) => {
             }
 
             setSettings(draft => {
-                setObjectPropertyByStringPath(draft, dragProperty + 'X', Math.trunc(pageX));
-                setObjectPropertyByStringPath(draft, dragProperty + 'Y', Math.trunc(pageY));
+                setObjectPropertyByStringPath(draft, dragProperty + '-x', Math.trunc(pageX));
+                setObjectPropertyByStringPath(draft, dragProperty + '-y', Math.trunc(pageY));
             });
         };
         // TODO standartize coordinates. [x, y] or {x, y} or x: suzuki, y: suzuki
