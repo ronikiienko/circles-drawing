@@ -1,6 +1,7 @@
 import {Button, Checkbox, Input, Label, Slider} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
+import {AngularInput} from '../../Utils/AngularInput';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 
 
@@ -22,14 +23,12 @@ export const Angle = ({settings, classes, handleChange, setClickAndSetProp}) => 
             </Label>
             <Label className={classes.label}>
                 Angle:
-                <Slider
+                <AngularInput
                     className={classes.slider}
                     value={settings.shape.angle}
                     id="shape-angle"
                     onChange={handleChange}
-                    min="0"
-                    max="1"
-                    step={0.05}
+                    size={30}
                 />
             </Label>
             <Label className={classes.label}>
