@@ -17,6 +17,7 @@ export const Mods = ({settings, setSettings, handleChange, classes, setClickAndS
 
     const removeMod = (event, index) => {
         event.stopPropagation();
+        if (!confirm('Are you sure you want to remove modulator?')) return;
         setSettings(draft => {
             const deletedId = settings.mods[index].id;
             draft.mods.splice(index, 1);
