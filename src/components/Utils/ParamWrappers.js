@@ -76,12 +76,10 @@ export const ParamHeader = ({header, children, settings, classes, paramName, set
                     </MenuPopover>
                 </Menu>
                 <div className={mergeClasses(localClasses.modItemBase, localClasses.modItem)}>
-                <span>
-                    {children}
-                </span>
-                    <span className={localClasses.baseValueLabel}>
-                    Base value
-                </span>
+                    <div style={{display: 'flex'}}>{children}</div>
+                    <div className={localClasses.baseValueLabel}>
+                        Base value
+                    </div>
                 </div>
             </ConditionalPanel>
         </>
@@ -100,23 +98,21 @@ export const ParamMod = ({paramName, settings, modIndex, children, setSettings, 
                     className={localClasses.modItem}
                     style={{backgroundColor: hslArrToHsl(mod.color, 0.3)}}
                 >
-                    <div>
-                        {children}
-                    </div>
+                    <div style={{display: 'flex'}}>{children}</div>
                     <span className={classes.verticallyCentered}>
                     <Text>{mod.name} ({mod.type})</Text>
-                    <Button
-                        className={localClasses.removeModButton}
-                        appearance="subtle"
-                        size="small"
-                        icon={<Delete16Regular/>}
-                        onClick={() => {
-                            setSettings(draft => {
-                                draft.mods[modIndex].outputs[paramName].enabled = false;
-                            });
-                        }}
-                    ></Button>
-                </span>
+                        <Button
+                            className={localClasses.removeModButton}
+                            appearance="subtle"
+                            size="small"
+                            icon={<Delete16Regular/>}
+                            onClick={() => {
+                                setSettings(draft => {
+                                    draft.mods[modIndex].outputs[paramName].enabled = false;
+                                });
+                            }}
+                        ></Button>
+                    </span>
                 </div>
             </ConditionalPanel>
         </>

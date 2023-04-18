@@ -15,13 +15,15 @@ export const Angle = ({settings, classes, handleChange, setClickAndSetProp, setS
                 header="Angle"
                 paramName="angle"
             >
-                <AngularInput
-                    value={settings.shape.angle}
-                    id="shape-angle"
-                    onChange={handleChange}
-                    size={30}
-                />
-                <Text className={classes.slider}>{getTranslatedAngle(settings.shape.angle).toFixed(0)}</Text>
+                <Label className={classes.label}>
+                    <AngularInput
+                        value={settings.shape.angle}
+                        id="shape-angle"
+                        onChange={handleChange}
+                        size={30}
+                    />
+                    <Text className={classes.slider}>{getTranslatedAngle(settings.shape.angle).toFixed(0)}°</Text>
+                </Label>
             </ParamHeader>
             {settings.mods.map((mod, modIndex) => {
                 return (
@@ -42,7 +44,7 @@ export const Angle = ({settings, classes, handleChange, setClickAndSetProp, setS
                                 size={30}
                             />
                             <Text
-                                className={classes.slider}>{getTranslatedAngle(mod.outputs.angle.val2).toFixed(0)}</Text>
+                                className={classes.slider}>{getTranslatedAngle(mod.outputs.angle.val2).toFixed(0)}°</Text>
                         </Label>
                     </ParamMod>
                 );
