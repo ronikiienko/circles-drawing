@@ -90,6 +90,13 @@ export const getLayerSettings = (preset) => {
                         enabled: mod?.outputs?.angle?.enabled ?? defaultMod.outputs.angle.enabled,
                         val2: mod?.outputs?.angle?.val2 ?? defaultMod.outputs.angle.val2,
                     },
+                    lookTo: {
+                        enabled: mod?.outputs?.lookTo?.enabled ?? defaultMod.outputs.lookTo.enabled,
+                        val2: {
+                            x: mod?.outputs?.lookTo?.val2?.x ?? defaultMod.outputs.lookTo.val2.x,
+                            y: mod?.outputs?.lookTo?.val2?.y ?? defaultMod.outputs.lookTo.val2.y,
+                        },
+                    },
                 },
                 modOutputs: mod?.modOutputs?.reduce((accumulator, modOutput, modOutputIndex) => {
                     if (modOutput?.id) accumulator.push({

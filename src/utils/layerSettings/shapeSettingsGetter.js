@@ -3,6 +3,7 @@ import {
     getBiasedRandomNumber,
     getColorsWeightedSum,
     getPointByDistanceAndAngle,
+    getPosWeightedSum,
     getVectorByTwoPoints,
     getWeightedSum,
     hslArrToHsl,
@@ -128,14 +129,6 @@ export const getRandomizedShapeSettings = (settings, i) => {
         }
     }
 
-    let angle;
-    if (settings.shape.lookToOn && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4 && settings.shape.shape !== shapeTypes.circle) {
-        const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, settings.shape.lookToPos.x, settings.shape.lookToPos.y);
-        angle = lookToAngle + settings.shape.angle;
-    } else {
-        angle = settings.shape.angle;
-    }
-
     const modResultsTemp = {};
     const modResults = {};
     settings.mods.forEach((mod) => {
@@ -170,6 +163,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     let widthRatioModsDeltas = [];
     let rectRoundnessModsDeltas = [];
     let angleModsDeltas = [];
+    let lookToModsDeltas = [];
 
     settings.mods?.forEach((mod) => {
         if (mod.outputs.size.enabled) {
@@ -215,7 +209,14 @@ export const getRandomizedShapeSettings = (settings, i) => {
         if (mod.outputs.angle.enabled) {
             angleModsDeltas.push([(mod.outputs.angle.val2 - settings.shape.angle) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
         }
+        if (mod.outputs.lookTo.enabled) {
+            lookToModsDeltas.push([{
+                x: (mod.outputs.lookTo.val2.x - settings.shape.lookToPos.x) * modResults[mod.id],
+                y: (mod.outputs.lookTo.val2.y - settings.shape.lookToPos.y) * modResults[mod.id],
+            }, modResults[mod.id] * mod.blendRatio]);
+        }
     });
+    console.log(lookToModsDeltas[0][0]);
 
     const sizeModsSum = getWeightedSum(...sizeModsDeltas) || 0;
     const colorModsSum = getColorsWeightedSum(...colorModsDeltas);
@@ -226,6 +227,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     const widthRatioModsSum = getWeightedSum(...widthRatioModsDeltas);
     const rectRoundnessModsSum = getWeightedSum(...rectRoundnessModsDeltas);
     const angleModsSum = getWeightedSum(...angleModsDeltas);
+    const lookToModsSum = getPosWeightedSum(...lookToModsDeltas);
 
     let widthRatio = settings.shape.widthRatio + widthRatioModsSum;
     let rectRoundness = settings.shape.rectRoundness + rectRoundnessModsSum;
@@ -243,7 +245,20 @@ export const getRandomizedShapeSettings = (settings, i) => {
         settings.color.strokeColor[1] + strokeColorModsSum[1],
         settings.color.strokeColor[2] + strokeColorModsSum[2],
     ], strokeTransp);
-    angle = angle + settings.shape.angle + angleModsSum;
+    // TODO if modsSum is empty, it's NaN. maby check also color for such situation (and other)
+    let lookToPos = {
+        x: settings.shape.lookToPos.x + lookToModsSum.x,
+        y: settings.shape.lookToPos.y + lookToModsSum.y,
+    };
+
+    let angle = settings.shape.angle + angleModsSum;
+
+    if (settings.shape.lookToOn && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4 && settings.shape.shape !== shapeTypes.circle) {
+        const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, lookToPos.x, lookToPos.y);
+        angle = lookToAngle + angle;
+    } else {
+        angle = settings.shape.angle;
+    }
 
     return {
         size: {

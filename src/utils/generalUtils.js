@@ -266,6 +266,20 @@ export const getWeightedSum = (...args) => {
     );
 };
 
+export const getPosWeightedSum = (...args) => {
+    const coefsSum = args.reduce((accumulator, arg) => accumulator + arg[1], 0);
+    if (coefsSum === 0) return {x: 0, y: 0};
+    const toOneMult = 1 / coefsSum;
+
+    return args.reduce(
+        (accumulator, arg) => {
+            accumulator.x = accumulator.x + arg[0].x * arg[1] * toOneMult;
+            accumulator.y = accumulator.y + arg[0].y * arg[1] * toOneMult;
+            return accumulator;
+        }, {x: 0, y: 0},
+    );
+};
+
 // TODO review this
 export const getColorsWeightedSum = (...args) => {
     const coefsSum = args.reduce((accumulator, arg) => accumulator + arg[1], 0);

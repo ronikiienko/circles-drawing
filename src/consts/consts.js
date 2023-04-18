@@ -175,6 +175,13 @@ export const getDefaultMod = (name) => {
                 enabled: false,
                 val2: 0.4,
             },
+            lookTo: {
+                enabled: false,
+                val2: {
+                    x: 500,
+                    y: 500,
+                },
+            },
         },
         modOutputs: [],
     };

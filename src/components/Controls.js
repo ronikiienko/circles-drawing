@@ -136,6 +136,9 @@ const useStylesTabs = makeStyles({
         maxWidth: '50px',
         marginLeft: '5px',
     },
+    marginLeft: {
+        marginLeft: '5px',
+    },
     button: {
         ...shorthands.margin('3px'),
     },
@@ -161,6 +164,11 @@ const useStylesTabs = makeStyles({
         display: 'flex',
         alignItems: 'center',
         marginBlock: '5px',
+    },
+    rowSmall: {
+        display: 'flex',
+        alignItems: 'center',
+        ...shorthands.margin('2px'),
     },
     verticalLabel: {
         display: 'flex',
@@ -282,7 +290,8 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                               classes={tabsClasses}/>
                     </ConditionalPanel>
                     <ConditionalPanel active={mainTab === tabs.shape.id}>
-                        <Shape settings={settings} setSettings={setSettings} setClickAndSetProp={setClickAndSetProp}
+                        <Shape setDragProp={setDragProp} settings={settings} setSettings={setSettings}
+                               setClickAndSetProp={setClickAndSetProp}
                                handleChange={handleChange}
                                classes={tabsClasses}
                                appSettings={appSettings}

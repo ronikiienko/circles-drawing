@@ -13,6 +13,7 @@ import {WidthRatio} from './WidthRatio';
 export const Shape = ({
                           settings,
                           setClickAndSetProp,
+                          setDragProp,
                           handleChange,
                           setSettings,
                           classes,
@@ -43,6 +44,7 @@ export const Shape = ({
                 </div>
                 <div className={classes.block}>
                     <LookTo
+                        setDragProp={setDragProp}
                         classes={classes}
                         handleChange={handleChange}
                         settings={settings}

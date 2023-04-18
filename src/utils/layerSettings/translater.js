@@ -109,6 +109,13 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                         enabled: mod.outputs.angle.enabled,
                         val2: getTranslatedAngle(mod.outputs.angle.val2),
                     },
+                    lookTo: {
+                        enabled: mod.outputs.lookTo.enabled,
+                        val2: {
+                            x: parseFloat(mod.outputs.lookTo.val2.x),
+                            y: parseFloat(mod.outputs.lookTo.val2.y),
+                        },
+                    },
                 },
                 modOutputs: mod.modOutputs.map(modOutput => {
                     return {
