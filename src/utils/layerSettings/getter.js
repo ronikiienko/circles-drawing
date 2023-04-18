@@ -30,7 +30,7 @@ export const getLayerSettings = (preset) => {
             pixelShapeRes: preset?.shape?.pixelShapeRes ?? defaultPreset.shape.pixelShapeRes,
             pixelShape: deepCopy(preset?.shape?.pixelShape) ?? deepCopy(defaultPreset.shape.pixelShape),
         },
-        mods: preset?.mods.map((mod) => {
+        mods: preset?.mods?.map((mod) => {
             const defaultMod = getDefaultMod();
             return {
                 name: mod?.name ?? defaultMod.name,
