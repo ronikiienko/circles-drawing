@@ -253,13 +253,11 @@ export const getRandomizedShapeSettings = (settings, i) => {
     // TODO if modsSum is empty array (or color array), it's NaN. maby check also color for such situation (and other)
 
     let angle = settings.shape.angle + angleModsSum;
-    console.log(lookToModsSum);
+    console.log(angle);
     // TODO REVIEW PLEASE
     if (settings.shape.lookToOn && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4 && settings.shape.shape !== shapeTypes.circle) {
         const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, lookToModsSum.x, lookToModsSum.y);
         angle = lookToAngle * lookToModsAvg + angle;
-    } else {
-        angle = settings.shape.angle;
     }
 
     return {
