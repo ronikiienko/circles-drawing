@@ -43,10 +43,6 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             angle: getTranslatedAngle(rawSettings.shape.angle),
             widthRatio: parseFloat(rawSettings.shape.widthRatio),
             lookToOn: rawSettings.shape.lookToOn,
-            lookToPos: {
-                x: parseFloat(rawSettings.shape.lookToPos.x),
-                y: parseFloat(rawSettings.shape.lookToPos.y),
-            },
             rectRoundness: parseFloat(rawSettings.shape.rectRoundness),
             customShape: rawSettings.shape.customShape,
             strokeOn: rawSettings.shape.strokeOn,

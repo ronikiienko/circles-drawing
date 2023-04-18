@@ -21,10 +21,6 @@ export const getLayerSettings = (preset) => {
             angle: preset?.shape?.angle ?? defaultPreset.shape.angle,
             widthRatio: preset?.shape?.widthRatio ?? defaultPreset.shape.widthRatio,
             lookToOn: preset?.shape?.lookToOn ?? defaultPreset.shape.lookToOn,
-            lookToPos: {
-                x: preset?.shape?.lookToPos?.x ?? defaultPreset.shape.lookToPos.x,
-                y: preset?.shape?.lookToPos?.y ?? defaultPreset.shape.lookToPos.y,
-            },
             rectRoundness: preset?.shape?.rectRoundness ?? defaultPreset.shape.rectRoundness,
             // TODO also merge with default custom shape array
             customShape: deepCopy(preset?.shape?.customShape) ?? deepCopy(defaultPreset.shape.customShape),

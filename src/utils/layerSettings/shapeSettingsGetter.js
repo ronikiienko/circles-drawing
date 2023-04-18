@@ -1,5 +1,6 @@
 import {biasSpiralTypes, biasTypes, modTypes, shapeTypes} from '../../consts/sharedConsts';
 import {
+    average,
     getBiasedRandomNumber,
     getColorsWeightedSum,
     getPointByDistanceAndAngle,
@@ -165,6 +166,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
     let angleModsDeltas = [];
     let lookToModsDeltas = [];
 
+    let lookToModsValues = [];
+
     settings.mods?.forEach((mod) => {
         if (mod.outputs.size.enabled) {
             sizeModsDeltas.push([(mod.outputs.size.val2 - settings.size.size) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
@@ -211,12 +214,14 @@ export const getRandomizedShapeSettings = (settings, i) => {
         }
         if (mod.outputs.lookTo.enabled) {
             lookToModsDeltas.push([{
-                x: (mod.outputs.lookTo.val2.x - settings.shape.lookToPos.x) * modResults[mod.id],
-                y: (mod.outputs.lookTo.val2.y - settings.shape.lookToPos.y) * modResults[mod.id],
+                x: mod.outputs.lookTo.val2.x,
+                y: mod.outputs.lookTo.val2.y,
             }, modResults[mod.id] * mod.blendRatio]);
+            lookToModsValues.push(modResults[mod.id]);
         }
     });
-    console.log(lookToModsDeltas[0][0]);
+
+    const lookToModsAvg = average(...lookToModsValues);
 
     const sizeModsSum = getWeightedSum(...sizeModsDeltas) || 0;
     const colorModsSum = getColorsWeightedSum(...colorModsDeltas);
@@ -245,17 +250,14 @@ export const getRandomizedShapeSettings = (settings, i) => {
         settings.color.strokeColor[1] + strokeColorModsSum[1],
         settings.color.strokeColor[2] + strokeColorModsSum[2],
     ], strokeTransp);
-    // TODO if modsSum is empty, it's NaN. maby check also color for such situation (and other)
-    let lookToPos = {
-        x: settings.shape.lookToPos.x + lookToModsSum.x,
-        y: settings.shape.lookToPos.y + lookToModsSum.y,
-    };
+    // TODO if modsSum is empty array (or color array), it's NaN. maby check also color for such situation (and other)
 
     let angle = settings.shape.angle + angleModsSum;
-
+    console.log(lookToModsSum);
+    // TODO REVIEW PLEASE
     if (settings.shape.lookToOn && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4 && settings.shape.shape !== shapeTypes.circle) {
-        const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, lookToPos.x, lookToPos.y);
-        angle = lookToAngle + angle;
+        const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, lookToModsSum.x, lookToModsSum.y);
+        angle = lookToAngle * lookToModsAvg + angle;
     } else {
         angle = settings.shape.angle;
     }

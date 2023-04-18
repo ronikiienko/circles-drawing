@@ -214,10 +214,6 @@ export const layerPresets = [
             angle: getAngle(30),
             widthRatio: 0.2,
             lookToOn: false,
-            lookToPos: {
-                x: 100,
-                y: 100,
-            },
             rectRoundness: 0,
             // TODO add default getter function for custom shape points
             customShape: [

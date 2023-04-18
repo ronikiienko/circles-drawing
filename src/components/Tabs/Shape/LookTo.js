@@ -30,34 +30,8 @@ export const LookTo = ({classes, handleChange, settings, setClickAndSetProp, set
                     </div>
                 }
                 paramName="lookTo"
+                noInputRow={true}
             >
-                <div className={classes.rowSmall}>
-                    <Label className={classes.label}>
-                        X:
-                        <Input
-                            appearance="underline"
-                            size="small"
-                            value={settings.shape.lookToPos.x}
-                            className={classes.number}
-                            id="shape-lookToPos-x"
-                            onChange={handleChange}
-                            type="text"
-                        />
-                    </Label>
-                    <Label className={classes.label}>
-                        Y:
-                        <Input
-                            appearance="underline"
-                            size="small"
-                            value={settings.shape.lookToPos.y}
-                            className={classes.number}
-                            id="shape-lookToPos-y"
-                            onChange={handleChange}
-                            type="text"
-                        />
-                    </Label>
-                    <Button size="small" id="shape-lookToPos" onClick={setClickAndSetProp}>Click and set</Button>
-                </div>
             </ParamHeader>
             {settings.mods.map((mod, modIndex) => {
                 return (

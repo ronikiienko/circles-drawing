@@ -1,6 +1,6 @@
 import React from 'react';
 import {coordinateFlagsSize} from '../../consts/consts';
-import {biasTypes, shapeTypes} from '../../consts/sharedConsts';
+import {biasTypes} from '../../consts/sharedConsts';
 import {ConditionalPanel} from './ConditionalPanel';
 import {CoordinateFlag} from './CoordinateFlag';
 
@@ -51,18 +51,6 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                     onMouseDown={setDragProp}
                     color="gray"
                     size={coordinateFlagsSize}/>
-            </ConditionalPanel>
-            <ConditionalPanel
-                active={settings.shape.lookToOn && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4 && settings.shape.shape !== shapeTypes.circle}>
-                <CoordinateFlag
-                    id="shape-lookToPos"
-                    title="Look to point"
-                    x={settings.shape.lookToPos.x}
-                    y={settings.shape.lookToPos.y}
-                    onMouseDown={setDragProp}
-                    color="pink"
-                    size={coordinateFlagsSize}
-                />
             </ConditionalPanel>
         </>
     );

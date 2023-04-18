@@ -41,7 +41,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const ParamHeader = ({header, children, settings, classes, paramName, setSettings, off}) => {
+export const ParamHeader = ({header, children, settings, classes, paramName, setSettings, off, noInputRow}) => {
     const localClasses = useStyles();
     return (
         <>
@@ -75,12 +75,14 @@ export const ParamHeader = ({header, children, settings, classes, paramName, set
                         </MenuList>
                     </MenuPopover>
                 </Menu>
-                <div className={mergeClasses(localClasses.modItemBase, localClasses.modItem)}>
-                    <div style={{display: 'flex'}}>{children}</div>
-                    <div className={localClasses.baseValueLabel}>
-                        Base value
+                <ConditionalPanel active={!noInputRow}>
+                    <div className={mergeClasses(localClasses.modItemBase, localClasses.modItem)}>
+                        <div style={{display: 'flex'}}>{children}</div>
+                        <div className={localClasses.baseValueLabel}>
+                            Base value
+                        </div>
                     </div>
-                </div>
+                </ConditionalPanel>
             </ConditionalPanel>
         </>
     );
