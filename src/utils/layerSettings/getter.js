@@ -1,4 +1,4 @@
-import {getDefaultMod, layerPresets} from '../../consts/consts';
+import {getCustomShapePoint, getDefaultMod, layerPresets} from '../../consts/consts';
 import {deepCopy} from '../generalUtils';
 
 
@@ -23,7 +23,15 @@ export const getLayerSettings = (preset) => {
             lookToOn: preset?.shape?.lookToOn ?? defaultPreset.shape.lookToOn,
             rectRoundness: preset?.shape?.rectRoundness ?? defaultPreset.shape.rectRoundness,
             // TODO also merge with default custom shape array
-            customShape: deepCopy(preset?.shape?.customShape) ?? deepCopy(defaultPreset.shape.customShape),
+            customShape: preset?.shape?.customShape?.map((point) => {
+                const defaultPoint = getCustomShapePoint();
+                return {
+                    x: point?.x ?? point?.[0] ?? defaultPoint.x,
+                    y: point?.y ?? point?.[1] ?? defaultPoint.y,
+                    id: point?.id ?? point?.[2] ?? defaultPoint.id,
+                    color: point?.color ?? point?.[3] ?? defaultPoint.color,
+                };
+            }) ?? [],
             strokeOn: preset?.shape?.strokeOn ?? defaultPreset.shape.strokeOn,
             strokeThickness: preset?.shape?.strokeThickness ?? defaultPreset.shape.strokeThickness,
             fillOn: preset?.shape?.fillOn ?? defaultPreset.shape.fillOn,
