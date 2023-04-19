@@ -19,7 +19,7 @@ import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 import {ModInputs} from './ModInputs';
 import {Radial} from './Radial';
 import {RemapCharacter} from './RemapCharacter';
-import {Sine} from './Sine';
+import {Trig} from './Trig';
 
 
 const useStyles = makeStyles({
@@ -141,13 +141,13 @@ export const ModElement = ({
                                 />
                             </div>
                         </ConditionalPanel>
-                        <ConditionalPanel active={settings.mods[modIndex].type === modTypes.sine.id}>
+                        <ConditionalPanel active={settings.mods[modIndex].type === modTypes.trig.id}>
                             <div className={classes.block}>
-                                <Sine
+                                <Trig
                                     settings={settings}
                                     classes={classes}
                                     handleChange={handleChange}
-                                    index={modIndex}
+                                    modIndex={modIndex}
                                 />
                             </div>
                         </ConditionalPanel>

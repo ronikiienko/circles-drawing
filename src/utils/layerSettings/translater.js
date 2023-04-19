@@ -59,6 +59,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                 perlin: mod.type === modTypes.perlin.id ? createNoise2D() : null,
                 sineZoomX: getTranslatedSineZoom(mod.sineZoomX),
                 sineZoomY: getTranslatedSineZoom(mod.sineZoomY),
+                trigType: mod.trigType,
                 perlinZoom: Math.pow((1.0000001 - parseFloat(mod.perlinZoom)) / 5, 2),
                 radialRadiusPos: {
                     x: parseFloat(mod.radialRadiusPos.x),
@@ -119,6 +120,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                 modOutputs: mod.modOutputs.map(modOutput => {
                     return {
                         id: modOutput.id,
+                        mult: modOutput.mult,
                     };
                 }),
             };

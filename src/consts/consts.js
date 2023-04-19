@@ -2,7 +2,7 @@ import {nanoid} from 'nanoid';
 import {getRandomHslArr} from '../utils/generalUtils';
 import {getAngle} from '../utils/layerSettings/remappers';
 import {getRandomName} from '../utils/nameGenerators';
-import {biasSpiralTypes, biasTypes, modTypes, pixelShapeBrushTypes, shapeTypes} from './sharedConsts';
+import {biasSpiralTypes, biasTypes, modTypes, pixelShapeBrushTypes, shapeTypes, trigModTypes} from './sharedConsts';
 
 
 export const overlayModes = {
@@ -138,6 +138,7 @@ export const getDefaultMod = (name) => {
         perlinZoom: 0.2,
         sineZoomX: 0.2,
         sineZoomY: 0.2,
+        trigType: trigModTypes.sine,
         modA: 0.3,
         modB: 0.3,
         blendRatio: 0.1,

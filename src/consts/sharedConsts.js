@@ -64,8 +64,23 @@ export const modTypes = {
         id: 'index',
         name: 'By index',
     },
+    trig: {
+        id: 'trig',
+        name: 'Trigonometry',
+    },
+};
+
+export const trigModTypes = {
     sine: {
         id: 'sine',
         name: 'Sine',
+    },
+    tan: {
+        id: 'tan',
+        name: 'Tan',
+    },
+    circles: {
+        id: 'circles',
+        name: 'Circles',
     },
 };

@@ -56,6 +56,7 @@ export const getLayerSettings = (preset) => {
                 },
                 sineZoomX: mod?.sineZoomX ?? defaultMod.sineZoomX,
                 sineZoomY: mod?.sineZoomY ?? defaultMod.sineZoomY,
+                trigType: mod?.trigType ?? defaultMod.trigType,
                 perlinZoom: mod?.perlinZoom ?? defaultMod.perlinZoom,
                 modA: mod?.modA ?? defaultMod.modA,
                 modB: mod?.modB ?? defaultMod.modB,

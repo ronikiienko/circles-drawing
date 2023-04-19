@@ -10,7 +10,7 @@ import {
     hslArrToHsl,
     turnDegreesToRadians,
 } from '../generalUtils';
-import {indexMod, perlinMod, radialMod, randomMod, sineMod} from './mods';
+import {indexMod, perlinMod, radialMod, randomMod, trigMod} from './mods';
 
 
 export const getRandomizedShapeSettings = (settings, i) => {
@@ -50,7 +50,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
         }
             break;
         case biasTypes.radial: {
-            const angle = getBiasedRandomNumber(0, 360);
+            const angle = getBiasedRandomNumber(0, 359);
 
             const diapason = Math.pow(settings.position.biasRadius, 2);
 
@@ -148,8 +148,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
             case modTypes.index.id:
                 value = indexMod(i, settings.number.number, mod);
                 break;
-            case modTypes.sine.id:
-                value = sineMod(xPosition, yPosition, mod);
+            case modTypes.trig.id:
+                value = trigMod(xPosition, yPosition, mod);
                 break;
         }
         modResultsTemp[mod.id] = value;
