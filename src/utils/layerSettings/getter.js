@@ -23,6 +23,7 @@ export const getLayerSettings = (preset) => {
             lookToOn: preset?.shape?.lookToOn ?? defaultPreset.shape.lookToOn,
             rectRoundness: preset?.shape?.rectRoundness ?? defaultPreset.shape.rectRoundness,
             // TODO also merge with default custom shape array
+            // TODO remove array check (x as 0 element etc..) it just supports older version
             customShape: preset?.shape?.customShape?.map((point) => {
                 const defaultPoint = getCustomShapePoint();
                 return {
