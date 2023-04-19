@@ -123,7 +123,7 @@ export const getDefaultMod = (name) => {
     const id = nanoid(8);
     return {
         name: name || 'Default',
-        type: modTypes.radial,
+        type: modTypes.radial.id,
         color: getRandomHslArr([null, 100, 70, 0.5]),
         id: id,
         radialRadiusPos: {

@@ -136,16 +136,16 @@ export const getRandomizedShapeSettings = (settings, i) => {
         // TODO launch this conditionaly (if no outputs not calculate)
         let value;
         switch (mod.type) {
-            case modTypes.random:
+            case modTypes.random.id:
                 value = randomMod(mod);
                 break;
-            case modTypes.radial:
+            case modTypes.radial.id:
                 value = radialMod(xPosition, yPosition, mod);
                 break;
-            case modTypes.perlin:
+            case modTypes.perlin.id:
                 value = perlinMod(xPosition, yPosition, mod);
                 break;
-            case modTypes.index:
+            case modTypes.index.id:
                 value = indexMod(i, settings.number.number, mod);
         }
         modResultsTemp[mod.id] = value;

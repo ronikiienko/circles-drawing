@@ -48,8 +48,20 @@ export const pixelShapeBrushTypes = {
 };
 
 export const modTypes = {
-    radial: 'radial',
-    random: 'random',
-    perlin: 'perlin',
-    index: 'index',
+    radial: {
+        id: 'radial',
+        name: 'Radial',
+    },
+    random: {
+        id: 'random',
+        name: 'Random',
+    },
+    perlin: {
+        id: 'perlin',
+        name: 'Perlin',
+    },
+    index: {
+        id: 'index',
+        name: 'By index',
+    },
 };

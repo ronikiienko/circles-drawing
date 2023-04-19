@@ -114,16 +114,16 @@ export const ModElement = ({
                                 >
                                     {Object.values(modTypes).map(modType =>
                                         <option
-                                            key={modType}
-                                            value={modType}
+                                            key={modType.id}
+                                            value={modType.id}
                                         >
-                                            {modType}
+                                            {modType.name}
                                         </option>)
                                     }
                                 </Select>
                             </Label>
                         </div>
-                        <ConditionalPanel active={settings.mods[index].type === modTypes.perlin}>
+                        <ConditionalPanel active={settings.mods[index].type === modTypes.perlin.id}>
                             <div className={classes.block}>
                                 <Label className={classes.label}>
                                     Perlin zoom:
@@ -147,7 +147,7 @@ export const ModElement = ({
                                 </Label>
                             </div>
                         </ConditionalPanel>
-                        <ConditionalPanel active={settings.mods[index].type === modTypes.radial}>
+                        <ConditionalPanel active={settings.mods[index].type === modTypes.radial.id}>
                             <div className={classes.block}>
                                 <Radial
                                     settings={settings}

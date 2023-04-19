@@ -55,7 +55,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             return {
                 type: mod.type,
                 id: mod.id,
-                perlin: mod.type === modTypes.perlin ? createNoise2D() : null,
+                perlin: mod.type === modTypes.perlin.id ? createNoise2D() : null,
                 perlinZoom: Math.pow((1.0000001 - parseFloat(mod.perlinZoom)) / 5, 2),
                 radialRadiusPos: {
                     x: parseFloat(mod.radialRadiusPos.x),
