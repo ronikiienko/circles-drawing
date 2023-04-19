@@ -10,7 +10,7 @@ import {
     hslArrToHsl,
     turnDegreesToRadians,
 } from '../generalUtils';
-import {perlinMod, radialMod, randomMod} from './mods';
+import {indexMod, perlinMod, radialMod, randomMod} from './mods';
 
 
 export const getRandomizedShapeSettings = (settings, i) => {
@@ -144,6 +144,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
                 break;
             case modTypes.perlin:
                 value = perlinMod(xPosition, yPosition, mod);
+                break;
+            case modTypes.index:
+                value = indexMod(i, settings.number.number, mod);
         }
         modResultsTemp[mod.id] = value;
         modResults[mod.id] = value;

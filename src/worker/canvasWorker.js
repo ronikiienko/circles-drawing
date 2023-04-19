@@ -191,7 +191,7 @@ const drawShape = (settings) => {
         if (settings.shape.rectRoundness) {
             ctx.roundRect(-width / 2, -height / 2, width, height, settings.size.size / 2 * settings.shape.rectRoundness);
         } else {
-            ctx.rect(0, 0, width, height);
+            ctx.rect(-width / 2, -height / 2, width, height);
         }
         settings.shape.strokeOn && ctx.stroke();
         settings.shape.fillOn && ctx.fill();

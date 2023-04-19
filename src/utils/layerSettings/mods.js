@@ -22,3 +22,7 @@ export const randomMod = (mod) => {
 export const perlinMod = (x, y, mod) => {
     return modRemap((mod.perlin(x * mod.perlinZoom, y * mod.perlinZoom) + 1) / 2, mod.modA, mod.modB);
 };
+
+export const indexMod = (currentIndex, shapesNumber, mod) => {
+    return modRemap(currentIndex / shapesNumber, mod.modA, mod.modB);
+};
