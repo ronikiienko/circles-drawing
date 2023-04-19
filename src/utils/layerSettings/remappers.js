@@ -34,3 +34,7 @@ export const getTranslatedAngle = (angle) => {
 export const getAngle = (angle) => {
     return parseFloat(angle) / 360;
 };
+
+export const getTranslatedSineZoom = (zoom) => {
+    return Math.pow(parseFloat(zoom) + 1, 9);
+};

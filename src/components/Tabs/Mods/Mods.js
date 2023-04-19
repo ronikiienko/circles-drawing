@@ -36,16 +36,16 @@ export const Mods = ({settings, setSettings, handleChange, classes, setClickAndS
                 multiple
                 collapsible
             >
-                {settings.mods.map((mod, index) => {
+                {settings.mods.map((mod, modIndex) => {
                     return <ModElement
                         setDragProp={setDragProp}
                         setClickAndSetProp={setClickAndSetProp}
-                        key={settings.mods[index].id}
+                        key={settings.mods[modIndex].id}
                         handleChange={handleChange}
                         settings={settings}
                         removeMod={removeMod}
                         classes={classes}
-                        index={index}
+                        modIndex={modIndex}
                         setSettings={setSettings}
                     />;
                 })}

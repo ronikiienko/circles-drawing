@@ -64,4 +64,8 @@ export const modTypes = {
         id: 'index',
         name: 'By index',
     },
+    sine: {
+        id: 'sine',
+        name: 'Sine',
+    },
 };

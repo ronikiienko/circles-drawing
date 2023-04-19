@@ -10,6 +10,7 @@ import {
     getTranslatedModA,
     getTranslatedModB,
     getTranslatedRectRoundness,
+    getTranslatedSineZoom,
     getTranslatedSize,
     getTranslatedWidthRatio,
 } from './remappers';
@@ -56,6 +57,8 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                 type: mod.type,
                 id: mod.id,
                 perlin: mod.type === modTypes.perlin.id ? createNoise2D() : null,
+                sineZoomX: getTranslatedSineZoom(mod.sineZoomX),
+                sineZoomY: getTranslatedSineZoom(mod.sineZoomY),
                 perlinZoom: Math.pow((1.0000001 - parseFloat(mod.perlinZoom)) / 5, 2),
                 radialRadiusPos: {
                     x: parseFloat(mod.radialRadiusPos.x),

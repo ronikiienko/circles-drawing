@@ -116,7 +116,8 @@ export const coordinateFlagsSize = 30;
 
 export const getDefaultModOutput = (id) => {
     return {
-        id: id,
+        id: id ?? nanoid(),
+        mult: 1,
     };
 };
 export const getDefaultMod = (name) => {
@@ -135,6 +136,8 @@ export const getDefaultMod = (name) => {
             y: 100,
         },
         perlinZoom: 0.2,
+        sineZoomX: 0.2,
+        sineZoomY: 0.2,
         modA: 0.3,
         modB: 0.3,
         blendRatio: 0.1,

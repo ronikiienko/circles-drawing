@@ -10,7 +10,7 @@ import {
     hslArrToHsl,
     turnDegreesToRadians,
 } from '../generalUtils';
-import {indexMod, perlinMod, radialMod, randomMod} from './mods';
+import {indexMod, perlinMod, radialMod, randomMod, sineMod} from './mods';
 
 
 export const getRandomizedShapeSettings = (settings, i) => {
@@ -147,6 +147,10 @@ export const getRandomizedShapeSettings = (settings, i) => {
                 break;
             case modTypes.index.id:
                 value = indexMod(i, settings.number.number, mod);
+                break;
+            case modTypes.sine.id:
+                value = sineMod(xPosition, yPosition, mod);
+                break;
         }
         modResultsTemp[mod.id] = value;
         modResults[mod.id] = value;
@@ -256,7 +260,6 @@ export const getRandomizedShapeSettings = (settings, i) => {
     // TODO if modsSum is empty array (or color array), it's NaN. maby check also color for such situation (and other)
 
     let angle = settings.shape.angle + angleModsSum;
-    console.log(angle);
     // TODO REVIEW PLEASE
     if (settings.shape.lookToOn && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4 && settings.shape.shape !== shapeTypes.circle) {
         const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, lookToModsSum.x, lookToModsSum.y);

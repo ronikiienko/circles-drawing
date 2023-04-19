@@ -26,3 +26,14 @@ export const perlinMod = (x, y, mod) => {
 export const indexMod = (currentIndex, shapesNumber, mod) => {
     return modRemap(currentIndex / shapesNumber, mod.modA, mod.modB);
 };
+
+export const sineMod = (x, y, mod) => {
+    // const xSin = (Math.sin(x / 100) + 1) / 2
+    // const ySin = (Math.sin(y / 100) + 1) / 2
+    // const avg = (xSin + ySin) / 2
+    // return modRemap(Math.sin(avg * 50) , mod.modA, mod.modB)
+    const xSin = (Math.sin(x / mod.sineZoomX) + 1) / 2;
+    const ySin = (Math.sin(y / mod.sineZoomY) + 1) / 2;
+    const avg = (xSin + ySin) / 2;
+    return modRemap(Math.sin(avg * 70), mod.modA, mod.modB);
+};

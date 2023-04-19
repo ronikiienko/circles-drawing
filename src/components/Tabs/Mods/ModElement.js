@@ -2,17 +2,9 @@ import {
     AccordionHeader,
     AccordionItem,
     AccordionPanel,
-    Button,
     Input,
     Label,
     makeStyles,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
-    MenuPopover,
-    MenuTrigger,
-    mergeClasses,
     Select,
     shorthands,
     Slider,
@@ -21,12 +13,13 @@ import {
 } from '@fluentui/react-components';
 import {Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
-import {getDefaultModOutput} from '../../../consts/consts';
 import {modTypes} from '../../../consts/sharedConsts';
 import {hslArrToHsl} from '../../../utils/generalUtils';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {ModInputs} from './ModInputs';
 import {Radial} from './Radial';
 import {RemapCharacter} from './RemapCharacter';
+import {Sine} from './Sine';
 
 
 const useStyles = makeStyles({
@@ -49,22 +42,11 @@ const useStyles = makeStyles({
     removeButton: {
         marginLeft: '20px',
     },
-    addButton: {
-        width: '100%',
-    },
-    inputsContainer: {
-        ...shorthands.overflow('hidden', 'hidden'),
-    },
-    addModInputButton: {
-        float: 'right',
-    },
-    modInputButton: {
-        ...shorthands.margin('2px'),
-    },
+
 });
 // TODO while typing mod name many things happen...
 export const ModElement = ({
-                               index,
+                               modIndex,
                                handleChange,
                                settings,
                                removeMod,
@@ -78,12 +60,12 @@ export const ModElement = ({
         <>
             <AccordionItem
                 className={localClasses.block}
-                value={settings.mods[index].id}>
+                value={settings.mods[modIndex].id}>
                 <AccordionHeader className={localClasses.accordionHeader}
-                                 style={{backgroundColor: hslArrToHsl(settings.mods[index].color, 0.3)}}>
+                                 style={{backgroundColor: hslArrToHsl(settings.mods[modIndex].color, 0.3)}}>
                     <Input
-                        id={`mods-${index}-name`}
-                        value={settings.mods[index].name}
+                        id={`mods-${modIndex}-name`}
+                        value={settings.mods[modIndex].name}
                         onChange={handleChange}
                         className={localClasses.nameInputs}
                         onClick={(event) => {
@@ -92,9 +74,9 @@ export const ModElement = ({
                         }}
                         size="small"
                     />
-                    {settings.mods[index].type}
+                    {settings.mods[modIndex].type}
                     <div
-                        onClick={(event) => removeMod(event, index)}
+                        onClick={(event) => removeMod(event, modIndex)}
                         className={localClasses.removeButton}
                     >
                         <Delete16Regular/>
@@ -107,9 +89,9 @@ export const ModElement = ({
                                 Mod type:
                                 <Select
                                     size="small"
-                                    value={settings.mods[index].type}
+                                    value={settings.mods[modIndex].type}
                                     className={classes.select}
-                                    id={`mods-${index}-type`}
+                                    id={`mods-${modIndex}-type`}
                                     onChange={handleChange}
                                 >
                                     {Object.values(modTypes).map(modType =>
@@ -123,7 +105,7 @@ export const ModElement = ({
                                 </Select>
                             </Label>
                         </div>
-                        <ConditionalPanel active={settings.mods[index].type === modTypes.perlin.id}>
+                        <ConditionalPanel active={settings.mods[modIndex].type === modTypes.perlin.id}>
                             <div className={classes.block}>
                                 <Label className={classes.label}>
                                     Perlin zoom:
@@ -132,22 +114,22 @@ export const ModElement = ({
                                         min={0}
                                         max={1}
                                         step={0.01}
-                                        id={`mods-${index}-perlinZoom`}
+                                        id={`mods-${modIndex}-perlinZoom`}
                                         onChange={handleChange}
-                                        value={settings.mods[index].perlinZoom}
+                                        value={settings.mods[modIndex].perlinZoom}
                                     />
                                     <Input
                                         className={classes.number}
                                         size="small"
                                         appearance="underline"
-                                        id={`mods-${index}-perlinZoom`}
+                                        id={`mods-${modIndex}-perlinZoom`}
                                         onChange={handleChange}
-                                        value={settings.mods[index].perlinZoom}
+                                        value={settings.mods[modIndex].perlinZoom}
                                     />
                                 </Label>
                             </div>
                         </ConditionalPanel>
-                        <ConditionalPanel active={settings.mods[index].type === modTypes.radial.id}>
+                        <ConditionalPanel active={settings.mods[modIndex].type === modTypes.radial.id}>
                             <div className={classes.block}>
                                 <Radial
                                     settings={settings}
@@ -155,7 +137,17 @@ export const ModElement = ({
                                     handleChange={handleChange}
                                     setDragProp={setDragProp}
                                     setClickAndSetProp={setClickAndSetProp}
-                                    index={index}
+                                    index={modIndex}
+                                />
+                            </div>
+                        </ConditionalPanel>
+                        <ConditionalPanel active={settings.mods[modIndex].type === modTypes.sine.id}>
+                            <div className={classes.block}>
+                                <Sine
+                                    settings={settings}
+                                    classes={classes}
+                                    handleChange={handleChange}
+                                    index={modIndex}
                                 />
                             </div>
                         </ConditionalPanel>
@@ -166,76 +158,30 @@ export const ModElement = ({
                                     min={0.01}
                                     max={1}
                                     step={0.01}
-                                    id={`mods-${index}-blendRatio`}
+                                    id={`mods-${modIndex}-blendRatio`}
                                     onChange={handleChange}
-                                    value={settings.mods[index].blendRatio}
+                                    value={settings.mods[modIndex].blendRatio}
                                     size="small"
                                 />
                                 <Text>
-                                    {settings.mods[index].blendRatio}
+                                    {settings.mods[modIndex].blendRatio}
                                 </Text>
                             </Label>
                             <RemapCharacter
-                                index={index}
+                                index={modIndex}
                                 handleChange={handleChange}
                                 classes={classes}
                                 settings={settings}
                             />
                         </div>
-                        <div className={mergeClasses(localClasses.inputsContainer, classes.block)}>
-                            <Menu>
-                                <MenuTrigger>
-                                    <MenuButton
-                                        className={localClasses.addModInputButton}
-                                        appearance="subtle"
-                                        disabled={!settings.mods.some(mod => !mod.modOutputs.some(modOutput => modOutput.id === settings.mods[index].id))}
-                                        size="small"
-                                    >
-                                        {settings.mods.some(mod => !mod.modOutputs.some(modOutput => modOutput.id === settings.mods[index].id)) ? 'Choose mods' : 'No mods left. Create more'}
-                                    </MenuButton>
-                                </MenuTrigger>
-                                <MenuPopover>
-                                    <MenuList>
-                                        {
-                                            settings.mods.map((mod, modIndex) => {
-                                                if (mod.modOutputs.some(modOutput => modOutput.id === settings.mods[index].id)) return null;
-                                                return (
-                                                    <MenuItem
-                                                        style={{backgroundColor: hslArrToHsl(mod.color, 0.2)}}
-                                                        key={mod.id}
-                                                        onClick={() => setSettings((draft) => {
-                                                            draft.mods[modIndex].modOutputs.push(getDefaultModOutput(settings.mods[index].id));
-                                                        })}
-                                                    >
-                                                        {mod.name} ({mod.type})
-                                                    </MenuItem>
-                                                );
-                                            })}
-                                    </MenuList>
-                                </MenuPopover>
-                            </Menu>
-                            {settings.mods.map((mod) => {
-                                const hasThisModOutput = mod.modOutputs.some(modOutput => {
-                                    return modOutput.id === settings.mods[index].id;
-                                });
-                                if (hasThisModOutput) return (
-                                    <Button
-                                        style={{backgroundColor: hslArrToHsl(mod.color, 0.3)}}
-                                        size="small"
-                                        key={mod.id}
-                                        className={localClasses.modInputButton}
-                                        onClick={() => {
-                                            setSettings((draft) => {
-                                                const indexOfMod = draft.mods.findIndex((element) => element.id === mod.id);
-                                                const indexOfModOutput = draft.mods[indexOfMod].modOutputs.find(element => element.id === draft.mods[index].id);
-                                                draft.mods[indexOfMod].modOutputs.splice(indexOfModOutput, 1);
-                                            });
-                                        }}
-                                    >
-                                        {mod.name}
-                                    </Button>
-                                );
-                            })}
+                        <div className={classes.block}>
+                            <ModInputs
+                                classes={classes}
+                                handleChange={handleChange}
+                                settings={settings}
+                                setSettings={setSettings}
+                                modIndex={modIndex}
+                            />
                         </div>
                     </div>
                 </AccordionPanel>

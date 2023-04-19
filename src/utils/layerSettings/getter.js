@@ -1,4 +1,4 @@
-import {getCustomShapePoint, getDefaultMod, layerPresets} from '../../consts/consts';
+import {getCustomShapePoint, getDefaultMod, getDefaultModOutput, layerPresets} from '../../consts/consts';
 import {deepCopy} from '../generalUtils';
 
 
@@ -54,6 +54,8 @@ export const getLayerSettings = (preset) => {
                     x: mod?.radialCenterPos?.x ?? defaultMod.radialCenterPos.x,
                     y: mod?.radialCenterPos?.y ?? defaultMod.radialCenterPos.y,
                 },
+                sineZoomX: mod?.sineZoomX ?? defaultMod.sineZoomX,
+                sineZoomY: mod?.sineZoomY ?? defaultMod.sineZoomY,
                 perlinZoom: mod?.perlinZoom ?? defaultMod.perlinZoom,
                 modA: mod?.modA ?? defaultMod.modA,
                 modB: mod?.modB ?? defaultMod.modB,
@@ -103,12 +105,13 @@ export const getLayerSettings = (preset) => {
                         },
                     },
                 },
-                modOutputs: mod?.modOutputs?.reduce((accumulator, modOutput, modOutputIndex) => {
-                    if (modOutput?.id) accumulator.push({
-                        id: modOutput?.id,
-                    });
-                    return accumulator;
-                }, []) ?? [],
+                modOutputs: mod?.modOutputs?.map((modOutput) => {
+                    const defaultModOutput = getDefaultModOutput();
+                    return {
+                        id: modOutput?.id ?? defaultModOutput.id,
+                        mult: modOutput?.mult ?? defaultModOutput.mult,
+                    };
+                }) ?? [],
             };
         }) ?? [],
         position: {
