@@ -11,7 +11,7 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
     return (
         <>
             <ConditionalPanel
-                active={settings.position.biasType === biasTypes.rectangular || settings.position.biasType === biasTypes.off}>
+                active={settings.position.biasType === biasTypes.rectangular.id || settings.position.biasType === biasTypes.off.id}>
                 <CoordinateFlag
                     id="position-startPos"
                     x={settings.position.startPos.x}
@@ -31,7 +31,7 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                     size={coordinateFlagsSize}
                 />
             </ConditionalPanel>
-            <ConditionalPanel active={settings.position.biasType !== biasTypes.off}>
+            <ConditionalPanel active={settings.position.biasType !== biasTypes.off.id}>
                 <CoordinateFlag
                     id="position-biasPos"
                     title="Bias point"
@@ -42,7 +42,7 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                     color="blue"
                     size={coordinateFlagsSize}/>
             </ConditionalPanel>
-            <ConditionalPanel active={settings.position.biasType === biasTypes.radial}>
+            <ConditionalPanel active={settings.position.biasType === biasTypes.radial.id}>
                 <CoordinateFlag
                     id="position-biasRadiusPos"
                     title="Bias radius point"

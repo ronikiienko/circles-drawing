@@ -38,3 +38,8 @@ export const getAngle = (angle) => {
 export const getTranslatedSineZoom = (zoom) => {
     return Math.pow(parseFloat(zoom) + 1, 9);
 };
+
+export const getTranslatedChessPlateDim = (chessPlateDim) => {
+    return parseFloat(chessPlateDim);
+    // return Math.trunc(Math.pow(parseFloat(chessPlateDim) + 1, 8))
+};

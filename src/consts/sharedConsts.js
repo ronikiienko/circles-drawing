@@ -13,17 +13,48 @@ export const CMD = {
 
 export const maxUndoTimes = 10;
 export const biasTypes = {
-    rectangular: 'rectangular',
-    radial: 'radial',
-    spiral: 'spiral',
-    off: 'off',
+    rectangular: {
+        id: 'rectangular',
+        name: 'Rectangular',
+    },
+    radial: {
+        id: 'radial',
+        name: 'Radial',
+    },
+    spiral: {
+        id: 'spiral',
+        name: 'Spiral',
+    },
+    off: {
+        id: 'off',
+        name: 'Off',
+    },
+    chessPlate: {
+        id: 'chessPlate',
+        name: 'Chess plate',
+    },
 };
 export const biasSpiralTypes = {
-    basic: 'basic',
-    fourLeaf: 'fourLeaf',
-    reducing: 'reducing',
-    circles: 'circles',
-    custom: 'custom',
+    basic: {
+        id: 'basic',
+        name: 'Basic',
+    },
+    fourLeaf: {
+        id: 'fourLeaf',
+        name: 'Four Leaf',
+    },
+    reducing: {
+        id: 'reducing',
+        name: 'Reducing',
+    },
+    circles: {
+        id: 'circles',
+        name: 'Circles',
+    },
+    custom: {
+        id: 'custom',
+        name: 'Custom',
+    },
 };
 
 // angleRad * Math.pow( Math.cos(angleRad), 1))

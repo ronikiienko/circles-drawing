@@ -19,12 +19,12 @@ export const getRandomizedShapeSettings = (settings, i) => {
     const realBiasX = settings.brush.brushOn ? settings.brush.brushPos.x : settings.position.biasPos.x;
     const realBiasY = settings.brush.brushOn ? settings.brush.brushPos.y : settings.position.biasPos.y;
     switch (settings.position.biasType) {
-        case biasTypes.off: {
+        case biasTypes.off.id: {
             xPosition = getBiasedRandomNumber(settings.position.startPos.x, settings.position.endPos.x);
             yPosition = getBiasedRandomNumber(settings.position.startPos.y, settings.position.endPos.y);
         }
             break;
-        case biasTypes.rectangular: {
+        case biasTypes.rectangular.id: {
             xPosition = getBiasedRandomNumber(
                 settings.position.startPos.x,
                 settings.position.endPos.x,
@@ -49,7 +49,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
             );
         }
             break;
-        case biasTypes.radial: {
+        case biasTypes.radial.id: {
             const angle = getBiasedRandomNumber(0, 359);
 
             const diapason = Math.pow(settings.position.biasRadius, 2);
@@ -82,7 +82,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
             yPosition = y;
         }
             break;
-        case biasTypes.spiral: {
+        case biasTypes.spiral.id: {
             const spinI = Math.trunc(i / settings.position.biasSpiralThickness);
             const angle = spinI * settings.position.biasSpiralDensity;
             const angleRad = turnDegreesToRadians(angle);
@@ -90,23 +90,23 @@ export const getRandomizedShapeSettings = (settings, i) => {
             let distanceFromBias;
 
             switch (settings.position.biasSpiralType) {
-                case biasSpiralTypes.basic: {
+                case biasSpiralTypes.basic.id: {
                     distanceFromBias = Math.pow(angleRad, 1);
                 }
                     break;
-                case biasSpiralTypes.fourLeaf: {
+                case biasSpiralTypes.fourLeaf.id: {
                     distanceFromBias = angleRad * Math.sin(angleRad * 2);
                 }
                     break;
-                case biasSpiralTypes.reducing: {
+                case biasSpiralTypes.reducing.id: {
                     distanceFromBias = Math.pow(angleRad, 1 / 2) * 20;
                 }
                     break;
-                case biasSpiralTypes.circles: {
+                case biasSpiralTypes.circles.id: {
                     distanceFromBias = angleRad * 4 * Math.cos(Math.pow(angleRad, 1 / 1.2));
                 }
                     break;
-                case biasSpiralTypes.custom: {
+                case biasSpiralTypes.custom.id: {
                     try {
                         distanceFromBias = eval(String(settings.position.biasSpiralCustom));
                     } catch (e) {

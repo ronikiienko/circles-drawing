@@ -22,16 +22,16 @@ export const SpiralSpecific = ({settings, classes, handleChange, setClickAndSetP
                 >
                     {Object.values(biasSpiralTypes).map(biasSpiralType =>
                         <option
-                            key={biasSpiralType}
-                            value={biasSpiralType}
+                            key={biasSpiralType.id}
+                            value={biasSpiralType.id}
                         >
-                            {biasSpiralType}
+                            {biasSpiralType.name}
                         </option>)
                     }
                 </Select>
             </Label>
             <br/>
-            <ConditionalPanel active={settings.position.biasSpiralType === biasSpiralTypes.custom}>
+            <ConditionalPanel active={settings.position.biasSpiralType === biasSpiralTypes.custom.id}>
                 <Label className={classes.verticalLabel}>
                             <span>
                                 Custom spiral formula:
