@@ -1,10 +1,12 @@
-import {Input, Label} from '@fluentui/react-components';
+import {Button, Input, Label} from '@fluentui/react-components';
 import React from 'react';
+import {getTranslatedChessPlateDim} from '../../../utils/layerSettings/remappers';
 
 
-export const ChessPlateSpecific = ({settings, classes, handleChange}) => {
+export const ChessPlateSpecific = ({settings, classes, handleChange, setSettings}) => {
+    const shapesNeeded = (getTranslatedChessPlateDim(settings.position.chessPlateWidth) * getTranslatedChessPlateDim(settings.position.chessPlateHeight)) || 0;
     return (
-        <div>
+        <div className={classes.rowSmall}>
             <Label className={classes.label}>
                 Plate width:
                 <Input
@@ -25,6 +27,14 @@ export const ChessPlateSpecific = ({settings, classes, handleChange}) => {
                     onChange={handleChange}
                 />
             </Label>
+            <Button
+                size="small"
+                onClick={setSettings(draft => {
+                    draft.number.number = shapesNeeded;
+                })}
+            >
+                {shapesNeeded}
+            </Button>
         </div>
     );
 };

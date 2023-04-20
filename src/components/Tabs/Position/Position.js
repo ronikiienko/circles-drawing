@@ -46,6 +46,7 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                 <ConditionalPanel active={settings.position.biasType === biasTypes.chessPlate.id}>
                     <div className={classes.block}>
                         <ChessPlateSpecific
+                            setSettings={setSettings}
                             handleChange={handleChange}
                             classes={classes}
                             settings={settings}

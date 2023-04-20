@@ -138,6 +138,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
             const yDistance = fieldHeight / (settings.position.chessPlateHeight - 1);
             xPosition = xDistance * colIndex + settings.position.startPos.x;
             yPosition = yDistance * rowIndex + settings.position.startPos.y;
+            console.log(xPosition, yPosition, i);
         }
     }
 
