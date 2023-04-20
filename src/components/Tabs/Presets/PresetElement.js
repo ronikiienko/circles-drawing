@@ -1,8 +1,9 @@
-import {Button, makeStyles, mergeClasses, shorthands, tokens} from '@fluentui/react-components';
+import {makeStyles, mergeClasses, shorthands, tokens} from '@fluentui/react-components';
 import {Delete48Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {getLayerSettings} from '../../../utils/layerSettings/getter';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {DialogButton} from '../../Utils/DialogButton';
 
 
 const useStyles = makeStyles({
@@ -36,7 +37,6 @@ const useStyles = makeStyles({
 
 export const PresetElement = ({preset, settings, setSettings, removeButton, index, removeUserPreset}) => {
     const localClasses = useStyles();
-    console.log(preset);
     return (
         <>
             <span
@@ -54,13 +54,14 @@ export const PresetElement = ({preset, settings, setSettings, removeButton, inde
                 </div>
                     <span className={localClasses.presetElementButtons}>
                         <ConditionalPanel active={removeButton}>
-                            <Button
-                                appearance="transparent"
+                            <DialogButton
+                                header="Remove preset"
+                                description="Are you sure you want to remove preset?"
+                                onSubmit={(event) => removeUserPreset(event, index)}
                                 className={localClasses.presetElementButton}
                                 icon={<Delete48Regular/>}
-                                onClick={(event) => removeUserPreset(event, index)}
-                            >
-                            </Button>
+                                appearance="transparent"
+                            ></DialogButton>
                         </ConditionalPanel>
                     </span>
             </span>
