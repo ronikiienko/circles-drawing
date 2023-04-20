@@ -128,6 +128,17 @@ export const getRandomizedShapeSettings = (settings, i) => {
             xPosition = x;
             yPosition = y;
         }
+            break;
+        case biasTypes.chessPlate.id: {
+            const fieldWidth = settings.position.endPos.x - settings.position.startPos.x;
+            const fieldHeight = settings.position.endPos.y - settings.position.startPos.y;
+            const rowIndex = Math.trunc(i / settings.position.chessPlateWidth);
+            const colIndex = Math.trunc(i - rowIndex * settings.position.chessPlateWidth);
+            const xDistance = fieldWidth / (settings.position.chessPlateWidth - 1);
+            const yDistance = fieldHeight / (settings.position.chessPlateHeight - 1);
+            xPosition = xDistance * colIndex + settings.position.startPos.x;
+            yPosition = yDistance * rowIndex + settings.position.startPos.y;
+        }
     }
 
     const modResultsTemp = {};

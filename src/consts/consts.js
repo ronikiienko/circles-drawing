@@ -252,8 +252,8 @@ export const layerPresets = [
                 y: window.innerHeight,
             },
             biasType: biasTypes.off.id, // rectangular radial spiral
-            chessPlateWidth: 0.1,
-            chessPlateHeight: 0.1,
+            chessPlateWidth: 10,
+            chessPlateHeight: 10,
             xOffset: 0,
             yOffset: 0,
             biasSpiralType: biasSpiralTypes.basic.id,

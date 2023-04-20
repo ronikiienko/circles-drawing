@@ -16,7 +16,7 @@ export const ChessPlateSpecific = ({settings, classes, handleChange}) => {
                 />
             </Label>
             <Label className={classes.label}>
-                Plate width:
+                Plate height:
                 <Input
                     className={classes.number}
                     size="small"

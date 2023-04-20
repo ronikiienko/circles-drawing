@@ -70,10 +70,12 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                                         setClickAndSetProp={setClickAndSetProp}/>
                     </div>
                 </ConditionalPanel>
-                <div className={classes.block}>
-                    <BiasCharacter handleChange={handleChange} classes={classes} settings={settings}
-                                   setSettings={setSettings}/>
-                </div>
+                <ConditionalPanel active={settings.position.biasType !== biasTypes.chessPlate.id}>
+                    <div className={classes.block}>
+                        <BiasCharacter handleChange={handleChange} classes={classes} settings={settings}
+                                       setSettings={setSettings}/>
+                    </div>
+                </ConditionalPanel>
                 <div className={classes.block}>
                     <Gradient setSettings={setSettings} handleChange={handleChange} classes={classes}
                               settings={settings}/>
