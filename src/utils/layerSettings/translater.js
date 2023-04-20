@@ -116,6 +116,14 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                             y: parseFloat(mod.outputs.lookTo.val2.y),
                         },
                     },
+                    xOffset: {
+                        enabled: mod.outputs.xOffset.enabled,
+                        val2: parseFloat(mod.outputs.xOffset.val2),
+                    },
+                    yOffset: {
+                        enabled: mod.outputs.yOffset.enabled,
+                        val2: parseFloat(mod.outputs.yOffset.val2),
+                    },
                 },
                 modOutputs: mod.modOutputs.map(modOutput => {
                     return {
@@ -137,8 +145,6 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             biasSpiralType: rawSettings.position.biasSpiralType,
             chessPlateWidth: getTranslatedChessPlateDim(rawSettings.position.chessPlateWidth),
             chessPlateHeight: getTranslatedChessPlateDim(rawSettings.position.chessPlateHeight),
-            xOffset: parseFloat(rawSettings.position.xOffset),
-            yOffset: parseFloat(rawSettings.position.yOffset),
             biasSpiralCustom: rawSettings.position.biasSpiralCustom,
             biasSpiralThickness: Math.trunc(Math.pow(parseFloat(rawSettings.position.biasSpiralThickness) + 1, 6)),
             biasSpiralDensity: Math.pow(parseFloat(rawSettings.position.biasSpiralDensity) + 1, 7),

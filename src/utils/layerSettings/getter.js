@@ -104,6 +104,14 @@ export const getLayerSettings = (preset) => {
                             y: mod?.outputs?.lookTo?.val2?.y ?? defaultMod.outputs.lookTo.val2.y,
                         },
                     },
+                    xOffset: {
+                        enabled: mod?.outputs?.xOffset?.enabled ?? defaultMod.outputs.xOffset.enabled,
+                        val2: mod?.outputs?.xOffset?.val2 ?? defaultMod.outputs.xOffset.val2,
+                    },
+                    yOffset: {
+                        enabled: mod?.outputs?.yOffset?.enabled ?? defaultMod.outputs.yOffset.enabled,
+                        val2: mod?.outputs?.yOffset?.val2 ?? defaultMod.outputs.yOffset.val2,
+                    },
                 },
                 modOutputs: mod?.modOutputs?.map((modOutput) => {
                     const defaultModOutput = getDefaultModOutput();
@@ -126,8 +134,6 @@ export const getLayerSettings = (preset) => {
             biasType: preset?.position?.biasType ?? defaultPreset.position.biasType,
             chessPlateWidth: preset?.position?.chessPlateWidth ?? defaultPreset.position.chessPlateWidth,
             chessPlateHeight: preset?.position?.chessPlateHeight ?? defaultPreset.position.chessPlateHeight,
-            xOffset: preset?.position?.xOffset ?? defaultPreset.position.xOffset,
-            yOffset: preset?.position?.yOffset ?? defaultPreset.position.yOffset,
             biasSpiralType: preset?.position?.biasSpiralType ?? defaultPreset.position.biasSpiralType,
             biasSpiralCustom: preset?.position?.biasSpiralCustom ?? defaultPreset.position.biasSpiralCustom,
             biasSpiralThickness: preset?.position?.biasSpiralThickness ?? defaultPreset.position.biasSpiralThickness,

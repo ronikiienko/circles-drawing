@@ -9,6 +9,8 @@ import {RadialSpecific} from './RadialSpecific';
 import {RectangularSpecific} from './RectangularSpecific';
 import {SpiralSpecific} from './SpiralSpecific';
 import {StartEnd} from './StartEnd';
+import {XOffset} from './XOffset';
+import {YOffset} from './YOffset';
 
 
 export const Position = ({settings, setClickAndSetProp, setSettings, handleChange, classes}) => {
@@ -82,6 +84,22 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                               settings={settings}/>
                 </div>
             </ConditionalPanel>
+            <div className={classes.block}>
+                <XOffset
+                    classes={classes}
+                    settings={settings}
+                    handleChange={handleChange}
+                    setSettings={setSettings}
+                />
+            </div>
+            <div className={classes.block}>
+                <YOffset
+                    classes={classes}
+                    settings={settings}
+                    handleChange={handleChange}
+                    setSettings={setSettings}
+                />
+            </div>
         </>
     );
 };

@@ -138,7 +138,6 @@ export const getRandomizedShapeSettings = (settings, i) => {
             const yDistance = fieldHeight / (settings.position.chessPlateHeight - 1);
             xPosition = xDistance * colIndex + settings.position.startPos.x;
             yPosition = yDistance * rowIndex + settings.position.startPos.y;
-            console.log(xPosition, yPosition, i);
         }
     }
 
@@ -184,6 +183,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
     let rectRoundnessModsDeltas = [];
     let angleModsDeltas = [];
     let lookToModsDeltas = [];
+    let xOffsetModsDeltas = [];
+    let yOffsetModsDeltas = [];
 
     let lookToModsValues = [];
 
@@ -238,8 +239,14 @@ export const getRandomizedShapeSettings = (settings, i) => {
             }, modResults[mod.id] * mod.blendRatio]);
             lookToModsValues.push(modResults[mod.id]);
         }
+        if (mod.outputs.xOffset.enabled) {
+            xOffsetModsDeltas.push([mod.outputs.xOffset.val2 * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
+        }
+        if (mod.outputs.yOffset.enabled) {
+            yOffsetModsDeltas.push([mod.outputs.yOffset.val2 * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
+        }
     });
-
+    // TODO review lookTo mods and how they are calculated
     const lookToModsAvg = average(...lookToModsValues);
 
     const sizeModsSum = getWeightedSum(...sizeModsDeltas) || 0;
@@ -252,6 +259,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
     const rectRoundnessModsSum = getWeightedSum(...rectRoundnessModsDeltas);
     const angleModsSum = getWeightedSum(...angleModsDeltas);
     const lookToModsSum = getPosWeightedSum(...lookToModsDeltas);
+
+    const xOffsetModsSum = getWeightedSum(...xOffsetModsDeltas);
+    const yOffsetModsSum = getWeightedSum(...yOffsetModsDeltas);
 
     let widthRatio = settings.shape.widthRatio + widthRatioModsSum;
     let rectRoundness = settings.shape.rectRoundness + rectRoundnessModsSum;
@@ -297,8 +307,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
         position: {
             // x: Math.floor(xPosition),
             // y: Math.floor(yPosition),
-            x: xPosition,
-            y: yPosition,
+            x: xPosition + xOffsetModsSum,
+            y: yPosition + yOffsetModsSum,
         },
         color: {
             color: color,

@@ -186,6 +186,14 @@ export const getDefaultMod = (name) => {
                     y: 500,
                 },
             },
+            xOffset: {
+                enabled: false,
+                val2: 15,
+            },
+            yOffset: {
+                enabled: false,
+                val2: 15,
+            },
         },
         modOutputs: [],
     };
@@ -253,8 +261,6 @@ export const layerPresets = [
             biasType: biasTypes.off.id, // rectangular radial spiral
             chessPlateWidth: 10,
             chessPlateHeight: 10,
-            xOffset: 0,
-            yOffset: 0,
             biasSpiralType: biasSpiralTypes.basic.id,
             biasSpiralCustom: 'Math.pow(angleRad, 1.2)',
             biasSpiralThickness: 0.5,

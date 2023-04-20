@@ -29,7 +29,7 @@ export const ChessPlateSpecific = ({settings, classes, handleChange, setSettings
             </Label>
             <Button
                 size="small"
-                onClick={setSettings(draft => {
+                onClick={() => setSettings(draft => {
                     draft.number.number = shapesNeeded;
                 })}
             >
