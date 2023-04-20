@@ -293,9 +293,12 @@ export const getRandomizedShapeSettings = (settings, i) => {
             strokeThickness: settings.shape.strokeThickness,
             pixelShape: settings.shape.pixelShape,
         },
+        // maby round positions, but it causes grid when using chessPlate bias
         position: {
-            x: Math.floor(xPosition),
-            y: Math.floor(yPosition),
+            // x: Math.floor(xPosition),
+            // y: Math.floor(yPosition),
+            x: xPosition,
+            y: yPosition,
         },
         color: {
             color: color,
