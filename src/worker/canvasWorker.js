@@ -256,9 +256,7 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
             } else if (maxShapesToMaintainFps >= 100) {
                 maxShapesToMaintainFpsAltered = maxShapesToMaintainFps + 10;
             }
-            let shapesPerFrame = Math.round(Math.max(Math.min(maxShapesToMaintainFpsAltered, number - maxShapesToMaintainFpsAltered), 1));
-
-            // console.log(currentFps, shapesPerFrame);
+            let shapesPerFrame = Math.round(Math.max(Math.min(maxShapesToMaintainFpsAltered, number - shapesDrawn), 1));
 
             const endIndex = shapesDrawn + shapesPerFrame;
             drawShapes(shapesDrawn, endIndex);
