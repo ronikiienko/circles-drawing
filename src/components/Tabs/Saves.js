@@ -1,9 +1,17 @@
 import {Button, Input, Label, Switch} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
-import {Branch16Regular, BranchRequest20Regular, Code16Regular, Image16Regular} from '@fluentui/react-icons';
+import {
+    Branch16Regular,
+    BranchRequest20Regular,
+    Code16Regular,
+    Folder16Regular,
+    Image16Regular,
+} from '@fluentui/react-icons';
+import {saveAs} from 'file-saver';
 import React from 'react';
 import {storageKeys} from '../../consts/consts';
 import {getItemFromStorage, setItemToStorage} from '../../utils/generalUtils';
+import {getLayerSettings} from '../../utils/layerSettings/getter';
 import {saveAsImage} from '../../worker/canvasWorkerMediators';
 import {ConditionalPanel} from '../Utils/ConditionalPanel';
 
@@ -15,6 +23,23 @@ export const Saves = ({settings, setSettings, appSettings, handleAppSettingsChan
         if (!shelvedSettings) return;
         setSettings(getItemFromStorage(storageKeys.shelvedLayerSettings));
     };
+
+    const savePresetAsFile = () => {
+        let blob = new Blob([JSON.stringify(settings)], {type: 'text/plain;charset=utf-8'});
+        saveAs(blob, `${appSettings.projectName}.txt`);
+    };
+
+    const handleUserPresetFile = async (event) => {
+        try {
+            let fileData = event.target.files[0];
+            let text = await fileData.text();
+            let settings = getLayerSettings(JSON.parse(text));
+            setSettings(settings);
+        } catch (e) {
+            alert('Could not load preset');
+        }
+    };
+
     return (
         <>
             <div>
@@ -56,13 +81,33 @@ export const Saves = ({settings, setSettings, appSettings, handleAppSettingsChan
                     icon={<Code16Regular/>}
                 >Log settings</Button>
             </div>
+            <div>
+                <Button
+                    icon={<Folder16Regular/>}
+                    size="small"
+                    appearance="subtle"
+                    onClick={savePresetAsFile}
+                >
+                    Save preset as file
+                </Button>
+                <Label>
+                    <input onChange={handleUserPresetFile} style={{display: 'none'}} type="file"/>
+                    <Button
+                        as="a"
+                        icon={<Folder16Regular/>}
+                        size="small"
+                        appearance="subtle"
+                    >
+                        Open preset file
+                    </Button>
+                </Label>
+            </div>
             {/*<Button*/}
             {/*    onClick={() => saveAsProject(appSettings.projectName, appSettings)}*/}
             {/*    className={classes.button}*/}
             {/*>Save as image data</Button>*/}
             {/*<input onChange={openAsProject} type={'file'}/>*/}
             {/*<Button onClick={() => getImageData()} className={classes.button}>Open lossless</Button>*/}
-            <br/>
             <Label className={classes.label}>
                 Random project name:
                 <Switch
@@ -82,6 +127,7 @@ export const Saves = ({settings, setSettings, appSettings, handleAppSettingsChan
                     }
                 />
             </Label>
+
             <ConditionalPanel active={!appSettings.projectNameRand}>
                 <br/>
                 <Label className={classes.label}>
@@ -95,6 +141,7 @@ export const Saves = ({settings, setSettings, appSettings, handleAppSettingsChan
                     />
                 </Label>
             </ConditionalPanel>
+
         </>
     );
 };

@@ -40,6 +40,7 @@ const useStyles = makeStyles({
         marginBlock: '5px',
     },
     removeButton: {
+        float: 'right',
         marginLeft: '20px',
     },
 
@@ -81,6 +82,13 @@ export const ModElement = ({
                     >
                         <Delete16Regular/>
                     </div>
+                    {/*<Button*/}
+                    {/*    icon={<Delete16Regular />}*/}
+                    {/*    onClick={(event) => removeMod(event, modIndex)}*/}
+                    {/*    className={localClasses.removeButton}*/}
+                    {/*>*/}
+
+                    {/*</Button>*/}
                 </AccordionHeader>
                 <AccordionPanel className={localClasses.accordionPanel}>
                     <div>
