@@ -217,7 +217,6 @@ export const layerPresets = [
             shape: shapeTypes.rectangle,
             angle: getAngle(30),
             widthRatio: 0.2,
-            lookToOn: false,
             rectRoundness: 0,
             // TODO add default getter function for custom shape points
             customShape: [
@@ -319,7 +318,6 @@ export const layerPresets = [
             'angleRand': 0,
             'widthRatio': 0.2,
             'widthRatioRand': 0.2,
-            'lookToOn': false,
             'lookToX': 100,
             'lookToY': 100,
         },

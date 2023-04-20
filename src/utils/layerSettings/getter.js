@@ -20,7 +20,6 @@ export const getLayerSettings = (preset) => {
             shape: preset?.shape?.shape ?? defaultPreset.shape.shape,
             angle: preset?.shape?.angle ?? defaultPreset.shape.angle,
             widthRatio: preset?.shape?.widthRatio ?? defaultPreset.shape.widthRatio,
-            lookToOn: preset?.shape?.lookToOn ?? defaultPreset.shape.lookToOn,
             rectRoundness: preset?.shape?.rectRoundness ?? defaultPreset.shape.rectRoundness,
             // TODO also merge with default custom shape array
             // TODO remove array check (x as 0 element etc..) it just supports older version

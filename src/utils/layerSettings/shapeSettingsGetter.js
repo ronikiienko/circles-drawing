@@ -273,7 +273,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
 
     let angle = settings.shape.angle + angleModsSum;
     // TODO REVIEW PLEASE
-    if (settings.shape.lookToOn && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4 && settings.shape.shape !== shapeTypes.circle) {
+    if (lookToModsSum?.x && lookToModsSum?.y && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4 && settings.shape.shape !== shapeTypes.circle) {
         const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, lookToModsSum.x, lookToModsSum.y);
         angle = lookToAngle * lookToModsAvg + angle;
     }

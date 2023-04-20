@@ -1,4 +1,4 @@
-import {Button, Input, Label, Switch} from '@fluentui/react-components';
+import {Button, Input, Label} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
 import {hslArrToHsl} from '../../../utils/generalUtils';
@@ -13,15 +13,9 @@ export const LookTo = ({classes, handleChange, settings, setClickAndSetProp, set
                 classes={classes}
                 settings={settings}
                 setSettings={setSettings}
-                off={!settings.shape.lookToOn}
                 header={
                     <div className={classes.label}>
                         Look to
-                        <Switch
-                            checked={settings.shape.lookToOn}
-                            id="shape-lookToOn"
-                            onChange={handleChange}
-                        />
                         <InfoButton content={
                             <>
                                 Choose if all shapes will be rotated such way to look at one point ("Look to" point)
@@ -43,7 +37,6 @@ export const LookTo = ({classes, handleChange, settings, setClickAndSetProp, set
                         handleChange={handleChange}
                         paramName="lookTo"
                         modIndex={modIndex}
-                        off={!settings.shape.lookToOn}
                     >
                         <div className={classes.rowSmall}>
                             <Label className={classes.label}>
