@@ -29,7 +29,6 @@ export const indexMod = (currentIndex, shapesNumber, mod) => {
 };
 
 export const trigMod = (x, y, mod) => {
-    console.log(mod.trigType);
     if (mod.trigType === trigModTypes.sine.id) {
         const xSin = (Math.sin(x / mod.sineZoomX) + 1) / 2;
         const ySin = (Math.sin(y / mod.sineZoomY) + 1) / 2;
@@ -46,6 +45,6 @@ export const trigMod = (x, y, mod) => {
         const xSin = (Math.sin(x / mod.sineZoomX) + 1) / 2;
         const ySin = (Math.sin(y / mod.sineZoomY) + 1) / 2;
         const avg = (xSin + ySin) / 2;
-        return modRemap(Math.sin(avg), mod.modA, mod.modB);
+        return modRemap((Math.sin(avg * 50) + 1) / 2, mod.modA, mod.modB);
     }
 };
