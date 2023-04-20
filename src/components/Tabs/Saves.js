@@ -26,7 +26,7 @@ export const Saves = ({settings, setSettings, appSettings, handleAppSettingsChan
 
     const savePresetAsFile = () => {
         let blob = new Blob([JSON.stringify(settings)], {type: 'text/plain;charset=utf-8'});
-        saveAs(blob, `${appSettings.projectName}.txt`);
+        saveAs(blob, `${settings.preset.name}-preset.txt`);
     };
 
     const handleUserPresetFile = async (event) => {
