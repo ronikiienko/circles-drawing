@@ -146,6 +146,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     const modResults = {};
     settings.mods.forEach((mod) => {
         // TODO launch this conditionaly (if no outputs not calculate)
+        // TODO if for example angle mod is on, but shape is circle, not calculate it
         let value;
         switch (mod.type) {
             case modTypes.radial.id:
