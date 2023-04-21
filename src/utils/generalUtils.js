@@ -295,3 +295,4 @@ export const getColorsWeightedSum = (...args) => {
         [0, 0, 0],
     );
 };
+

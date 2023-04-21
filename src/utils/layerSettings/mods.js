@@ -28,23 +28,27 @@ export const indexMod = (currentIndex, shapesNumber, mod) => {
     return modRemap(currentIndex / shapesNumber, mod.modA, mod.modB);
 };
 
+export const sinTo01 = (value) => {
+    return (value + 1) / 2;
+};
+
 export const trigMod = (x, y, mod) => {
     if (mod.trigType === trigModTypes.sine.id) {
-        const xSin = (Math.sin(x / mod.sineZoomX) + 1) / 2;
-        const ySin = (Math.sin(y / mod.sineZoomY) + 1) / 2;
-        const avg = (xSin + ySin) / 2;
-        return modRemap(avg, mod.modA, mod.modB);
-    }
-    if (mod.trigType === trigModTypes.tan.id) {
-        const xTan = (Math.tan(x / mod.sineZoomX) + 1) / 2;
-        const yTan = (Math.tan(y / mod.sineZoomY) + 1) / 2;
-        const avg = (xTan + yTan) / 2;
+        let xSin = sinTo01(Math.sin(x / mod.sineZoomX));
+        let ySin = sinTo01(Math.sin(y / mod.sineZoomY));
+        let avg = (xSin + ySin) / 2;
         return modRemap(avg, mod.modA, mod.modB);
     }
     if (mod.trigType === trigModTypes.circles.id) {
-        const xSin = (Math.sin(x / mod.sineZoomX) + 1) / 2;
-        const ySin = (Math.sin(y / mod.sineZoomY) + 1) / 2;
-        const avg = (xSin + ySin) / 2;
+        let xSin = sinTo01(Math.sin(x / mod.sineZoomX));
+        let ySin = sinTo01(Math.sin(y / mod.sineZoomY));
+        let avg = (xSin + ySin) / 2;
         return modRemap((Math.sin(avg * 50) + 1) / 2, mod.modA, mod.modB);
+    }
+    if (mod.trigType === trigModTypes.tan.id) {
+        let xSin = sinTo01(Math.sin(x / mod.sineZoomX));
+        let ySin = sinTo01(Math.sin(y / mod.sineZoomY)) * sinTo01(Math.tan(x / mod.sineZoomX));
+        let avg = (xSin + ySin) / 2;
+        return modRemap((Math.sin(avg * 10) + 1) / 2, mod.modA, mod.modB);
     }
 };
