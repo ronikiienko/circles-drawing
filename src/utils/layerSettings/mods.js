@@ -1,4 +1,4 @@
-import {trigModTypes} from '../../consts/sharedConsts';
+import {noiseTypes, trigModTypes} from '../../consts/sharedConsts';
 import {getVectorByTwoPoints, modRemap} from '../generalUtils';
 
 
@@ -20,8 +20,19 @@ export const randomMod = (mod) => {
     return modRemap(Math.random(), mod.modA, mod.modB);
 };
 
-export const perlinMod = (x, y, mod) => {
-    return modRemap((mod.perlin(x * mod.perlinZoom, y * mod.perlinZoom) + 1) / 2, mod.modA, mod.modB);
+export const noiseMod = (x, y, mod) => {
+    let noiseValue;
+    switch (mod.noiseType) {
+        case noiseTypes.perlin.id:
+            noiseValue = (mod.perlinNoise(x * mod.noiseZoom, y * mod.noiseZoom) + 1) / 2;
+            break;
+        case noiseTypes.random.id:
+            noiseValue = Math.random();
+            break;
+        case noiseTypes.value.id:
+            noiseValue = mod.valueNoise(x * mod.noiseZoom, y * mod.noiseZoom);
+    }
+    return modRemap(noiseValue, mod.modA, mod.modB);
 };
 
 export const indexMod = (currentIndex, shapesNumber, mod) => {

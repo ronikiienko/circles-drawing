@@ -296,3 +296,12 @@ export const getColorsWeightedSum = (...args) => {
     );
 };
 
+export const bilinearInterp = (p1, p2, p3, p4, dx, dy) => {
+    const w1 = (1 - dx) * (1 - dy);
+    const w2 = dx * (1 - dy);
+    const w3 = (1 - dx) * dy;
+    const w4 = dx * dy;
+
+    return p1 * w1 + p2 * w2 + p3 * w3 + p4 * w4;
+};
+

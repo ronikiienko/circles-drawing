@@ -1,6 +1,7 @@
 import {createNoise2D} from 'simplex-noise';
-import {biasTypes, modTypes, shapeTypes} from '../../consts/sharedConsts';
+import {biasTypes, shapeTypes} from '../../consts/sharedConsts';
 import {hexToHslArray} from '../generalUtils';
+import {valueNoise} from '../noiseGenerators';
 import {
     getTranslatedAngle,
     getTranslatedBiasA,
@@ -10,6 +11,7 @@ import {
     getTranslatedChessPlateDim,
     getTranslatedModA,
     getTranslatedModB,
+    getTranslatedNoiseZoom,
     getTranslatedRectRoundness,
     getTranslatedSineZoom,
     getTranslatedSize,
@@ -56,11 +58,13 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             return {
                 type: mod.type,
                 id: mod.id,
-                perlin: mod.type === modTypes.perlin.id ? createNoise2D() : null,
+                perlinNoise: createNoise2D(),
+                valueNoise: valueNoise(),
                 sineZoomX: getTranslatedSineZoom(mod.sineZoomX),
                 sineZoomY: getTranslatedSineZoom(mod.sineZoomY),
                 trigType: mod.trigType,
-                perlinZoom: Math.pow((1.0000001 - parseFloat(mod.perlinZoom)) / 5, 2),
+                noiseType: mod.noiseType,
+                noiseZoom: getTranslatedNoiseZoom(mod.noiseZoom, mod.noiseType),
                 radialRadiusPos: {
                     x: parseFloat(mod.radialRadiusPos.x),
                     y: parseFloat(mod.radialRadiusPos.y),

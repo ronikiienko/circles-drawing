@@ -10,7 +10,7 @@ import {
     hslArrToHsl,
     turnDegreesToRadians,
 } from '../generalUtils';
-import {indexMod, perlinMod, radialMod, randomMod, trigMod} from './mods';
+import {indexMod, noiseMod, radialMod, trigMod} from './mods';
 
 
 export const getRandomizedShapeSettings = (settings, i) => {
@@ -148,14 +148,11 @@ export const getRandomizedShapeSettings = (settings, i) => {
         // TODO launch this conditionaly (if no outputs not calculate)
         let value;
         switch (mod.type) {
-            case modTypes.random.id:
-                value = randomMod(mod);
-                break;
             case modTypes.radial.id:
                 value = radialMod(xPosition, yPosition, mod);
                 break;
-            case modTypes.perlin.id:
-                value = perlinMod(xPosition, yPosition, mod);
+            case modTypes.noise.id:
+                value = noiseMod(xPosition, yPosition, mod);
                 break;
             case modTypes.index.id:
                 value = indexMod(i, settings.number.number, mod);

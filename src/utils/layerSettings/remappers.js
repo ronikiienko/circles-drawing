@@ -1,3 +1,6 @@
+import {noiseTypes} from '../../consts/sharedConsts';
+
+
 export const getTranslatedBiasA = (biasA) => {
     return parseFloat((Math.pow(parseFloat(biasA) + 1, 8) * 0.0390625).toFixed(2));
     // return parseFloat(biasA) * 10;
@@ -42,4 +45,15 @@ export const getTranslatedSineZoom = (zoom) => {
 export const getTranslatedChessPlateDim = (chessPlateDim) => {
     return parseFloat(chessPlateDim);
     // return Math.trunc(Math.pow(parseFloat(chessPlateDim) + 1, 8))
+};
+
+export const getTranslatedNoiseZoom = (zoom, noiseType) => {
+    switch (noiseType) {
+        case noiseTypes.random.id:
+            return parseFloat(zoom);
+        case noiseTypes.perlin.id:
+            return Math.pow((1.0000001 - parseFloat(zoom)) / 5, 2);
+        case noiseTypes.value.id:
+            return Math.pow((1.0000001 - parseFloat(zoom)) / 3, 2);
+    }
 };

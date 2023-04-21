@@ -83,13 +83,9 @@ export const modTypes = {
         id: 'radial',
         name: 'Radial',
     },
-    random: {
-        id: 'random',
-        name: 'Random',
-    },
-    perlin: {
-        id: 'perlin',
-        name: 'Perlin',
+    noise: {
+        id: 'noise',
+        name: 'Noise',
     },
     index: {
         id: 'index',
@@ -113,5 +109,20 @@ export const trigModTypes = {
     circles: {
         id: 'circles',
         name: 'Circles',
+    },
+};
+
+export const noiseTypes = {
+    perlin: {
+        id: 'perlin',
+        name: 'Perlin noise',
+    },
+    random: {
+        id: 'random',
+        name: 'Random noise',
+    },
+    value: {
+        id: 'value',
+        name: 'Value noise',
     },
 };

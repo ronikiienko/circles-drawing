@@ -17,6 +17,7 @@ import {modTypes} from '../../../consts/sharedConsts';
 import {hslArrToHsl} from '../../../utils/generalUtils';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 import {ModInputs} from './ModInputs';
+import {Noise} from './Noise';
 import {Radial} from './Radial';
 import {RemapCharacter} from './RemapCharacter';
 import {Trig} from './Trig';
@@ -113,28 +114,14 @@ export const ModElement = ({
                                 </Select>
                             </Label>
                         </div>
-                        <ConditionalPanel active={settings.mods[modIndex].type === modTypes.perlin.id}>
+                        <ConditionalPanel active={settings.mods[modIndex].type === modTypes.noise.id}>
                             <div className={classes.block}>
-                                <Label className={classes.label}>
-                                    Perlin zoom:
-                                    <Slider
-                                        size="small"
-                                        min={0}
-                                        max={1}
-                                        step={0.01}
-                                        id={`mods-${modIndex}-perlinZoom`}
-                                        onChange={handleChange}
-                                        value={settings.mods[modIndex].perlinZoom}
-                                    />
-                                    <Input
-                                        className={classes.number}
-                                        size="small"
-                                        appearance="underline"
-                                        id={`mods-${modIndex}-perlinZoom`}
-                                        onChange={handleChange}
-                                        value={settings.mods[modIndex].perlinZoom}
-                                    />
-                                </Label>
+                                <Noise
+                                    handleChange={handleChange}
+                                    settings={settings}
+                                    classes={classes}
+                                    modIndex={modIndex}
+                                />
                             </div>
                         </ConditionalPanel>
                         <ConditionalPanel active={settings.mods[modIndex].type === modTypes.radial.id}>
