@@ -4,7 +4,6 @@ import {biasTypes} from '../../../consts/sharedConsts';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 import {BiasCharacter} from './BiasCharacter';
 import {ChessPlateSpecific} from './ChessPlateSpecific';
-import {Gradient} from './Gradient';
 import {RadialSpecific} from './RadialSpecific';
 import {RectangularSpecific} from './RectangularSpecific';
 import {SpiralSpecific} from './SpiralSpecific';
@@ -79,10 +78,6 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                                        setSettings={setSettings}/>
                     </div>
                 </ConditionalPanel>
-                <div className={classes.block}>
-                    <Gradient setSettings={setSettings} handleChange={handleChange} classes={classes}
-                              settings={settings}/>
-                </div>
             </ConditionalPanel>
             <div className={classes.block}>
                 <XOffset

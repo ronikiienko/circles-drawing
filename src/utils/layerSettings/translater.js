@@ -1,5 +1,5 @@
 import {createNoise2D} from 'simplex-noise';
-import {biasTypes, shapeTypes} from '../../consts/sharedConsts';
+import {shapeTypes} from '../../consts/sharedConsts';
 import {hexToHslArray} from '../generalUtils';
 import {valueNoise} from '../noiseGenerators';
 import {
@@ -167,10 +167,6 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             biasInf: parseFloat(rawSettings.position.biasInf),
             biasRectXOn: rawSettings.position.biasRectXOn,
             biasRectYOn: rawSettings.position.biasRectYOn,
-            gradOn: rawSettings.position.gradOn && rawSettings.position.biasType !== biasTypes.off.id,
-            gradA: getTranslatedBiasA(rawSettings.position.gradA),
-            gradB: getTranslatedBiasB(rawSettings.position.gradB),
-            gradInf: parseFloat(rawSettings.position.gradInf),
             xOffset: getTranslatedPosOffset(rawSettings.position.xOffset),
             yOffset: getTranslatedPosOffset(rawSettings.position.yOffset),
         },
