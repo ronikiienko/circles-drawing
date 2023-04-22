@@ -1,6 +1,7 @@
 import {biasSpiralTypes, biasTypes, modTypes, shapeTypes} from '../../consts/sharedConsts';
 import {
     average,
+    clampValueToRange,
     getBiasedRandomNumber,
     getColorsWeightedSum,
     getPointByDistanceAndAngle,
@@ -162,13 +163,14 @@ export const getRandomizedShapeSettings = (settings, i) => {
                 value = trigMod(xPosition, yPosition, mod);
                 break;
         }
+        value = clampValueToRange(0, 1, value);
         modResultsTemp[mod.id] = value;
         modResults[mod.id] = value;
     });
-
     settings.mods.forEach(mod => {
         mod.modOutputs.forEach((output) => {
-            modResults[output.id] *= modResultsTemp[mod.id];
+            const affectAmount = (modResults[output.id] * modResultsTemp[mod.id] - modResults[output.id]) * output.mult;
+            modResults[output.id] = clampValueToRange(0, 1, modResults[output.id] + affectAmount);
         });
     });
 
