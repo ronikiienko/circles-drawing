@@ -10,11 +10,18 @@ export const YOffset = ({settings, classes, handleChange, setSettings}) => {
                 classes={classes}
                 settings={settings}
                 setSettings={setSettings}
-                noInputRow={true}
                 header="Y offset"
                 paramName="yOffset"
             >
-
+                <Label className={classes.label}>
+                    <Input
+                        className={classes.number}
+                        value={settings.position.yOffset}
+                        id={`position-yOffset`}
+                        onChange={handleChange}
+                        size="small"
+                    />
+                </Label>
             </ParamHeader>
             {settings.mods.map((mod, modIndex) => {
                 return (

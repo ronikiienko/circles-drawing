@@ -12,6 +12,7 @@ import {
     getTranslatedModA,
     getTranslatedModB,
     getTranslatedNoiseZoom,
+    getTranslatedPosOffset,
     getTranslatedRectRoundness,
     getTranslatedSineZoom,
     getTranslatedSize,
@@ -122,11 +123,11 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                     },
                     xOffset: {
                         enabled: mod.outputs.xOffset.enabled,
-                        val2: parseFloat(mod.outputs.xOffset.val2),
+                        val2: getTranslatedPosOffset(mod.outputs.xOffset.val2),
                     },
                     yOffset: {
                         enabled: mod.outputs.yOffset.enabled,
-                        val2: parseFloat(mod.outputs.yOffset.val2),
+                        val2: getTranslatedPosOffset(mod.outputs.yOffset.val2),
                     },
                 },
                 modOutputs: mod.modOutputs.map(modOutput => {
@@ -170,6 +171,8 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             gradA: getTranslatedBiasA(rawSettings.position.gradA),
             gradB: getTranslatedBiasB(rawSettings.position.gradB),
             gradInf: parseFloat(rawSettings.position.gradInf),
+            xOffset: getTranslatedPosOffset(rawSettings.position.xOffset),
+            yOffset: getTranslatedPosOffset(rawSettings.position.yOffset),
         },
         color: {
             color: hexToHslArray(rawSettings.color.color),

@@ -57,3 +57,7 @@ export const getTranslatedNoiseZoom = (zoom, noiseType) => {
             return Math.pow((1.0000001 - parseFloat(zoom)) / 3, 2);
     }
 };
+
+export const getTranslatedPosOffset = (offset) => {
+    return parseFloat(offset);
+};

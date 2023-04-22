@@ -294,6 +294,8 @@ export const layerPresets = [
             gradA: 0.5,
             gradB: 0.5,
             gradInf: 1,
+            xOffset: 0,
+            yOffset: 0,
         },
         mods: [getDefaultMod()],
         color: {

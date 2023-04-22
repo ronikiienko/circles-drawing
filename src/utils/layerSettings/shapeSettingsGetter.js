@@ -308,8 +308,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
         position: {
             // x: Math.floor(xPosition),
             // y: Math.floor(yPosition),
-            x: xPosition + xOffsetModsSum,
-            y: yPosition + yOffsetModsSum,
+            x: xPosition + xOffsetModsSum + settings.position.xOffset,
+            y: yPosition + yOffsetModsSum + settings.position.yOffset,
         },
         color: {
             color: color,

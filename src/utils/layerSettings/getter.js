@@ -159,6 +159,8 @@ export const getLayerSettings = (preset) => {
             gradA: preset?.position?.gradA ?? defaultPreset.position.gradA,
             gradB: preset?.position?.gradB ?? defaultPreset.position.gradB,
             gradInf: preset?.position?.gradInf ?? defaultPreset.position.gradInf,
+            xOffset: preset?.position?.xOffset ?? defaultPreset.position.xOffset,
+            yOffset: preset?.position?.yOffset ?? defaultPreset.position.yOffset,
         },
         color: {
             color: preset?.color?.color ?? defaultPreset.color.color,
