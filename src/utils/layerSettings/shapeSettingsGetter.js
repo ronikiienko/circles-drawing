@@ -29,7 +29,6 @@ let last = {
 
 export const getRandomizedShapeSettings = (settings, i) => {
     let isBranchElement = settings.position.branchesOn && settings.position.branchesLength >= last.level && last.level !== 0 && i !== 0;
-    let branchDirection;
 
     let xPosition;
     let yPosition;
