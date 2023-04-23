@@ -159,7 +159,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
                 yPosition = yDistance * rowIndex + settings.position.startPos.y;
             }
         }
-        if (settings.position.branchesOn) {
+        if (settings.position.branchesOn && settings.position.branchesLength > 0) {
             last = {
                 level: 1,
                 x: xPosition,
@@ -168,31 +168,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
             };
         }
     } else {
-        const directionDelta = getBiasedRandomNumber(-5, 5);
-        branchDirection = last.direction + directionDelta;
-        const [x, y] = getPointByDistanceAndAngle(last.x, last.y, settings.position.branchesMagnitude, branchDirection);
-        xPosition = x;
-        yPosition = y;
-        // if (
-        //     xPosition < settings.position.startPos.x ||
-        //     xPosition > settings.position.endPos.x ||
-        //     yPosition < settings.position.startPos.y ||
-        //     yPosition > settings.position.endPos.y
-        // ) {
-        //     last = {
-        //         level: 0,
-        //         x: 0,
-        //         y: 0,
-        //         direction: 10,
-        //     };
-        // } else {
-        //     last = {
-        //         level: last.level + 1,
-        //         x: xPosition,
-        //         y: yPosition,
-        //         direction: newDirection,
-        //     };
-        // }
+        xPosition = last.x;
+        yPosition = last.y;
     }
 
 
@@ -347,7 +324,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
     }
 
     if (isBranchElement) {
-        const [x, y] = getPointByDistanceAndAngle(last.x, last.y, settings.position.branchesMagnitude + branchesMagnitudeModsSum, branchDirection);
+        const modulatedMagnitude = settings.position.branchesMagnitude + branchesMagnitudeModsSum;
+        const modulatedDirection = last.direction + getBiasedRandomNumber(-20, 20, 2);
+        const [x, y] = getPointByDistanceAndAngle(last.x, last.y, modulatedMagnitude, modulatedDirection);
         xPosition = x;
         yPosition = y;
         if (
@@ -356,18 +335,13 @@ export const getRandomizedShapeSettings = (settings, i) => {
             yPosition < settings.position.startPos.y ||
             yPosition > settings.position.endPos.y
         ) {
-            last = {
-                level: 0,
-                x: 0,
-                y: 0,
-                direction: 10,
-            };
+            last.level = 0;
         } else {
             last = {
                 level: last.level + 1,
                 x: xPosition,
                 y: yPosition,
-                direction: branchDirection,
+                direction: modulatedDirection,
             };
         }
     }
