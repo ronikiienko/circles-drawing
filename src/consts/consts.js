@@ -207,6 +207,13 @@ export const getDefaultMod = (name) => {
                 enabled: false,
                 val2: 0.2,
             },
+            branchesDirection: {
+                enabled: false,
+                val2: {
+                    from: -5,
+                    to: 5,
+                },
+            },
         },
         modOutputs: [],
     };
