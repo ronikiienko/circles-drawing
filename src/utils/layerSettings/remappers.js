@@ -25,7 +25,7 @@ export const getTranslatedBlur = (blur) => {
     return Math.pow(parseFloat(blur) + 1, 4) - 1;
 };
 export const getTranslatedWidthRatio = (widthRatio) => {
-    return parseFloat(widthRatio);
+    return Math.pow(parseFloat(widthRatio), 3);
 };
 export const getTranslatedRectRoundness = (rectRoundness) => {
     return parseFloat(rectRoundness);

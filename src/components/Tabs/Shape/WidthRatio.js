@@ -20,7 +20,7 @@ export const WidthRatio = ({settings, classes, handleChange, setSettings}) => {
                         onChange={handleChange}
                         min="0"
                         max="1"
-                        step={0.05}
+                        step={0.01}
                         size="small"
                     />
                     <Input
@@ -51,7 +51,7 @@ export const WidthRatio = ({settings, classes, handleChange, setSettings}) => {
                                 onChange={handleChange}
                                 min="0"
                                 max="1"
-                                step="0.05"
+                                step="0.01"
                                 size="small"
                             />
                             <Input
