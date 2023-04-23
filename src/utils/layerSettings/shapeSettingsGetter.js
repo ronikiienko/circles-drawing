@@ -18,7 +18,7 @@ const defaultLast = {
     level: 0,
     x: 0,
     y: 0,
-    direction: 10,
+    direction: 0,
 };
 let last = {
     level: defaultLast.level,
@@ -216,6 +216,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     let xOffsetModsDeltas = [];
     let yOffsetModsDeltas = [];
     let branchesMagnitudeModsDeltas = [];
+    let branchesDirectionModsDeltas = [];
 
     let lookToModsValues = [];
 
@@ -279,6 +280,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
         if (mod.outputs.branchesMagnitude.enabled) {
             branchesMagnitudeModsDeltas.push([(mod.outputs.branchesMagnitude.val2 - settings.position.branchesMagnitude) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
         }
+        if (mod.outputs.branchesDirection.enabled) {
+            branchesDirectionModsDeltas.push([mod.outputs.branchesDirection.val2.to - (mod.outputs.branchesDirection.val2.to - mod.outputs.branchesDirection.val2.from) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
+        }
     });
     // TODO review lookTo mods and how they are calculated
     const lookToModsAvg = average(...lookToModsValues);
@@ -296,6 +300,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     const xOffsetModsSum = getWeightedSum(...xOffsetModsDeltas);
     const yOffsetModsSum = getWeightedSum(...yOffsetModsDeltas);
     const branchesMagnitudeModsSum = getWeightedSum(...branchesMagnitudeModsDeltas);
+    const branchesDirectionModsSum = getWeightedSum(...branchesDirectionModsDeltas);
 
     let widthRatio = settings.shape.widthRatio + widthRatioModsSum;
     let rectRoundness = settings.shape.rectRoundness + rectRoundnessModsSum;
@@ -323,8 +328,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
     }
 
     if (isBranchElement) {
+        console.log(branchesDirectionModsSum);
         const modulatedMagnitude = settings.position.branchesMagnitude + branchesMagnitudeModsSum;
-        const modulatedDirection = last.direction + getBiasedRandomNumber(-20, 20, 2);
+        const modulatedDirection = last.direction + branchesDirectionModsSum;
         const [x, y] = getPointByDistanceAndAngle(last.x, last.y, modulatedMagnitude, modulatedDirection);
         xPosition = x;
         yPosition = y;
