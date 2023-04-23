@@ -61,3 +61,7 @@ export const getTranslatedNoiseZoom = (zoom, noiseType) => {
 export const getTranslatedPosOffset = (offset) => {
     return parseFloat(offset);
 };
+
+export const getTranslatedBranchesMagnitude = (branchesMagnitude) => {
+    return Math.pow(parseFloat(branchesMagnitude) + 1, 4) * 6 - 5;
+};

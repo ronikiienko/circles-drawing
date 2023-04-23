@@ -203,6 +203,10 @@ export const getDefaultMod = (name) => {
                 enabled: false,
                 val2: 15,
             },
+            branchesMagnitude: {
+                enabled: false,
+                val2: 0.2,
+            },
         },
         modOutputs: [],
     };
@@ -269,6 +273,7 @@ export const layerPresets = [
             },
             branchesOn: false,
             branchesLength: 0,
+            branchesMagnitude: 0.2,
             biasType: biasTypes.off.id, // rectangular radial spiral
             chessPlateWidth: 10,
             chessPlateHeight: 10,

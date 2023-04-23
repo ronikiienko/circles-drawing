@@ -14,134 +14,187 @@ import {
 import {indexMod, noiseMod, radialMod, trigMod} from './mods';
 
 
+const defaultLast = {
+    level: 0,
+    x: 0,
+    y: 0,
+    direction: 10,
+};
+let last = {
+    level: defaultLast.level,
+    x: defaultLast.x,
+    y: defaultLast.y,
+    direction: defaultLast.direction,
+};
+
 export const getRandomizedShapeSettings = (settings, i) => {
+    let isBranchElement = settings.position.branchesOn && settings.position.branchesLength >= last.level && last.level !== 0 && i !== 0;
+    let branchDirection;
+
     let xPosition;
     let yPosition;
-    const realBiasX = settings.brush.brushOn ? settings.brush.brushPos.x : settings.position.biasPos.x;
-    const realBiasY = settings.brush.brushOn ? settings.brush.brushPos.y : settings.position.biasPos.y;
-    switch (settings.position.biasType) {
-        case biasTypes.off.id: {
-            xPosition = getBiasedRandomNumber(settings.position.startPos.x, settings.position.endPos.x);
-            yPosition = getBiasedRandomNumber(settings.position.startPos.y, settings.position.endPos.y);
-        }
-            break;
-        case biasTypes.rectangular.id: {
-            xPosition = getBiasedRandomNumber(
-                settings.position.startPos.x,
-                settings.position.endPos.x,
-                0,
-                settings.position.biasRectXOn ? {
-                    bias: settings.position.biasPos.x,
-                    biasInf: settings.position.biasInf,
-                    biasA: settings.position.biasA,
-                    biasB: settings.position.biasB,
-                } : undefined,
-            );
-            yPosition = getBiasedRandomNumber(
-                settings.position.startPos.y,
-                settings.position.endPos.y,
-                0,
-                settings.position.biasRectYOn ? {
-                    bias: settings.position.biasPos.y,
-                    biasInf: settings.position.biasInf,
-                    biasA: settings.position.biasA,
-                    biasB: settings.position.biasB,
-                } : undefined,
-            );
-        }
-            break;
-        case biasTypes.radial.id: {
-            const angle = getBiasedRandomNumber(0, 359);
-
-            const diapason = Math.pow(settings.position.biasRadius, 2);
-
-            const distanceFromBias = Math.pow(
-                getBiasedRandomNumber(
+    if (!isBranchElement) {
+        const realBiasX = settings.brush.brushOn ? settings.brush.brushPos.x : settings.position.biasPos.x;
+        const realBiasY = settings.brush.brushOn ? settings.brush.brushPos.y : settings.position.biasPos.y;
+        switch (settings.position.biasType) {
+            case biasTypes.off.id: {
+                xPosition = getBiasedRandomNumber(settings.position.startPos.x, settings.position.endPos.x);
+                yPosition = getBiasedRandomNumber(settings.position.startPos.y, settings.position.endPos.y);
+            }
+                break;
+            case biasTypes.rectangular.id: {
+                xPosition = getBiasedRandomNumber(
+                    settings.position.startPos.x,
+                    settings.position.endPos.x,
                     0,
-                    diapason,
-                    0,
-                    {
-                        bias: 0,
+                    settings.position.biasRectXOn ? {
+                        bias: settings.position.biasPos.x,
+                        biasInf: settings.position.biasInf,
                         biasA: settings.position.biasA,
                         biasB: settings.position.biasB,
+                    } : undefined,
+                );
+                yPosition = getBiasedRandomNumber(
+                    settings.position.startPos.y,
+                    settings.position.endPos.y,
+                    0,
+                    settings.position.biasRectYOn ? {
+                        bias: settings.position.biasPos.y,
                         biasInf: settings.position.biasInf,
-                    },
-                ),
-                1 / 2,
-            );
+                        biasA: settings.position.biasA,
+                        biasB: settings.position.biasB,
+                    } : undefined,
+                );
+            }
+                break;
+            case biasTypes.radial.id: {
+                const angle = getBiasedRandomNumber(0, 359);
 
-            const [
-                x,
-                y,
-            ] = getPointByDistanceAndAngle(
-                realBiasX,
-                realBiasY,
-                distanceFromBias,
-                angle,
-            );
-            xPosition = x;
-            yPosition = y;
-        }
-            break;
-        case biasTypes.spiral.id: {
-            const spinI = Math.trunc(i / settings.position.biasSpiralThickness);
-            const angle = spinI * settings.position.biasSpiralDensity;
-            const angleRad = turnDegreesToRadians(angle);
+                const diapason = Math.pow(settings.position.biasRadius, 2);
 
-            let distanceFromBias;
+                const distanceFromBias = Math.pow(
+                    getBiasedRandomNumber(
+                        0,
+                        diapason,
+                        0,
+                        {
+                            bias: 0,
+                            biasA: settings.position.biasA,
+                            biasB: settings.position.biasB,
+                            biasInf: settings.position.biasInf,
+                        },
+                    ),
+                    1 / 2,
+                );
 
-            switch (settings.position.biasSpiralType) {
-                case biasSpiralTypes.basic.id: {
-                    distanceFromBias = Math.pow(angleRad, 1);
-                }
-                    break;
-                case biasSpiralTypes.fourLeaf.id: {
-                    distanceFromBias = angleRad * Math.sin(angleRad * 2);
-                }
-                    break;
-                case biasSpiralTypes.reducing.id: {
-                    distanceFromBias = Math.pow(angleRad, 1 / 2) * 20;
-                }
-                    break;
-                case biasSpiralTypes.circles.id: {
-                    distanceFromBias = angleRad * 4 * Math.cos(Math.pow(angleRad, 1 / 1.2));
-                }
-                    break;
-                case biasSpiralTypes.custom.id: {
-                    try {
-                        distanceFromBias = eval(String(settings.position.biasSpiralCustom));
-                    } catch (e) {
-                        distanceFromBias = 0;
+                const [
+                    x,
+                    y,
+                ] = getPointByDistanceAndAngle(
+                    realBiasX,
+                    realBiasY,
+                    distanceFromBias,
+                    angle,
+                );
+                xPosition = x;
+                yPosition = y;
+            }
+                break;
+            case biasTypes.spiral.id: {
+                const spinI = Math.trunc(i / settings.position.biasSpiralThickness);
+                const angle = spinI * settings.position.biasSpiralDensity;
+                const angleRad = turnDegreesToRadians(angle);
+
+                let distanceFromBias;
+
+                switch (settings.position.biasSpiralType) {
+                    case biasSpiralTypes.basic.id: {
+                        distanceFromBias = Math.pow(angleRad, 1);
+                    }
+                        break;
+                    case biasSpiralTypes.fourLeaf.id: {
+                        distanceFromBias = angleRad * Math.sin(angleRad * 2);
+                    }
+                        break;
+                    case biasSpiralTypes.reducing.id: {
+                        distanceFromBias = Math.pow(angleRad, 1 / 2) * 20;
+                    }
+                        break;
+                    case biasSpiralTypes.circles.id: {
+                        distanceFromBias = angleRad * 4 * Math.cos(Math.pow(angleRad, 1 / 1.2));
+                    }
+                        break;
+                    case biasSpiralTypes.custom.id: {
+                        try {
+                            distanceFromBias = eval(String(settings.position.biasSpiralCustom));
+                        } catch (e) {
+                            distanceFromBias = 0;
+                        }
                     }
                 }
+                distanceFromBias = distanceFromBias * settings.position.biasSpiralMult;
+                let radius = getBiasedRandomNumber(distanceFromBias - settings.position.biasSpiralSpread, distanceFromBias + settings.position.biasSpiralSpread, 0, {
+                    bias: distanceFromBias,
+                    biasA: settings.position.biasA,
+                    biasB: settings.position.biasB,
+                    biasInf: settings.position.biasInf,
+                });
+                const [
+                    x,
+                    y,
+                ] = getPointByDistanceAndAngle(realBiasX, realBiasY, radius, getBiasedRandomNumber(angle - settings.position.biasSpiralAngleRand, angle + settings.position.biasSpiralAngleRand, 2));
+                xPosition = x;
+                yPosition = y;
             }
-            distanceFromBias = distanceFromBias * settings.position.biasSpiralMult;
-            let radius = getBiasedRandomNumber(distanceFromBias - settings.position.biasSpiralSpread, distanceFromBias + settings.position.biasSpiralSpread, 0, {
-                bias: distanceFromBias,
-                biasA: settings.position.biasA,
-                biasB: settings.position.biasB,
-                biasInf: settings.position.biasInf,
-            });
-            const [
-                x,
-                y,
-            ] = getPointByDistanceAndAngle(realBiasX, realBiasY, radius, getBiasedRandomNumber(angle - settings.position.biasSpiralAngleRand, angle + settings.position.biasSpiralAngleRand, 2));
-            xPosition = x;
-            yPosition = y;
+                break;
+            case biasTypes.chessPlate.id: {
+                const fieldWidth = settings.position.endPos.x - settings.position.startPos.x;
+                const fieldHeight = settings.position.endPos.y - settings.position.startPos.y;
+                // TODO maby replace Math.trunc with Math.floor everywhere
+                const rowIndex = Math.trunc(i / settings.position.chessPlateWidth);
+                const colIndex = Math.trunc(i - rowIndex * settings.position.chessPlateWidth);
+                const xDistance = fieldWidth / (settings.position.chessPlateWidth - 1);
+                const yDistance = fieldHeight / (settings.position.chessPlateHeight - 1);
+                xPosition = xDistance * colIndex + settings.position.startPos.x;
+                yPosition = yDistance * rowIndex + settings.position.startPos.y;
+            }
         }
-            break;
-        case biasTypes.chessPlate.id: {
-            const fieldWidth = settings.position.endPos.x - settings.position.startPos.x;
-            const fieldHeight = settings.position.endPos.y - settings.position.startPos.y;
-            // TODO maby replace Math.trunc with Math.floor everywhere
-            const rowIndex = Math.trunc(i / settings.position.chessPlateWidth);
-            const colIndex = Math.trunc(i - rowIndex * settings.position.chessPlateWidth);
-            const xDistance = fieldWidth / (settings.position.chessPlateWidth - 1);
-            const yDistance = fieldHeight / (settings.position.chessPlateHeight - 1);
-            xPosition = xDistance * colIndex + settings.position.startPos.x;
-            yPosition = yDistance * rowIndex + settings.position.startPos.y;
+        if (settings.position.branchesOn) {
+            last = {
+                level: 1,
+                x: xPosition,
+                y: yPosition,
+                direction: getBiasedRandomNumber(0, 355),
+            };
         }
+    } else {
+        const directionDelta = getBiasedRandomNumber(-5, 5);
+        branchDirection = last.direction + directionDelta;
+        const [x, y] = getPointByDistanceAndAngle(last.x, last.y, settings.position.branchesMagnitude, branchDirection);
+        xPosition = x;
+        yPosition = y;
+        // if (
+        //     xPosition < settings.position.startPos.x ||
+        //     xPosition > settings.position.endPos.x ||
+        //     yPosition < settings.position.startPos.y ||
+        //     yPosition > settings.position.endPos.y
+        // ) {
+        //     last = {
+        //         level: 0,
+        //         x: 0,
+        //         y: 0,
+        //         direction: 10,
+        //     };
+        // } else {
+        //     last = {
+        //         level: last.level + 1,
+        //         x: xPosition,
+        //         y: yPosition,
+        //         direction: newDirection,
+        //     };
+        // }
     }
+
 
     const modResultsTemp = {};
     const modResults = {};
@@ -186,6 +239,7 @@ export const getRandomizedShapeSettings = (settings, i) => {
     let lookToModsDeltas = [];
     let xOffsetModsDeltas = [];
     let yOffsetModsDeltas = [];
+    let branchesMagnitudeModsDeltas = [];
 
     let lookToModsValues = [];
 
@@ -246,6 +300,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
         if (mod.outputs.yOffset.enabled) {
             yOffsetModsDeltas.push([mod.outputs.yOffset.val2 * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
         }
+        if (mod.outputs.branchesMagnitude.enabled) {
+            branchesMagnitudeModsDeltas.push([(mod.outputs.branchesMagnitude.val2 - settings.position.branchesMagnitude) * modResults[mod.id], modResults[mod.id] * mod.blendRatio]);
+        }
     });
     // TODO review lookTo mods and how they are calculated
     const lookToModsAvg = average(...lookToModsValues);
@@ -260,9 +317,9 @@ export const getRandomizedShapeSettings = (settings, i) => {
     const rectRoundnessModsSum = getWeightedSum(...rectRoundnessModsDeltas);
     const angleModsSum = getWeightedSum(...angleModsDeltas);
     const lookToModsSum = getPosWeightedSum(...lookToModsDeltas);
-
     const xOffsetModsSum = getWeightedSum(...xOffsetModsDeltas);
     const yOffsetModsSum = getWeightedSum(...yOffsetModsDeltas);
+    const branchesMagnitudeModsSum = getWeightedSum(...branchesMagnitudeModsDeltas);
 
     let widthRatio = settings.shape.widthRatio + widthRatioModsSum;
     let rectRoundness = settings.shape.rectRoundness + rectRoundnessModsSum;
@@ -289,6 +346,36 @@ export const getRandomizedShapeSettings = (settings, i) => {
         angle = lookToAngle * lookToModsAvg + angle;
     }
 
+    if (isBranchElement) {
+        const [x, y] = getPointByDistanceAndAngle(last.x, last.y, settings.position.branchesMagnitude + branchesMagnitudeModsSum, branchDirection);
+        xPosition = x;
+        yPosition = y;
+        if (
+            xPosition < settings.position.startPos.x ||
+            xPosition > settings.position.endPos.x ||
+            yPosition < settings.position.startPos.y ||
+            yPosition > settings.position.endPos.y
+        ) {
+            last = {
+                level: 0,
+                x: 0,
+                y: 0,
+                direction: 10,
+            };
+        } else {
+            last = {
+                level: last.level + 1,
+                x: xPosition,
+                y: yPosition,
+                direction: branchDirection,
+            };
+        }
+    }
+
+    xPosition = xPosition + xOffsetModsSum + settings.position.xOffset;
+    yPosition = yPosition + yOffsetModsSum + settings.position.yOffset;
+
+
     return {
         size: {
             size: size,
@@ -308,8 +395,8 @@ export const getRandomizedShapeSettings = (settings, i) => {
         position: {
             // x: Math.floor(xPosition),
             // y: Math.floor(yPosition),
-            x: xPosition + xOffsetModsSum + settings.position.xOffset,
-            y: yPosition + yOffsetModsSum + settings.position.yOffset,
+            x: xPosition,
+            y: yPosition,
         },
         color: {
             color: color,

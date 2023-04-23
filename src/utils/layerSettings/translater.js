@@ -7,6 +7,7 @@ import {
     getTranslatedBiasA,
     getTranslatedBiasB,
     getTranslatedBlur,
+    getTranslatedBranchesMagnitude,
     getTranslatedBrushDensity,
     getTranslatedChessPlateDim,
     getTranslatedModA,
@@ -129,6 +130,10 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                         enabled: mod.outputs.yOffset.enabled,
                         val2: getTranslatedPosOffset(mod.outputs.yOffset.val2),
                     },
+                    branchesMagnitude: {
+                        enabled: mod.outputs.branchesMagnitude.enabled,
+                        val2: getTranslatedBranchesMagnitude(mod.outputs.branchesMagnitude.val2),
+                    },
                 },
                 modOutputs: mod.modOutputs.map(modOutput => {
                     return {
@@ -149,6 +154,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
             },
             branchesOn: rawSettings.position.branchesOn,
             branchesLength: parseFloat(rawSettings.position.branchesLength),
+            branchesMagnitude: getTranslatedBranchesMagnitude(rawSettings.position.branchesMagnitude),
             biasSpiralType: rawSettings.position.biasSpiralType,
             chessPlateWidth: getTranslatedChessPlateDim(rawSettings.position.chessPlateWidth),
             chessPlateHeight: getTranslatedChessPlateDim(rawSettings.position.chessPlateHeight),

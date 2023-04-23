@@ -113,6 +113,10 @@ export const getLayerSettings = (preset) => {
                         enabled: mod?.outputs?.yOffset?.enabled ?? defaultMod.outputs.yOffset.enabled,
                         val2: mod?.outputs?.yOffset?.val2 ?? defaultMod.outputs.yOffset.val2,
                     },
+                    branchesMagnitude: {
+                        enabled: mod?.outputs?.branchesMagnitude?.enabled ?? defaultMod.outputs.branchesMagnitude.enabled,
+                        val2: mod?.outputs?.branchesMagnitude?.val2 ?? defaultMod.outputs.branchesMagnitude.val2,
+                    },
                 },
                 modOutputs: mod?.modOutputs?.map((modOutput) => {
                     const defaultModOutput = getDefaultModOutput();
@@ -134,6 +138,7 @@ export const getLayerSettings = (preset) => {
             },
             branchesOn: preset?.position?.branchesOn ?? defaultPreset.position.branchesOn,
             branchesLength: preset?.position?.branchesLength ?? defaultPreset.position.branchesLength,
+            branchesMagnitude: preset?.position?.branchesMagnitude ?? defaultPreset.position.branchesMagnitude,
             biasType: preset?.position?.biasType ?? defaultPreset.position.biasType,
             chessPlateWidth: preset?.position?.chessPlateWidth ?? defaultPreset.position.chessPlateWidth,
             chessPlateHeight: preset?.position?.chessPlateHeight ?? defaultPreset.position.chessPlateHeight,

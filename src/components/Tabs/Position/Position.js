@@ -4,6 +4,7 @@ import {biasTypes} from '../../../consts/sharedConsts';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 import {BiasCharacter} from './BiasCharacter';
 import {Branches} from './Branches';
+import {BranchesMagnitude} from './BranchesMagnitude';
 import {ChessPlateSpecific} from './ChessPlateSpecific';
 import {RadialSpecific} from './RadialSpecific';
 import {RectangularSpecific} from './RectangularSpecific';
@@ -104,6 +105,16 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                     setSettings={setSettings}
                 />
             </div>
+            <ConditionalPanel active={settings.position.branchesOn}>
+                <div className={classes.block}>
+                    <BranchesMagnitude
+                        classes={classes}
+                        settings={settings}
+                        handleChange={handleChange}
+                        setSettings={setSettings}
+                    />
+                </div>
+            </ConditionalPanel>
         </>
     );
 };
