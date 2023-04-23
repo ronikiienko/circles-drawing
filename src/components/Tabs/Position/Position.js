@@ -3,6 +3,7 @@ import React from 'react';
 import {biasTypes} from '../../../consts/sharedConsts';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
 import {BiasCharacter} from './BiasCharacter';
+import {Branches} from './Branches';
 import {ChessPlateSpecific} from './ChessPlateSpecific';
 import {RadialSpecific} from './RadialSpecific';
 import {RectangularSpecific} from './RectangularSpecific';
@@ -89,6 +90,14 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
             </div>
             <div className={classes.block}>
                 <YOffset
+                    classes={classes}
+                    settings={settings}
+                    handleChange={handleChange}
+                    setSettings={setSettings}
+                />
+            </div>
+            <div className={classes.block}>
+                <Branches
                     classes={classes}
                     settings={settings}
                     handleChange={handleChange}

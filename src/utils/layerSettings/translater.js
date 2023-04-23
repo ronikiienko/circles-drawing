@@ -147,6 +147,8 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                 x: parseFloat(rawSettings.position.endPos.x),
                 y: parseFloat(rawSettings.position.endPos.y),
             },
+            branchesOn: rawSettings.position.branchesOn,
+            branchesLength: parseFloat(rawSettings.position.branchesLength),
             biasSpiralType: rawSettings.position.biasSpiralType,
             chessPlateWidth: getTranslatedChessPlateDim(rawSettings.position.chessPlateWidth),
             chessPlateHeight: getTranslatedChessPlateDim(rawSettings.position.chessPlateHeight),

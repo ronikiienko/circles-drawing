@@ -267,6 +267,8 @@ export const layerPresets = [
                 x: window.innerWidth,
                 y: window.innerHeight,
             },
+            branchesOn: false,
+            branchesLength: 0,
             biasType: biasTypes.off.id, // rectangular radial spiral
             chessPlateWidth: 10,
             chessPlateHeight: 10,

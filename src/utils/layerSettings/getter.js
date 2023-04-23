@@ -132,6 +132,8 @@ export const getLayerSettings = (preset) => {
                 x: preset?.position?.endPos?.x ?? defaultPreset.position.endPos.x,
                 y: preset?.position?.endPos?.y ?? defaultPreset.position.endPos.y,
             },
+            branchesOn: preset?.position?.branchesOn ?? defaultPreset.position.branchesOn,
+            branchesLength: preset?.position?.branchesLength ?? defaultPreset.position.branchesLength,
             biasType: preset?.position?.biasType ?? defaultPreset.position.biasType,
             chessPlateWidth: preset?.position?.chessPlateWidth ?? defaultPreset.position.chessPlateWidth,
             chessPlateHeight: preset?.position?.chessPlateHeight ?? defaultPreset.position.chessPlateHeight,
