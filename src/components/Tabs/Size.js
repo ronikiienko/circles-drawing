@@ -78,7 +78,9 @@ export const Size = ({settings, setSettings, handleChange, classes}) => {
                                     appearance="underline"
                                     className={classes.number}
                                     size="small"
+                                    id={`mods-${modIndex}-outputs-size-val2`}
                                     value={mod.outputs.size.val2}
+                                    onChange={handleChange}
                                 />
                             </Label>
                         </ParamMod>
