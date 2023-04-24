@@ -138,6 +138,13 @@ onmessage = async (event) => {
     }
 };
 
+const sendProgressMessage = (progress) => {
+    postMessage({
+        cmd: CMD.progress,
+        data: progress,
+    });
+};
+
 const makeCanvasHighPPI = (width, height, resolutionMult) => {
 
     canvas.width = width * resolutionMult;
@@ -164,11 +171,13 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
         isDrawingFlag = true;
 
         const number = settings.number.number;
+        const sendProgressInterval = Math.max(number / 50, 2);
 
         const targetFps = 60;
 
         const drawShapes = (startIndex, endIndex) => {
             for (let i = startIndex; i < endIndex; i++) {
+                if (i % sendProgressInterval === 0) sendProgressMessage(i / number);
                 const randomizedShapeSettings = getRandomizedShapeSettings(settings, i);
                 drawShape(ctx, randomizedShapeSettings);
             }

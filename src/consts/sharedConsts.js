@@ -9,6 +9,7 @@ export const CMD = {
     addToHistory: 'ADD_TO_HISTORY',
     getImageData: 'GET_IMAGE_DATA',
     setImageData: 'SET_IMAGE_DATA',
+    progress: 'PROGRESS',
 };
 
 export const maxUndoTimes = 10;
