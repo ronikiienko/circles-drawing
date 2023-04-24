@@ -40,7 +40,13 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                 </Label>
             </div>
             <ConditionalPanel
-                active={settings.position.biasType === biasTypes.rectangular.id || settings.position.biasType === biasTypes.off.id || settings.position.biasType === biasTypes.chessPlate.id}>
+                active={
+                    settings.position.biasType === biasTypes.rectangular.id ||
+                    settings.position.biasType === biasTypes.off.id ||
+                    settings.position.biasType === biasTypes.chessPlate.id ||
+                    settings.position.branchesOn
+                }
+            >
                 <div className={classes.block}>
                     <StartEnd setSettings={setSettings} classes={classes} settings={settings}
                               handleChange={handleChange}

@@ -11,7 +11,13 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
     return (
         <>
             <ConditionalPanel
-                active={settings.position.biasType === biasTypes.rectangular.id || settings.position.biasType === biasTypes.off.id || settings.position.biasType === biasTypes.chessPlate.id}>
+                active={
+                    settings.position.biasType === biasTypes.rectangular.id ||
+                    settings.position.biasType === biasTypes.off.id ||
+                    settings.position.biasType === biasTypes.chessPlate.id ||
+                    settings.position.branchesOn
+                }
+            >
                 <CoordinateFlag
                     id="position-startPos"
                     x={settings.position.startPos.x}
