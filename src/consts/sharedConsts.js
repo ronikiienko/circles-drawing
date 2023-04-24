@@ -25,6 +25,10 @@ export const progressStatuses = {
         id: 'saving',
         name: 'Saving',
     },
+    loading: {
+        id: 'loading',
+        name: 'Loading',
+    },
 };
 
 export const maxUndoTimes = 10;

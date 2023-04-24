@@ -49,25 +49,35 @@ class HistoryCareTaker {
     }
 
     async undo() {
+        sendProgressMessage(1, null, null, progressStatuses.loading.id);
         if (!await this.#getHistoryLength()) return;
         const currentHistoryIndex = await this.#getHistoryIndex();
         const prevItem = await db.table('history').where('index').below(currentHistoryIndex).last();
-        if (!prevItem) return;
+        if (!prevItem) {
+            sendProgressMessage(1, null, null, progressStatuses.finished.id);
+            return;
+        }
 
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         ctx.putImageData(prevItem.data, 0, 0);
         await this.#setHistoryIndex(prevItem.index);
+        sendProgressMessage(1, null, null, progressStatuses.finished.id);
     }
 
     async redo() {
+        sendProgressMessage(1, null, null, progressStatuses.loading.id);
         if (!await this.#getHistoryLength()) return;
         const currentHistoryIndex = await this.#getHistoryIndex();
         const nextItem = await db.table('history').where('index').above(currentHistoryIndex).first();
-        if (!nextItem) return;
+        if (!nextItem) {
+            sendProgressMessage(1, null, null, progressStatuses.finished.id);
+            return;
+        }
 
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         ctx.putImageData(nextItem.data, 0, 0);
         await this.#setHistoryIndex(nextItem.index);
+        sendProgressMessage(1, null, null, progressStatuses.finished.id);
     }
 
     async initHistoryIfNeeded(snapshot) {
@@ -106,11 +116,11 @@ onmessage = async (event) => {
         }
             break;
         case CMD.undo: {
-            history.undo();
+            await history.undo();
         }
             break;
         case CMD.redo: {
-            history.redo();
+            await history.redo();
         }
             break;
         case CMD.setCanvasPPI: {
@@ -236,7 +246,7 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
 
 
 export const clear = async (appSettings) => {
-    sendProgressMessage(1, null, null, progressStatuses.saving.id);
+    sendProgressMessage(1, null, null, progressStatuses.loading.id);
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     await history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
     sendProgressMessage(1, null, null, progressStatuses.finished.id);
