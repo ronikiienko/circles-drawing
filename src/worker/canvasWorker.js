@@ -3,8 +3,8 @@ import {db} from '../db';
 import {getTranslatedAppSettings} from '../utils/appSettings/translater';
 import {drawCustomShape, drawPixelShape} from '../utils/drawingUtils';
 import {getBiasedRandomNumber, turnDegreesToRadians} from '../utils/generalUtils';
-import {getRandomizedShapeSettings} from '../utils/layerSettings/shapeSettingsGetter';
 import {getTranslatedLayerSettings} from '../utils/layerSettings/translater';
+import {getRandomizedShapeSettings} from '../utils/shapeSettingsGetter/shapeSettingsGetter';
 
 
 let canvas;
