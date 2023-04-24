@@ -4,11 +4,13 @@ import {
     makeStyles,
     Overflow,
     OverflowItem,
+    ProgressBar,
     shorthands,
     Tab,
     TabList,
     tokens,
 } from '@fluentui/react-components';
+import {Field} from '@fluentui/react-components/unstable';
 import {
     Add16Regular,
     ArrowRedo16Regular,
@@ -21,8 +23,10 @@ import React, {useRef} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 import {useImmer} from 'use-immer';
 import {hotkeys, tabs} from '../consts/consts';
+import {progressStatuses} from '../consts/sharedConsts';
 import {useBrush} from '../hooks/useBrush';
 import {useClickAndSet} from '../hooks/useClickAndSet';
+import {useDrawingProgress} from '../hooks/useDrawingProgress';
 import {useResizer} from '../hooks/useResizer';
 import {setObjectPropertyByStringPath} from '../utils/generalUtils';
 import {getRandomName} from '../utils/nameGenerators';
@@ -208,6 +212,8 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
     const localClasses = useStyles();
     const tabsClasses = useStylesTabs();
 
+    const drawingProgress = useDrawingProgress();
+
     const containerRef = useRef(null);
 
     const [hidden, setHidden] = useImmer(false);
@@ -349,19 +355,23 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                 <div className={localClasses.footer}>
                     <Divider className={localClasses.divider}>Actions</Divider>
                     <Button
+                        disabled={drawingProgress.status !== progressStatuses.finished.id}
                         className={localClasses.buttons}
                         onClick={() => drawLayer(settings, appSettings)}
                         icon={<Add16Regular/>}
                     >Layer</Button>
                     <Button
+                        disabled={drawingProgress.status !== progressStatuses.finished.id}
                         className={localClasses.buttons}
                         onClick={undo}
                         icon={<ArrowUndo16Regular/>}>Undo</Button>
                     <Button
+                        disabled={drawingProgress.status !== progressStatuses.finished.id}
                         className={localClasses.buttons}
                         onClick={redo}
                         icon={<ArrowRedo16Regular/>}>Redo</Button>
                     <Button
+                        disabled={drawingProgress.status !== progressStatuses.finished.id}
                         className={localClasses.clearButton}
                         onClick={clear}
                         appearance="primary"
@@ -377,6 +387,17 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                     >
                         Stop
                     </Button>
+                    <ConditionalPanel active={drawingProgress.status !== progressStatuses.finished.id}>
+                        <Field
+                            validationMessage={`${progressStatuses[drawingProgress.status].name} ${drawingProgress.currentIndex ?? ''}/${drawingProgress.totalNumber ?? ''}`}
+                            validationState="none"
+                        >
+                            <ProgressBar
+                                value={drawingProgress.progress}
+                                max={1}
+                            />
+                        </Field>
+                    </ConditionalPanel>
                 </div>
                 <CoordinateFlags settings={settings} setDragProp={setDragProp}/>
             </div>

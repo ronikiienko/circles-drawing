@@ -1,4 +1,4 @@
-import {CMD, maxUndoTimes} from '../consts/sharedConsts';
+import {CMD, maxUndoTimes, progressStatuses} from '../consts/sharedConsts';
 import {db} from '../db';
 import {getTranslatedAppSettings} from '../utils/appSettings/translater';
 import {getTranslatedLayerSettings} from '../utils/layerSettings/translater';
@@ -138,10 +138,15 @@ onmessage = async (event) => {
     }
 };
 
-const sendProgressMessage = (progress) => {
+const sendProgressMessage = (progress, currentIndex, totalNumber, status) => {
     postMessage({
         cmd: CMD.progress,
-        data: progress,
+        data: {
+            progress,
+            currentIndex,
+            totalNumber,
+            status,
+        },
     });
 };
 
@@ -177,7 +182,7 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
 
         const drawShapes = (startIndex, endIndex) => {
             for (let i = startIndex; i < endIndex; i++) {
-                if (i % sendProgressInterval === 0) sendProgressMessage(i / number);
+                if (i % sendProgressInterval === 0) sendProgressMessage(i / number, i, number, progressStatuses.drawing.id);
                 const randomizedShapeSettings = getRandomizedShapeSettings(settings, i);
                 drawShape(ctx, randomizedShapeSettings);
             }
@@ -199,7 +204,7 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
             } else if (maxShapesToMaintainFps >= 100) {
                 maxShapesToMaintainFpsAltered = maxShapesToMaintainFps + 10;
             }
-            let shapesPerFrame = Math.round(Math.max(Math.min(maxShapesToMaintainFpsAltered, number - shapesDrawn), 1));
+            let shapesPerFrame = Math.round(Math.max(Math.min(maxShapesToMaintainFpsAltered, number - shapesDrawn), 5));
 
             const endIndex = shapesDrawn + shapesPerFrame;
             drawShapes(shapesDrawn, endIndex);
@@ -207,12 +212,14 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
             if (endIndex < number && isDrawingFlag) {
                 requestAnimationFrame((newTimestamp) => scheduleFrame(newTimestamp, endIndex));
             } else {
+                sendProgressMessage(1, null, null, progressStatuses.saving.id);
                 if (addToHistory) {
                     history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult))
                         .then(() => isDrawingFlag = false);
                 } else {
                     isDrawingFlag = false;
                 }
+                sendProgressMessage(1, null, null, progressStatuses.finished.id);
             }
 
             prevTimestamp = timestamp;
@@ -229,8 +236,10 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
 
 
 export const clear = async (appSettings) => {
+    sendProgressMessage(1, null, null, progressStatuses.saving.id);
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     await history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
+    sendProgressMessage(1, null, null, progressStatuses.finished.id);
 };
 
 // TODO add elipse shape

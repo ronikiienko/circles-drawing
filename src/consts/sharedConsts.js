@@ -12,6 +12,21 @@ export const CMD = {
     progress: 'PROGRESS',
 };
 
+export const progressStatuses = {
+    finished: {
+        id: 'finished',
+        name: 'Finished',
+    },
+    drawing: {
+        id: 'drawing',
+        name: 'Drawing',
+    },
+    saving: {
+        id: 'saving',
+        name: 'Saving',
+    },
+};
+
 export const maxUndoTimes = 10;
 export const biasTypes = {
     rectangular: {

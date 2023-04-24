@@ -3,15 +3,14 @@ import {save} from 'save-file';
 import {CMD} from '../consts/sharedConsts';
 
 
-let worker;
+export let worker = new Worker(
+    new URL('canvasWorker.js', import.meta.url),
+    {type: 'module'},
+);
 let canvas;
 
 export const initializeOffscreenCanvas = () => {
     canvas = document.getElementById('main-canvas');
-    worker = new Worker(
-        new URL('canvasWorker.js', import.meta.url),
-        {type: 'module'},
-    );
     const canvasWorker = canvas.transferControlToOffscreen();
     worker.postMessage({cmd: CMD.initCanvas, canvas: canvasWorker}, [canvasWorker]);
 };
