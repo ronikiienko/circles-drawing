@@ -3,7 +3,6 @@ import {getBiasedRandomNumber, getPointByDistanceAndAngle, turnDegreesToRadians}
 
 
 export const calculatePosition = (settings, absoluteIndex, branchIndex) => {
-    console.log(branchIndex);
     const realBiasX = settings.brush.brushOn ? settings.brush.brushPos.x : settings.position.biasPos.x;
     const realBiasY = settings.brush.brushOn ? settings.brush.brushPos.y : settings.position.biasPos.y;
     switch (settings.position.biasType) {

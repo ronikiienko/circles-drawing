@@ -36,12 +36,10 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
         xPosition = last.x;
         yPosition = last.y;
     } else {
-        if (settings.position.branchesOn && settings.position.branchesLength > 0) {
-            if (absoluteIndex === 0) {
-                branchIndex = 0;
-            } else {
-                branchIndex++;
-            }
+        if (absoluteIndex === 0) {
+            branchIndex = 0;
+        } else {
+            branchIndex++;
         }
         const [x, y] = calculatePosition(settings, absoluteIndex, branchIndex);
         xPosition = x;
