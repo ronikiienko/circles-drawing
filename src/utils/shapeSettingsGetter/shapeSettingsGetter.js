@@ -1,10 +1,8 @@
-import {shapeTypes} from '../../consts/sharedConsts';
 import {
-    average,
+    calculateShortestAngleDifference,
     getBiasedRandomNumber,
     getColorsWeightedSum,
     getPointByDistanceAndAngle,
-    getPosWeightedSum,
     getVectorByTwoPoints,
     getWeightedSum,
     hslArrToHsl,
@@ -66,13 +64,10 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     const widthRatioModsDeltas = [];
     const rectRoundnessModsDeltas = [];
     const angleModsDeltas = [];
-    const lookToModsDeltas = [];
     const xOffsetModsDeltas = [];
     const yOffsetModsDeltas = [];
     const branchesMagnitudeModsDeltas = [];
     const branchesDirectionModsDeltas = [];
-
-    const lookToModsValues = [];
 
     settings.mods?.forEach((mod) => {
         if (mod.outputs.size.enabled) {
@@ -115,15 +110,17 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
         if (mod.outputs.rectRoundness.enabled) {
             rectRoundnessModsDeltas.push([(mod.outputs.rectRoundness.val2 - settings.shape.rectRoundness) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
         }
-        if (mod.outputs.angle.enabled) {
-            angleModsDeltas.push([(mod.outputs.angle.val2 - settings.shape.angle) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
-        }
-        if (mod.outputs.lookTo.enabled) {
-            lookToModsDeltas.push([{
-                x: mod.outputs.lookTo.val2.x,
-                y: mod.outputs.lookTo.val2.y,
-            }, modsResults[mod.id] * mod.blendRatio]);
-            lookToModsValues.push(modsResults[mod.id]);
+        if (mod.outputs.angle.enabled || mod.outputs.lookTo.enabled) {
+            let lookToDelta = 0;
+            let angleDelta = 0;
+            if (mod.outputs.lookTo.enabled) {
+                let [, angle] = getVectorByTwoPoints(xPosition, yPosition, mod.outputs.lookTo.val2.x, mod.outputs.lookTo.val2.y);
+                lookToDelta = calculateShortestAngleDifference(settings.shape.angle, angle) * modsResults[mod.id];
+            }
+            if (mod.outputs.angle.enabled) {
+                angleDelta = calculateShortestAngleDifference(settings.shape.angle, mod.outputs.angle.val2) * modsResults[mod.id];
+            }
+            angleModsDeltas.push([(settings.shape.angle + angleDelta + lookToDelta), modsResults[mod.id] * mod.blendRatio]);
         }
         if (mod.outputs.xOffset.enabled) {
             xOffsetModsDeltas.push([mod.outputs.xOffset.val2 * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
@@ -138,8 +135,6 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
             branchesDirectionModsDeltas.push([mod.outputs.branchesDirection.val2.to - (mod.outputs.branchesDirection.val2.to - mod.outputs.branchesDirection.val2.from) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
         }
     });
-    // TODO review lookTo mods and how they are calculated
-    const lookToModsAvg = average(...lookToModsValues);
 
     const sizeModsSum = getWeightedSum(...sizeModsDeltas) || 0;
     const colorModsSum = getColorsWeightedSum(...colorModsDeltas);
@@ -150,7 +145,6 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     const widthRatioModsSum = getWeightedSum(...widthRatioModsDeltas);
     const rectRoundnessModsSum = getWeightedSum(...rectRoundnessModsDeltas);
     const angleModsSum = getWeightedSum(...angleModsDeltas);
-    const lookToModsSum = getPosWeightedSum(...lookToModsDeltas);
     const xOffsetModsSum = getWeightedSum(...xOffsetModsDeltas);
     const yOffsetModsSum = getWeightedSum(...yOffsetModsDeltas);
     const branchesMagnitudeModsSum = getWeightedSum(...branchesMagnitudeModsDeltas);
@@ -175,11 +169,6 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     // TODO if modsSum is empty array (or color array), it's NaN. maby check also color for such situation (and other)
 
     let angle = settings.shape.angle + angleModsSum;
-    // TODO REVIEW PLEASE
-    if (lookToModsSum?.x && lookToModsSum?.y && settings.shape.shape !== shapeTypes.random3 && settings.shape.shape !== shapeTypes.random4 && settings.shape.shape !== shapeTypes.circle) {
-        const [, lookToAngle] = getVectorByTwoPoints(xPosition, yPosition, lookToModsSum.x, lookToModsSum.y);
-        angle = lookToAngle * lookToModsAvg + angle;
-    }
 
     if (isBranchElement) {
         const modulatedMagnitude = settings.position.branchesMagnitude + branchesMagnitudeModsSum;

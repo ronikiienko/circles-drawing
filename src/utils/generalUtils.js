@@ -305,3 +305,18 @@ export const bilinearInterp = (p1, p2, p3, p4, dx, dy) => {
     return p1 * w1 + p2 * w2 + p3 * w3 + p4 * w4;
 };
 
+export const calculateShortestAngleDifference = (defaultAngle, targetAngle) => {
+    targetAngle = targetAngle % 360;
+    defaultAngle = defaultAngle % 360;
+
+    let angleDifference = targetAngle - defaultAngle;
+
+    if (angleDifference > 180) {
+        angleDifference -= 360;
+    } else if (angleDifference < -180) {
+        angleDifference += 360;
+    }
+
+    return angleDifference;
+};
+
