@@ -2,9 +2,20 @@ import {Button, Input, Label} from '@fluentui/react-components';
 import React from 'react';
 
 
-export const StartEnd = ({classes, settings, handleChange, setClickAndSetProp}) => {
+export const StartEnd = ({classes, settings, handleChange, setClickAndSetProp, setSettings}) => {
+    const setFullScreen = () => {
+        setSettings(draft => {
+            draft.position.startPos.x = 0;
+            draft.position.startPos.y = 0;
+            draft.position.endPos.x = window.innerWidth;
+            draft.position.endPos.y = window.innerHeight;
+        });
+    };
     return (
         <>
+            <Button size="small" onClick={setFullScreen}>
+                Full screen
+            </Button>
             <div className={classes.row}>
                 <Label className={classes.label}>
                     Start x:

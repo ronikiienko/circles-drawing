@@ -328,7 +328,6 @@ export const getRandomizedShapeSettings = (settings, i) => {
     }
 
     if (isBranchElement) {
-        console.log(branchesDirectionModsSum);
         const modulatedMagnitude = settings.position.branchesMagnitude + branchesMagnitudeModsSum;
         const modulatedDirection = last.direction + branchesDirectionModsSum;
         const [x, y] = getPointByDistanceAndAngle(last.x, last.y, modulatedMagnitude, modulatedDirection);
