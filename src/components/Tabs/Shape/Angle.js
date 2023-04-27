@@ -21,6 +21,7 @@ export const Angle = ({settings, classes, handleChange, setClickAndSetProp, setS
                         id="shape-angle"
                         onChange={handleChange}
                         size={30}
+                        max={1}
                     />
                     <Text className={classes.slider}>{getTranslatedAngle(settings.shape.angle).toFixed(0)}°</Text>
                 </Label>
@@ -42,6 +43,7 @@ export const Angle = ({settings, classes, handleChange, setClickAndSetProp, setS
                                 id={`mods-${modIndex}-outputs-angle-val2`}
                                 onChange={handleChange}
                                 size={30}
+                                max={1}
                             />
                             <Text
                                 className={classes.slider}>{getTranslatedAngle(mod.outputs.angle.val2).toFixed(0)}°</Text>

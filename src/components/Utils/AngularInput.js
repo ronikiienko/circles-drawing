@@ -1,6 +1,6 @@
 import {makeStyles, mergeClasses, shorthands, tokens} from '@fluentui/react-components';
-import React, {useEffect, useState} from 'react';
-import {getEventObj} from '../../utils/generalUtils';
+import React, {useEffect, useRef, useState} from 'react';
+import {getEventObj, getVectorByTwoPoints} from '../../utils/generalUtils';
 import {getTranslatedAngle} from '../../utils/layerSettings/remappers';
 
 
@@ -25,11 +25,12 @@ const useStyles = makeStyles({
     },
 });
 
-export const AngularInput = ({value, onChange, id, style, className, size = 30}) => {
+export const AngularInput = ({value, onChange, id, style, className, size = 30, max}) => {
     const localClasses = useStyles();
-    const start = useAngularInput({value, onChange, id});
+    const inputRef = useRef(null);
+    const start = useAngularInput({value, onChange, id, inputRef, max});
     return (
-        <div onMouseDown={start}
+        <div ref={inputRef} onMouseDown={start}
              style={{transform: `rotate(${getTranslatedAngle(value)}deg)`, height: size, width: size, ...style}}
              className={mergeClasses(localClasses.container, className)}>
             <div style={{width: size, height: size / 10, top: size / 2 - size / 10 / 2, left: size / 2 - size / 10 / 2}}
@@ -38,16 +39,18 @@ export const AngularInput = ({value, onChange, id, style, className, size = 30})
     );
 };
 
-const useAngularInput = ({value, onChange, id}) => {
+const useAngularInput = ({value, onChange, id, inputRef, max}) => {
     const [isDragging, setIsDragging] = useState(false);
     useEffect(() => {
         const mousemoveHandler = (event) => {
             event.preventDefault();
             event.stopPropagation();
-            let newValue = parseFloat(value) + event.movementY / 90;
+            const rect = inputRef.current.getBoundingClientRect();
+            const centerX = (rect.left + rect.right) / 2;
+            const centerY = (rect.top + rect.bottom) / 2;
+            const [, angle] = getVectorByTwoPoints(centerX, centerY, event.pageX, event.pageY);
+            let newValue = angle / 360 * max;
             newValue = parseFloat(newValue.toFixed(2));
-            if (newValue > 0) newValue = newValue % 1;
-            if (newValue < 0) newValue = 1 + newValue;
             onChange(getEventObj(newValue, id));
         };
         const mouseupHandler = () => {
@@ -61,6 +64,6 @@ const useAngularInput = ({value, onChange, id}) => {
             window.removeEventListener('mouseup', mouseupHandler);
             window.removeEventListener('mousemove', mousemoveHandler);
         };
-    }, [id, isDragging, onChange, value]);
+    }, [id, inputRef, isDragging, onChange, value]);
     return () => setIsDragging(true);
 };
