@@ -32,6 +32,7 @@ export const AngularInput = ({value, onChange, id, style, className, size = 30, 
         <div
             ref={inputRef}
             onMouseDown={start}
+            onTouchStart={start}
             style={{
                 height: half ? size / 2 : size,
                 width: size,
@@ -69,7 +70,16 @@ const useAngularInput = ({value, onChange, id, inputRef, min, max, half}) => {
             const rect = inputRef.current.getBoundingClientRect();
             const centerX = (rect.left + rect.right) / 2;
             const centerY = (rect.top + rect.bottom) / 2;
-            let [, angle] = getVectorByTwoPoints(centerX, centerY, event.pageX, event.pageY);
+            let pageX;
+            let pageY;
+            if (event.type === 'touchmove') {
+                pageX = event.targetTouches[0].pageX;
+                pageY = event.targetTouches[0].pageY;
+            } else {
+                pageX = event.pageX;
+                pageY = event.pageY;
+            }
+            let [, angle] = getVectorByTwoPoints(centerX, centerY, pageX, pageY);
 
             if (half) {
                 if (angle >= 0 && angle <= 90) angle = 0;
@@ -87,13 +97,17 @@ const useAngularInput = ({value, onChange, id, inputRef, min, max, half}) => {
             setIsDragging(false);
         };
         if (isDragging) {
+            window.addEventListener('touchend', mouseupHandler);
+            window.addEventListener('touchmove', mousemoveHandler);
             window.addEventListener('mouseup', mouseupHandler);
             window.addEventListener('mousemove', mousemoveHandler);
         }
         return () => {
             window.removeEventListener('mouseup', mouseupHandler);
             window.removeEventListener('mousemove', mousemoveHandler);
+            window.removeEventListener('touchend', mouseupHandler);
+            window.removeEventListener('touchmove', mousemoveHandler);
         };
-    }, [id, inputRef, isDragging, max, onChange, value]);
+    }, [half, id, inputRef, isDragging, max, min, onChange, value]);
     return () => setIsDragging(true);
 };
