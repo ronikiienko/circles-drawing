@@ -41,6 +41,18 @@ const useStyles = makeStyles({
         marginBlock: '5px',
     },
     removeButton: {
+        display: 'flex',
+        alignItems: 'center',
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        ':hover': {
+            backgroundColor: tokens.colorNeutralBackground1Hover,
+            color: tokens.colorNeutralForeground2BrandHover,
+        },
+        ':active': {
+            backgroundColor: tokens.colorNeutralBackground1Pressed,
+            color: tokens.colorNeutralForeground2BrandPressed,
+        },
+        ...shorthands.padding('5px'),
         float: 'right',
         marginLeft: '20px',
     },
@@ -63,8 +75,10 @@ export const ModElement = ({
             <AccordionItem
                 className={localClasses.block}
                 value={settings.mods[modIndex].id}>
-                <AccordionHeader className={localClasses.accordionHeader}
-                                 style={{backgroundColor: hslArrToHsl(settings.mods[modIndex].color, 0.3)}}>
+                <AccordionHeader
+                    className={localClasses.accordionHeader}
+                    style={{backgroundColor: hslArrToHsl(settings.mods[modIndex].color, 0.3)}}
+                >
                     <Input
                         id={`mods-${modIndex}-name`}
                         value={settings.mods[modIndex].name}

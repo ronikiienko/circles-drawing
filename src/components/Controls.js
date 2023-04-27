@@ -230,6 +230,8 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
     useHotkeys(hotkeys.addLayer, () => drawLayer(settings, appSettings));
 
     const handleChange = (event) => {
+        event.stopPropagation();
+        event.preventDefault();
         setSettings(draft => {
             if (event.target.type !== 'checkbox') {
                 setObjectPropertyByStringPath(draft, event.target.id, event.target.value);
