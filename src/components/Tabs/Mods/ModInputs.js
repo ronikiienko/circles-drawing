@@ -1,6 +1,5 @@
 import {
     Button,
-    Input,
     makeStyles,
     Menu,
     MenuButton,
@@ -8,6 +7,7 @@ import {
     MenuList,
     MenuPopover,
     MenuTrigger,
+    mergeClasses,
     shorthands,
     tokens,
 } from '@fluentui/react-components';
@@ -15,6 +15,7 @@ import {Delete12Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {getDefaultModOutput} from '../../../consts/consts';
 import {hslArrToHsl} from '../../../utils/generalUtils';
+import {AngularInput} from '../../Utils/AngularInput';
 
 
 const useStyles = makeStyles({
@@ -39,7 +40,7 @@ const useStyles = makeStyles({
         marginInline: '5px',
     },
 });
-export const ModInputs = ({settings, modIndex, setSettings, handleChange}) => {
+export const ModInputs = ({settings, modIndex, setSettings, handleChange, classes}) => {
     const localClasses = useStyles();
     return (
         <div className={localClasses.inputsContainer}>
@@ -90,17 +91,19 @@ export const ModInputs = ({settings, modIndex, setSettings, handleChange}) => {
                             <div
                                 style={{backgroundColor: hslArrToHsl(inputMod.color, 0.3)}}
                                 key={inputMod.id}
-                                className={localClasses.modInputContainer}
+                                className={mergeClasses(localClasses.modInputContainer, classes.label)}
                                 title={inputMod.type}
                             >
                                 {inputMod.name}
-                                <Input
-                                    appearance="underline"
-                                    className={localClasses.modInputInput}
-                                    size="small"
+                                <AngularInput
+                                    half
                                     value={inputModOutput.mult}
                                     id={`mods-${inputModIndex}-modOutputs-${inputModOutputIndex}-mult`}
                                     onChange={handleChange}
+                                    size={35}
+                                    min={0}
+                                    max={1}
+                                    className={classes.slider}
                                 />
                                 <Button
                                     size="small"

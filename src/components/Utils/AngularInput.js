@@ -1,12 +1,10 @@
 import {makeStyles, mergeClasses, shorthands, tokens} from '@fluentui/react-components';
 import React, {useEffect, useRef, useState} from 'react';
-import {getEventObj, getVectorByTwoPoints} from '../../utils/generalUtils';
-import {getTranslatedAngle} from '../../utils/layerSettings/remappers';
+import {getEventObj, getTFromLerp, getVectorByTwoPoints} from '../../utils/generalUtils';
 
 
 const useStyles = makeStyles({
     container: {
-        ...shorthands.borderRadius(tokens.borderRadiusCircular),
         backgroundColor: tokens.colorNeutralStencil2,
         position: 'relative',
         ...shorthands.overflow('hidden', 'hidden'),
@@ -17,6 +15,7 @@ const useStyles = makeStyles({
         ':active': {
             backgroundColor: tokens.colorSubtleBackgroundLightAlphaPressed,
         },
+        // ...shorthands.borderRadius(tokens.borderRadiusCircular)
     },
     arrow: {
         backgroundColor: tokens.colorBrandBackground,
@@ -25,21 +24,43 @@ const useStyles = makeStyles({
     },
 });
 
-export const AngularInput = ({value, onChange, id, style, className, size = 30, max}) => {
+export const AngularInput = ({value, onChange, id, style, className, size = 30, min = 0, max, half = false}) => {
     const localClasses = useStyles();
     const inputRef = useRef(null);
-    const start = useAngularInput({value, onChange, id, inputRef, max});
+    const start = useAngularInput({value, onChange, id, inputRef, min, max, half});
     return (
-        <div ref={inputRef} onMouseDown={start}
-             style={{transform: `rotate(${getTranslatedAngle(value)}deg)`, height: size, width: size, ...style}}
-             className={mergeClasses(localClasses.container, className)}>
-            <div style={{width: size, height: size / 10, top: size / 2 - size / 10 / 2, left: size / 2 - size / 10 / 2}}
-                 className={localClasses.arrow}></div>
+        <div
+            ref={inputRef}
+            onMouseDown={start}
+            style={{
+                height: half ? size / 2 : size,
+                width: size,
+                borderTopLeftRadius: half ? '1000px' : '50%',
+                borderTopRightRadius: half ? '1000px' : '50%',
+                borderBottomRightRadius: half ? '0%' : '50%',
+                borderBottomLeftRadius: half ? '0%' : '50%',
+                ...style,
+            }}
+            className={mergeClasses(localClasses.container, className)}
+        >
+            <div
+                style={{
+                    transformOrigin: `left`,
+                    transform: `rotate(${half ? 180 - getTFromLerp(value, min, max) * -180 : getTFromLerp(value, min, max) * 360}deg)`,
+                    width: size,
+                    height: size / 10,
+                    top: size / 2 - size / 10 / 2,
+                    left: size / 2 - size / 10 / 2,
+                }}
+                className={localClasses.arrow}
+            >
+
+            </div>
         </div>
     );
 };
 
-const useAngularInput = ({value, onChange, id, inputRef, max}) => {
+const useAngularInput = ({value, onChange, id, inputRef, min, max, half}) => {
     const [isDragging, setIsDragging] = useState(false);
     useEffect(() => {
         const mousemoveHandler = (event) => {
@@ -48,8 +69,17 @@ const useAngularInput = ({value, onChange, id, inputRef, max}) => {
             const rect = inputRef.current.getBoundingClientRect();
             const centerX = (rect.left + rect.right) / 2;
             const centerY = (rect.top + rect.bottom) / 2;
-            const [, angle] = getVectorByTwoPoints(centerX, centerY, event.pageX, event.pageY);
-            let newValue = angle / 360 * max;
+            let [, angle] = getVectorByTwoPoints(centerX, centerY, event.pageX, event.pageY);
+
+            if (half) {
+                if (angle >= 0 && angle <= 90) angle = 0;
+                if (angle > 90 && angle <= 180) angle = -180;
+                angle = 180 + angle;
+            }
+
+            let newValue;
+            if (half) newValue = (angle / 360 * (max - min) + min) * 2;
+            else newValue = angle / 360 * (max - min) + min;
             newValue = parseFloat(newValue.toFixed(2));
             onChange(getEventObj(newValue, id));
         };

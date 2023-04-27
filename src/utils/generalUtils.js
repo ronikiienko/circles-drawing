@@ -147,6 +147,12 @@ export const clampValueToRange = (min, max, value) => {
     return value;
 };
 
+export const mapTo0To1 = (min, max) => {
+    return (max - min) / (max - min);
+};
+
+export const getTFromLerp = (value, min, max) => (value - min) / (max - min);
+
 export const parseJSON = (value) => {
     return value === 'undefined' ? undefined : JSON.parse(value);
 };
