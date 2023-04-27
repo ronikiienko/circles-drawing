@@ -1,6 +1,8 @@
 html, body {
     margin: 0;
     padding: 0;
+    overscroll-behavior-y: contain;
+    overscroll-behavior-x: contain;
 }
 
 ::-webkit-scrollbar {
