@@ -64,6 +64,6 @@ const useAngularInput = ({value, onChange, id, inputRef, max}) => {
             window.removeEventListener('mouseup', mouseupHandler);
             window.removeEventListener('mousemove', mousemoveHandler);
         };
-    }, [id, inputRef, isDragging, onChange, value]);
+    }, [id, inputRef, isDragging, max, onChange, value]);
     return () => setIsDragging(true);
 };
