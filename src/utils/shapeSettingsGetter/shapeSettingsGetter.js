@@ -120,7 +120,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
             if (mod.outputs.angle.enabled) {
                 angleDelta = calculateShortestAngleDifference(settings.shape.angle, mod.outputs.angle.val2) * modsResults[mod.id];
             }
-            angleModsDeltas.push([(settings.shape.angle + angleDelta + lookToDelta), modsResults[mod.id] * mod.blendRatio]);
+            angleModsDeltas.push([(angleDelta + lookToDelta), modsResults[mod.id] * mod.blendRatio]);
         }
         if (mod.outputs.xOffset.enabled) {
             xOffsetModsDeltas.push([mod.outputs.xOffset.val2 * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
@@ -167,7 +167,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
         settings.color.strokeColor[2] + strokeColorModsSum[2],
     ], strokeTransp);
     // TODO if modsSum is empty array (or color array), it's NaN. maby check also color for such situation (and other)
-
+    // console.log(angleModsSum, settings.shape.angle)
     let angle = settings.shape.angle + angleModsSum;
 
     if (isBranchElement) {
