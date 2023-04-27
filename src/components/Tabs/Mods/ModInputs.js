@@ -89,7 +89,7 @@ export const ModInputs = ({settings, modIndex, setSettings, handleChange, classe
                         if (inputModOutput.id !== settings.mods[modIndex].id) return null;
                         return (
                             <div
-                                style={{backgroundColor: hslArrToHsl(inputMod.color, 0.3)}}
+                                style={{backgroundColor: hslArrToHsl(inputMod.color, 0.4 * inputModOutput.mult + 0.1)}}
                                 key={inputMod.id}
                                 className={mergeClasses(localClasses.modInputContainer, classes.label)}
                                 title={inputMod.type}
