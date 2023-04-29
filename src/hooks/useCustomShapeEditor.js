@@ -41,7 +41,6 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
         const dragHandler = (event) => {
             if (!dragProperty) return;
 
-            event.preventDefault();
             event.stopPropagation();
 
             let pageX;
@@ -115,13 +114,11 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
 
     const setDragProp = (event) => {
         event.stopPropagation();
-        event.preventDefault();
         setDragProperty(event.target.id);
     };
 
     const setClickAndSetProp = (event) => {
         event.stopPropagation();
-        event.preventDefault();
         setClickAndSetProperty(event.target.id);
     };
 
