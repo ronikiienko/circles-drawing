@@ -19,9 +19,9 @@ const useStyles = makeStyles({
         marginRight: '5px',
     },
     accordionHeader: {
-        ...shorthands.padding('5px'),
+        paddingInline: '5px',
+        paddingBlock: '3px',
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
-        marginBottom: '5px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -93,6 +93,7 @@ export const ModElement = memo(({
                     >
                         <div>
                             <Input
+                                appearance="underline"
                                 id={`mods-${modIndex}-name`}
                                 value={settings.mods[modIndex].name}
                                 onChange={handleChange}
@@ -112,6 +113,7 @@ export const ModElement = memo(({
                             className={localClasses.removeButton}
                             icon={<Delete16Regular/>}
                             header="Are you sure you want to remove modulator?"
+                            appearance="subtle"
                         >
                         </DialogButton>
                     </div>

@@ -1,7 +1,7 @@
 import {Button, makeStyles} from '@fluentui/react-components';
 import React, {useCallback} from 'react';
-import {useImmer} from 'use-immer';
 import {getDefaultMod} from '../../../consts/consts';
+import {usePersistedImmer} from '../../../hooks/usePersistedImmer';
 import {getEventObj} from '../../../utils/generalUtils';
 import {getRandomAdjective} from '../../../utils/nameGenerators';
 import {Accordion} from '../../Utils/Accordion';
@@ -18,8 +18,6 @@ export const Mods = ({settings, setSettings, handleChange, classes, setClickAndS
     const localClasses = useStyles();
 
     const removeMod = useCallback((event, index) => {
-        event.stopPropagation();
-        event.preventDefault();
         setSettings(draft => {
             const deletedId = settings.mods[index].id;
             draft.mods.splice(index, 1);
@@ -30,7 +28,7 @@ export const Mods = ({settings, setSettings, handleChange, classes, setClickAndS
             });
         });
     }, [setSettings, settings.mods]);
-    const [accordionState, setAccordionState] = useImmer({});
+    const [accordionState, setAccordionState] = usePersistedImmer({}, 'accordionState');
     return (
         <>
             <Accordion
