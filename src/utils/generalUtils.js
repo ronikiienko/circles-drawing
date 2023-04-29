@@ -190,6 +190,11 @@ export const setObjectPropertyByStringPath = (objectToChange, path, newValue, sp
     schema[pList[pList.length - 1]] = newValue;
 };
 
+export const getObjectPropertyByStringPath = (path, obj, separator = '-') => {
+    const properties = Array.isArray(path) ? path : path.split(separator);
+    return properties.reduce((prev, curr) => prev?.[curr], obj);
+};
+
 export const swapArrElements = (arr, from, to) => {
     if (!(from in arr) || !(to in arr)) return;
     const temp = arr[from];
