@@ -1,5 +1,6 @@
 import {useEffect} from 'react';
 import {useImmer} from 'use-immer';
+import {getCustomShapePoint} from '../consts/consts';
 import {setObjectPropertyByStringPath} from '../utils/generalUtils';
 
 
@@ -87,12 +88,23 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
             window.addEventListener('mouseup', endHandler);
             window.addEventListener('touchend', endHandler);
         }
+
+        const canvasMousedownHandler = (event) => {
+            const [shapeX, shapeY] = pageXYToShapeXY(event.pageX, event.pageY);
+            setSettings(draft => {
+                draft.shape.customShape.push(getCustomShapePoint(shapeX, shapeY));
+                setDragProperty(`shape-customShape-${draft.shape.customShape.length - 1}`);
+            });
+        };
+
+        canvas.addEventListener('mousedown', canvasMousedownHandler);
         return () => {
             window.removeEventListener('touchmove', dragHandler);
             window.removeEventListener('mousemove', dragHandler);
             window.removeEventListener('mouseup', endHandler);
             window.removeEventListener('touchend', endHandler);
             window.removeEventListener('click', clickAndSetHandler);
+            canvas.removeEventListener('mousedown', canvasMousedownHandler);
         };
     }, [clickAndSetProperty, setSettings, dragProperty, canvasRef, setDragProperty, setClickAndSetProperty]);
 
