@@ -44,19 +44,20 @@ export const sinTo01 = (value) => {
 };
 
 export const trigMod = (x, y, mod) => {
-    if (mod.trigType.id === trigModTypes.sine.id) {
+    if (mod.trigType === trigModTypes.sine.id) {
         let xSin = sinTo01(Math.sin(x / mod.sineZoomX));
         let ySin = sinTo01(Math.sin(y / mod.sineZoomY));
         let avg = (xSin + ySin) / 2;
         return modRemap(avg, mod.modA, mod.modB);
     }
-    if (mod.trigType.id === trigModTypes.circles.id) {
+    if (mod.trigType === trigModTypes.circles.id) {
         let xSin = sinTo01(Math.sin(x / mod.sineZoomX));
         let ySin = sinTo01(Math.sin(y / mod.sineZoomY));
         let avg = (xSin + ySin) / 2;
+        console.log('avg', avg);
         return modRemap((Math.sin(avg * 50) + 1) / 2, mod.modA, mod.modB);
     }
-    if (mod.trigType.id === trigModTypes.tan.id) {
+    if (mod.trigType === trigModTypes.tan.id) {
         let xSin = sinTo01(Math.sin(x / mod.sineZoomX));
         let ySin = sinTo01(Math.sin(y / mod.sineZoomY)) * sinTo01(Math.tan(x / mod.sineZoomX));
         let avg = (xSin + ySin) / 2;
