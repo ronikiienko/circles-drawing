@@ -115,11 +115,13 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
 
     const setDragProp = (event) => {
         event.stopPropagation();
+        event.preventDefault();
         setDragProperty(event.target.id);
     };
 
     const setClickAndSetProp = (event) => {
         event.stopPropagation();
+        event.preventDefault();
         setClickAndSetProperty(event.target.id);
     };
 
