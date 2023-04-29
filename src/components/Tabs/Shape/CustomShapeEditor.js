@@ -41,7 +41,15 @@ const useStyles = makeStyles({
 });
 
 const areEqual = (prevProps, nextProps) => {
-    return prevProps.settings.shape.customShape === nextProps.settings.shape.customShape;
+    let areEqual = true;
+    for (const [key, value] of Object.entries(prevProps)) {
+        if (key !== 'settings' && value !== nextProps.key) {
+            areEqual = false;
+            break;
+        }
+    }
+    areEqual = prevProps.settings.shape.customShape === nextProps.settings.shape.customShape;
+    return areEqual;
 };
 
 export const CustomShapeEditor = memo(({settings, setSettings, classes, handleChange}) => {
