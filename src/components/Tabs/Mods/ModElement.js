@@ -1,21 +1,11 @@
-import {
-    AccordionHeader,
-    AccordionItem,
-    AccordionPanel,
-    Input,
-    Label,
-    makeStyles,
-    Select,
-    shorthands,
-    Slider,
-    Text,
-    tokens,
-} from '@fluentui/react-components';
+import {Input, Label, makeStyles, Select, shorthands, Slider, Text, tokens} from '@fluentui/react-components';
 import {Delete16Regular} from '@fluentui/react-icons';
 import React, {memo} from 'react';
 import {modTypes} from '../../../consts/sharedConsts';
 import {hslArrToHsl} from '../../../utils/generalUtils';
+import {AccordionItem} from '../../Utils/Accordion';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {DialogButton} from '../../Utils/DialogButton';
 import {ModInputs} from './ModInputs';
 import {Noise} from './Noise';
 import {Radial} from './Radial';
@@ -29,7 +19,12 @@ const useStyles = makeStyles({
         marginRight: '5px',
     },
     accordionHeader: {
-        paddingInline: '0px',
+        ...shorthands.padding('5px'),
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        marginBottom: '5px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     accordionPanel: {
         ...shorthands.margin('0px'),
@@ -89,39 +84,40 @@ export const ModElement = memo(({
         <>
             <AccordionItem
                 className={localClasses.block}
-                value={settings.mods[modIndex].id}>
-                <AccordionHeader
-                    className={localClasses.accordionHeader}
-                    style={{backgroundColor: hslArrToHsl(settings.mods[modIndex].color, 0.3)}}
-                >
-                    <Input
-                        id={`mods-${modIndex}-name`}
-                        value={settings.mods[modIndex].name}
-                        onChange={handleChange}
-                        className={localClasses.nameInputs}
-                        onClick={(event) => {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }}
-                        size="small"
-                    />
-                    {settings.mods[modIndex].type}
+                value={settings.mods[modIndex].id}
+                id={settings.mods[modIndex].id}
+                header={
                     <div
-                        onClick={(event) => removeMod(event, modIndex)}
-                        className={localClasses.removeButton}
+                        className={localClasses.accordionHeader}
+                        style={{backgroundColor: hslArrToHsl(settings.mods[modIndex].color, 0.3)}}
                     >
-                        <Delete16Regular/>
+                        <div>
+                            <Input
+                                id={`mods-${modIndex}-name`}
+                                value={settings.mods[modIndex].name}
+                                onChange={handleChange}
+                                className={localClasses.nameInputs}
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                }}
+                                size="small"
+                            />
+                            {settings.mods[modIndex].type}
+                        </div>
+                        <DialogButton
+                            onSubmit={(event) => {
+                                removeMod(event, modIndex);
+                            }}
+                            className={localClasses.removeButton}
+                            icon={<Delete16Regular/>}
+                            header="Are you sure you want to remove modulator?"
+                        >
+                        </DialogButton>
                     </div>
-                    {/*<Button*/}
-                    {/*    icon={<Delete16Regular />}*/}
-                    {/*    onClick={(event) => removeMod(event, modIndex)}*/}
-                    {/*    className={localClasses.removeButton}*/}
-                    {/*>*/}
-
-                    {/*</Button>*/}
-                </AccordionHeader>
-                <AccordionPanel className={localClasses.accordionPanel}>
-                    <div>
+                }
+                panel={
+                    <div className={localClasses.accordionPanel}>
                         <div className={classes.block}>
                             <Label className={classes.label}>
                                 Mod type:
@@ -208,7 +204,17 @@ export const ModElement = memo(({
                             />
                         </div>
                     </div>
-                </AccordionPanel>
+                }
+            >
+                {/*<AccordionHeader*/}
+                {/*    className={localClasses.accordionHeader}*/}
+                {/*    style={{backgroundColor: hslArrToHsl(settings.mods[modIndex].color, 0.3)}}*/}
+                {/*>*/}
+                {/*    */}
+                {/*</AccordionHeader>*/}
+                {/*<AccordionPanel className={localClasses.accordionPanel}>*/}
+                {/*    */}
+                {/*</AccordionPanel>*/}
             </AccordionItem>
         </>
     );

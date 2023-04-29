@@ -13,18 +13,22 @@ import React from 'react';
 
 export const DialogButton = ({
                                  type = 'modal',
-                                 onSubmit,
+                                 onSubmit = () => {
+                                 },
                                  header,
                                  description,
                                  icon,
                                  appearance,
                                  className,
                                  children,
+                                 onOpenChange,
                              }) => {
     return (
-        <Dialog>
+        <Dialog onOpenChange={onOpenChange}>
             <DialogTrigger modalType={type} disableButtonEnhancement>
-                <Button icon={icon} appearance={appearance} className={className}>{children}</Button>
+                <Button onClick={(event) => {
+                    event.stopPropagation();
+                }} icon={icon} appearance={appearance} className={className}>{children}</Button>
             </DialogTrigger>
             <DialogSurface>
                 <DialogBody>
@@ -34,10 +38,14 @@ export const DialogButton = ({
                     </DialogContent>
                     <DialogActions>
                         <DialogTrigger disableButtonEnhancement>
-                            <Button appearance="secondary">No</Button>
+                            <Button onClick={(event) => {
+                                event.stopPropagation();
+                            }} appearance="secondary">No</Button>
                         </DialogTrigger>
                         <DialogTrigger disableButtonEnhancement>
-                            <Button onClick={onSubmit} appearance="primary">Yes</Button>
+                            <Button onClick={(event) => {
+                                onSubmit();
+                            }} appearance="primary">Yes</Button>
                         </DialogTrigger>
                     </DialogActions>
                 </DialogBody>

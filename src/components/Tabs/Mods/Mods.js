@@ -1,8 +1,10 @@
-import {Accordion, Button, makeStyles} from '@fluentui/react-components';
+import {Button, makeStyles} from '@fluentui/react-components';
 import React, {useCallback} from 'react';
+import {useImmer} from 'use-immer';
 import {getDefaultMod} from '../../../consts/consts';
 import {getEventObj} from '../../../utils/generalUtils';
 import {getRandomAdjective} from '../../../utils/nameGenerators';
+import {Accordion} from '../../Utils/Accordion';
 import {ModElement} from './ModElement';
 
 
@@ -18,7 +20,6 @@ export const Mods = ({settings, setSettings, handleChange, classes, setClickAndS
     const removeMod = useCallback((event, index) => {
         event.stopPropagation();
         event.preventDefault();
-        if (!confirm('Are you sure you want to remove modulator?')) return;
         setSettings(draft => {
             const deletedId = settings.mods[index].id;
             draft.mods.splice(index, 1);
@@ -29,13 +30,14 @@ export const Mods = ({settings, setSettings, handleChange, classes, setClickAndS
             });
         });
     }, [setSettings, settings.mods]);
-
+    const [accordionState, setAccordionState] = useImmer({});
     return (
         <>
             <Accordion
-                size="small"
-                multiple
-                collapsible
+                state={accordionState}
+                statePath={''}
+                setState={setAccordionState}
+
             >
                 {settings.mods.map((mod, modIndex) => {
                     return <ModElement
