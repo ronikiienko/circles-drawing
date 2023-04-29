@@ -103,6 +103,7 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
                             key={point.id}
                             id={`shape-customShape-${index}`}
                             onMouseDown={setDragProp}
+                            onDoubleClick={() => removePoint(index)}
                             size={shapeEditorFlagsSize}
                             color={hslArrToHsl(point.color, 0.7)}
                             x={point.x * shapeEditorCanvasSize}

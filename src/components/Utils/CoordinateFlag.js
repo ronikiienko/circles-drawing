@@ -2,9 +2,13 @@ import React from 'react';
 import {ConditionalPanel} from './ConditionalPanel';
 
 
-export const CoordinateFlag = ({id, onMouseDown, color, x, y, title, size, style = {}, dot = true, text = ''}) => {
+export const CoordinateFlag = ({
+                                   id, onMouseDown, onDoubleClick = () => {
+    }, color, x, y, title, size, style = {}, dot = true, text = '',
+                               }) => {
     return (
-        <div onMouseDown={onMouseDown} onTouchStart={onMouseDown} className="settings-coords-flag" title={title}
+        <div onMouseDown={onMouseDown} onDoubleClick={onDoubleClick} onTouchStart={onMouseDown}
+             className="settings-coords-flag" title={title}
              style={{
                  left: x - size / 2,
                  top: y - size / 2,

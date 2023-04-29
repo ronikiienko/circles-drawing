@@ -54,7 +54,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
 
 
     const modsResults = calculateModsResults(settings, xPosition, yPosition, absoluteIndex);
-    console.log(modsResults);
+
     const sizeModsDeltas = [];
     const colorModsDeltas = [];
     const strokeColorModsDeltas = [];
