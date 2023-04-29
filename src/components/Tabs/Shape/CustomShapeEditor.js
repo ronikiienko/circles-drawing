@@ -1,11 +1,17 @@
 import {Button, Input, makeStyles, shorthands, tokens} from '@fluentui/react-components';
-import {ArrowDown16Filled, ArrowUp16Filled, Delete16Regular} from '@fluentui/react-icons';
+import {ArrowDown16Filled, ArrowUp16Filled, Delete16Regular, Delete48Regular} from '@fluentui/react-icons';
 import React, {memo, useEffect, useRef} from 'react';
-import {getCustomShapePoint, shapeEditorCanvasSize, shapeEditorFlagsSize} from '../../../consts/consts';
+import {
+    getCustomShapePoint,
+    getDefaultCustomShape,
+    shapeEditorCanvasSize,
+    shapeEditorFlagsSize,
+} from '../../../consts/consts';
 import {useCustomShapeEditor} from '../../../hooks/useCustomShapeEditor';
 import {drawCustomShape} from '../../../utils/drawingUtils';
 import {hslArrToHsl, swapArrElements} from '../../../utils/generalUtils';
 import {CoordinateFlag} from '../../Utils/CoordinateFlag';
+import {DialogButton} from '../../Utils/DialogButton';
 
 
 const useStyles = makeStyles({
@@ -28,7 +34,7 @@ const useStyles = makeStyles({
         display: 'flex',
         alignItems: 'center',
         height: 'fit-content',
-        width: 'fit-content',
+        // width: 'fit-content',
         ...shorthands.padding('5px'),
     },
     pointElementIndex: {
@@ -55,7 +61,6 @@ const areEqual = (prevProps, nextProps) => {
 };
 
 export const CustomShapeEditor = memo(({settings, setSettings, classes, handleChange}) => {
-    console.log('hello');
     const localClasses = useStyles();
 
     const canvasRef = useRef(null);
@@ -130,7 +135,20 @@ export const CustomShapeEditor = memo(({settings, setSettings, classes, handleCh
                     })}
                 </div>
             </div>
-            <Button onClick={addPoint}>Add point</Button>
+            <Button className={classes.button} onClick={addPoint}>Add point</Button>
+            <DialogButton
+                className={classes.button}
+                header="Are you sure you want to remove all points?"
+                onSubmit={() => {
+                    setSettings(draft => {
+                        draft.shape.customShape = getDefaultCustomShape(0);
+                    });
+                }}
+                icon={<Delete48Regular/>}
+                description="asdf"
+            >
+                Remove all
+            </DialogButton>
             {settings.shape.customShape.map((point, index) => {
                 return <span
                     className={localClasses.pointElement}

@@ -35,6 +35,7 @@ const useStyles = makeStyles({
 });
 
 export const Presets = ({settings, setSettings, classes}) => {
+    // TODO avoid rerenders
     const localClasses = useStyles();
     const [presetDraftMeta, setPresetDraftMeta] = usePersistedImmer({
         name: '',

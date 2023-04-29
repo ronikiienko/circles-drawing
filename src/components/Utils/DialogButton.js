@@ -36,7 +36,9 @@ export const DialogButton = ({
                         <DialogTrigger disableButtonEnhancement>
                             <Button appearance="secondary">No</Button>
                         </DialogTrigger>
-                        <Button onClick={onSubmit} appearance="primary">Yes</Button>
+                        <DialogTrigger disableButtonEnhancement>
+                            <Button onClick={onSubmit} appearance="primary">Yes</Button>
+                        </DialogTrigger>
                     </DialogActions>
                 </DialogBody>
             </DialogSurface>

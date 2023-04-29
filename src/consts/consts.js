@@ -219,6 +219,10 @@ export const getDefaultMod = (name) => {
     };
 };
 
+export const getDefaultCustomShape = (pointsNumber = 3) => {
+    return new Array(pointsNumber).fill(undefined).map(() => getCustomShapePoint(Math.random(), Math.random()));
+};
+
 
 export const getCustomShapePoint = (x = 0.4, y = 0.4) => {
     return {
@@ -247,11 +251,7 @@ export const layerPresets = [
             widthRatio: 0.2,
             rectRoundness: 0,
             // TODO add default getter function for custom shape points
-            customShape: [
-                getCustomShapePoint(0, 1),
-                getCustomShapePoint(0, 0.5),
-                getCustomShapePoint(1, 1),
-            ],
+            customShape: getDefaultCustomShape(),
             strokeOn: false,
             strokeThickness: 0.2,
             fillOn: true,
