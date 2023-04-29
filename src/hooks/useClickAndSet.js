@@ -21,6 +21,9 @@ export const useClickAndSet = ({setSettings}) => {
         const dragHandler = (event) => {
             if (!dragProperty) return;
 
+            event.preventDefault();
+            event.stopPropagation();
+
             let pageX;
             let pageY;
             if (event.type === 'touchmove') {
