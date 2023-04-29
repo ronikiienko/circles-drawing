@@ -19,7 +19,7 @@ import {
     Eye16Regular,
     Stop16Regular,
 } from '@fluentui/react-icons';
-import React, {useRef} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 import {useImmer} from 'use-immer';
 import {hotkeys, tabs} from '../consts/consts';
@@ -228,8 +228,7 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
     useHotkeys(hotkeys.clear, () => clear(appSettings), {preventDefault: true});
     useHotkeys(hotkeys.saveAsPng, () => saveAsImage(appSettings.projectName, true), {preventDefault: true});
     useHotkeys(hotkeys.addLayer, () => drawLayer(settings, appSettings));
-
-    const handleChange = (event) => {
+    const handleChange = useCallback((event) => {
         setSettings(draft => {
             if (event.target.type !== 'checkbox') {
                 setObjectPropertyByStringPath(draft, event.target.id, event.target.value);
@@ -237,7 +236,7 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                 setObjectPropertyByStringPath(draft, event.target.id, event.target.checked);
             }
         });
-    };
+    }, [setSettings]);
     const handleAppSettingsChange = (event) => {
         setAppSettings(draft => {
             if (event.target.type !== 'checkbox') {

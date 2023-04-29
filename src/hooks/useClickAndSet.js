@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import {useImmer} from 'use-immer';
 import {setObjectPropertyByStringPath} from '../utils/generalUtils';
 
@@ -61,14 +61,14 @@ export const useClickAndSet = ({setSettings}) => {
             window.removeEventListener('click', clickAndSetHandler);
         };
     }, [setClickAndSetProperty, clickAndSetProperty, setSettings, dragProperty, setDragProperty]);
-    const setClickAndSetProp = (event) => {
+    const setClickAndSetProp = useCallback((event) => {
         event.stopPropagation();
         setClickAndSetProperty(event.target.id);
-    };
+    }, [setClickAndSetProperty]);
 
-    const setDragProp = (event) => {
+    const setDragProp = useCallback((event) => {
         event.stopPropagation();
         setDragProperty(event.target.id);
-    };
+    }, [setDragProperty]);
     return {setClickAndSetProp, setDragProp};
 };

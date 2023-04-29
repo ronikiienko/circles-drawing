@@ -41,18 +41,21 @@ const useStyles = makeStyles({
 });
 
 const areEqual = (prevProps, nextProps) => {
-    let areEqual = true;
-    for (const [key, value] of Object.entries(prevProps)) {
-        if (key !== 'settings' && value !== nextProps.key) {
-            areEqual = false;
-            break;
+    let areEqual = prevProps.settings.shape.customShape === nextProps.settings.shape.customShape;
+    if (areEqual) {
+        for (const key of Object.keys(prevProps)) {
+            if (key !== 'settings' && prevProps[key] !== nextProps[key]) {
+                areEqual = false;
+                break;
+            }
         }
     }
-    areEqual = prevProps.settings.shape.customShape === nextProps.settings.shape.customShape;
+
     return areEqual;
 };
 
 export const CustomShapeEditor = memo(({settings, setSettings, classes, handleChange}) => {
+    console.log('hello');
     const localClasses = useStyles();
 
     const canvasRef = useRef(null);

@@ -12,7 +12,7 @@ import {
     tokens,
 } from '@fluentui/react-components';
 import {Delete16Regular} from '@fluentui/react-icons';
-import React from 'react';
+import React, {memo} from 'react';
 import {modTypes} from '../../../consts/sharedConsts';
 import {hslArrToHsl} from '../../../utils/generalUtils';
 import {ConditionalPanel} from '../../Utils/ConditionalPanel';
@@ -59,16 +59,31 @@ const useStyles = makeStyles({
 
 });
 // TODO while typing mod name many things happen...
-export const ModElement = ({
-                               modIndex,
-                               handleChange,
-                               settings,
-                               removeMod,
-                               classes,
-                               setDragProp,
-                               setClickAndSetProp,
-                               setSettings,
-                           }) => {
+
+const areEqual = (prevProps, nextProps) => {
+    let areEqual = prevProps.settings.mods === nextProps.settings.mods;
+    if (areEqual) {
+        for (const key of Object.keys(prevProps)) {
+            if (key !== 'settings' && prevProps[key] !== nextProps[key]) {
+                areEqual = false;
+                break;
+            }
+        }
+    }
+
+    return areEqual;
+};
+
+export const ModElement = memo(({
+                                    modIndex,
+                                    handleChange,
+                                    settings,
+                                    removeMod,
+                                    classes,
+                                    setDragProp,
+                                    setClickAndSetProp,
+                                    setSettings,
+                                }) => {
     const localClasses = useStyles();
     return (
         <>
@@ -197,4 +212,4 @@ export const ModElement = ({
             </AccordionItem>
         </>
     );
-};
+}, areEqual);

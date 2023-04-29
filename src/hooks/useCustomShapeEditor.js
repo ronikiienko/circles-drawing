@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import {useImmer} from 'use-immer';
 import {getCustomShapePoint} from '../consts/consts';
 import {setObjectPropertyByStringPath} from '../utils/generalUtils';
@@ -111,16 +111,14 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
             canvas.removeEventListener('mousedown', canvasMousedownHandler);
         };
     }, [clickAndSetProperty, setSettings, dragProperty, canvasRef, setDragProperty, setClickAndSetProperty]);
-
-    const setDragProp = (event) => {
+    const setDragProp = useCallback((event) => {
         event.stopPropagation();
         setDragProperty(event.target.id);
-    };
-
-    const setClickAndSetProp = (event) => {
+    }, [setDragProperty]);
+    const setClickAndSetProp = useCallback((event) => {
         event.stopPropagation();
         setClickAndSetProperty(event.target.id);
-    };
+    }, [setClickAndSetProperty]);
 
     return {setDragProp, setClickAndSetProp};
 };

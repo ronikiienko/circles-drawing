@@ -1,5 +1,5 @@
 import {Accordion, Button, makeStyles} from '@fluentui/react-components';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {getDefaultMod} from '../../../consts/consts';
 import {getEventObj} from '../../../utils/generalUtils';
 import {getRandomAdjective} from '../../../utils/nameGenerators';
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 export const Mods = ({settings, setSettings, handleChange, classes, setClickAndSetProp, setDragProp}) => {
     const localClasses = useStyles();
 
-    const removeMod = (event, index) => {
+    const removeMod = useCallback((event, index) => {
         event.stopPropagation();
         event.preventDefault();
         if (!confirm('Are you sure you want to remove modulator?')) return;
@@ -28,7 +28,7 @@ export const Mods = ({settings, setSettings, handleChange, classes, setClickAndS
                 }
             });
         });
-    };
+    }, [setSettings, settings.mods]);
 
     return (
         <>
