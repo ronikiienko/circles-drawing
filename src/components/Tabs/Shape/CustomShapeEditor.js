@@ -1,6 +1,6 @@
 import {Button, Input, makeStyles, shorthands, tokens} from '@fluentui/react-components';
 import {ArrowDown16Filled, ArrowUp16Filled, Delete16Regular} from '@fluentui/react-icons';
-import React, {useEffect, useRef} from 'react';
+import React, {memo, useEffect, useRef} from 'react';
 import {getCustomShapePoint, shapeEditorCanvasSize, shapeEditorFlagsSize} from '../../../consts/consts';
 import {useCustomShapeEditor} from '../../../hooks/useCustomShapeEditor';
 import {drawCustomShape} from '../../../utils/drawingUtils';
@@ -40,7 +40,11 @@ const useStyles = makeStyles({
     },
 });
 
-export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}) => {
+const areEqual = (prevProps, nextProps) => {
+    return prevProps.settings.shape.customShape === nextProps.settings.shape.customShape;
+};
+
+export const CustomShapeEditor = memo(({settings, setSettings, classes, handleChange}) => {
     const localClasses = useStyles();
 
     const canvasRef = useRef(null);
@@ -156,4 +160,4 @@ export const CustomShapeEditor = ({settings, setSettings, classes, handleChange}
             })}
         </>
     );
-};
+}, areEqual);

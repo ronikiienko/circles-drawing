@@ -90,6 +90,8 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
         }
 
         const canvasMousedownHandler = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
             const [shapeX, shapeY] = pageXYToShapeXY(event.pageX, event.pageY);
             setSettings(draft => {
                 draft.shape.customShape.push(getCustomShapePoint(shapeX, shapeY));

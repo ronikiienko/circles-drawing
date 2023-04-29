@@ -3,8 +3,17 @@ import {ConditionalPanel} from './ConditionalPanel';
 
 
 export const CoordinateFlag = ({
-                                   id, onMouseDown, onDoubleClick = () => {
-    }, color, x, y, title, size, style = {}, dot = true, text = '',
+                                   id,
+                                   onMouseDown,
+                                   onDoubleClick,
+                                   color,
+                                   x,
+                                   y,
+                                   title,
+                                   size,
+                                   style = {},
+                                   dot = true,
+                                   text = '',
                                }) => {
     return (
         <div onMouseDown={onMouseDown} onDoubleClick={onDoubleClick} onTouchStart={onMouseDown}
