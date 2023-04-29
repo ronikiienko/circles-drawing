@@ -118,7 +118,7 @@ export const defaultAppSettings = {
     pixelShapeBrushSize: 0.2,
     pixelShapeBrushType: pixelShapeBrushTypes.pencil,
 };
-export const shapeEditorFlagsSize = 15;
+export const shapeEditorFlagsSize = 20;
 export const shapeEditorCanvasSize = 300;
 export const coordinateFlagsSize = 30;
 
