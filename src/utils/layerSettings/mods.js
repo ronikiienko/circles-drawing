@@ -54,7 +54,6 @@ export const trigMod = (x, y, mod) => {
         let xSin = sinTo01(Math.sin(x / mod.sineZoomX));
         let ySin = sinTo01(Math.sin(y / mod.sineZoomY));
         let avg = (xSin + ySin) / 2;
-        console.log('avg', avg);
         return modRemap((Math.sin(avg * 50) + 1) / 2, mod.modA, mod.modB);
     }
     if (mod.trigType === trigModTypes.tan.id) {
