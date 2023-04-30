@@ -53,7 +53,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     }
 
 
-    const modsResults = calculateModsResults(settings, xPosition, yPosition, absoluteIndex);
+    const modsResults = calculateModsResults(settings, xPosition, yPosition, absoluteIndex, branchIndex);
 
     const sizeModsDeltas = [];
     const colorModsDeltas = [];
@@ -113,6 +113,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
         if (mod.outputs.angle.enabled || mod.outputs.lookTo.enabled) {
             let lookToDelta = 0;
             let angleDelta = 0;
+            // TODO can't set angle when look to is enabled (angle should be added to look to)
             if (mod.outputs.lookTo.enabled) {
                 let [, angle] = getVectorByTwoPoints(xPosition, yPosition, mod.outputs.lookTo.val2.x, mod.outputs.lookTo.val2.y);
                 lookToDelta = calculateShortestAngleDifference(settings.shape.angle, angle) * modsResults[mod.id];

@@ -146,5 +146,3 @@ export const Presets = ({settings, setSettings, classes}) => {
         </>
     );
 };
-
-// TODO add full width input

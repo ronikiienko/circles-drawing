@@ -250,7 +250,6 @@ export const layerPresets = [
             angle: getAngle(30),
             widthRatio: 0.2,
             rectRoundness: 0,
-            // TODO add default getter function for custom shape points
             customShape: getDefaultCustomShape(),
             strokeOn: false,
             strokeThickness: 0.2,
@@ -415,8 +414,6 @@ export const biasPresets = {
         biasInf: 1,
     },
 };
-
-// TODO add custom shape to preset randomization
 
 
 

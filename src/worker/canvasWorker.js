@@ -251,7 +251,3 @@ export const clear = async (appSettings) => {
     await history.add(ctx.getImageData(0, 0, canvasWidth * appSettings.resolutionMult, canvasHeight * appSettings.resolutionMult));
     sendProgressMessage(1, null, null, progressStatuses.finished.id);
 };
-
-// TODO add elipse shape
-// TODO add round rect shape
-// TODO add stroke shapes

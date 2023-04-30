@@ -38,5 +38,3 @@ export const BiasRemapGraph = memo(({biasInf, biasA, biasB}) => {
         </svg>
     );
 });
-
-// TODO rerenders a lot

@@ -3,7 +3,7 @@ import {clampValueToRange} from '../generalUtils';
 import {indexMod, noiseMod, radialMod, trigMod} from '../layerSettings/mods';
 
 
-export const calculateModsResults = (settings, x, y, absoluteIndex) => {
+export const calculateModsResults = (settings, x, y, absoluteIndex, branchIndex) => {
     const modsResultsTemp = {};
     const modsResults = {};
     settings.mods.forEach((mod) => {

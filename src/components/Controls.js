@@ -207,7 +207,7 @@ const useStylesTabs = makeStyles({
     },
 });
 
-
+// TODO make some functions like "subHandleChange" which for example will accept event.target.id and prepend some path to it. mods-index-....
 export const Controls = ({mainTab, setMainTab, settings, setSettings, appSettings, setAppSettings}) => {
     const localClasses = useStyles();
     const tabsClasses = useStylesTabs();

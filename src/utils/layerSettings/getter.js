@@ -21,15 +21,13 @@ export const getLayerSettings = (preset) => {
             angle: preset?.shape?.angle ?? defaultPreset.shape.angle,
             widthRatio: preset?.shape?.widthRatio ?? defaultPreset.shape.widthRatio,
             rectRoundness: preset?.shape?.rectRoundness ?? defaultPreset.shape.rectRoundness,
-            // TODO also merge with default custom shape array
-            // TODO remove array check (x as 0 element etc..) it just supports older version
             customShape: preset?.shape?.customShape?.map((point) => {
                 const defaultPoint = getCustomShapePoint();
                 return {
-                    x: point?.x ?? point?.[0] ?? defaultPoint.x,
-                    y: point?.y ?? point?.[1] ?? defaultPoint.y,
-                    id: point?.id ?? point?.[2] ?? defaultPoint.id,
-                    color: point?.color ?? point?.[3] ?? defaultPoint.color,
+                    x: point?.x ?? defaultPoint.x,
+                    y: point?.y ?? defaultPoint.y,
+                    id: point?.id ?? defaultPoint.id,
+                    color: point?.color ?? defaultPoint.color,
                 };
             }) ?? [],
             strokeOn: preset?.shape?.strokeOn ?? defaultPreset.shape.strokeOn,

@@ -132,6 +132,17 @@ export const trigModTypes = {
     },
 };
 
+export const indexModTypes = {
+    absoluteIndex: {
+        id: 'absoluteIndex',
+        name: 'Absolute index',
+    },
+    branchIndex: {
+        id: 'branchIndex',
+        name: 'Branch index',
+    },
+};
+
 export const noiseTypes = {
     perlin: {
         id: 'perlin',
