@@ -97,7 +97,7 @@ export const storageKeys = {
     layerSettings: 'layerSettings',
     appSettings: 'appSettings',
     shelvedLayerSettings: 'shelvedLayerSettings',
-    mainTab: 'mainTab',
+    navState: 'navState',
     presetDraftMeta: 'presetDraftMeta',
     userPresets: 'userPresets',
 };
@@ -413,6 +413,12 @@ export const biasPresets = {
         biasB: 0.45,
         biasInf: 1,
     },
+};
+
+export const defaultNavState = {
+    mainTab: tabs.number.id,
+    modsAccordion: [],
+    presetsAccordion: [],
 };
 
 

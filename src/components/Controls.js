@@ -208,7 +208,7 @@ const useStylesTabs = makeStyles({
 });
 
 // TODO make some functions like "subHandleChange" which for example will accept event.target.id and prepend some path to it. mods-index-....
-export const Controls = ({mainTab, setMainTab, settings, setSettings, appSettings, setAppSettings}) => {
+export const Controls = ({navState, setNavState, settings, setSettings, appSettings, setAppSettings}) => {
     const localClasses = useStyles();
     const tabsClasses = useStylesTabs();
 
@@ -271,8 +271,12 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                     <Overflow minimumVisible={3}>
                         <TabList
                             className={localClasses.tabsContainer}
-                            selectedValue={mainTab}
-                            onTabSelect={(event, data) => setMainTab(data.value)}
+                            selectedValue={navState.mainTab}
+                            onTabSelect={(event, data) => {
+                                setNavState(draft => {
+                                    draft.mainTab = data.value;
+                                });
+                            }}
                         >
                             {Object.values(tabs).map(tab => {
                                 return (
@@ -281,20 +285,20 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                                     </OverflowItem>
                                 );
                             })}
-                            <TabOverflowMenu tabs={tabs} setTab={setMainTab}/>
+                            <TabOverflowMenu tabs={tabs} setTab={setNavState}/>
                         </TabList>
                     </Overflow>
                 </div>
                 <div className={localClasses.content}>
-                    <ConditionalPanel active={mainTab === tabs.number.id}>
+                    <ConditionalPanel active={navState.mainTab === tabs.number.id}>
                         <Number settings={settings} setSettings={setSettings} handleChange={handleChange}
                                 classes={tabsClasses}/>
                     </ConditionalPanel>
-                    <ConditionalPanel active={mainTab === tabs.size.id}>
+                    <ConditionalPanel active={navState.mainTab === tabs.size.id}>
                         <Size setSettings={setSettings} settings={settings} handleChange={handleChange}
                               classes={tabsClasses}/>
                     </ConditionalPanel>
-                    <ConditionalPanel active={mainTab === tabs.shape.id}>
+                    <ConditionalPanel active={navState.mainTab === tabs.shape.id}>
                         <Shape setDragProp={setDragProp} settings={settings} setSettings={setSettings}
                                setClickAndSetProp={setClickAndSetProp}
                                handleChange={handleChange}
@@ -303,11 +307,11 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                                handleAppSettingsChange={handleAppSettingsChange}
                         />
                     </ConditionalPanel>
-                    <ConditionalPanel active={mainTab === tabs.color.id}>
+                    <ConditionalPanel active={navState.mainTab === tabs.color.id}>
                         <MainColor setSettings={setSettings} settings={settings} handleChange={handleChange}
                                    classes={tabsClasses}/>
                     </ConditionalPanel>
-                    <ConditionalPanel active={mainTab === tabs.mods.id}>
+                    <ConditionalPanel active={navState.mainTab === tabs.mods.id}>
                         <Mods
                             setClickAndSetProp={setClickAndSetProp}
                             setSettings={setSettings}
@@ -315,21 +319,23 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                             setDragProp={setDragProp}
                             handleChange={handleChange}
                             classes={tabsClasses}
+                            navState={navState}
+                            setNavState={setNavState}
                         />
                     </ConditionalPanel>
-                    <ConditionalPanel active={mainTab === tabs.position.id}>
+                    <ConditionalPanel active={navState.mainTab === tabs.position.id}>
                         <Position settings={settings} setSettings={setSettings}
                                   setClickAndSetProp={setClickAndSetProp}
                                   handleChange={handleChange}
                                   classes={tabsClasses}/>
                     </ConditionalPanel>
-                    <ConditionalPanel active={mainTab === tabs.presets.id}>
+                    <ConditionalPanel active={navState.mainTab === tabs.presets.id}>
                         <Presets settings={settings} setSettings={setSettings} classes={tabsClasses}/>
                     </ConditionalPanel>
                     {/*<ConditionalPanel active={mainTab === tabs.generation.id}>*/}
                     {/*    <Generation settings={settings} setSettings={setSettings} classes={tabsClasses}/>*/}
                     {/*</ConditionalPanel>*/}
-                    <ConditionalPanel active={mainTab === tabs.settings.id}>
+                    <ConditionalPanel active={navState.mainTab === tabs.settings.id}>
                         <Settings
                             setAppSettings={setAppSettings}
                             appSettings={appSettings}
@@ -337,12 +343,12 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                             classes={tabsClasses}
                         />
                     </ConditionalPanel>
-                    <ConditionalPanel active={mainTab === tabs.saves.id}>
+                    <ConditionalPanel active={navState.mainTab === tabs.saves.id}>
                         <Saves handleAppSettingsChange={handleAppSettingsChange} appSettings={appSettings}
                                settings={settings} setSettings={setSettings}
                                classes={tabsClasses}/>
                     </ConditionalPanel>
-                    <ConditionalPanel active={mainTab === tabs.brush.id}>
+                    <ConditionalPanel active={navState.mainTab === tabs.brush.id}>
                         <Brush
                             settings={settings}
                             handleChange={handleChange}
@@ -358,17 +364,25 @@ export const Controls = ({mainTab, setMainTab, settings, setSettings, appSetting
                         className={localClasses.buttons}
                         onClick={() => drawLayer(settings, appSettings)}
                         icon={<Add16Regular/>}
-                    >Layer</Button>
+                    >
+                        Layer
+                    </Button>
                     <Button
                         disabled={drawingProgress.status !== progressStatuses.finished.id}
                         className={localClasses.buttons}
                         onClick={undo}
-                        icon={<ArrowUndo16Regular/>}>Undo</Button>
+                        icon={<ArrowUndo16Regular/>}
+                    >
+                        Undo
+                    </Button>
                     <Button
                         disabled={drawingProgress.status !== progressStatuses.finished.id}
                         className={localClasses.buttons}
                         onClick={redo}
-                        icon={<ArrowRedo16Regular/>}>Redo</Button>
+                        icon={<ArrowRedo16Regular/>}
+                    >
+                        Redo
+                    </Button>
                     <Button
                         disabled={drawingProgress.status !== progressStatuses.finished.id}
                         className={localClasses.clearButton}

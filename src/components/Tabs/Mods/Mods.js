@@ -1,7 +1,6 @@
 import {Button, makeStyles} from '@fluentui/react-components';
 import React, {useCallback} from 'react';
 import {getDefaultMod} from '../../../consts/consts';
-import {usePersistedImmer} from '../../../hooks/usePersistedImmer';
 import {getEventObj} from '../../../utils/generalUtils';
 import {getRandomAdjective} from '../../../utils/nameGenerators';
 import {Accordion} from '../../Utils/Accordion';
@@ -14,7 +13,16 @@ const useStyles = makeStyles({
     },
 });
 
-export const Mods = ({settings, setSettings, handleChange, classes, setClickAndSetProp, setDragProp}) => {
+export const Mods = ({
+                         settings,
+                         setSettings,
+                         handleChange,
+                         classes,
+                         setClickAndSetProp,
+                         setDragProp,
+                         navState,
+                         setNavState,
+                     }) => {
     const localClasses = useStyles();
 
     const removeMod = useCallback((event, index) => {
@@ -28,13 +36,13 @@ export const Mods = ({settings, setSettings, handleChange, classes, setClickAndS
             });
         });
     }, [setSettings, settings.mods]);
-    const [accordionState, setAccordionState] = usePersistedImmer({}, 'accordionState');
+
     return (
         <>
             <Accordion
-                state={accordionState}
-                setState={setAccordionState}
-                statePath="modsblabla-top-dot"
+                state={navState}
+                setState={setNavState}
+                statePath="modsAccordion"
             >
                 {settings.mods.map((mod, modIndex) => {
                     return <ModElement

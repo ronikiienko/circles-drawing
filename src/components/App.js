@@ -1,6 +1,6 @@
 import {FluentProvider, makeStyles, teamsDarkTheme, teamsLightTheme, tokens} from '@fluentui/react-components';
 import {useEffect, useRef} from 'react';
-import {defaultAppSettings, layerPresets, storageKeys, tabs} from '../consts/consts';
+import {defaultAppSettings, defaultNavState, layerPresets, storageKeys} from '../consts/consts';
 import {useDebouncedPersistedImmer} from '../hooks/useDebouncedPersistedImmer';
 import {useDebouncedValue} from '../hooks/useDebouncedValue';
 import {usePersistedImmer} from '../hooks/usePersistedImmer';
@@ -27,7 +27,7 @@ export const App = () => {
 
     const [settings, setSettings] = useDebouncedPersistedImmer(layerPresets[0], storageKeys.layerSettings, 500, getLayerSettings);
     const [appSettings, setAppSettings] = useDebouncedPersistedImmer(defaultAppSettings, storageKeys.appSettings, 500, getAppSettings);
-    const [mainTab, setMainTab] = usePersistedImmer(tabs.number.id, storageKeys.mainTab);
+    const [navState, setNavState] = usePersistedImmer(defaultNavState, storageKeys.navState);
 
     const debouncedResolutionMult = useDebouncedValue(appSettings.resolutionMult, 500);
 
@@ -41,7 +41,7 @@ export const App = () => {
     return (
         <FluentProvider theme={appSettings.darkMode ? teamsDarkTheme : teamsLightTheme}>
             <div className={classes.mainContainer}>
-                <Controls mainTab={mainTab} setMainTab={setMainTab} settings={settings} setSettings={setSettings}
+                <Controls navState={navState} setNavState={setNavState} settings={settings} setSettings={setSettings}
                           appSettings={appSettings}
                           setAppSettings={setAppSettings}/>
                 <canvas id="main-canvas" ref={canvasRef} className={classes.canvas}></canvas>
