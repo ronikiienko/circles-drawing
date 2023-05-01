@@ -1,5 +1,5 @@
 import {Button, makeStyles} from '@fluentui/react-components';
-import React, {memo, useCallback} from 'react';
+import React, {useCallback} from 'react';
 import {getDefaultMod} from '../../../consts/consts';
 import {usePersistedImmer} from '../../../hooks/usePersistedImmer';
 import {getEventObj} from '../../../utils/generalUtils';
@@ -14,21 +14,7 @@ const useStyles = makeStyles({
     },
 });
 
-const areEqual = (prevProps, nextProps) => {
-    let areEqual = prevProps.settings.mods === nextProps.settings.mods;
-    for (const key of Object.keys(prevProps)) {
-        if (key !== 'settings' && prevProps[key] !== nextProps[key]) {
-            console.log('changed:', key);
-            areEqual = false;
-            break;
-        }
-    }
-
-    return areEqual;
-};
-
-export const Mods = memo(({settings, setSettings, handleChange, classes, setClickAndSetProp, setDragProp}) => {
-    console.log('hi');
+export const Mods = ({settings, setSettings, handleChange, classes, setClickAndSetProp, setDragProp}) => {
     const localClasses = useStyles();
 
     const removeMod = useCallback((event, index) => {
@@ -72,4 +58,4 @@ export const Mods = memo(({settings, setSettings, handleChange, classes, setClic
             </Button>
         </>
     );
-}, areEqual);
+};

@@ -41,22 +41,22 @@ export const Accordion = ({children, state, setState, statePath}) => {
         [accordionState, setState, statePath],
     );
 
+    const contextValue = useMemo(() => ({
+        reverseOpenedState,
+        state: accordionState,
+    }), [accordionState, reverseOpenedState]);
+
     return (
         <AccordionContext.Provider
-            value={{
-                reverseOpenedState,
-                state: accordionState,
-            }}
+            value={contextValue}
         >
             {children}
         </AccordionContext.Provider>
     );
 };
 
-
 export const AccordionItem = ({id, header, panel, className}) => {
     const {state, reverseOpenedState} = useContext(AccordionContext);
-    // console.log('babagaga', state);
     return (
         <div className={className}>
             <div

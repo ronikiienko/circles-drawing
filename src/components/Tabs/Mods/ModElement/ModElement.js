@@ -1,5 +1,5 @@
 import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
-import React from 'react';
+import React, {memo} from 'react';
 import {AccordionItem} from '../../../Utils/Accordion';
 import {Header} from './Header';
 import {Panel} from './Panel';
@@ -14,17 +14,26 @@ const useStyles = makeStyles({
 });
 // TODO while typing mod name many things happen...
 
-// TODO rerenders when moving coord flag
-export const ModElement = ({
-                               modIndex,
-                               handleChange,
-                               settings,
-                               removeMod,
-                               classes,
-                               setDragProp,
-                               setClickAndSetProp,
-                               setSettings,
-                           }) => {
+const areEqual = (prevProps, nextProps) => {
+    let areEqual = prevProps.settings.mods[prevProps.modIndex] === nextProps.settings.mods[nextProps.modIndex];
+    for (const key of Object.keys(prevProps)) {
+        if (key !== 'settings' && prevProps[key] !== nextProps[key]) {
+            areEqual = false;
+            break;
+        }
+    }
+    return areEqual;
+};
+export const ModElement = memo(({
+                                    modIndex,
+                                    handleChange,
+                                    settings,
+                                    removeMod,
+                                    classes,
+                                    setDragProp,
+                                    setClickAndSetProp,
+                                    setSettings,
+                                }) => {
     const localClasses = useStyles();
     return (
         <>
@@ -55,4 +64,4 @@ export const ModElement = ({
             </AccordionItem>
         </>
     );
-};
+}, areEqual);
