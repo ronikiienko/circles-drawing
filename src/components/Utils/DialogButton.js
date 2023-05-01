@@ -24,6 +24,7 @@ export const DialogButton = ({
                                  onOpenChange,
                              }) => {
     return (
+        // TODO enter don't submit
         <Dialog onOpenChange={onOpenChange}>
             <DialogTrigger modalType={type} disableButtonEnhancement>
                 <Button onClick={(event) => {

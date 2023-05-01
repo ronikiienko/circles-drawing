@@ -1,5 +1,5 @@
 import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
-import React, {memo} from 'react';
+import React, {useCallback} from 'react';
 import {AccordionItem} from '../../../Utils/Accordion';
 import {Header} from './Header';
 import {Panel} from './Panel';
@@ -14,27 +14,27 @@ const useStyles = makeStyles({
 });
 // TODO while typing mod name many things happen...
 
-const areEqual = (prevProps, nextProps) => {
-    let areEqual = prevProps.settings.mods[prevProps.modIndex] === nextProps.settings.mods[nextProps.modIndex];
-    for (const key of Object.keys(prevProps)) {
-        if (key !== 'settings' && prevProps[key] !== nextProps[key]) {
-            areEqual = false;
-            break;
-        }
-    }
-    return areEqual;
-};
-export const ModElement = memo(({
-                                    modIndex,
-                                    handleChange,
-                                    settings,
-                                    removeMod,
-                                    classes,
-                                    setDragProp,
-                                    setClickAndSetProp,
-                                    setSettings,
-                                }) => {
+export const ModElement = ({
+                               modIndex,
+                               handleChange,
+                               settings,
+                               classes,
+                               setDragProp,
+                               setClickAndSetProp,
+                               setSettings,
+                           }) => {
     const localClasses = useStyles();
+
+    const removeMod = useCallback(() => {
+        setSettings(draft => {
+            draft.mods.splice(modIndex, 1);
+            draft.mods.forEach(mod => {
+                for (let i = mod.modOutputs.length - 1; i >= 0; i--) {
+                    if (mod.modOutputs[i].id === modIndex) mod.modOutputs.splice(i, 1);
+                }
+            });
+        });
+    }, [modIndex, setSettings]);
     return (
         <>
             <AccordionItem
@@ -64,4 +64,4 @@ export const ModElement = memo(({
             </AccordionItem>
         </>
     );
-}, areEqual);
+};

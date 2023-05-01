@@ -1,5 +1,5 @@
 import {Button, makeStyles} from '@fluentui/react-components';
-import React, {useCallback} from 'react';
+import React from 'react';
 import {getDefaultMod} from '../../../consts/consts';
 import {getEventObj} from '../../../utils/generalUtils';
 import {getRandomAdjective} from '../../../utils/nameGenerators';
@@ -25,17 +25,6 @@ export const Mods = ({
                      }) => {
     const localClasses = useStyles();
 
-    const removeMod = useCallback((event, index) => {
-        setSettings(draft => {
-            const deletedId = settings.mods[index].id;
-            draft.mods.splice(index, 1);
-            draft.mods.forEach(mod => {
-                for (let i = mod.modOutputs.length - 1; i >= 0; i--) {
-                    if (mod.modOutputs[i].id === deletedId) mod.modOutputs.splice(i, 1);
-                }
-            });
-        });
-    }, [setSettings, settings.mods]);
 
     return (
         <>
@@ -51,7 +40,6 @@ export const Mods = ({
                         key={settings.mods[modIndex].id}
                         handleChange={handleChange}
                         settings={settings}
-                        removeMod={removeMod}
                         classes={classes}
                         modIndex={modIndex}
                         setSettings={setSettings}

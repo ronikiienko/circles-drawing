@@ -5,6 +5,7 @@ import {getObjectPropertyByStringPath, setObjectPropertyByStringPath, typeofWith
 export const AccordionContext = createContext(null);
 
 export const Accordion = ({children, state, setState, statePath}) => {
+    // TODO when removing items, they are still in array. clear it (filter)
     useEffect(() => {
         setState((draft) => {
             if (typeofWithArray(getObjectPropertyByStringPath(draft, statePath)) !== 'array') {
