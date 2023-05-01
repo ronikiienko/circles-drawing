@@ -180,17 +180,25 @@ export const typeofWithArray = (value) => {
 };
 
 export const setObjectPropertyByStringPath = (objectToChange, path, newValue, splitter = '-') => {
+    if (!path) {
+        console.log('cannot set setObjectPropertyByStringPath - path is empty');
+        return;
+    }
+
+    path = path?.toString();
     let schema = objectToChange; // a moving reference to internal objects within obj
-    const pList = path.split(splitter);
+    const pList = path ? path?.split(splitter) : [];
     for (let i = 0; i < pList.length - 1; i++) {
         const elem = pList[i];
         if (!schema[elem]) schema[elem] = {};
         schema = schema[elem];
     }
-    schema[pList[pList.length - 1]] = newValue;
+
+    newValue instanceof Function ? newValue(schema[pList[pList.length - 1]]) : (schema[pList[pList.length - 1]] = newValue);
 };
 
-export const getObjectPropertyByStringPath = (path, obj, separator = '-') => {
+export const getObjectPropertyByStringPath = (obj, path, separator = '-') => {
+    if (!path) return obj;
     const properties = Array.isArray(path) ? path : path.split(separator);
     return properties.reduce((prev, curr) => prev?.[curr], obj);
 };
@@ -291,7 +299,6 @@ export const getPosWeightedSum = (...args) => {
     );
 };
 
-// TODO review this
 export const getColorsWeightedSum = (...args) => {
     const coefsSum = args.reduce((accumulator, arg) => accumulator + arg[1], 0);
     if (coefsSum === 0) return [0, 0, 0];
