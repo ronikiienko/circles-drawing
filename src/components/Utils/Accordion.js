@@ -5,11 +5,11 @@ import {getObjectPropertyByStringPath, setObjectPropertyByStringPath} from '../.
 export const AccordionContext = createContext(null);
 
 // state path shouldn't be empty so that setObjectPropertyByStringPath work
-// direct children should have id (same as of accordion item inside it)
 export const Accordion = ({children, state, setState, statePath}) => {
     useEffect(() => {
         // if item was removed, compare what ids are present now and later remove all unused
         const existingIds = Children.map(children, (child) => {
+            if (!child?.props?.id) throw 'direct child of accordion should have id (same as accordion item inside it)';
             return child.props.id;
         });
         setState(draft => {
