@@ -25,7 +25,7 @@ export const ModElement = ({
                            }) => {
     const localClasses = useStyles();
 
-    const removeMod = useCallback((event) => {
+    const removeMod = useCallback(() => {
         setSettings(draft => {
             draft.mods.splice(modIndex, 1);
             draft.mods.forEach(mod => {

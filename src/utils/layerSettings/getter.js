@@ -21,117 +21,123 @@ export const getLayerSettings = (preset) => {
             angle: preset?.shape?.angle ?? defaultPreset.shape.angle,
             widthRatio: preset?.shape?.widthRatio ?? defaultPreset.shape.widthRatio,
             rectRoundness: preset?.shape?.rectRoundness ?? defaultPreset.shape.rectRoundness,
-            customShape: preset?.shape?.customShape?.map((point) => {
-                const defaultPoint = getCustomShapePoint();
-                return {
-                    x: point?.x ?? defaultPoint.x,
-                    y: point?.y ?? defaultPoint.y,
-                    id: point?.id ?? defaultPoint.id,
-                    color: point?.color ?? defaultPoint.color,
-                };
-            }) ?? [],
+            customShape: Array.isArray(preset?.shape?.customShape)
+                ? preset?.shape?.customShape?.map((point) => {
+                    const defaultPoint = getCustomShapePoint();
+                    return {
+                        x: point?.x ?? defaultPoint.x,
+                        y: point?.y ?? defaultPoint.y,
+                        id: point?.id ?? defaultPoint.id,
+                        color: point?.color ?? defaultPoint.color,
+                    };
+                })
+                : [],
             strokeOn: preset?.shape?.strokeOn ?? defaultPreset.shape.strokeOn,
             strokeThickness: preset?.shape?.strokeThickness ?? defaultPreset.shape.strokeThickness,
             fillOn: preset?.shape?.fillOn ?? defaultPreset.shape.fillOn,
             pixelShapeRes: preset?.shape?.pixelShapeRes ?? defaultPreset.shape.pixelShapeRes,
             pixelShape: deepCopy(preset?.shape?.pixelShape) ?? deepCopy(defaultPreset.shape.pixelShape),
         },
-        mods: preset?.mods?.map((mod) => {
-            const defaultMod = getDefaultMod();
-            return {
-                name: mod?.name ?? defaultMod.name,
-                type: mod?.type ?? defaultMod.type,
-                id: mod?.id ?? defaultMod.id,
-                color: mod?.color ?? defaultMod.color,
-                radialRadiusPos: {
-                    x: mod?.radialRadiusPos?.x ?? defaultMod.radialRadiusPos.x,
-                    y: mod?.radialRadiusPos?.y ?? defaultMod.radialRadiusPos.y,
-                },
-                radialCenterPos: {
-                    x: mod?.radialCenterPos?.x ?? defaultMod.radialCenterPos.x,
-                    y: mod?.radialCenterPos?.y ?? defaultMod.radialCenterPos.y,
-                },
-                sineZoomX: mod?.sineZoomX ?? defaultMod.sineZoomX,
-                sineZoomY: mod?.sineZoomY ?? defaultMod.sineZoomY,
-                trigType: mod?.trigType ?? defaultMod.trigType,
-                noiseType: mod?.noiseType ?? defaultMod.noiseType,
-                noiseZoom: mod?.noiseZoom ?? defaultMod.noiseZoom,
-                modA: mod?.modA ?? defaultMod.modA,
-                modB: mod?.modB ?? defaultMod.modB,
-                blendRatio: mod?.blendRatio ?? defaultMod.blendRatio,
-                outputs: {
-                    size: {
-                        enabled: mod?.outputs?.size?.enabled ?? defaultMod.outputs.size.enabled,
-                        val2: mod?.outputs?.size?.val2 ?? defaultMod.outputs.size.val2,
+        mods: Array.isArray(preset?.mods)
+            ? preset?.mods?.map((mod) => {
+                const defaultMod = getDefaultMod();
+                return {
+                    name: mod?.name ?? defaultMod.name,
+                    type: mod?.type ?? defaultMod.type,
+                    id: mod?.id ?? defaultMod.id,
+                    color: mod?.color ?? defaultMod.color,
+                    radialRadiusPos: {
+                        x: mod?.radialRadiusPos?.x ?? defaultMod.radialRadiusPos.x,
+                        y: mod?.radialRadiusPos?.y ?? defaultMod.radialRadiusPos.y,
                     },
-                    color: {
-                        enabled: mod?.outputs?.color?.enabled ?? defaultMod.outputs.color.enabled,
-                        val2: mod?.outputs?.color?.val2 ?? defaultMod.outputs.color.val2,
+                    radialCenterPos: {
+                        x: mod?.radialCenterPos?.x ?? defaultMod.radialCenterPos.x,
+                        y: mod?.radialCenterPos?.y ?? defaultMod.radialCenterPos.y,
                     },
-                    strokeColor: {
-                        enabled: mod?.outputs?.strokeColor?.enabled ?? defaultMod.outputs.strokeColor.enabled,
-                        val2: mod?.outputs?.strokeColor?.val2 ?? defaultMod.outputs.strokeColor.val2,
-                    },
-                    transp: {
-                        enabled: mod?.outputs?.transp?.enabled ?? defaultMod.outputs.transp.enabled,
-                        val2: mod?.outputs?.transp?.val2 ?? defaultMod.outputs.transp.val2,
-                    },
-                    strokeTransp: {
-                        enabled: mod?.outputs?.strokeTransp?.enabled ?? defaultMod.outputs.strokeTransp.enabled,
-                        val2: mod?.outputs?.strokeTransp?.val2 ?? defaultMod.outputs.strokeTransp.val2,
-                    },
-                    blur: {
-                        enabled: mod?.outputs?.blur?.enabled ?? defaultMod.outputs.blur.enabled,
-                        val2: mod?.outputs?.blur?.val2 ?? defaultMod.outputs.blur.val2,
-                    },
-                    widthRatio: {
-                        enabled: mod?.outputs?.widthRatio?.enabled ?? defaultMod.outputs.widthRatio.enabled,
-                        val2: mod?.outputs?.widthRatio?.val2 ?? defaultMod.outputs.widthRatio.val2,
-                    },
-                    rectRoundness: {
-                        enabled: mod?.outputs?.rectRoundness?.enabled ?? defaultMod.outputs.rectRoundness.enabled,
-                        val2: mod?.outputs?.rectRoundness?.val2 ?? defaultMod.outputs.rectRoundness.val2,
-                    },
-                    angle: {
-                        enabled: mod?.outputs?.angle?.enabled ?? defaultMod.outputs.angle.enabled,
-                        val2: mod?.outputs?.angle?.val2 ?? defaultMod.outputs.angle.val2,
-                    },
-                    lookTo: {
-                        enabled: mod?.outputs?.lookTo?.enabled ?? defaultMod.outputs.lookTo.enabled,
-                        val2: {
-                            x: mod?.outputs?.lookTo?.val2?.x ?? defaultMod.outputs.lookTo.val2.x,
-                            y: mod?.outputs?.lookTo?.val2?.y ?? defaultMod.outputs.lookTo.val2.y,
+                    sineZoomX: mod?.sineZoomX ?? defaultMod.sineZoomX,
+                    sineZoomY: mod?.sineZoomY ?? defaultMod.sineZoomY,
+                    trigType: mod?.trigType ?? defaultMod.trigType,
+                    noiseType: mod?.noiseType ?? defaultMod.noiseType,
+                    noiseZoom: mod?.noiseZoom ?? defaultMod.noiseZoom,
+                    modA: mod?.modA ?? defaultMod.modA,
+                    modB: mod?.modB ?? defaultMod.modB,
+                    blendRatio: mod?.blendRatio ?? defaultMod.blendRatio,
+                    outputs: {
+                        size: {
+                            enabled: mod?.outputs?.size?.enabled ?? defaultMod.outputs.size.enabled,
+                            val2: mod?.outputs?.size?.val2 ?? defaultMod.outputs.size.val2,
+                        },
+                        color: {
+                            enabled: mod?.outputs?.color?.enabled ?? defaultMod.outputs.color.enabled,
+                            val2: mod?.outputs?.color?.val2 ?? defaultMod.outputs.color.val2,
+                        },
+                        strokeColor: {
+                            enabled: mod?.outputs?.strokeColor?.enabled ?? defaultMod.outputs.strokeColor.enabled,
+                            val2: mod?.outputs?.strokeColor?.val2 ?? defaultMod.outputs.strokeColor.val2,
+                        },
+                        transp: {
+                            enabled: mod?.outputs?.transp?.enabled ?? defaultMod.outputs.transp.enabled,
+                            val2: mod?.outputs?.transp?.val2 ?? defaultMod.outputs.transp.val2,
+                        },
+                        strokeTransp: {
+                            enabled: mod?.outputs?.strokeTransp?.enabled ?? defaultMod.outputs.strokeTransp.enabled,
+                            val2: mod?.outputs?.strokeTransp?.val2 ?? defaultMod.outputs.strokeTransp.val2,
+                        },
+                        blur: {
+                            enabled: mod?.outputs?.blur?.enabled ?? defaultMod.outputs.blur.enabled,
+                            val2: mod?.outputs?.blur?.val2 ?? defaultMod.outputs.blur.val2,
+                        },
+                        widthRatio: {
+                            enabled: mod?.outputs?.widthRatio?.enabled ?? defaultMod.outputs.widthRatio.enabled,
+                            val2: mod?.outputs?.widthRatio?.val2 ?? defaultMod.outputs.widthRatio.val2,
+                        },
+                        rectRoundness: {
+                            enabled: mod?.outputs?.rectRoundness?.enabled ?? defaultMod.outputs.rectRoundness.enabled,
+                            val2: mod?.outputs?.rectRoundness?.val2 ?? defaultMod.outputs.rectRoundness.val2,
+                        },
+                        angle: {
+                            enabled: mod?.outputs?.angle?.enabled ?? defaultMod.outputs.angle.enabled,
+                            val2: mod?.outputs?.angle?.val2 ?? defaultMod.outputs.angle.val2,
+                        },
+                        lookTo: {
+                            enabled: mod?.outputs?.lookTo?.enabled ?? defaultMod.outputs.lookTo.enabled,
+                            val2: {
+                                x: mod?.outputs?.lookTo?.val2?.x ?? defaultMod.outputs.lookTo.val2.x,
+                                y: mod?.outputs?.lookTo?.val2?.y ?? defaultMod.outputs.lookTo.val2.y,
+                            },
+                        },
+                        xOffset: {
+                            enabled: mod?.outputs?.xOffset?.enabled ?? defaultMod.outputs.xOffset.enabled,
+                            val2: mod?.outputs?.xOffset?.val2 ?? defaultMod.outputs.xOffset.val2,
+                        },
+                        yOffset: {
+                            enabled: mod?.outputs?.yOffset?.enabled ?? defaultMod.outputs.yOffset.enabled,
+                            val2: mod?.outputs?.yOffset?.val2 ?? defaultMod.outputs.yOffset.val2,
+                        },
+                        branchesMagnitude: {
+                            enabled: mod?.outputs?.branchesMagnitude?.enabled ?? defaultMod.outputs.branchesMagnitude.enabled,
+                            val2: mod?.outputs?.branchesMagnitude?.val2 ?? defaultMod.outputs.branchesMagnitude.val2,
+                        },
+                        branchesDirection: {
+                            enabled: mod?.outputs?.branchesDirection?.enabled ?? defaultMod.outputs.branchesDirection.enabled,
+                            val2: {
+                                from: mod?.outputs?.branchesDirection?.val2.from ?? defaultMod.outputs.branchesDirection.val2.from,
+                                to: mod?.outputs?.branchesDirection?.val2.to ?? defaultMod.outputs.branchesDirection.val2.to,
+                            },
                         },
                     },
-                    xOffset: {
-                        enabled: mod?.outputs?.xOffset?.enabled ?? defaultMod.outputs.xOffset.enabled,
-                        val2: mod?.outputs?.xOffset?.val2 ?? defaultMod.outputs.xOffset.val2,
-                    },
-                    yOffset: {
-                        enabled: mod?.outputs?.yOffset?.enabled ?? defaultMod.outputs.yOffset.enabled,
-                        val2: mod?.outputs?.yOffset?.val2 ?? defaultMod.outputs.yOffset.val2,
-                    },
-                    branchesMagnitude: {
-                        enabled: mod?.outputs?.branchesMagnitude?.enabled ?? defaultMod.outputs.branchesMagnitude.enabled,
-                        val2: mod?.outputs?.branchesMagnitude?.val2 ?? defaultMod.outputs.branchesMagnitude.val2,
-                    },
-                    branchesDirection: {
-                        enabled: mod?.outputs?.branchesDirection?.enabled ?? defaultMod.outputs.branchesDirection.enabled,
-                        val2: {
-                            from: mod?.outputs?.branchesDirection?.val2.from ?? defaultMod.outputs.branchesDirection.val2.from,
-                            to: mod?.outputs?.branchesDirection?.val2.to ?? defaultMod.outputs.branchesDirection.val2.to,
-                        },
-                    },
-                },
-                modOutputs: mod?.modOutputs?.map((modOutput) => {
-                    const defaultModOutput = getDefaultModOutput();
-                    return {
-                        id: modOutput?.id ?? defaultModOutput.id,
-                        mult: modOutput?.mult ?? defaultModOutput.mult,
-                    };
-                }) ?? [],
-            };
-        }) ?? [],
+                    modOutputs: Array.isArray(mod?.modOutputs)
+                        ? mod?.modOutputs?.map((modOutput) => {
+                            const defaultModOutput = getDefaultModOutput();
+                            return {
+                                id: modOutput?.id ?? defaultModOutput.id,
+                                mult: modOutput?.mult ?? defaultModOutput.mult,
+                            };
+                        })
+                        : [],
+                };
+            })
+            : [],
         position: {
             startPos: {
                 x: preset?.position?.startPos?.x ?? defaultPreset.position.startPos.x,

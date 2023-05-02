@@ -6,6 +6,7 @@ import {useDebouncedValue} from '../hooks/useDebouncedValue';
 import {usePersistedImmer} from '../hooks/usePersistedImmer';
 import {getAppSettings} from '../utils/appSettings/getter';
 import {getLayerSettings} from '../utils/layerSettings/getter';
+import {getNavState} from '../utils/navState/getter';
 import {initializeOffscreenCanvas, setCanvasResolution} from '../worker/canvasWorkerMediators';
 import './App.css';
 import {Controls} from './Controls';
@@ -27,7 +28,7 @@ export const App = () => {
 
     const [settings, setSettings] = useDebouncedPersistedImmer(layerPresets[0], storageKeys.layerSettings, 500, getLayerSettings);
     const [appSettings, setAppSettings] = useDebouncedPersistedImmer(defaultAppSettings, storageKeys.appSettings, 500, getAppSettings);
-    const [navState, setNavState] = usePersistedImmer(defaultNavState, storageKeys.navState);
+    const [navState, setNavState] = usePersistedImmer(defaultNavState, storageKeys.navState, getNavState);
 
     const debouncedResolutionMult = useDebouncedValue(appSettings.resolutionMult, 500);
 

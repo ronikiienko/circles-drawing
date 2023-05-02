@@ -1,22 +1,25 @@
-import {createContext, useCallback, useContext, useEffect, useMemo} from 'react';
-import {getObjectPropertyByStringPath, setObjectPropertyByStringPath, typeofWithArray} from '../../utils/generalUtils';
+import {createContext, useCallback, useContext, useMemo} from 'react';
+import {getObjectPropertyByStringPath, setObjectPropertyByStringPath} from '../../utils/generalUtils';
 
 
 export const AccordionContext = createContext(null);
 
 export const Accordion = ({children, state, setState, statePath}) => {
-    // TODO when removing items, they are still in array. clear it (filter)
-    useEffect(() => {
-        setState((draft) => {
-            if (typeofWithArray(getObjectPropertyByStringPath(draft, statePath)) !== 'array') {
-                setObjectPropertyByStringPath(draft, statePath, []);
-            }
-        });
-    }, [setState, statePath]);
-
     const accordionState = useMemo(() => {
         return getObjectPropertyByStringPath(state, statePath);
     }, [state, statePath]);
+    // TODO when removing items, they are still in array. clear it (filter)
+
+    // here, I validate state on top level
+    // useEffect(() => {
+    //     if (!Array.isArray(accordionState)) {
+    //         setState((draft) => {
+    //             console.log('hi');
+    //             setObjectPropertyByStringPath(draft, statePath, []);
+    //         });
+    //     }
+    // }, [accordionState, setState, statePath]);
+
 
     const reverseOpenedState = useCallback((id) => {
             setState((draft) => {
@@ -65,7 +68,7 @@ export const AccordionItem = ({id, header, panel, className}) => {
             >
                 {header}
             </div>
-            {state?.includes(id) && panel}
+            {Array.isArray(state) && state?.includes(id) && panel}
         </div>
     );
 };
