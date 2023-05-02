@@ -35,6 +35,7 @@ export const Mods = ({
             >
                 {settings.mods.map((mod, modIndex) => {
                     return <ModElement
+                        id={settings.mods[modIndex].id}
                         setDragProp={setDragProp}
                         setClickAndSetProp={setClickAndSetProp}
                         key={settings.mods[modIndex].id}

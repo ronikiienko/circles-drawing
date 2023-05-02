@@ -1,10 +1,27 @@
-import {createContext, useCallback, useContext, useMemo} from 'react';
+import {Children, createContext, useCallback, useContext, useEffect, useMemo} from 'react';
 import {getObjectPropertyByStringPath, setObjectPropertyByStringPath} from '../../utils/generalUtils';
 
 
 export const AccordionContext = createContext(null);
 
+// state path shouldn't be empty so that setObjectPropertyByStringPath work
+// direct children should have id (same as of accordion item inside it)
 export const Accordion = ({children, state, setState, statePath}) => {
+    useEffect(() => {
+        // if item was removed, compare what ids are present now and later remove all unused
+        const existingIds = Children.map(children, (child) => {
+            return child.props.id;
+        });
+        setState(draft => {
+            setObjectPropertyByStringPath(draft, statePath, (array) => {
+                for (let i = array.length - 1; i >= 0; i--) {
+                    if (existingIds.includes(array[i])) continue;
+                    array.splice(i, 1);
+                }
+            });
+        });
+    }, []);
+
     const accordionState = useMemo(() => {
         return getObjectPropertyByStringPath(state, statePath);
     }, [state, statePath]);
@@ -59,7 +76,7 @@ export const Accordion = ({children, state, setState, statePath}) => {
     );
 };
 
-export const AccordionItem = ({id, header, panel, className}) => {
+export const AccordionItem = ({id, header, className, children}) => {
     const {state, reverseOpenedState} = useContext(AccordionContext);
     return (
         <div className={className}>
@@ -68,7 +85,7 @@ export const AccordionItem = ({id, header, panel, className}) => {
             >
                 {header}
             </div>
-            {Array.isArray(state) && state?.includes(id) && panel}
+            {Array.isArray(state) && state?.includes(id) && children}
         </div>
     );
 };

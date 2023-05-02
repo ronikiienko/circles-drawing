@@ -49,18 +49,16 @@ export const ModElement = ({
                         removeMod={removeMod}
                     />
                 }
-                panel={
-                    <Panel
-                        handleChange={handleChange}
-                        settings={settings}
-                        modIndex={modIndex}
-                        classes={classes}
-                        setSettings={setSettings}
-                        setClickAndSetProp={setClickAndSetProp}
-                        setDragProp={setDragProp}
-                    />
-                }
             >
+                <Panel
+                    handleChange={handleChange}
+                    settings={settings}
+                    modIndex={modIndex}
+                    classes={classes}
+                    setSettings={setSettings}
+                    setClickAndSetProp={setClickAndSetProp}
+                    setDragProp={setDragProp}
+                />
             </AccordionItem>
         </>
     );

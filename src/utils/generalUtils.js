@@ -194,7 +194,7 @@ export const setObjectPropertyByStringPath = (objectToChange, path, newValue, sp
         schema = schema[elem];
     }
 
-    newValue instanceof Function ? newValue(schema[pList[pList.length - 1]]) : (schema[pList[pList.length - 1]] = newValue);
+    newValue instanceof Function ? newValue(schema[pList[pList.length - 1]]) : schema[pList[pList.length - 1]] = newValue;
 };
 
 export const getObjectPropertyByStringPath = (obj, path, separator = '-') => {
