@@ -21,18 +21,31 @@ export const DialogButton = ({
                                  appearance,
                                  className,
                                  children,
-                                 onOpenChange,
                              }) => {
+    const buttonRef = React.useRef(null);
+    const [open, setOpen] = React.useState(false);
+    React.useEffect(() => {
+        if (open && buttonRef.current) {
+            buttonRef.current.focus();
+        }
+    }, [open]);
     return (
-        // TODO enter don't submit
-        <Dialog onOpenChange={onOpenChange}>
+        <Dialog
+            open={open}
+            onOpenChange={(event, data) => setOpen(data.open)}
+            inertTrapFocus
+        >
             <DialogTrigger modalType={type} disableButtonEnhancement>
                 <Button onClick={(event) => {
                     event.stopPropagation();
                 }} icon={icon} appearance={appearance} className={className}>{children}</Button>
             </DialogTrigger>
             <DialogSurface>
-                <DialogBody>
+                <DialogBody
+                    onClick={(event) => {
+                        event.stopPropagation();
+                    }}
+                >
                     <DialogTitle>{header}</DialogTitle>
                     <DialogContent>
                         {description}
@@ -43,11 +56,13 @@ export const DialogButton = ({
                                 event.stopPropagation();
                             }} appearance="secondary">No</Button>
                         </DialogTrigger>
-                        <DialogTrigger disableButtonEnhancement>
-                            <Button onClick={(event) => {
-                                onSubmit();
-                            }} appearance="primary">Yes</Button>
-                        </DialogTrigger>
+                        <Button
+                            onClick={onSubmit}
+                            ref={buttonRef}
+                            appearance="primary"
+                        >
+                            Yes
+                        </Button>
                     </DialogActions>
                 </DialogBody>
             </DialogSurface>
