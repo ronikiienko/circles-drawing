@@ -15,6 +15,7 @@ const useStyles = makeStyles({
 
 // i would be glad to wrap it in memo, but modOutputs are in another mod, so we should update also when mod which modulates this mod changes..
 // TODO maby add virtualization (react-viewport list etc)
+// TODO add debounce to sliders and such things
 export const ModElement = ({
                                modIndex,
                                handleChange,
@@ -25,7 +26,6 @@ export const ModElement = ({
                                setSettings,
                            }) => {
     const localClasses = useStyles();
-    console.log('rerere', modIndex);
     const removeMod = useCallback(() => {
         setSettings(draft => {
             draft.mods.splice(modIndex, 1);
