@@ -32,6 +32,10 @@ import {setObjectPropertyByStringPath} from '../utils/generalUtils';
 import {getRandomName} from '../utils/nameGenerators';
 import {clearCanvas, drawLayer, redo, saveAsImage, stopDrawing, undo} from '../worker/canvasWorkerMediators';
 import './Controls.css';
+import {ConditionalPanel} from './Shared/ConditionalPanel';
+import {CoordinateFlags} from './Shared/CoordinateFlags';
+import {Resizer} from './Shared/Resizer';
+import {TabOverflowMenu} from './Shared/TabOverflowMenu';
 import {Brush} from './Tabs/Brush';
 import {MainColor} from './Tabs/Color/MainColor';
 import {Mods} from './Tabs/Mods/Mods';
@@ -42,10 +46,6 @@ import {Saves} from './Tabs/Saves';
 import {Settings} from './Tabs/Settings';
 import {Shape} from './Tabs/Shape/Shape';
 import {Size} from './Tabs/Size';
-import {ConditionalPanel} from './Utils/ConditionalPanel';
-import {CoordinateFlags} from './Utils/CoordinateFlags';
-import {Resizer} from './Utils/Resizer';
-import {TabOverflowMenu} from './Utils/TabOverflowMenu';
 
 
 const useStyles = makeStyles({

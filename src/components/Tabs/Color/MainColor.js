@@ -1,5 +1,5 @@
 import React from 'react';
-import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {ConditionalPanel} from '../../Shared/ConditionalPanel';
 import {Blur} from './Blur';
 import {Color} from './Color';
 import {Glow} from './Glow';

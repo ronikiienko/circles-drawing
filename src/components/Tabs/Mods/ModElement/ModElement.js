@@ -1,6 +1,6 @@
 import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
 import React, {useCallback} from 'react';
-import {AccordionItem} from '../../../Utils/Accordion';
+import {AccordionItem} from '../../../Shared/Accordion';
 import {Header} from './Header';
 import {Panel} from './Panel';
 

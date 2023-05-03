@@ -1,7 +1,7 @@
 import {Label, Select} from '@fluentui/react-components';
 import React from 'react';
 import {biasTypes} from '../../../consts/sharedConsts';
-import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {ConditionalPanel} from '../../Shared/ConditionalPanel';
 import {BiasCharacter} from './BiasCharacter';
 import {Branches} from './Branches';
 import {BranchesDirection} from './BranchesDirection';

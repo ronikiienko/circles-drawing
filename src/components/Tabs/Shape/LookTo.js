@@ -2,8 +2,8 @@ import {Button, Input, Label} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
 import {hslArrToHsl} from '../../../utils/generalUtils';
-import {CoordinateFlag} from '../../Utils/CoordinateFlag';
-import {ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
+import {CoordinateFlag} from '../../Shared/CoordinateFlag';
+import {ParamHeader, ParamMod} from '../../Shared/ParamWrappers';
 
 
 export const LookTo = ({classes, handleChange, settings, setClickAndSetProp, setSettings, setDragProp}) => {

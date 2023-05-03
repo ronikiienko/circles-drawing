@@ -3,7 +3,7 @@ import React from 'react';
 import {getDefaultMod} from '../../../consts/consts';
 import {getEventObj} from '../../../utils/generalUtils';
 import {getRandomAdjective} from '../../../utils/nameGenerators';
-import {Accordion} from '../../Utils/Accordion';
+import {Accordion} from '../../Shared/Accordion';
 import {ModElement} from './ModElement/ModElement';
 
 

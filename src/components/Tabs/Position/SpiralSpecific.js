@@ -2,7 +2,7 @@ import {Input, Label, Select, Slider} from '@fluentui/react-components';
 import {InfoButton} from '@fluentui/react-components/unstable';
 import React from 'react';
 import {biasSpiralTypes} from '../../../consts/sharedConsts';
-import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {ConditionalPanel} from '../../Shared/ConditionalPanel';
 import {BiasCoords} from './BiasCoords';
 
 

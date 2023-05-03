@@ -2,8 +2,8 @@ import {Input, makeStyles, shorthands, tokens} from '@fluentui/react-components'
 import {ChevronRight20Regular, Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {hslArrToHsl} from '../../../../utils/generalUtils';
-import {useAccordionState} from '../../../Utils/Accordion';
-import {DialogButton} from '../../../Utils/DialogButton';
+import {useAccordionState} from '../../../Shared/Accordion';
+import {DialogButton} from '../../../Shared/DialogButton';
 
 
 const useStyles = makeStyles({

@@ -1,7 +1,7 @@
 import {Input, Label, makeStyles, shorthands, Slider, tokens} from '@fluentui/react-components';
 import React from 'react';
 import {hslArrToHsl} from '../../utils/generalUtils';
-import {ParamHeader, ParamMod} from '../Utils/ParamWrappers';
+import {ParamHeader, ParamMod} from '../Shared/ParamWrappers';
 
 
 const useStyles = makeStyles({

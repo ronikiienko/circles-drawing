@@ -15,7 +15,7 @@ import {Delete12Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {getDefaultModOutput} from '../../../consts/consts';
 import {hslArrToHsl} from '../../../utils/generalUtils';
-import {AngularInput} from '../../Utils/AngularInput';
+import {AngularInput} from '../../Shared/AngularInput';
 
 
 const useStyles = makeStyles({

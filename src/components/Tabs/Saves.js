@@ -13,7 +13,7 @@ import {storageKeys} from '../../consts/consts';
 import {getItemFromStorage, setItemToStorage} from '../../utils/generalUtils';
 import {getLayerSettings} from '../../utils/layerSettings/getter';
 import {saveAsImage} from '../../worker/canvasWorkerMediators';
-import {ConditionalPanel} from '../Utils/ConditionalPanel';
+import {ConditionalPanel} from '../Shared/ConditionalPanel';
 
 
 export const Saves = ({settings, setSettings, appSettings, handleAppSettingsChange, classes}) => {

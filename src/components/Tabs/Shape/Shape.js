@@ -1,6 +1,6 @@
 import React from 'react';
 import {shapeTypes} from '../../../consts/sharedConsts';
-import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {ConditionalPanel} from '../../Shared/ConditionalPanel';
 import {Angle} from './Angle';
 import {Common} from './Common';
 import {CustomShapeEditor} from './CustomShapeEditor';

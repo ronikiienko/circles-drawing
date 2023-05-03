@@ -1,6 +1,6 @@
 import {Input, Label} from '@fluentui/react-components';
 import React from 'react';
-import {ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
+import {ParamHeader, ParamMod} from '../../Shared/ParamWrappers';
 
 
 export const XOffset = ({settings, classes, handleChange, setSettings}) => {

@@ -1,6 +1,6 @@
 import {Input, Label, Switch} from '@fluentui/react-components';
 import React from 'react';
-import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {ConditionalPanel} from '../../Shared/ConditionalPanel';
 
 
 export const Branches = ({settings, classes, handleChange, setSettings}) => {

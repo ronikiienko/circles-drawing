@@ -1,7 +1,7 @@
 import {Checkbox, Label, Select, Slider} from '@fluentui/react-components';
 import React from 'react';
 import {shapeTypes} from '../../../consts/sharedConsts';
-import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {ConditionalPanel} from '../../Shared/ConditionalPanel';
 
 
 export const Common = ({settings, classes, handleChange}) => {

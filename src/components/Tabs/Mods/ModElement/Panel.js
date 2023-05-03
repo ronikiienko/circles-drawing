@@ -1,7 +1,7 @@
 import {Label, makeStyles, Select, shorthands, Slider, Text, tokens} from '@fluentui/react-components';
 import React from 'react';
 import {modTypes} from '../../../../consts/sharedConsts';
-import {ConditionalPanel} from '../../../Utils/ConditionalPanel';
+import {ConditionalPanel} from '../../../Shared/ConditionalPanel';
 import {ModInputs} from '../ModInputs';
 import {Noise} from '../Noise';
 import {Radial} from '../Radial';

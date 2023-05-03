@@ -1,6 +1,6 @@
 import {Input, Label, Slider} from '@fluentui/react-components';
 import React from 'react';
-import {ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
+import {ParamHeader, ParamMod} from '../../Shared/ParamWrappers';
 
 
 export const Transp = ({classes, handleChange, settings, setSettings}) => {

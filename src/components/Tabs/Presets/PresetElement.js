@@ -2,8 +2,8 @@ import {makeStyles, mergeClasses, shorthands, tokens} from '@fluentui/react-comp
 import {Delete48Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {getLayerSettings} from '../../../utils/layerSettings/getter';
-import {ConditionalPanel} from '../../Utils/ConditionalPanel';
-import {DialogButton} from '../../Utils/DialogButton';
+import {ConditionalPanel} from '../../Shared/ConditionalPanel';
+import {DialogButton} from '../../Shared/DialogButton';
 
 
 const useStyles = makeStyles({

@@ -1,8 +1,8 @@
 import {Label, Text} from '@fluentui/react-components';
 import React from 'react';
 import {getTranslatedAngle} from '../../../utils/layerSettings/remappers';
-import {AngularInput} from '../../Utils/AngularInput';
-import {ParamHeader, ParamMod} from '../../Utils/ParamWrappers';
+import {AngularInput} from '../../Shared/AngularInput';
+import {ParamHeader, ParamMod} from '../../Shared/ParamWrappers';
 
 
 export const Angle = ({settings, classes, handleChange, setClickAndSetProp, setSettings}) => {

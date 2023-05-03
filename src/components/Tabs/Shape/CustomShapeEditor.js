@@ -10,8 +10,8 @@ import {
 import {useCustomShapeEditor} from '../../../hooks/useCustomShapeEditor';
 import {drawCustomShape} from '../../../utils/drawingUtils';
 import {hslArrToHsl, swapArrElements} from '../../../utils/generalUtils';
-import {CoordinateFlag} from '../../Utils/CoordinateFlag';
-import {DialogButton} from '../../Utils/DialogButton';
+import {CoordinateFlag} from '../../Shared/CoordinateFlag';
+import {DialogButton} from '../../Shared/DialogButton';
 
 
 const useStyles = makeStyles({

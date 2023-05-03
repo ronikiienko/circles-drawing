@@ -1,7 +1,7 @@
 import {Input, Label, Select, Slider} from '@fluentui/react-components';
 import React from 'react';
 import {noiseTypes} from '../../../consts/sharedConsts';
-import {ConditionalPanel} from '../../Utils/ConditionalPanel';
+import {ConditionalPanel} from '../../Shared/ConditionalPanel';
 
 
 export const Noise = ({classes, modIndex, handleChange, settings}) => {

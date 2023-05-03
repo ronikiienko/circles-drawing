@@ -1,7 +1,7 @@
 import {Button, Input, Label} from '@fluentui/react-components';
 import React from 'react';
 import {hslArrToHsl} from '../../../utils/generalUtils';
-import {CoordinateFlag} from '../../Utils/CoordinateFlag';
+import {CoordinateFlag} from '../../Shared/CoordinateFlag';
 
 
 export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp, classes, index}) => {
