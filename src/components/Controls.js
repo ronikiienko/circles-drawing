@@ -1,6 +1,7 @@
 import {
     Button,
     Divider,
+    Field,
     makeStyles,
     Overflow,
     OverflowItem,
@@ -10,7 +11,6 @@ import {
     TabList,
     tokens,
 } from '@fluentui/react-components';
-import {Field} from '@fluentui/react-components/unstable';
 import {
     Add16Regular,
     ArrowRedo16Regular,
