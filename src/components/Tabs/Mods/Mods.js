@@ -25,7 +25,6 @@ export const Mods = ({
                      }) => {
     const localClasses = useStyles();
 
-
     return (
         <>
             <Accordion

@@ -3,6 +3,7 @@ import {getObjectPropertyByStringPath, setObjectPropertyByStringPath} from '../.
 
 
 export const AccordionContext = createContext(null);
+export const AccordionItemContext = createContext(null);
 
 // state path shouldn't be empty so that setObjectPropertyByStringPath work
 export const Accordion = ({children, state, setState, statePath}) => {
@@ -25,35 +26,32 @@ export const Accordion = ({children, state, setState, statePath}) => {
     const accordionState = useMemo(() => {
         return getObjectPropertyByStringPath(state, statePath);
     }, [state, statePath]);
-    // TODO when removing items, they are still in array. clear it (filter)
 
-    // here, I validate state on top level
-    // useEffect(() => {
-    //     if (!Array.isArray(accordionState)) {
-    //         setState((draft) => {
-    //             console.log('hi');
-    //             setObjectPropertyByStringPath(draft, statePath, []);
-    //         });
-    //     }
-    // }, [accordionState, setState, statePath]);
-
-
-    const reverseOpenedState = useCallback((id) => {
+    const setOpenedState = useCallback((id, newValue) => {
             setState((draft) => {
-                if (accordionState.includes(id)) {
+                const itemIndex = accordionState.findIndex(element => element === id);
+                const isItemOpened = itemIndex >= 0;
+                let actualNewValue;
+                if (newValue instanceof Function) {
+                    actualNewValue = newValue(isItemOpened);
+                } else {
+                    actualNewValue = newValue;
+                }
+                if (!isItemOpened && actualNewValue === true) {
                     setObjectPropertyByStringPath(
                         draft,
                         statePath,
                         (value) => {
-                            value.splice(value.indexOf(id), 1);
+                            value.push(id);
                         },
                     );
-                } else {
+                }
+                if (isItemOpened && actualNewValue === false) {
                     setObjectPropertyByStringPath(
                         draft,
                         statePath,
                         (value) => {
-                            value?.push(id);
+                            value.splice(itemIndex, 1);
                         },
                     );
                 }
@@ -63,9 +61,9 @@ export const Accordion = ({children, state, setState, statePath}) => {
     );
 
     const contextValue = useMemo(() => ({
-        reverseOpenedState,
+        setOpenedState: setOpenedState,
         state: accordionState,
-    }), [accordionState, reverseOpenedState]);
+    }), [accordionState, setOpenedState]);
 
     return (
         <AccordionContext.Provider
@@ -77,16 +75,28 @@ export const Accordion = ({children, state, setState, statePath}) => {
 };
 
 export const AccordionItem = ({id, header, className, children}) => {
-    const {state, reverseOpenedState} = useContext(AccordionContext);
+    const {state, setOpenedState} = useContext(AccordionContext);
+    const contextValue = useMemo(() => ([
+        state?.includes(id),
+        (newValue) => setOpenedState(id, newValue),
+    ]), [id, setOpenedState, state]);
     return (
-        <div className={className}>
-            <div
-                onClick={() => reverseOpenedState(id)}
-            >
-                {header}
+        <AccordionItemContext.Provider
+            value={contextValue}
+        >
+            <div className={className}>
+                <div
+                    onClick={() => setOpenedState(id, (prevValue) => !prevValue)}
+                >
+                    {header}
+                </div>
+                {Array.isArray(state) && state?.includes(id) && children}
             </div>
-            {Array.isArray(state) && state?.includes(id) && children}
-        </div>
+        </AccordionItemContext.Provider>
     );
+};
+
+export const useAccordionState = () => {
+    return useContext(AccordionItemContext);
 };
 

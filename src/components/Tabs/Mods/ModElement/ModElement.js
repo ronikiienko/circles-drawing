@@ -14,6 +14,7 @@ const useStyles = makeStyles({
 });
 // TODO while typing mod name many things happen...
 
+// i would be glad to wrap it in memo, but modOutputs are in another mod, so we should update also when mod which modulates this mod changes..
 export const ModElement = ({
                                modIndex,
                                handleChange,
@@ -35,6 +36,7 @@ export const ModElement = ({
             });
         });
     }, [modIndex, setSettings]);
+
     return (
         <>
             <AccordionItem

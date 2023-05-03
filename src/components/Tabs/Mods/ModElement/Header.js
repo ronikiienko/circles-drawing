@@ -1,13 +1,17 @@
 import {Input, makeStyles, shorthands, tokens} from '@fluentui/react-components';
-import {Delete16Regular} from '@fluentui/react-icons';
+import {ChevronRight20Regular, Delete16Regular} from '@fluentui/react-icons';
 import React from 'react';
 import {hslArrToHsl} from '../../../../utils/generalUtils';
+import {useAccordionState} from '../../../Utils/Accordion';
 import {DialogButton} from '../../../Utils/DialogButton';
 
 
 const useStyles = makeStyles({
     nameInputs: {
         // height: '20px',
+        marginRight: '5px',
+    },
+    openedIcon: {
         marginRight: '5px',
     },
     accordionHeader: {
@@ -17,6 +21,10 @@ const useStyles = makeStyles({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+    },
+    headerLeftPart: {
+        display: 'flex',
+        alignItems: 'center',
     },
     removeButton: {
         display: 'flex',
@@ -36,13 +44,22 @@ const useStyles = makeStyles({
     },
 });
 export const Header = ({settings, modIndex, handleChange, removeMod}) => {
+    const [isOpened, setIsOpened] = useAccordionState();
+
     const localClasses = useStyles();
     return (
         <div
             className={localClasses.accordionHeader}
             style={{backgroundColor: hslArrToHsl(settings.mods[modIndex].color, 0.3)}}
         >
-            <div>
+            <div className={localClasses.headerLeftPart}>
+                <ChevronRight20Regular
+                    style={{
+                        transform: `${isOpened ? 'rotate(90deg)' : ''}`,
+                        transition: 'transform 100ms',
+                    }}
+                    className={localClasses.openedIcon}
+                />
                 <Input
                     appearance="underline"
                     id={`mods-${modIndex}-name`}
