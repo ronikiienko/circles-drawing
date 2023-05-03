@@ -10,7 +10,7 @@ const useStyles = makeStyles({
 
     presetElementContainer: {
         ...shorthands.padding('6px'),
-        marginBlock: '5px',
+        ...shorthands.marginBlock('5px'),
         ...shorthands.border('1px', 'solid'),
         ...shorthands.borderColor(tokens.colorNeutralStroke1),
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
         ...shorthands.transition('background-color', '200ms'),
     },
     presetElementButton: {
-        marginInline: '2px',
+        ...shorthands.marginInline('2px'),
     },
     selected: {
         backgroundColor: tokens.colorNeutralShadowKeyDarker,

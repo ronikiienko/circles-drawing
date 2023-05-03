@@ -15,8 +15,8 @@ const useStyles = makeStyles({
         marginRight: '5px',
     },
     accordionHeader: {
-        paddingInline: '5px',
-        paddingBlock: '3px',
+        ...shorthands.paddingInline('5px'),
+        ...shorthands.paddingBlock('3px'),
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
         display: 'flex',
         alignItems: 'center',

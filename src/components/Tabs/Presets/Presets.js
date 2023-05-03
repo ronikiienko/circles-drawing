@@ -7,6 +7,7 @@ import {
     Input,
     Label,
     makeStyles,
+    shorthands,
     Textarea,
 } from '@fluentui/react-components';
 import {Add16Regular, BuildingFactory16Regular, Person16Regular} from '@fluentui/react-icons';
@@ -22,11 +23,11 @@ import {PresetElement} from './PresetElement';
 const useStyles = makeStyles({
     presetName: {
         width: '100%',
-        marginBlock: '3px',
+        ...shorthands.marginBlock('3px'),
     },
     presetDescription: {
         width: '100%',
-        marginBlock: '3px',
+        ...shorthands.marginBlock('3px'),
     },
     savePresetButton: {
         marginTop: '5px',

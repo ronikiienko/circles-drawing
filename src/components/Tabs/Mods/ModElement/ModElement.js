@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     block: {
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
         ...shorthands.border('1px', 'solid', tokens.colorNeutralStencil1Alpha),
-        marginBlock: '5px',
+        ...shorthands.marginBlock('5px'),
     },
 });
 // TODO while typing mod name many things happen...

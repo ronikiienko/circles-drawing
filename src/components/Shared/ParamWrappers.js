@@ -24,7 +24,7 @@ const useStyles = makeStyles({
         alignItems: 'center',
         justifyContent: 'space-between',
         ...shorthands.padding('3px'),
-        marginBlock: '5px',
+        ...shorthands.marginBlock('5px'),
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
     },
     modItemBase: {

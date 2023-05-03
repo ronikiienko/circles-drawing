@@ -84,18 +84,18 @@ const useStyles = makeStyles({
         '@media (max-width: 1250px)': {},
         scrollbarWidth: '40px',
         overflowY: 'auto',
-        marginInline: '20px',
+        ...shorthands.marginInline('20px'),
         flexGrow: '1',
         paddingRight: '10px',
     },
     footer: {
-        paddingInline: '30px',
+        ...shorthands.paddingInline('30px'),
         marginBottom: '10px',
     },
 
 
     divider: {
-        marginBlock: '5px',
+        ...shorthands.marginBlock('5px'),
         '::before': {
             ...shorthands.borderColor(tokens.colorNeutralForegroundDisabled),
         },
@@ -147,11 +147,11 @@ const useStylesTabs = makeStyles({
         ...shorthands.margin('3px'),
     },
     buttonInline: {
-        marginInline: '3px',
+        ...shorthands.marginInline('3px'),
     },
     fullWidth: {
         width: '100%',
-        marginBlock: '3px',
+        ...shorthands.marginBlock('3px'),
     },
     text: {
         width: '200px',
@@ -167,7 +167,7 @@ const useStylesTabs = makeStyles({
     row: {
         display: 'flex',
         alignItems: 'center',
-        marginBlock: '5px',
+        ...shorthands.marginBlock('5px'),
     },
     rowSmall: {
         display: 'flex',
@@ -180,10 +180,10 @@ const useStylesTabs = makeStyles({
         alignItems: 'flex-start',
     },
     block: {
-        paddingInline: '8px',
-        paddingBlock: '4px',
+        ...shorthands.paddingInline('8px'),
+        ...shorthands.paddingBlock('4px'),
         // ...shorthands.padding('8px'),
-        marginBlock: '5px',
+        ...shorthands.marginBlock('5px'),
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
         backgroundColor: tokens.colorNeutralStencil1Alpha,
         minWidth: 'fit-content',
@@ -192,14 +192,14 @@ const useStylesTabs = makeStyles({
     verticalBlock: {
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
         backgroundColor: tokens.colorNeutralStencil1Alpha,
-        paddingBlock: '2px',
-        marginBlock: '5px',
+        ...shorthands.paddingBlock('2px'),
+        ...shorthands.marginBlock('5px'),
     },
     outlineVerticalBlock: {
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
         ...shorthands.border('2px', 'solid', tokens.colorNeutralStencil1Alpha),
-        paddingBlock: '2px',
-        marginBlock: '5px',
+        ...shorthands.paddingBlock('2px'),
+        ...shorthands.marginBlock('5px'),
     },
     verticallyCentered: {
         display: 'flex',
