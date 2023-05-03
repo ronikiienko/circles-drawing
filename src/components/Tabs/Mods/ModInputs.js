@@ -7,7 +7,6 @@ import {
     MenuList,
     MenuPopover,
     MenuTrigger,
-    mergeClasses,
     shorthands,
     tokens,
 } from '@fluentui/react-components';
@@ -91,7 +90,7 @@ export const ModInputs = ({settings, modIndex, setSettings, handleChange, classe
                             <div
                                 style={{backgroundColor: hslArrToHsl(inputMod.color, 0.4 * inputModOutput.mult + 0.1)}}
                                 key={inputMod.id}
-                                className={mergeClasses(localClasses.modInputContainer, classes.label)}
+                                className={localClasses.modInputContainer}
                                 title={inputMod.type}
                             >
                                 {inputMod.name}
