@@ -3,7 +3,7 @@ import React from 'react';
 import {ParamHeader, ParamMod} from '../../Shared/ParamWrappers';
 
 
-export const BranchesDirection = ({settings, classes, handleChange, setSettings}) => {
+export const BranchesDirectionDelta = ({settings, classes, handleChange, setSettings}) => {
     return (
         <>
             <ParamHeader
@@ -11,7 +11,7 @@ export const BranchesDirection = ({settings, classes, handleChange, setSettings}
                 classes={classes}
                 setSettings={setSettings}
                 header="Branches direction (from - to)"
-                paramName="branchesDirection"
+                paramName="branchesDirectionDelta"
                 noInputRow
             >
             </ParamHeader>
@@ -23,25 +23,25 @@ export const BranchesDirection = ({settings, classes, handleChange, setSettings}
                         key={mod.id}
                         settings={settings}
                         handleChange={handleChange}
-                        paramName="branchesDirection"
+                        paramName="branchesDirectionDelta"
                         modIndex={modIndex}
                     >
                         <Label className={classes.label}>
                             <Input
                                 size="small"
                                 className={classes.number}
-                                id={`mods-${modIndex}-outputs-branchesDirection-val2-from`}
+                                id={`mods-${modIndex}-outputs-branchesDirectionDelta-val2-from`}
                                 onChange={handleChange}
-                                value={settings.mods[modIndex].outputs.branchesDirection.val2.from}
+                                value={settings.mods[modIndex].outputs.branchesDirectionDelta.val2.from}
                             />
                         </Label>
                         <Label className={classes.label}>
                             <Input
                                 size="small"
                                 className={classes.number}
-                                id={`mods-${modIndex}-outputs-branchesDirection-val2-to`}
+                                id={`mods-${modIndex}-outputs-branchesDirectionDelta-val2-to`}
                                 onChange={handleChange}
-                                value={settings.mods[modIndex].outputs.branchesDirection.val2.to}
+                                value={settings.mods[modIndex].outputs.branchesDirectionDelta.val2.to}
                             />
                         </Label>
                     </ParamMod>

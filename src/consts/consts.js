@@ -209,7 +209,7 @@ export const getDefaultMod = (name) => {
                 enabled: false,
                 val2: 0.2,
             },
-            branchesDirection: {
+            branchesDirectionDelta: {
                 enabled: false,
                 val2: {
                     from: -5,

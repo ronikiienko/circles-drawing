@@ -4,7 +4,7 @@ import {biasTypes} from '../../../consts/sharedConsts';
 import {ConditionalPanel} from '../../Shared/ConditionalPanel';
 import {BiasCharacter} from './BiasCharacter';
 import {Branches} from './Branches';
-import {BranchesDirection} from './BranchesDirection';
+import {BranchesDirectionDelta} from './BranchesDirectionDelta';
 import {BranchesMagnitude} from './BranchesMagnitude';
 import {ChessPlateSpecific} from './ChessPlateSpecific';
 import {RadialSpecific} from './RadialSpecific';
@@ -14,7 +14,7 @@ import {StartEnd} from './StartEnd';
 import {XOffset} from './XOffset';
 import {YOffset} from './YOffset';
 
-
+// TODO separate x and y offsets that will only determine start position (now they also apply to every shape in a branch)
 export const Position = ({settings, setClickAndSetProp, setSettings, handleChange, classes}) => {
     return (
         <>
@@ -123,7 +123,7 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                     />
                 </div>
                 <div className={classes.block}>
-                    <BranchesDirection
+                    <BranchesDirectionDelta
                         classes={classes}
                         settings={settings}
                         handleChange={handleChange}

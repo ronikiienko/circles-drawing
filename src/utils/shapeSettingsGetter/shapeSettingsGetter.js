@@ -67,7 +67,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     const xOffsetModsDeltas = [];
     const yOffsetModsDeltas = [];
     const branchesMagnitudeModsDeltas = [];
-    const branchesDirectionModsDeltas = [];
+    const branchesDirectionDeltaModsDeltas = [];
 
     settings.mods?.forEach((mod) => {
         if (mod.outputs.size.enabled) {
@@ -132,8 +132,8 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
         if (mod.outputs.branchesMagnitude.enabled) {
             branchesMagnitudeModsDeltas.push([(mod.outputs.branchesMagnitude.val2 - settings.position.branchesMagnitude) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
         }
-        if (mod.outputs.branchesDirection.enabled) {
-            branchesDirectionModsDeltas.push([mod.outputs.branchesDirection.val2.to - (mod.outputs.branchesDirection.val2.to - mod.outputs.branchesDirection.val2.from) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
+        if (mod.outputs.branchesDirectionDelta.enabled) {
+            branchesDirectionDeltaModsDeltas.push([mod.outputs.branchesDirectionDelta.val2.to - (mod.outputs.branchesDirectionDelta.val2.to - mod.outputs.branchesDirectionDelta.val2.from) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
         }
     });
 
@@ -149,7 +149,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     const xOffsetModsSum = getWeightedSum(...xOffsetModsDeltas);
     const yOffsetModsSum = getWeightedSum(...yOffsetModsDeltas);
     const branchesMagnitudeModsSum = getWeightedSum(...branchesMagnitudeModsDeltas);
-    const branchesDirectionModsSum = getWeightedSum(...branchesDirectionModsDeltas);
+    const branchesDirectionDeltaModsSum = getWeightedSum(...branchesDirectionDeltaModsDeltas);
 
     let widthRatio = settings.shape.widthRatio + widthRatioModsSum;
     let rectRoundness = settings.shape.rectRoundness + rectRoundnessModsSum;
@@ -173,7 +173,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
 
     if (isBranchElement) {
         const modulatedMagnitude = settings.position.branchesMagnitude + branchesMagnitudeModsSum;
-        const modulatedDirection = last.direction + branchesDirectionModsSum;
+        const modulatedDirection = last.direction + branchesDirectionDeltaModsSum;
         const [x, y] = getPointByDistanceAndAngle(last.x, last.y, modulatedMagnitude, modulatedDirection);
         xPosition = x;
         yPosition = y;

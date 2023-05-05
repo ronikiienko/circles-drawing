@@ -121,11 +121,13 @@ export const getLayerSettings = (preset) => {
                             enabled: mod?.outputs?.branchesMagnitude?.enabled ?? defaultMod.outputs.branchesMagnitude.enabled,
                             val2: mod?.outputs?.branchesMagnitude?.val2 ?? defaultMod.outputs.branchesMagnitude.val2,
                         },
-                        branchesDirection: {
-                            enabled: mod?.outputs?.branchesDirection?.enabled ?? defaultMod.outputs.branchesDirection.enabled,
+
+                        // TODO legacy supporting. Remove
+                        branchesDirectionDelta: {
+                            enabled: mod?.outputs?.branchesDirectionDelta?.enabled ?? mod?.outputs?.branchesDirection?.enabled ?? defaultMod.outputs.branchesDirectionDelta.enabled,
                             val2: {
-                                from: mod?.outputs?.branchesDirection?.val2.from ?? defaultMod.outputs.branchesDirection.val2.from,
-                                to: mod?.outputs?.branchesDirection?.val2.to ?? defaultMod.outputs.branchesDirection.val2.to,
+                                from: mod?.outputs?.branchesDirectionDelta?.val2?.from ?? mod?.outputs?.branchesDirection?.val2?.from ?? defaultMod.outputs.branchesDirectionDelta.val2.from,
+                                to: mod?.outputs?.branchesDirectionDelta?.val2?.to ?? mod?.outputs?.branchesDirection?.val2?.to ?? defaultMod.outputs.branchesDirectionDelta.val2.to,
                             },
                         },
                     },

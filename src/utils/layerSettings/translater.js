@@ -136,11 +136,11 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                         enabled: mod.outputs.branchesMagnitude.enabled,
                         val2: getTranslatedBranchesMagnitude(mod.outputs.branchesMagnitude.val2),
                     },
-                    branchesDirection: {
-                        enabled: mod.outputs.branchesDirection.enabled,
+                    branchesDirectionDelta: {
+                        enabled: mod.outputs.branchesDirectionDelta.enabled,
                         val2: {
-                            from: parseFloat(mod.outputs.branchesDirection.val2.from),
-                            to: parseFloat(mod.outputs.branchesDirection.val2.to),
+                            from: parseFloat(mod.outputs.branchesDirectionDelta.val2.from),
+                            to: parseFloat(mod.outputs.branchesDirectionDelta.val2.to),
                         },
                     },
                 },
