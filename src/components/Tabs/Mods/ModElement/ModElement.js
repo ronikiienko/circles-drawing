@@ -49,6 +49,7 @@ export const ModElement = ({
                         settings={settings}
                         handleChange={handleChange}
                         removeMod={removeMod}
+                        mod={settings.mods[modIndex]}
                     />
                 }
             >
@@ -60,6 +61,7 @@ export const ModElement = ({
                     setSettings={setSettings}
                     setClickAndSetProp={setClickAndSetProp}
                     setDragProp={setDragProp}
+                    mod={settings.mods[modIndex]}
                 />
             </AccordionItem>
         </>

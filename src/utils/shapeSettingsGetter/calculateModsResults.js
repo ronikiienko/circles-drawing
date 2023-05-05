@@ -10,7 +10,7 @@ export const calculateModsResults = (settings, x, y, absoluteIndex, branchIndex)
         // TODO launch this conditionaly (if no outputs not calculate)
         // TODO if for example angle mod is on, but shape is circle, not calculate it
         let value;
-        switch (mod.type) {
+        switch (mod.settings.type) {
             case modTypes.radial.id:
                 value = radialMod(x, y, mod);
                 break;

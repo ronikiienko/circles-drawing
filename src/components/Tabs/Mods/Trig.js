@@ -3,16 +3,16 @@ import React from 'react';
 import {trigModTypes} from '../../../consts/sharedConsts';
 
 
-export const Trig = ({settings, handleChange, classes, modIndex}) => {
+export const Trig = ({mod, handleChange, classes, modIndex}) => {
     return (
         <>
             <Label className={classes.label}>
                 Trig type:
                 <Select
                     size="small"
-                    value={settings.mods[modIndex].trigType}
+                    value={mod.settings.trigType}
                     className={classes.select}
-                    id={`mods-${modIndex}-trigType`}
+                    id={`mods-${modIndex}-settings-trigType`}
                     onChange={handleChange}
                 >
                     {Object.values(trigModTypes).map(modType =>
@@ -34,19 +34,19 @@ export const Trig = ({settings, handleChange, classes, modIndex}) => {
                     step={0.01}
                     className={classes.slider}
                     size="small"
-                    value={settings.mods[modIndex].sineZoomX}
+                    value={mod.settings.sineZoomX}
                     type="text"
                     onChange={handleChange}
-                    id={`mods-${modIndex}-sineZoomX`}
+                    id={`mods-${modIndex}-settings-sineZoomX`}
                 />
                 <Input
                     appearance="underline"
                     className={classes.number}
                     size="small"
-                    value={settings.mods[modIndex].sineZoomX}
+                    value={mod.settings.sineZoomX}
                     type="text"
                     onChange={handleChange}
-                    id={`mods-${modIndex}-sineZoomX`}
+                    id={`mods-${modIndex}-settings-sineZoomX`}
                 />
             </Label>
             <br/>
@@ -58,19 +58,19 @@ export const Trig = ({settings, handleChange, classes, modIndex}) => {
                     step={0.01}
                     className={classes.slider}
                     size="small"
-                    value={settings.mods[modIndex].sineZoomY}
+                    value={mod.settings.sineZoomY}
                     type="text"
                     onChange={handleChange}
-                    id={`mods-${modIndex}-sineZoomY`}
+                    id={`mods-${modIndex}-settings-sineZoomY`}
                 />
                 <Input
                     appearance="underline"
                     className={classes.number}
                     size="small"
-                    value={settings.mods[modIndex].sineZoomY}
+                    value={mod.settings.sineZoomY}
                     type="text"
                     onChange={handleChange}
-                    id={`mods-${modIndex}-sineZoomY`}
+                    id={`mods-${modIndex}-settings-sineZoomY`}
                 />
             </Label>
         </>

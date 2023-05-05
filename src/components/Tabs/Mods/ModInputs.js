@@ -91,7 +91,7 @@ export const ModInputs = ({settings, modIndex, setSettings, handleChange, classe
                                 style={{backgroundColor: hslArrToHsl(inputMod.color, 0.4 * inputModOutput.mult + 0.1)}}
                                 key={inputMod.id}
                                 className={localClasses.modInputContainer}
-                                title={inputMod.type}
+                                title={inputMod.settings.type}
                             >
                                 {inputMod.name}
                                 <AngularInput

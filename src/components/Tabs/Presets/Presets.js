@@ -33,7 +33,7 @@ const useStyles = makeStyles({
         width: '100%',
     },
 });
-
+// TODO use my custom accordion here too
 export const Presets = ({settings, setSettings, classes}) => {
     // TODO avoid rerenders
     const localClasses = useStyles();

@@ -43,25 +43,28 @@ export const getLayerSettings = (preset) => {
                 const defaultMod = getDefaultMod();
                 return {
                     name: mod?.name ?? defaultMod.name,
-                    type: mod?.type ?? defaultMod.type,
                     id: mod?.id ?? defaultMod.id,
                     color: mod?.color ?? defaultMod.color,
-                    radialRadiusPos: {
-                        x: mod?.radialRadiusPos?.x ?? defaultMod.radialRadiusPos.x,
-                        y: mod?.radialRadiusPos?.y ?? defaultMod.radialRadiusPos.y,
-                    },
-                    radialCenterPos: {
-                        x: mod?.radialCenterPos?.x ?? defaultMod.radialCenterPos.x,
-                        y: mod?.radialCenterPos?.y ?? defaultMod.radialCenterPos.y,
-                    },
-                    sineZoomX: mod?.sineZoomX ?? defaultMod.sineZoomX,
-                    sineZoomY: mod?.sineZoomY ?? defaultMod.sineZoomY,
-                    trigType: mod?.trigType ?? defaultMod.trigType,
-                    noiseType: mod?.noiseType ?? defaultMod.noiseType,
-                    noiseZoom: mod?.noiseZoom ?? defaultMod.noiseZoom,
-                    modA: mod?.modA ?? defaultMod.modA,
-                    modB: mod?.modB ?? defaultMod.modB,
                     blendRatio: mod?.blendRatio ?? defaultMod.blendRatio,
+                    settings: {
+                        // TODO here it supports old version (mod?.radialRadiusPos?.x instead of mod?.settings?.radialRadiusPos?.x. Remove it later)
+                        type: mod?.settings?.type ?? mod?.type ?? defaultMod.settings.type,
+                        radialRadiusPos: {
+                            x: mod?.settings?.radialRadiusPos?.x ?? mod?.radialRadiusPos?.x ?? defaultMod.settings.radialRadiusPos.x,
+                            y: mod?.settings?.radialRadiusPos?.y ?? mod?.radialRadiusPos?.y ?? defaultMod.settings.radialRadiusPos.y,
+                        },
+                        radialCenterPos: {
+                            x: mod?.settings?.radialCenterPos?.x ?? mod?.radialCenterPos?.x ?? defaultMod.settings.radialCenterPos.x,
+                            y: mod?.settings?.radialCenterPos?.y ?? mod?.radialCenterPos?.y ?? defaultMod.settings.radialCenterPos.y,
+                        },
+                        sineZoomX: mod?.settings?.sineZoomX ?? mod?.sineZoomX ?? defaultMod.settings.sineZoomX,
+                        sineZoomY: mod?.settings?.sineZoomY ?? mod?.sineZoomY ?? defaultMod.settings.sineZoomY,
+                        trigType: mod?.settings?.trigType ?? mod?.trigType ?? defaultMod.settings.trigType,
+                        noiseType: mod?.settings?.noiseType ?? mod?.noiseType ?? defaultMod.settings.noiseType,
+                        noiseZoom: mod?.settings?.noiseZoom ?? mod?.noiseZoom ?? defaultMod.settings.noiseZoom,
+                        modA: mod?.settings?.modA ?? mod?.modA ?? defaultMod.settings.modA,
+                        modB: mod?.settings?.modB ?? mod?.modB ?? defaultMod.settings.modB,
+                    },
                     outputs: {
                         size: {
                             enabled: mod?.outputs?.size?.enabled ?? defaultMod.outputs.size.enabled,

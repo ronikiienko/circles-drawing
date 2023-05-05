@@ -68,7 +68,7 @@ export const ParamHeader = ({header, children, settings, classes, paramName, set
                                                   onClick={() => setSettings((draft) => {
                                                       draft.mods[modIndex].outputs[paramName].enabled = true;
                                                   })}>
-                                            {mod.name} ({mod.type})
+                                            {mod.name} ({mod.settings.type})
                                         </MenuItem>
                                     );
                                 })}
@@ -102,7 +102,7 @@ export const ParamMod = ({paramName, settings, modIndex, children, setSettings, 
                 >
                     <div style={{display: 'flex'}}>{children}</div>
                     <span className={classes.verticallyCentered}>
-                    <Text>{mod.name} ({mod.type})</Text>
+                    <Text>{mod.name} ({mod.settings.type})</Text>
                         <Button
                             className={localClasses.removeModButton}
                             appearance="subtle"

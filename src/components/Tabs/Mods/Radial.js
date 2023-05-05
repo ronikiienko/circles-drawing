@@ -4,7 +4,7 @@ import {hslArrToHsl} from '../../../utils/generalUtils';
 import {CoordinateFlag} from '../../Shared/CoordinateFlag';
 
 
-export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp, classes, index}) => {
+export const Radial = ({mod, handleChange, setDragProp, setClickAndSetProp, classes, index}) => {
     return (
         <>
             <div className={classes.row}>
@@ -13,10 +13,10 @@ export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp,
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.mods[index].radialCenterPos.x}
+                        value={mod.settings.radialCenterPos.x}
                         type="text"
                         onChange={handleChange}
-                        id={`mods-${index}-radialCenterPos-x`}
+                        id={`mods-${index}-settings-radialCenterPos-x`}
                     />
                 </Label>
                 <Label className={classes.label}>
@@ -24,13 +24,14 @@ export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp,
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.mods[index].radialCenterPos.y}
+                        value={mod.settings.radialCenterPos.y}
                         type="text"
                         onChange={handleChange}
-                        id={`mods-${index}-radialCenterPos-y`}
+                        id={`mods-${index}-settings-radialCenterPos-y`}
                     />
                 </Label>
-                <Button onClick={setClickAndSetProp} id={`mods-${index}-radialCenterPos`} size="small">Click and
+                <Button onClick={setClickAndSetProp} id={`mods-${index}-settings-radialCenterPos`} size="small">Click
+                    and
                     set</Button>
             </div>
             <div className={classes.row}>
@@ -39,10 +40,10 @@ export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp,
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.mods[index].radialRadiusPos.x}
+                        value={mod.settings.radialRadiusPos.x}
                         type="text"
                         onChange={handleChange}
-                        id={`mods-${index}-radialRadiusPos-x`}
+                        id={`mods-${index}-settings-radialRadiusPos-x`}
                     />
                 </Label>
                 <Label className={classes.label}>
@@ -50,36 +51,37 @@ export const Radial = ({settings, handleChange, setDragProp, setClickAndSetProp,
                     <Input
                         className={classes.number}
                         size="small"
-                        value={settings.mods[index].radialRadiusPos.y}
+                        value={mod.settings.radialRadiusPos.y}
                         type="text"
                         onChange={handleChange}
-                        id={`mods-${index}-radialRadiusPos-y`}
+                        id={`mods-${index}-settings-radialRadiusPos-y`}
                     />
                 </Label>
-                <Button onClick={setClickAndSetProp} id={`mods-${index}-radialRadiusPos`} size="small">Click and
+                <Button onClick={setClickAndSetProp} id={`mods-${index}-settings-radialRadiusPos`} size="small">Click
+                    and
                     set</Button>
             </div>
             <CoordinateFlag
                 size={25}
-                id={`mods-${index}-radialCenterPos`}
-                x={settings.mods[index].radialCenterPos.x}
-                y={settings.mods[index].radialCenterPos.y}
+                id={`mods-${index}-settings-radialCenterPos`}
+                x={mod.settings.radialCenterPos.x}
+                y={mod.settings.radialCenterPos.y}
                 text="C"
                 onMouseDown={setDragProp}
                 dot={false}
-                title={`Radial center (${settings.mods[index].name})`}
-                color={hslArrToHsl(settings.mods[index].color, 0.7)}
+                title={`Radial center (${mod.name})`}
+                color={hslArrToHsl(mod.color, 0.7)}
             />
             <CoordinateFlag
                 size={25}
-                id={`mods-${index}-radialRadiusPos`}
-                x={settings.mods[index].radialRadiusPos.x}
-                y={settings.mods[index].radialRadiusPos.y}
+                id={`mods-${index}-settings-radialRadiusPos`}
+                x={mod.settings.radialRadiusPos.x}
+                y={mod.settings.radialRadiusPos.y}
                 text="R"
                 onMouseDown={setDragProp}
                 dot={false}
-                title={`Radial radius (${settings.mods[index].name})`}
-                color={hslArrToHsl(settings.mods[index].color, 0.7)}
+                title={`Radial radius (${mod.name})`}
+                color={hslArrToHsl(mod.color, 0.7)}
             />
         </>
     );

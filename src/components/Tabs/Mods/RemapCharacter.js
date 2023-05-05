@@ -9,7 +9,7 @@ const useStyles = makeStyles({
         alignItems: 'center',
     },
 });
-export const RemapCharacter = ({settings, handleChange, classes, index}) => {
+export const RemapCharacter = ({mod, handleChange, classes, index}) => {
     const localClasses = useStyles();
     return (
         <div className={localClasses.graphSection}>
@@ -23,8 +23,8 @@ export const RemapCharacter = ({settings, handleChange, classes, index}) => {
                             className={classes.slider}
                             size="small"
                             onChange={handleChange}
-                            id={`mods-${index}-modA`}
-                            value={settings.mods[index].modA}
+                            id={`mods-${index}-settings-modA`}
+                            value={mod.settings.modA}
                         />
                     </Label>
                     <br/>
@@ -37,12 +37,12 @@ export const RemapCharacter = ({settings, handleChange, classes, index}) => {
                             className={classes.slider}
                             size="small"
                             onChange={handleChange}
-                            id={`mods-${index}-modB`}
-                            value={settings.mods[index].modB}
+                            id={`mods-${index}-settings-modB`}
+                            value={mod.settings.modB}
                         />
                     </Label>
                 </span>
-            <ModRemapGraph modA={settings.mods[index].modA} modB={settings.mods[index].modB}/>
+            <ModRemapGraph modA={mod.settings.modA} modB={mod.settings.modB}/>
         </div>
     );
 };

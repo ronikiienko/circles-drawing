@@ -128,29 +128,32 @@ export const getDefaultModOutput = (id) => {
         mult: 1,
     };
 };
+
 export const getDefaultMod = (name) => {
     const id = nanoid(8);
     return {
         name: name || 'Default',
-        type: modTypes.radial.id,
-        color: getRandomHslArr([null, 100, 70, 0.5]),
-        id: id,
-        radialRadiusPos: {
-            x: 200,
-            y: 200,
-        },
-        radialCenterPos: {
-            x: 100,
-            y: 100,
-        },
-        noiseType: noiseTypes.perlin.id,
-        noiseZoom: 0.2,
-        sineZoomX: 0.2,
-        sineZoomY: 0.2,
-        trigType: trigModTypes.sine,
-        modA: 0.3,
-        modB: 0.3,
         blendRatio: 0.1,
+        id: id,
+        color: getRandomHslArr([null, 100, 70, 0.5]),
+        settings: {
+            type: modTypes.radial.id,
+            radialRadiusPos: {
+                x: 200,
+                y: 200,
+            },
+            radialCenterPos: {
+                x: 100,
+                y: 100,
+            },
+            noiseType: noiseTypes.perlin.id,
+            noiseZoom: 0.2,
+            sineZoomX: 0.2,
+            sineZoomY: 0.2,
+            trigType: trigModTypes.sine,
+            modA: 0.3,
+            modB: 0.3,
+        },
         outputs: {
             size: {
                 enabled: false,

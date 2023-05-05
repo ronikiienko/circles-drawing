@@ -43,14 +43,14 @@ const useStyles = makeStyles({
         marginLeft: '20px',
     },
 });
-export const Header = ({settings, modIndex, handleChange, removeMod}) => {
+export const Header = ({modIndex, handleChange, removeMod, mod}) => {
     const [isOpened, setIsOpened] = useAccordionState();
 
     const localClasses = useStyles();
     return (
         <div
             className={localClasses.accordionHeader}
-            style={{backgroundColor: hslArrToHsl(settings.mods[modIndex].color, 0.3)}}
+            style={{backgroundColor: hslArrToHsl(mod.color, 0.3)}}
         >
             <div className={localClasses.headerLeftPart}>
                 <ChevronRight20Regular
@@ -63,7 +63,7 @@ export const Header = ({settings, modIndex, handleChange, removeMod}) => {
                 <Input
                     appearance="underline"
                     id={`mods-${modIndex}-name`}
-                    value={settings.mods[modIndex].name}
+                    value={mod.name}
                     onChange={handleChange}
                     className={localClasses.nameInputs}
                     onClick={(event) => {
@@ -72,7 +72,7 @@ export const Header = ({settings, modIndex, handleChange, removeMod}) => {
                     }}
                     size="small"
                 />
-                {settings.mods[modIndex].type}
+                {mod.settings.type}
             </div>
             <DialogButton
                 onSubmit={(event) => {

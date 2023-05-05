@@ -3,8 +3,8 @@ import {getVectorByTwoPoints, modRemap} from '../generalUtils';
 
 
 export const radialMod = (x, y, mod) => {
-    const [distanceFromCenterToPoint] = getVectorByTwoPoints(mod.radialCenterPos.x, mod.radialCenterPos.y, x, y);
-    const [radius] = getVectorByTwoPoints(mod.radialCenterPos.x, mod.radialCenterPos.y, mod.radialRadiusPos.x, mod.radialRadiusPos.y);
+    const [distanceFromCenterToPoint] = getVectorByTwoPoints(mod.settings.radialCenterPos.x, mod.settings.radialCenterPos.y, x, y);
+    const [radius] = getVectorByTwoPoints(mod.settings.radialCenterPos.x, mod.settings.radialCenterPos.y, mod.settings.radialRadiusPos.x, mod.settings.radialRadiusPos.y);
     const distanceFromPointToRadius = radius - distanceFromCenterToPoint;
     let ratio;
     if (distanceFromPointToRadius >= 0) {
@@ -12,31 +12,31 @@ export const radialMod = (x, y, mod) => {
     } else {
         ratio = 0;
     }
-    ratio = modRemap(ratio, mod.modA, mod.modB);
+    ratio = modRemap(ratio, mod.settings.modA, mod.settings.modB);
     return ratio;
 };
 
 export const randomMod = (mod) => {
-    return modRemap(Math.random(), mod.modA, mod.modB);
+    return modRemap(Math.random(), mod.settings.modA, mod.settings.modB);
 };
 
 export const noiseMod = (x, y, mod) => {
     let noiseValue;
-    switch (mod.noiseType) {
+    switch (mod.settings.noiseType) {
         case noiseTypes.perlin.id:
-            noiseValue = (mod.perlinNoise(x * mod.noiseZoom, y * mod.noiseZoom) + 1) / 2;
+            noiseValue = (mod.settings.perlinNoise(x * mod.settings.noiseZoom, y * mod.settings.noiseZoom) + 1) / 2;
             break;
         case noiseTypes.random.id:
             noiseValue = Math.random();
             break;
         case noiseTypes.value.id:
-            noiseValue = mod.valueNoise(x * mod.noiseZoom, y * mod.noiseZoom);
+            noiseValue = mod.settings.valueNoise(x * mod.settings.noiseZoom, y * mod.settings.noiseZoom);
     }
-    return modRemap(noiseValue, mod.modA, mod.modB);
+    return modRemap(noiseValue, mod.settings.modA, mod.settings.modB);
 };
 
 export const indexMod = (currentIndex, shapesNumber, mod) => {
-    return modRemap(currentIndex / shapesNumber, mod.modA, mod.modB);
+    return modRemap(currentIndex / shapesNumber, mod.settings.modA, mod.settings.modB);
 };
 
 export const sinTo01 = (value) => {
@@ -44,22 +44,22 @@ export const sinTo01 = (value) => {
 };
 
 export const trigMod = (x, y, mod) => {
-    if (mod.trigType === trigModTypes.sine.id) {
-        let xSin = sinTo01(Math.sin(x / mod.sineZoomX));
-        let ySin = sinTo01(Math.sin(y / mod.sineZoomY));
+    if (mod.settings.trigType === trigModTypes.sine.id) {
+        let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
+        let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY));
         let avg = (xSin + ySin) / 2;
-        return modRemap(avg, mod.modA, mod.modB);
+        return modRemap(avg, mod.settings.modA, mod.settings.modB);
     }
-    if (mod.trigType === trigModTypes.circles.id) {
-        let xSin = sinTo01(Math.sin(x / mod.sineZoomX));
-        let ySin = sinTo01(Math.sin(y / mod.sineZoomY));
+    if (mod.settings.trigType === trigModTypes.circles.id) {
+        let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
+        let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY));
         let avg = (xSin + ySin) / 2;
-        return modRemap((Math.sin(avg * 50) + 1) / 2, mod.modA, mod.modB);
+        return modRemap((Math.sin(avg * 50) + 1) / 2, mod.settings.modA, mod.settings.modB);
     }
-    if (mod.trigType === trigModTypes.tan.id) {
-        let xSin = sinTo01(Math.sin(x / mod.sineZoomX));
-        let ySin = sinTo01(Math.sin(y / mod.sineZoomY)) * sinTo01(Math.tan(x / mod.sineZoomX));
+    if (mod.settings.trigType === trigModTypes.tan.id) {
+        let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
+        let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY)) * sinTo01(Math.tan(x / mod.settings.sineZoomX));
         let avg = (xSin + ySin) / 2;
-        return modRemap((Math.sin(avg * 10) + 1) / 2, mod.modA, mod.modB);
+        return modRemap((Math.sin(avg * 10) + 1) / 2, mod.settings.modA, mod.settings.modB);
     }
 };

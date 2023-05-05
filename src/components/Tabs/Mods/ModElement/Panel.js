@@ -20,7 +20,16 @@ const useStyles = makeStyles({
         marginBlock: '5px',
     },
 });
-export const Panel = ({classes, settings, modIndex, handleChange, setDragProp, setClickAndSetProp, setSettings}) => {
+export const Panel = ({
+                          classes,
+                          settings,
+                          modIndex,
+                          handleChange,
+                          setDragProp,
+                          setClickAndSetProp,
+                          setSettings,
+                          mod,
+                      }) => {
     const localClasses = useStyles();
     return (
         <div className={localClasses.accordionPanel}>
@@ -29,9 +38,9 @@ export const Panel = ({classes, settings, modIndex, handleChange, setDragProp, s
                     Mod type:
                     <Select
                         size="small"
-                        value={settings.mods[modIndex].type}
+                        value={mod.settings.type}
                         className={classes.select}
-                        id={`mods-${modIndex}-type`}
+                        id={`mods-${modIndex}-settings-type`}
                         onChange={handleChange}
                     >
                         {Object.values(modTypes).map(modType =>
@@ -45,20 +54,20 @@ export const Panel = ({classes, settings, modIndex, handleChange, setDragProp, s
                     </Select>
                 </Label>
             </div>
-            <ConditionalPanel active={settings.mods[modIndex].type === modTypes.noise.id}>
+            <ConditionalPanel active={mod.settings.type === modTypes.noise.id}>
                 <div className={classes.block}>
                     <Noise
                         handleChange={handleChange}
-                        settings={settings}
+                        mod={mod}
                         classes={classes}
                         modIndex={modIndex}
                     />
                 </div>
             </ConditionalPanel>
-            <ConditionalPanel active={settings.mods[modIndex].type === modTypes.radial.id}>
+            <ConditionalPanel active={mod.settings.type === modTypes.radial.id}>
                 <div className={classes.block}>
                     <Radial
-                        settings={settings}
+                        mod={mod}
                         classes={classes}
                         handleChange={handleChange}
                         setDragProp={setDragProp}
@@ -67,10 +76,10 @@ export const Panel = ({classes, settings, modIndex, handleChange, setDragProp, s
                     />
                 </div>
             </ConditionalPanel>
-            <ConditionalPanel active={settings.mods[modIndex].type === modTypes.trig.id}>
+            <ConditionalPanel active={mod.settings.type === modTypes.trig.id}>
                 <div className={classes.block}>
                     <Trig
-                        settings={settings}
+                        mod={mod}
                         classes={classes}
                         handleChange={handleChange}
                         modIndex={modIndex}
@@ -86,27 +95,28 @@ export const Panel = ({classes, settings, modIndex, handleChange, setDragProp, s
                         step={0.01}
                         id={`mods-${modIndex}-blendRatio`}
                         onChange={handleChange}
-                        value={settings.mods[modIndex].blendRatio}
+                        value={mod.blendRatio}
                         size="small"
                     />
                     <Text>
-                        {settings.mods[modIndex].blendRatio}
+                        {mod.blendRatio}
                     </Text>
                 </Label>
                 <RemapCharacter
                     index={modIndex}
                     handleChange={handleChange}
                     classes={classes}
-                    settings={settings}
+                    mod={mod}
                 />
             </div>
             <div className={classes.block}>
                 <ModInputs
                     classes={classes}
                     handleChange={handleChange}
-                    settings={settings}
                     setSettings={setSettings}
                     modIndex={modIndex}
+                    settings={settings}
+                    mod={mod}
                 />
             </div>
         </div>

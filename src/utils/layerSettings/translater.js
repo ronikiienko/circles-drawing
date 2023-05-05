@@ -58,26 +58,28 @@ export const getTranslatedLayerSettings = (rawSettings) => {
         },
         mods: rawSettings.mods.map(mod => {
             return {
-                type: mod.type,
                 id: mod.id,
-                perlinNoise: createNoise2D(),
-                valueNoise: valueNoise(),
-                sineZoomX: getTranslatedSineZoom(mod.sineZoomX),
-                sineZoomY: getTranslatedSineZoom(mod.sineZoomY),
-                trigType: mod.trigType,
-                noiseType: mod.noiseType,
-                noiseZoom: getTranslatedNoiseZoom(mod.noiseZoom, mod.noiseType),
-                radialRadiusPos: {
-                    x: parseFloat(mod.radialRadiusPos.x),
-                    y: parseFloat(mod.radialRadiusPos.y),
-                },
-                radialCenterPos: {
-                    x: parseFloat(mod.radialCenterPos.x),
-                    y: parseFloat(mod.radialCenterPos.y),
-                },
-                modA: getTranslatedModA(mod.modA),
-                modB: getTranslatedModB(mod.modB),
                 blendRatio: parseFloat(mod.blendRatio),
+                settings: {
+                    type: mod.settings.type,
+                    perlinNoise: createNoise2D(),
+                    valueNoise: valueNoise(),
+                    sineZoomX: getTranslatedSineZoom(mod.settings.sineZoomX),
+                    sineZoomY: getTranslatedSineZoom(mod.settings.sineZoomY),
+                    trigType: mod.settings.trigType,
+                    noiseType: mod.settings.noiseType,
+                    noiseZoom: getTranslatedNoiseZoom(mod.settings.noiseZoom, mod.settings.noiseType),
+                    radialRadiusPos: {
+                        x: parseFloat(mod.settings.radialRadiusPos.x),
+                        y: parseFloat(mod.settings.radialRadiusPos.y),
+                    },
+                    radialCenterPos: {
+                        x: parseFloat(mod.settings.radialCenterPos.x),
+                        y: parseFloat(mod.settings.radialCenterPos.y),
+                    },
+                    modA: getTranslatedModA(mod.settings.modA),
+                    modB: getTranslatedModB(mod.settings.modB),
+                },
                 outputs: {
                     size: {
                         enabled: mod.outputs.size.enabled,

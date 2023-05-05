@@ -4,7 +4,7 @@ import {noiseTypes} from '../../../consts/sharedConsts';
 import {ConditionalPanel} from '../../Shared/ConditionalPanel';
 
 
-export const Noise = ({classes, modIndex, handleChange, settings}) => {
+export const Noise = ({classes, modIndex, handleChange, mod}) => {
     return (
         <>
             <Label className={classes.label}>
@@ -12,8 +12,8 @@ export const Noise = ({classes, modIndex, handleChange, settings}) => {
                 <Select
                     size="small"
                     className={classes.select}
-                    value={settings.mods[modIndex].noiseType}
-                    id={`mods-${modIndex}-noiseType`}
+                    value={mod.settings.noiseType}
+                    id={`mods-${modIndex}-settings-noiseType`}
                     onChange={handleChange}
                 >
                     {Object.values(noiseTypes).map(noiseType => {
@@ -22,7 +22,7 @@ export const Noise = ({classes, modIndex, handleChange, settings}) => {
                 </Select>
             </Label>
             <br/>
-            <ConditionalPanel active={settings.mods[modIndex].noiseType !== noiseTypes.random.id}>
+            <ConditionalPanel active={mod.settings.noiseType !== noiseTypes.random.id}>
                 <Label className={classes.label}>
                     Noise zoom:
                     <Slider
@@ -30,17 +30,17 @@ export const Noise = ({classes, modIndex, handleChange, settings}) => {
                         min={0}
                         max={1}
                         step={0.01}
-                        id={`mods-${modIndex}-noiseZoom`}
+                        id={`mods-${modIndex}-settings-noiseZoom`}
                         onChange={handleChange}
-                        value={settings.mods[modIndex].noiseZoom}
+                        value={mod.settings.noiseZoom}
                     />
                     <Input
                         className={classes.number}
                         size="small"
                         appearance="underline"
-                        id={`mods-${modIndex}-noiseZoom`}
+                        id={`mods-${modIndex}-settings-noiseZoom`}
                         onChange={handleChange}
-                        value={settings.mods[modIndex].noiseZoom}
+                        value={mod.settings.noiseZoom}
                     />
                 </Label>
             </ConditionalPanel>
