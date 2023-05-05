@@ -24,7 +24,6 @@ export const Mods = ({
                          setNavState,
                      }) => {
     const localClasses = useStyles();
-
     return (
         <>
             <Accordion

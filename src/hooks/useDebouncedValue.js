@@ -1,8 +1,9 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
+import {useImmer} from 'use-immer';
 
 
 export const useDebouncedValue = (value, delay) => {
-    const [debouncedValue, setDebouncedValue] = useState(value);
+    const [debouncedValue, setDebouncedValue] = useImmer(value);
 
     useEffect(() => {
         const handler = setTimeout(() => {
@@ -12,7 +13,7 @@ export const useDebouncedValue = (value, delay) => {
         return () => {
             clearTimeout(handler);
         };
-    }, [value, delay]);
+    }, [value, delay, setDebouncedValue]);
 
     return debouncedValue;
 };

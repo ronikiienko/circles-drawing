@@ -425,3 +425,4 @@ export const Controls = ({navState, setNavState, settings, setSettings, appSetti
     );
 };
 
+// TODO handle if two tabs opened somehow
