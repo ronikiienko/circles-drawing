@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fluentui/react-components": "^9.18.0",
+    "@fluentui/react-components": "^9.19.1",
     "@fluentui/react-icons": "^2.0.196",
     "@fluentui/react-tabs": "^9.3.2",
     "@fluentui/react-text": "^9.3.2",

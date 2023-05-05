@@ -29,7 +29,7 @@ const useStyles = makeStyles({
         ...shorthands.padding(`${shapeEditorFlagsSize / 1.5}px`),
     },
     pointElement: {
-        ...shorthands.marginBlock('5px'),
+        marginBlock: '5px',
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
         display: 'flex',
         alignItems: 'center',

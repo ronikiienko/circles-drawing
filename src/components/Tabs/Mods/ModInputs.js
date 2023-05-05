@@ -29,14 +29,14 @@ const useStyles = makeStyles({
         display: 'inline-flex',
         ...shorthands.margin('2px'),
         width: 'fit-content',
-        ...shorthands.paddingInline('4px'),
-        ...shorthands.paddingBlock('2px'),
+        paddingInline: '4px',
+        paddingBlock: '2px',
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
     },
     modInputInput: {
         maxHeight: '10px',
         maxWidth: '35px',
-        ...shorthands.marginInline('5px'),
+        marginInline: '5px',
     },
 });
 export const ModInputs = ({settings, modIndex, setSettings, handleChange, classes}) => {

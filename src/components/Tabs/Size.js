@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     },
     modItem: {
         ...shorthands.padding('5px'),
-        ...shorthands.marginBlock('5px'),
+        marginBlock: '5px',
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
     },
     modItemBase: {

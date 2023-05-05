@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     block: {
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
         ...shorthands.border('1px', 'solid', tokens.colorNeutralStencil1Alpha),
-        ...shorthands.marginBlock('5px'),
+        marginBlock: '5px',
     },
 });
 

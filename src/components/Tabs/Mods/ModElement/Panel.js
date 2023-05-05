@@ -12,12 +12,12 @@ import {Trig} from '../Trig';
 const useStyles = makeStyles({
     accordionPanel: {
         ...shorthands.margin('0px'),
-        ...shorthands.paddingInline('4px'),
+        paddingInline: '4px',
     },
     block: {
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
         ...shorthands.border('1px', 'solid', tokens.colorNeutralStencil1Alpha),
-        ...shorthands.marginBlock('5px'),
+        marginBlock: '5px',
     },
 });
 export const Panel = ({classes, settings, modIndex, handleChange, setDragProp, setClickAndSetProp, setSettings}) => {
