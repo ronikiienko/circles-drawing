@@ -130,6 +130,10 @@ export const getLayerSettings = (preset) => {
                                 to: mod?.outputs?.branchesDirectionDelta?.val2?.to ?? mod?.outputs?.branchesDirection?.val2?.to ?? defaultMod.outputs.branchesDirectionDelta.val2.to,
                             },
                         },
+                        branchesDirection: {
+                            enabled: mod?.outputs?.branchesDirection?.enabled ?? defaultMod.outputs.branchesDirection.enabled,
+                            val2: mod?.outputs?.branchesDirection?.val2 ?? defaultMod.outputs.branchesDirection.val2,
+                        },
                     },
                     modOutputs: Array.isArray(mod?.modOutputs)
                         ? mod?.modOutputs?.map((modOutput) => {
@@ -155,6 +159,7 @@ export const getLayerSettings = (preset) => {
             branchesOn: preset?.position?.branchesOn ?? defaultPreset.position.branchesOn,
             branchesLength: preset?.position?.branchesLength ?? defaultPreset.position.branchesLength,
             branchesMagnitude: preset?.position?.branchesMagnitude ?? defaultPreset.position.branchesMagnitude,
+            branchesDirection: preset?.position?.branchesDirection ?? defaultPreset.position.branchesDirection,
             biasType: preset?.position?.biasType ?? defaultPreset.position.biasType,
             chessPlateWidth: preset?.position?.chessPlateWidth ?? defaultPreset.position.chessPlateWidth,
             chessPlateHeight: preset?.position?.chessPlateHeight ?? defaultPreset.position.chessPlateHeight,

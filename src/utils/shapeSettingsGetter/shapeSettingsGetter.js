@@ -30,6 +30,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
 
     let xPosition;
     let yPosition;
+
     if (isBranchElement) {
         xPosition = last.x;
         yPosition = last.y;

@@ -10,7 +10,7 @@ export const BranchesDirectionDelta = ({settings, classes, handleChange, setSett
                 settings={settings}
                 classes={classes}
                 setSettings={setSettings}
-                header="Branches direction (from - to)"
+                header="Branches direction delta (from - to)"
                 paramName="branchesDirectionDelta"
                 noInputRow
             >

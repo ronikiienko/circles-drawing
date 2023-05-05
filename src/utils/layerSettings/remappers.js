@@ -34,6 +34,10 @@ export const getTranslatedAngle = (angle) => {
     return parseFloat(angle);
 };
 
+export const getTranslatedBranchesDirection = (branchesDirection) => {
+    return parseFloat(branchesDirection);
+};
+
 export const getAngle = (angle) => {
     return parseFloat(angle) / 360;
 };
