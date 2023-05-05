@@ -20,6 +20,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hotkeys-hook": "^4.3.8",
+    "react-viewport-list": "^7.1.1",
     "save-file": "^2.3.1",
     "simplex-noise": "^4.0.1",
     "use-immer": "^0.8.1"
