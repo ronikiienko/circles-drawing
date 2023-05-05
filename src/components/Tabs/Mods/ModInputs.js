@@ -75,7 +75,7 @@ export const ModInputs = ({settings, modIndex, setSettings, handleChange, classe
                                             draft.mods[modToAddIndex].modOutputs.push(getDefaultModOutput(settings.mods[modIndex].id));
                                         })}
                                     >
-                                        {modToAdd.name} ({modToAdd.type})
+                                        {modToAdd.name} ({modToAdd.settings.type})
                                     </MenuItem>
                                 );
                             })}

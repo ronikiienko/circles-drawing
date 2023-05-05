@@ -31,7 +31,7 @@ export const getTranslatedRectRoundness = (rectRoundness) => {
     return parseFloat(rectRoundness);
 };
 export const getTranslatedAngle = (angle) => {
-    return parseFloat(angle) * 360;
+    return parseFloat(angle);
 };
 
 export const getAngle = (angle) => {

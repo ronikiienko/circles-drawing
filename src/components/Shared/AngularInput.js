@@ -24,6 +24,7 @@ const useStyles = makeStyles({
     },
 });
 
+// TODO when give min 0 and max 360, when rotate left it is negative up to -180. It's not what i need
 export const AngularInput = ({value, onChange, id, style, className, size = 30, min = 0, max, half = false}) => {
     const localClasses = useStyles();
     const inputRef = useRef(null);

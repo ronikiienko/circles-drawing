@@ -1,6 +1,5 @@
 import {nanoid} from 'nanoid';
 import {getRandomHslArr} from '../utils/generalUtils';
-import {getAngle} from '../utils/layerSettings/remappers';
 import {getRandomName} from '../utils/nameGenerators';
 import {
     biasSpiralTypes,
@@ -250,7 +249,7 @@ export const layerPresets = [
         },
         shape: {
             shape: shapeTypes.rectangle,
-            angle: getAngle(30),
+            angle: 30,
             widthRatio: 0.2,
             rectRoundness: 0,
             customShape: getDefaultCustomShape(),

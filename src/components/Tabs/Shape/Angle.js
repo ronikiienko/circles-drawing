@@ -1,6 +1,5 @@
-import {Label, Text} from '@fluentui/react-components';
+import {Input, Label} from '@fluentui/react-components';
 import React from 'react';
-import {getTranslatedAngle} from '../../../utils/layerSettings/remappers';
 import {AngularInput} from '../../Shared/AngularInput';
 import {ParamHeader, ParamMod} from '../../Shared/ParamWrappers';
 
@@ -21,10 +20,17 @@ export const Angle = ({settings, classes, handleChange, setClickAndSetProp, setS
                         id="shape-angle"
                         onChange={handleChange}
                         size={30}
-                        min={0}
-                        max={1}
+                        min={1}
+                        max={360}
                     />
-                    <Text className={classes.slider}>{getTranslatedAngle(settings.shape.angle).toFixed(0)}°</Text>
+                    <Input
+                        onChange={handleChange}
+                        id="shape-angle"
+                        value={settings.shape.angle}
+                        appearance="underline"
+                        className={classes.number}
+                        size="small"
+                    />
                 </Label>
             </ParamHeader>
             {settings.mods.map((mod, modIndex) => {
@@ -44,11 +50,17 @@ export const Angle = ({settings, classes, handleChange, setClickAndSetProp, setS
                                 id={`mods-${modIndex}-outputs-angle-val2`}
                                 onChange={handleChange}
                                 size={30}
-                                min={0}
-                                max={1}
+                                min={1}
+                                max={360}
                             />
-                            <Text
-                                className={classes.slider}>{getTranslatedAngle(mod.outputs.angle.val2).toFixed(0)}°</Text>
+                            <Input
+                                onChange={handleChange}
+                                id={`mods-${modIndex}-outputs-angle-val2`}
+                                value={mod.outputs.angle.val2}
+                                appearance="underline"
+                                className={classes.number}
+                                size="small"
+                            />
                         </Label>
                     </ParamMod>
                 );
