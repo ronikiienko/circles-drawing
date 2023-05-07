@@ -4,6 +4,7 @@ import {biasTypes} from '../../../consts/sharedConsts';
 import {ConditionalPanel} from '../../Shared/ConditionalPanel';
 import {BiasCharacter} from './BiasCharacter';
 import {Branches} from './Branches';
+import {BranchesDirection} from './BranchesDirection';
 import {BranchesDirectionDelta} from './BranchesDirectionDelta';
 import {BranchesMagnitude} from './BranchesMagnitude';
 import {ChessPlateSpecific} from './ChessPlateSpecific';
@@ -124,6 +125,14 @@ export const Position = ({settings, setClickAndSetProp, setSettings, handleChang
                 </div>
                 <div className={classes.block}>
                     <BranchesDirectionDelta
+                        classes={classes}
+                        settings={settings}
+                        handleChange={handleChange}
+                        setSettings={setSettings}
+                    />
+                </div>
+                <div className={classes.block}>
+                    <BranchesDirection
                         classes={classes}
                         settings={settings}
                         handleChange={handleChange}

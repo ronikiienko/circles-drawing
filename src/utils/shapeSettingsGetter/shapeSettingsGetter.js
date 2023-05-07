@@ -69,6 +69,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     const yOffsetModsDeltas = [];
     const branchesMagnitudeModsDeltas = [];
     const branchesDirectionDeltaModsDeltas = [];
+    const branchesDirectionModsDeltas = [];
 
     settings.mods?.forEach((mod) => {
         if (mod.outputs.size.enabled) {
@@ -136,6 +137,9 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
         if (mod.outputs.branchesDirectionDelta.enabled) {
             branchesDirectionDeltaModsDeltas.push([mod.outputs.branchesDirectionDelta.val2.to - (mod.outputs.branchesDirectionDelta.val2.to - mod.outputs.branchesDirectionDelta.val2.from) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
         }
+        if (mod.outputs.branchesDirection.enabled) {
+            branchesDirectionModsDeltas.push([(mod.outputs.branchesDirection.val2 - settings.position.branchesDirection) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
+        }
     });
 
     const sizeModsSum = getWeightedSum(...sizeModsDeltas) || 0;
@@ -151,6 +155,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     const yOffsetModsSum = getWeightedSum(...yOffsetModsDeltas);
     const branchesMagnitudeModsSum = getWeightedSum(...branchesMagnitudeModsDeltas);
     const branchesDirectionDeltaModsSum = getWeightedSum(...branchesDirectionDeltaModsDeltas);
+    const branchesDirectionModsSum = getWeightedSum(...branchesDirectionModsDeltas);
 
     let widthRatio = settings.shape.widthRatio + widthRatioModsSum;
     let rectRoundness = settings.shape.rectRoundness + rectRoundnessModsSum;
