@@ -1,5 +1,5 @@
 import {modTypes} from '../../consts/sharedConsts';
-import {clampValueToRange} from '../generalUtils';
+import {clampValueToRange, modRemap} from '../generalUtils';
 import {indexMod, noiseMod, radialMod, trigMod} from '../layerSettings/mods';
 
 
@@ -24,7 +24,7 @@ export const calculateModsResults = (settings, x, y, absoluteIndex, branchIndex)
                 value = trigMod(x, y, mod);
                 break;
         }
-        value = clampValueToRange(0, 1, value);
+        value = modRemap(clampValueToRange(0, 1, value), mod.settings.modA, mod.settings.modB);
         modsResultsTemp[mod.id] = value;
         modsResults[mod.id] = value;
     });

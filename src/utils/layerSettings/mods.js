@@ -1,5 +1,5 @@
 import {noiseTypes, trigModTypes} from '../../consts/sharedConsts';
-import {getVectorByTwoPoints, modRemap} from '../generalUtils';
+import {getVectorByTwoPoints} from '../generalUtils';
 
 
 export const radialMod = (x, y, mod) => {
@@ -12,12 +12,11 @@ export const radialMod = (x, y, mod) => {
     } else {
         ratio = 0;
     }
-    ratio = modRemap(ratio, mod.settings.modA, mod.settings.modB);
     return ratio;
 };
 
 export const randomMod = (mod) => {
-    return modRemap(Math.random(), mod.settings.modA, mod.settings.modB);
+    return Math.random();
 };
 
 export const noiseMod = (x, y, mod) => {
@@ -32,11 +31,11 @@ export const noiseMod = (x, y, mod) => {
         case noiseTypes.value.id:
             noiseValue = mod.settings.valueNoise(x * mod.settings.noiseZoom, y * mod.settings.noiseZoom);
     }
-    return modRemap(noiseValue, mod.settings.modA, mod.settings.modB);
+    return noiseValue;
 };
 
 export const indexMod = (currentIndex, shapesNumber, mod) => {
-    return modRemap(currentIndex / shapesNumber, mod.settings.modA, mod.settings.modB);
+    return currentIndex / shapesNumber;
 };
 
 export const sinTo01 = (value) => {
@@ -47,19 +46,18 @@ export const trigMod = (x, y, mod) => {
     if (mod.settings.trigType === trigModTypes.sine.id) {
         let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
         let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY));
-        let avg = (xSin + ySin) / 2;
-        return modRemap(avg, mod.settings.modA, mod.settings.modB);
+        return (xSin + ySin) / 2;
     }
     if (mod.settings.trigType === trigModTypes.circles.id) {
         let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
         let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY));
         let avg = (xSin + ySin) / 2;
-        return modRemap((Math.sin(avg * 50) + 1) / 2, mod.settings.modA, mod.settings.modB);
+        return (Math.sin(avg * 50) + 1) / 2;
     }
     if (mod.settings.trigType === trigModTypes.tan.id) {
         let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
         let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY)) * sinTo01(Math.tan(x / mod.settings.sineZoomX));
         let avg = (xSin + ySin) / 2;
-        return modRemap((Math.sin(avg * 10) + 1) / 2, mod.settings.modA, mod.settings.modB);
+        return (Math.sin(avg * 10) + 1) / 2;
     }
 };
