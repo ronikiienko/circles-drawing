@@ -1,53 +1,35 @@
-import {getBiasedRandomNumber, getPointByDistanceAndAngle, hslArrToHsl} from '../generalUtils';
+import {getPointByDistanceAndAngle, hslArrToHsl} from '../generalUtils';
 import {calculateModSums} from '../layerSettings/calculateModSums';
 import {calculateModsResults} from './calculateModsResults';
 import {calculatePosition} from './calculatePosition';
 
-
+// TODO reset between different layers (use absoluteIndex probably)
+// TODO in last position of branch, two shapes spawn
 let next = {
     level: 0,
     x: 0,
     y: 0,
     direction: 0,
+    isBranchElement: false,
+    branchIndex: 0,
 };
-let branchIndex = 0;
 
 export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
-    const isBranchElement = (
-        settings.position.branchesOn &&
-        settings.position.branchesLength > 0 &&
-        next.level <= settings.position.branchesLength &&
-        next.level !== 0 &&
-        absoluteIndex !== 0
-    );
-
     let xPosition;
     let yPosition;
 
-    if (isBranchElement) {
+    if (next.isBranchElement && absoluteIndex !== 0) {
         xPosition = next.x;
         yPosition = next.y;
     } else {
-        if (absoluteIndex === 0) {
-            branchIndex = 0;
-        } else {
-            branchIndex++;
-        }
-        const [x, y] = calculatePosition(settings, absoluteIndex, branchIndex);
+        const [x, y] = calculatePosition(settings, absoluteIndex, next.branchIndex);
         xPosition = x;
         yPosition = y;
-        if (settings.position.branchesOn && settings.position.branchesLength > 0) {
-            next = {
-                level: 1,
-                x: xPosition,
-                y: yPosition,
-                direction: getBiasedRandomNumber(0, 355),
-            };
-        }
+        next.branchIndex++;
     }
 
 
-    const modsResults = calculateModsResults(settings, xPosition, yPosition, absoluteIndex, branchIndex);
+    const modsResults = calculateModsResults(settings, xPosition, yPosition, absoluteIndex, next.branchIndex);
     const modsSums = calculateModSums(modsResults, settings, xPosition, yPosition);
 
     let widthRatio = settings.shape.widthRatio + modsSums.widthRatio;
@@ -68,23 +50,45 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     ], strokeTransp);
     // TODO if modsSum is empty array (or color array), it's NaN. maby check also color for such situation (and other)
     let angle = settings.shape.angle + modsSums.angle;
+    xPosition = xPosition + modsSums.xOffset + settings.position.xOffset;
+    yPosition = yPosition + modsSums.yOffset + settings.position.yOffset;
 
-    if (isBranchElement) {
+
+    const isNextBranchElement = (
+        settings.position.branchesOn &&
+        settings.position.branchesLength > 0 &&
+        next.level + 1 <= settings.position.branchesLength &&
+        next.level + 1 > 0
+    );
+    if (isNextBranchElement) {
         const modulatedMagnitude = settings.position.branchesMagnitude + modsSums.branchesMagnitude;
         const modulatedDirection = next.direction + modsSums.branchesDirectionDelta;
-        const [x, y] = getPointByDistanceAndAngle(next.x, next.y, modulatedMagnitude, modulatedDirection);
-        xPosition = x;
-        yPosition = y;
+        let nextPos;
+        if (next.isBranchElement) {
+            nextPos = getPointByDistanceAndAngle(next.x, next.y, modulatedMagnitude, modulatedDirection);
+        } else {
+            nextPos = getPointByDistanceAndAngle(xPosition, yPosition, modulatedMagnitude, modulatedDirection);
+        }
+        xPosition = nextPos[0];
+        yPosition = nextPos[1];
         next = {
             level: next.level + 1,
             x: xPosition,
             y: yPosition,
             direction: modulatedDirection,
+            isBranchElement: true,
+            branchIndex: next.branchIndex,
+        };
+    } else {
+        next = {
+            level: 0,
+            x: null,
+            y: null,
+            direction: settings.position.branchesDirection + modsSums.branchesDirection,
+            isBranchElement: false,
+            branchIndex: next.branchIndex,
         };
     }
-
-    xPosition = xPosition + modsSums.xOffset + settings.position.xOffset;
-    yPosition = yPosition + modsSums.yOffset + settings.position.yOffset;
 
 
     return {

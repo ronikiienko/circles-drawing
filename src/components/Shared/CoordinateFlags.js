@@ -14,8 +14,7 @@ export const CoordinateFlags = ({settings, setDragProp}) => {
                 active={
                     settings.position.biasType === biasTypes.rectangular.id ||
                     settings.position.biasType === biasTypes.off.id ||
-                    settings.position.biasType === biasTypes.chessPlate.id ||
-                    settings.position.branchesOn
+                    settings.position.biasType === biasTypes.chessPlate.id
                 }
             >
                 <CoordinateFlag

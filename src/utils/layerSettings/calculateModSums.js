@@ -89,7 +89,7 @@ export const calculateModSums = (modsResults, settings, xPosition, yPosition) =>
             branchesDirectionDeltaModsDeltas.push([mod.outputs.branchesDirectionDelta.val2.to - (mod.outputs.branchesDirectionDelta.val2.to - mod.outputs.branchesDirectionDelta.val2.from) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
         }
         if (mod.outputs.branchesDirection.enabled) {
-            branchesDirectionModsDeltas.push([(mod.outputs.branchesDirection.val2 - settings.position.branchesDirection) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
+            branchesDirectionModsDeltas.push([calculateShortestAngleDifference(mod.outputs.branchesDirection.val2, settings.position.branchesDirection) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
         }
     });
 
