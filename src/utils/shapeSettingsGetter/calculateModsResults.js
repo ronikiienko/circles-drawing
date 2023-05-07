@@ -3,7 +3,7 @@ import {clampValueToRange, modRemap} from '../generalUtils';
 import {indexMod, noiseMod, radialMod, trigMod} from '../layerSettings/mods';
 
 
-export const calculateModsResults = (settings, x, y, absoluteIndex, branchIndex) => {
+export const calculateModsResults = (settings, x, y, absoluteIndex, indexOfBranch, indexInBranch) => {
     const modsResultsTemp = {};
     const modsResults = {};
     settings.mods.forEach((mod) => {
@@ -18,7 +18,7 @@ export const calculateModsResults = (settings, x, y, absoluteIndex, branchIndex)
                 value = noiseMod(x, y, mod);
                 break;
             case modTypes.index.id:
-                value = indexMod(absoluteIndex, settings.number.number, mod);
+                value = indexMod(absoluteIndex, indexOfBranch, indexInBranch, settings.number.number, mod, settings);
                 break;
             case modTypes.trig.id:
                 value = trigMod(x, y, mod);

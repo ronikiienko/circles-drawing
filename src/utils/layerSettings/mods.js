@@ -1,4 +1,4 @@
-import {noiseTypes, trigModTypes} from '../../consts/sharedConsts';
+import {indexModTypes, noiseTypes, trigModTypes} from '../../consts/sharedConsts';
 import {getVectorByTwoPoints} from '../generalUtils';
 
 
@@ -30,8 +30,17 @@ export const noiseMod = (x, y, mod) => {
     return noiseValue;
 };
 
-export const indexMod = (currentIndex, shapesNumber, mod) => {
-    return currentIndex / shapesNumber;
+export const indexMod = (absoluteIndex, indexOfBranch, indexInBranch, shapesNumber, mod, settings) => {
+    let value;
+    switch (mod.settings.indexType) {
+        case indexModTypes.absoluteIndex.id:
+            value = absoluteIndex / shapesNumber;
+            break;
+        case indexModTypes.indexInBranch.id:
+            value = indexInBranch / settings.position.branchesLength;
+            break;
+    }
+    return value;
 };
 
 export const sinTo01 = (value) => {
