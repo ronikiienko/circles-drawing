@@ -4,7 +4,7 @@ import {calculateModsResults} from './calculateModsResults';
 import {calculatePosition} from './calculatePosition';
 
 
-let last = {
+let next = {
     level: 0,
     x: 0,
     y: 0,
@@ -16,8 +16,8 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     const isBranchElement = (
         settings.position.branchesOn &&
         settings.position.branchesLength > 0 &&
-        settings.position.branchesLength >= last.level &&
-        last.level !== 0 &&
+        next.level <= settings.position.branchesLength &&
+        next.level !== 0 &&
         absoluteIndex !== 0
     );
 
@@ -25,8 +25,8 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     let yPosition;
 
     if (isBranchElement) {
-        xPosition = last.x;
-        yPosition = last.y;
+        xPosition = next.x;
+        yPosition = next.y;
     } else {
         if (absoluteIndex === 0) {
             branchIndex = 0;
@@ -37,7 +37,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
         xPosition = x;
         yPosition = y;
         if (settings.position.branchesOn && settings.position.branchesLength > 0) {
-            last = {
+            next = {
                 level: 1,
                 x: xPosition,
                 y: yPosition,
@@ -67,30 +67,20 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
         settings.color.strokeColor[2] + modsSums.strokeColor[2],
     ], strokeTransp);
     // TODO if modsSum is empty array (or color array), it's NaN. maby check also color for such situation (and other)
-    // console.log(angleModsSum, settings.shape.angle)
     let angle = settings.shape.angle + modsSums.angle;
 
     if (isBranchElement) {
         const modulatedMagnitude = settings.position.branchesMagnitude + modsSums.branchesMagnitude;
-        const modulatedDirection = last.direction + modsSums.branchesDirectionDelta;
-        const [x, y] = getPointByDistanceAndAngle(last.x, last.y, modulatedMagnitude, modulatedDirection);
+        const modulatedDirection = next.direction + modsSums.branchesDirectionDelta;
+        const [x, y] = getPointByDistanceAndAngle(next.x, next.y, modulatedMagnitude, modulatedDirection);
         xPosition = x;
         yPosition = y;
-        if (
-            xPosition < settings.position.startPos.x ||
-            xPosition > settings.position.endPos.x ||
-            yPosition < settings.position.startPos.y ||
-            yPosition > settings.position.endPos.y
-        ) {
-            last.level = 0;
-        } else {
-            last = {
-                level: last.level + 1,
-                x: xPosition,
-                y: yPosition,
-                direction: modulatedDirection,
-            };
-        }
+        next = {
+            level: next.level + 1,
+            x: xPosition,
+            y: yPosition,
+            direction: modulatedDirection,
+        };
     }
 
     xPosition = xPosition + modsSums.xOffset + settings.position.xOffset;
