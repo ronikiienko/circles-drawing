@@ -17,6 +17,16 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     let xPosition;
     let yPosition;
 
+    // if (absoluteIndex === 0) {
+    //     next = {
+    //         level: 0,
+    //         x: 0,
+    //         y: 0,
+    //         direction: 0,
+    //         isBranchElement: false,
+    //         branchIndex: 0,
+    //     }
+    // }
     if (next.isBranchElement && absoluteIndex !== 0) {
         xPosition = next.x;
         yPosition = next.y;
@@ -60,15 +70,12 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
         next.level + 1 > 0
     );
     if (isNextBranchElement) {
-        // TODO use branch direction here to
+        // TODO use branch direction here too
         const modulatedMagnitude = settings.position.branchesMagnitude + modsSums.branchesMagnitude;
         const modulatedDirection = next.direction + modsSums.branchesDirectionDelta;
         let nextPos;
-        if (next.isBranchElement) {
-            nextPos = getPointByDistanceAndAngle(next.x, next.y, modulatedMagnitude, modulatedDirection);
-        } else {
-            nextPos = getPointByDistanceAndAngle(xPosition, yPosition, modulatedMagnitude, modulatedDirection);
-        }
+        if (next.isBranchElement) nextPos = getPointByDistanceAndAngle(next.x, next.y, modulatedMagnitude, modulatedDirection);
+        else nextPos = getPointByDistanceAndAngle(xPosition, yPosition, modulatedMagnitude, modulatedDirection);
         next = {
             level: next.level + 1,
             x: nextPos[0],
@@ -78,7 +85,6 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
             branchIndex: next.branchIndex,
         };
     } else {
-        // console.log('mimo');
         next = {
             level: 0,
             x: null,
