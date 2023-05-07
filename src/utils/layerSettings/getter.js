@@ -60,6 +60,7 @@ export const getLayerSettings = (preset) => {
                         sineZoomX: mod?.settings?.sineZoomX ?? mod?.sineZoomX ?? defaultMod.settings.sineZoomX,
                         sineZoomY: mod?.settings?.sineZoomY ?? mod?.sineZoomY ?? defaultMod.settings.sineZoomY,
                         trigType: mod?.settings?.trigType ?? mod?.trigType ?? defaultMod.settings.trigType,
+                        indexType: mod?.settings?.indexType ?? defaultMod.settings.indexType,
                         noiseType: mod?.settings?.noiseType ?? mod?.noiseType ?? defaultMod.settings.noiseType,
                         noiseZoom: mod?.settings?.noiseZoom ?? mod?.noiseZoom ?? defaultMod.settings.noiseZoom,
                         modA: mod?.settings?.modA ?? mod?.modA ?? defaultMod.settings.modA,

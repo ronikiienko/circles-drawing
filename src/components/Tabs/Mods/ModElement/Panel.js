@@ -1,6 +1,6 @@
 import {Label, makeStyles, Select, shorthands, Slider, Text, tokens} from '@fluentui/react-components';
 import React from 'react';
-import {modTypes} from '../../../../consts/sharedConsts';
+import {indexModTypes, modTypes} from '../../../../consts/sharedConsts';
 import {ConditionalPanel} from '../../../Shared/ConditionalPanel';
 import {ModInputs} from '../ModInputs';
 import {Noise} from '../Noise';
@@ -84,6 +84,29 @@ export const Panel = ({
                         handleChange={handleChange}
                         modIndex={modIndex}
                     />
+                </div>
+            </ConditionalPanel>
+            <ConditionalPanel active={mod.settings.type === modTypes.index.id}>
+                <div className={classes.block}>
+                    <Label className={classes.label}>
+                        Index mod type:
+                        <Select
+                            className={classes.slider}
+                            onChange={handleChange}
+                            id={`mods-${modIndex}-settings-indexType`}
+                            value={mod.settings.indexType}
+                            size="small"
+                        >
+                            {Object.values(indexModTypes).map(indexModType => {
+                                return <option
+                                    key={indexModType.id}
+                                    value={indexModType.id}
+                                >
+                                    {indexModType.name}
+                                </option>;
+                            })}
+                        </Select>
+                    </Label>
                 </div>
             </ConditionalPanel>
             <div className={classes.block}>

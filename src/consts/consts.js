@@ -4,6 +4,7 @@ import {getRandomName} from '../utils/nameGenerators';
 import {
     biasSpiralTypes,
     biasTypes,
+    indexModTypes,
     modTypes,
     noiseTypes,
     pixelShapeBrushTypes,
@@ -149,6 +150,7 @@ export const getDefaultMod = (name) => {
             noiseZoom: 0.2,
             sineZoomX: 0.2,
             sineZoomY: 0.2,
+            indexType: indexModTypes.absoluteIndex.id,
             trigType: trigModTypes.sine,
             modA: 0.3,
             modB: 0.3,

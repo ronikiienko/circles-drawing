@@ -15,10 +15,6 @@ export const radialMod = (x, y, mod) => {
     return ratio;
 };
 
-export const randomMod = (mod) => {
-    return Math.random();
-};
-
 export const noiseMod = (x, y, mod) => {
     let noiseValue;
     switch (mod.settings.noiseType) {

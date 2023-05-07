@@ -22,8 +22,8 @@ export const Overlay = ({settings, handleChange, classes}) => {
                             value={overlayMode}
                         >
                             {overlayMode}
-                        </option>)
-                    }
+                        </option>,
+                    )}
                 </Select>
                 <InfoButton content={
                     <>

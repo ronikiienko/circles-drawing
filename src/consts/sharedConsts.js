@@ -137,9 +137,13 @@ export const indexModTypes = {
         id: 'absoluteIndex',
         name: 'Absolute index',
     },
-    branchIndex: {
-        id: 'branchIndex',
-        name: 'Branch index',
+    indexOfBranch: {
+        id: 'indexOfBranch',
+        name: 'Index of branch',
+    },
+    indexInBranch: {
+        id: 'indexInBranch',
+        name: 'Index in branch',
     },
 };
 

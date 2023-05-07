@@ -68,6 +68,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                     sineZoomX: getTranslatedSineZoom(mod.settings.sineZoomX),
                     sineZoomY: getTranslatedSineZoom(mod.settings.sineZoomY),
                     trigType: mod.settings.trigType,
+                    indexType: mod.settings.indexType,
                     noiseType: mod.settings.noiseType,
                     noiseZoom: getTranslatedNoiseZoom(mod.settings.noiseZoom, mod.settings.noiseType),
                     radialRadiusPos: {
