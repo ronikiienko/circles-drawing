@@ -4,7 +4,6 @@ import {calculateModsResults} from './calculateModsResults';
 import {calculatePosition} from './calculatePosition';
 
 // TODO reset between different layers (use absoluteIndex probably)
-// TODO in last position of branch, two shapes spawn
 let next = {
     level: 0,
     x: 0,
@@ -57,10 +56,11 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     const isNextBranchElement = (
         settings.position.branchesOn &&
         settings.position.branchesLength > 0 &&
-        next.level + 1 <= settings.position.branchesLength &&
+        next.level + 1 < settings.position.branchesLength &&
         next.level + 1 > 0
     );
     if (isNextBranchElement) {
+        // TODO use branch direction here to
         const modulatedMagnitude = settings.position.branchesMagnitude + modsSums.branchesMagnitude;
         const modulatedDirection = next.direction + modsSums.branchesDirectionDelta;
         let nextPos;
@@ -69,17 +69,16 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
         } else {
             nextPos = getPointByDistanceAndAngle(xPosition, yPosition, modulatedMagnitude, modulatedDirection);
         }
-        xPosition = nextPos[0];
-        yPosition = nextPos[1];
         next = {
             level: next.level + 1,
-            x: xPosition,
-            y: yPosition,
+            x: nextPos[0],
+            y: nextPos[1],
             direction: modulatedDirection,
             isBranchElement: true,
             branchIndex: next.branchIndex,
         };
     } else {
+        // console.log('mimo');
         next = {
             level: 0,
             x: null,
