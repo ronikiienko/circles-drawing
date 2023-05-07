@@ -24,7 +24,7 @@ export const calculateModsResults = (settings, x, y, absoluteIndex, branchIndex)
                 value = trigMod(x, y, mod);
                 break;
         }
-        if (value < 0 || value > 1) throw 'Mod value is out of range';
+        if (value < 0 || value > 1 || !value) throw 'Mod value is out of range';
         value = modRemap(value, mod.settings.modA, mod.settings.modB);
         modsResultsTemp[mod.id] = value;
         modsResults[mod.id] = value;
