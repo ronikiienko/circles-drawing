@@ -133,7 +133,10 @@ export const getLayerSettings = (preset) => {
                         },
                         branchesDirection: {
                             enabled: mod?.outputs?.branchesDirection?.enabled ?? defaultMod.outputs.branchesDirection.enabled,
-                            val2: mod?.outputs?.branchesDirection?.val2 ?? defaultMod.outputs.branchesDirection.val2,
+                            val2: {
+                                from: mod?.outputs?.branchesDirection?.val2?.from ?? defaultMod.outputs.branchesDirection.val2.from,
+                                to: mod?.outputs?.branchesDirection?.val2?.to ?? defaultMod.outputs.branchesDirection.val2.to,
+                            },
                         },
                     },
                     modOutputs: Array.isArray(mod?.modOutputs)

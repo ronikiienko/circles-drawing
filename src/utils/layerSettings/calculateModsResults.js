@@ -1,6 +1,6 @@
 import {modTypes} from '../../consts/sharedConsts';
 import {clampValueToRange, modRemap} from '../generalUtils';
-import {indexMod, noiseMod, radialMod, trigMod} from '../layerSettings/mods';
+import {indexMod, noiseMod, radialMod, trigMod} from './mods';
 
 
 export const calculateModsResults = (settings, x, y, absoluteIndex, indexOfBranch, indexInBranch) => {

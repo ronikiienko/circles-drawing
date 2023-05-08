@@ -44,20 +44,21 @@ export const BranchesDirection = ({settings, classes, setSettings, handleChange}
                         modIndex={modIndex}
                     >
                         <Label className={classes.label}>
-                            <AngularInput
-                                id={`mods-${modIndex}-outputs-branchesDirection-val2`}
-                                onChange={handleChange}
-                                value={settings.mods[modIndex].outputs.branchesDirection.val2}
-                                min={1}
-                                max={360}
-                            />
                             <Input
-                                appearance="underline"
                                 size="small"
-                                id={`mods-${modIndex}-outputs-branchesDirection-val2`}
-                                onChange={handleChange}
-                                value={settings.mods[modIndex].outputs.branchesDirection.val2}
                                 className={classes.number}
+                                id={`mods-${modIndex}-outputs-branchesDirection-val2-from`}
+                                onChange={handleChange}
+                                value={settings.mods[modIndex].outputs.branchesDirection.val2.from}
+                            />
+                        </Label>
+                        <Label className={classes.label}>
+                            <Input
+                                size="small"
+                                className={classes.number}
+                                id={`mods-${modIndex}-outputs-branchesDirection-val2-to`}
+                                onChange={handleChange}
+                                value={settings.mods[modIndex].outputs.branchesDirection.val2.to}
                             />
                         </Label>
                     </ParamMod>

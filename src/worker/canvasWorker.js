@@ -1,8 +1,8 @@
 import {CMD, maxUndoTimes, progressStatuses} from '../consts/sharedConsts';
 import {db} from '../db';
 import {getTranslatedAppSettings} from '../utils/appSettings/translater';
+import {getRandomizedShapeSettings} from '../utils/layerSettings/shapeSettingsGetter';
 import {getTranslatedLayerSettings} from '../utils/layerSettings/translater';
-import {getRandomizedShapeSettings} from '../utils/shapeSettingsGetter/shapeSettingsGetter';
 import {drawShape} from './drawShape';
 
 

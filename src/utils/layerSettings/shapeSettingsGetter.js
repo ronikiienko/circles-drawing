@@ -1,6 +1,6 @@
 import {getPointByDistanceAndAngle, hslArrToHsl} from '../generalUtils';
-import {calculateModSums} from '../layerSettings/calculateModSums';
 import {calculateModsResults} from './calculateModsResults';
+import {calculateModSums} from './calculateModSums';
 import {calculatePosition} from './calculatePosition';
 
 // TODO reset between different layers (use absoluteIndex probably)

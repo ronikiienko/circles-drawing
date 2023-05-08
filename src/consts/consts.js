@@ -220,7 +220,10 @@ export const getDefaultMod = (name) => {
             },
             branchesDirection: {
                 enabled: false,
-                val2: 90,
+                val2: {
+                    from: -20,
+                    to: 20,
+                },
             },
         },
         modOutputs: [],

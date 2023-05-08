@@ -91,7 +91,7 @@ export const calculateModSums = (modsResults, settings, xPosition, yPosition) =>
         }
         if (mod.outputs.branchesDirection.enabled) {
             // TODO i want to be able to get full randomness 360 degrees
-            branchesDirectionModsDeltas.push([(mod.outputs.branchesDirection.val2 - settings.position.branchesDirection) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
+            branchesDirectionModsDeltas.push([mod.outputs.branchesDirection.val2.to - (mod.outputs.branchesDirection.val2.to - mod.outputs.branchesDirection.val2.from) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
         }
     });
 
