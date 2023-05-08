@@ -72,6 +72,7 @@ export const calculateModSums = (modsResults, settings, xPosition, yPosition) =>
                 lookToDelta = calculateShortestAngleDifference(settings.shape.angle, angle) * modsResults[mod.id];
             }
             if (mod.outputs.angle.enabled) {
+                // TODO how can i get full randomness? 360 degrees
                 angleDelta = calculateShortestAngleDifference(settings.shape.angle, mod.outputs.angle.val2) * modsResults[mod.id];
             }
             angleModsDeltas.push([(angleDelta + lookToDelta), modsResults[mod.id] * mod.blendRatio]);
@@ -89,7 +90,8 @@ export const calculateModSums = (modsResults, settings, xPosition, yPosition) =>
             branchesDirectionDeltaModsDeltas.push([mod.outputs.branchesDirectionDelta.val2.to - (mod.outputs.branchesDirectionDelta.val2.to - mod.outputs.branchesDirectionDelta.val2.from) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
         }
         if (mod.outputs.branchesDirection.enabled) {
-            branchesDirectionModsDeltas.push([calculateShortestAngleDifference(mod.outputs.branchesDirection.val2, settings.position.branchesDirection) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
+            // TODO i want to be able to get full randomness 360 degrees
+            branchesDirectionModsDeltas.push([(mod.outputs.branchesDirection.val2 - settings.position.branchesDirection) * modsResults[mod.id], modsResults[mod.id] * mod.blendRatio]);
         }
     });
 

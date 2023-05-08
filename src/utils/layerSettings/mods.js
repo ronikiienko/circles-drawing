@@ -25,6 +25,7 @@ export const noiseMod = (x, y, mod) => {
             noiseValue = Math.random();
             break;
         case noiseTypes.value.id:
+            // TODO sometimes give little negative number ( when out of field) sometimes gives nan
             noiseValue = mod.settings.valueNoise(x * mod.settings.noiseZoom, y * mod.settings.noiseZoom);
     }
     return noiseValue;
