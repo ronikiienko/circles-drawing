@@ -190,7 +190,10 @@ export const getDefaultMod = (name) => {
             },
             angle: {
                 enabled: false,
-                val2: 0.4,
+                val2: {
+                    from: -10,
+                    to: 10,
+                },
             },
             lookTo: {
                 enabled: false,
@@ -259,7 +262,7 @@ export const layerPresets = [
         shape: {
             shape: shapeTypes.rectangle,
             angle: 30,
-            widthRatio: 0.2,
+            widthRatio: 0.4,
             rectRoundness: 0,
             customShape: getDefaultCustomShape(),
             strokeOn: false,

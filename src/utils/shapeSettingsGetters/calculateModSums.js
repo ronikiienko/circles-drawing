@@ -73,7 +73,7 @@ export const calculateModSums = (modsResults, settings, xPosition, yPosition) =>
             }
             if (mod.outputs.angle.enabled) {
                 // TODO how can i get full randomness? 360 degrees
-                angleDelta = calculateShortestAngleDifference(settings.shape.angle, mod.outputs.angle.val2) * modsResults[mod.id];
+                angleDelta = mod.outputs.angle.val2.to - (mod.outputs.angle.val2.to - mod.outputs.angle.val2.from) * modsResults[mod.id];
             }
             angleModsDeltas.push([(angleDelta + lookToDelta), modsResults[mod.id] * mod.blendRatio]);
         }

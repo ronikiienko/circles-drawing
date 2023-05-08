@@ -45,21 +45,21 @@ export const Angle = ({settings, classes, handleChange, setClickAndSetProp, setS
                         modIndex={modIndex}
                     >
                         <Label className={classes.label}>
-                            <AngularInput
-                                value={mod.outputs.angle.val2}
-                                id={`mods-${modIndex}-outputs-angle-val2`}
-                                onChange={handleChange}
-                                size={30}
-                                min={1}
-                                max={360}
-                            />
                             <Input
-                                onChange={handleChange}
-                                id={`mods-${modIndex}-outputs-angle-val2`}
-                                value={mod.outputs.angle.val2}
-                                appearance="underline"
-                                className={classes.number}
                                 size="small"
+                                className={classes.number}
+                                id={`mods-${modIndex}-outputs-angle-val2-from`}
+                                onChange={handleChange}
+                                value={settings.mods[modIndex].outputs.angle.val2.from}
+                            />
+                        </Label>
+                        <Label className={classes.label}>
+                            <Input
+                                size="small"
+                                className={classes.number}
+                                id={`mods-${modIndex}-outputs-angle-val2-to`}
+                                onChange={handleChange}
+                                value={settings.mods[modIndex].outputs.angle.val2.to}
                             />
                         </Label>
                     </ParamMod>

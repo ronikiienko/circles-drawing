@@ -101,7 +101,10 @@ export const getLayerSettings = (preset) => {
                         },
                         angle: {
                             enabled: mod?.outputs?.angle?.enabled ?? defaultMod.outputs.angle.enabled,
-                            val2: mod?.outputs?.angle?.val2 ?? defaultMod.outputs.angle.val2,
+                            val2: {
+                                from: mod?.outputs?.angle?.val2?.from ?? defaultMod.outputs.angle.val2.from,
+                                to: mod?.outputs?.angle?.val2?.to ?? defaultMod.outputs.angle.val2.to,
+                            },
                         },
                         lookTo: {
                             enabled: mod?.outputs?.lookTo?.enabled ?? defaultMod.outputs.lookTo.enabled,
