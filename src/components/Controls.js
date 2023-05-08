@@ -3,8 +3,6 @@ import {
     Divider,
     Field,
     makeStyles,
-    Overflow,
-    OverflowItem,
     ProgressBar,
     shorthands,
     Tab,
@@ -19,7 +17,7 @@ import {
     Eye16Regular,
     Stop16Regular,
 } from '@fluentui/react-icons';
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 import {useImmer} from 'use-immer';
 import {hotkeys, tabs} from '../consts/consts';
@@ -35,7 +33,6 @@ import './Controls.css';
 import {ConditionalPanel} from './Shared/ConditionalPanel';
 import {CoordinateFlags} from './Shared/CoordinateFlags';
 import {Resizer} from './Shared/Resizer';
-import {TabOverflowMenu} from './Shared/TabOverflowMenu';
 import {Brush} from './Tabs/Brush';
 import {MainColor} from './Tabs/Color/MainColor';
 import {Mods} from './Tabs/Mods/Mods';
@@ -71,7 +68,6 @@ const useStyles = makeStyles({
         // height: '300px',
     },
 
-    header: {},
     content: {
         '::-webkit-scrollbar-thumb': {
             backgroundColor: tokens.colorScrollbarOverlay,
@@ -119,10 +115,25 @@ const useStyles = makeStyles({
         top: '5px',
         zIndex: 10,
     },
-    tabsContainer: {
+    header: {
         display: 'flex',
         justifyContent: 'center',
-        marginBottom: '10px',
+    },
+    tabsContainer: {
+        paddingBottom: '3px',
+        width: '95%',
+        maxWidth: 'fit-content',
+        ...shorthands.overflow('scroll', 'scroll'),
+        '::-webkit-scrollbar': {
+            display: 'block',
+            width: '0px',
+            height: '3px',
+        },
+        '&:hover::-webkit-scrollbar-thumb': {
+            height: '3px',
+            backgroundColor: tokens.colorNeutralStencil1Alpha,
+            ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        },
     },
 
 });
@@ -212,6 +223,19 @@ export const Controls = ({navState, setNavState, settings, setSettings, appSetti
     const localClasses = useStyles();
     const tabsClasses = useStylesTabs();
 
+    const tabListRef = useRef(null);
+    useEffect(() => {
+        const tabList = tabListRef.current;
+        const wheelHandler = (event) => {
+            console.log('eve');
+            tabList.scrollBy(event.deltaY / 10, 0);
+        };
+        tabListRef.current.addEventListener('wheel', wheelHandler);
+        return () => {
+            tabList.removeEventListener('wheel', wheelHandler);
+        };
+    }, []);
+
     const drawingProgress = useDrawingProgress();
 
     const containerRef = useRef(null);
@@ -268,8 +292,8 @@ export const Controls = ({navState, setNavState, settings, setSettings, appSetti
             >
                 <Resizer onResize={handleResize}/>
                 <div className={localClasses.header}>
-                    <Overflow minimumVisible={3}>
                         <TabList
+                            ref={tabListRef}
                             className={localClasses.tabsContainer}
                             selectedValue={navState.mainTab}
                             onTabSelect={(event, data) => {
@@ -279,15 +303,9 @@ export const Controls = ({navState, setNavState, settings, setSettings, appSetti
                             }}
                         >
                             {Object.values(tabs).map(tab => {
-                                return (
-                                    <OverflowItem key={tab.id} id={tab.id}>
-                                        <Tab value={tab.id}>{tab.label}</Tab>
-                                    </OverflowItem>
-                                );
+                                return <Tab key={tab.id} id={tab.id} value={tab.id}>{tab.label}</Tab>;
                             })}
-                            <TabOverflowMenu tabs={tabs} setTab={setNavState}/>
                         </TabList>
-                    </Overflow>
                 </div>
                 <div className={localClasses.content}>
                     <ConditionalPanel active={navState.mainTab === tabs.number.id}>
