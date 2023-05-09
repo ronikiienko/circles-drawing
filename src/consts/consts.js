@@ -129,6 +129,13 @@ export const getDefaultModOutput = (id) => {
     };
 };
 
+export const getRemapLevel = (y = 0.4) => {
+    return {
+        y,
+        id: nanoid(10),
+    };
+};
+
 export const getDefaultMod = (name) => {
     const id = nanoid(8);
     return {
@@ -154,6 +161,170 @@ export const getDefaultMod = (name) => {
             trigType: trigModTypes.sine,
             modA: 0.3,
             modB: 0.3,
+            // if change discretization, also change remap levels
+            remapLevelsDiscretization: 40,
+            remapLevels: [
+                {
+                    'y': 0.013333333333333308,
+                    'id': 'Oj4WAJVIRPJcQmRKKshYT',
+                },
+                {
+                    'y': 0.023333333333333317,
+                    'id': 'ImYFfQ-W0dFrDTK5javxy',
+                },
+                {
+                    'y': 0.03500000000000003,
+                    'id': 'ZrNEz9y8LLMeGMYTwMq0l',
+                },
+                {
+                    'y': 0.053333333333333344,
+                    'id': 'MnfvP2VIzMVKW-TokP_Md',
+                },
+                {
+                    'y': 0.07333333333333336,
+                    'id': 'eXW9-NY5jv2s_sob9Viux',
+                },
+                {
+                    'y': 0.09666666666666668,
+                    'id': 'SqH1_qEpmKSSw8IUTFSLZ',
+                },
+                {
+                    'y': 0.1233333333333333,
+                    'id': 'e_N5rzorG9g9bMuyEKeLW',
+                },
+                {
+                    'y': 0.15000000000000002,
+                    'id': 'TXk4D4ywhuCVYdn4j-oNs',
+                },
+                {
+                    'y': 0.17333333333333334,
+                    'id': 'NZnP--h9O-4o6z8WwFpfT',
+                },
+                {
+                    'y': 0.19499999999999995,
+                    'id': 'aPY815lLDwh6NFUl-v8Wx',
+                },
+                {
+                    'y': 0.22499999999999998,
+                    'id': 'QR1i3o2wis13ZHB0b71Uj',
+                },
+                {
+                    'y': 0.2633333333333333,
+                    'id': 'PjzZH72dLerqvnatBfJ1c',
+                },
+                {
+                    'y': 0.30666666666666664,
+                    'id': 'T5fgIU2LKMgJ2gQjRE_Ag',
+                },
+                {
+                    'y': 0.33666666666666667,
+                    'id': 'j6g6u-oPavSyt9IjNKOiy',
+                },
+                {
+                    'y': 0.36,
+                    'id': 'FyTH6IggfxqIY0lx3szCC',
+                },
+                {
+                    'y': 0.39,
+                    'id': 'BU5WBafGXQNtndauck8QO',
+                },
+                {
+                    'y': 0.42000000000000004,
+                    'id': '-YT4K1RJG3IDV5h-prmkB',
+                },
+                {
+                    'y': 0.44499999999999995,
+                    'id': '7wyDvS5MWyJghEWyQ_dra',
+                },
+                {
+                    'y': 0.475,
+                    'id': 'sWcClcHwxpaZ4NiTnaWjZ',
+                },
+                {
+                    'y': 0.515,
+                    'id': 'fmmbm8p3NNYhG1DSDlnm7',
+                },
+                {
+                    'y': 0.5549999999999999,
+                    'id': 'k1MPW5X-GYWFMryIseI_D',
+                },
+                {
+                    'y': 0.5783333333333334,
+                    'id': 'pzAfvfLCP15MsioijPa6K',
+                },
+                {
+                    'y': 0.6066666666666667,
+                    'id': 'Pkh3k_uAN86YmcobNrvpI',
+                },
+                {
+                    'y': 0.635,
+                    'id': '8c3BggtBxWXONq-qMFewL',
+                },
+                {
+                    'y': 0.655,
+                    'id': 'PT7ObSKtqBuZgJDt3zG1R',
+                },
+                {
+                    'y': 0.6766666666666667,
+                    'id': 'LE03BYrJ-8D4Eueo7k8Yw',
+                },
+                {
+                    'y': 0.7,
+                    'id': 'veZeI4aYjNfgglg_a4pWH',
+                },
+                {
+                    'y': 0.7233333333333334,
+                    'id': '4PjclEOeRusKFgv6mqRvt',
+                },
+                {
+                    'y': 0.7433333333333334,
+                    'id': 'PUr_TGXt11PAx8esQwuZc',
+                },
+                {
+                    'y': 0.7633333333333333,
+                    'id': 'y1dyrxtLiMljjBw3_k5Fk',
+                },
+                {
+                    'y': 0.7833333333333333,
+                    'id': 'mRADEModIcOtppLMvfcfi',
+                },
+                {
+                    'y': 0.8016666666666666,
+                    'id': 'zzj1XdaExlF4SR_tXsZ37',
+                },
+                {
+                    'y': 0.8166666666666667,
+                    'id': 'vc588gxM1Oj9JoZ3ngs48',
+                },
+                {
+                    'y': 0.8383333333333334,
+                    'id': 'ODeVt4fdaAqimF1DbE1n_',
+                },
+                {
+                    'y': 0.855,
+                    'id': 'mbfrO6Sv_EtFjk6QJq1Bu',
+                },
+                {
+                    'y': 0.88,
+                    'id': 'hxihVsMHN5XfaFPHN4i_Q',
+                },
+                {
+                    'y': 0.8983333333333333,
+                    'id': 'IR7rvFImGEhvLyCYjoNUk',
+                },
+                {
+                    'y': 0.9299999999999999,
+                    'id': '9OPeBIvfDXudOfv3UYs-i',
+                },
+                {
+                    'y': 0.955,
+                    'id': 'IclDtR1soek6ppWkqxPEv',
+                },
+                {
+                    'y': 0.9866666666666667,
+                    'id': 'pTzwMynWVPv-PVLFcougA',
+                },
+            ],
         },
         outputs: {
             size: {

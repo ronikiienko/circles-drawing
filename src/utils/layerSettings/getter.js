@@ -1,4 +1,10 @@
-import {getCustomShapePoint, getDefaultMod, getDefaultModOutput, layerPresets} from '../../consts/consts';
+import {
+    getCustomShapePoint,
+    getDefaultMod,
+    getDefaultModOutput,
+    getRemapLevel,
+    layerPresets,
+} from '../../consts/consts';
 import {deepCopy} from '../generalUtils';
 
 
@@ -65,6 +71,13 @@ export const getLayerSettings = (preset) => {
                         noiseZoom: mod?.settings?.noiseZoom ?? mod?.noiseZoom ?? defaultMod.settings.noiseZoom,
                         modA: mod?.settings?.modA ?? mod?.modA ?? defaultMod.settings.modA,
                         modB: mod?.settings?.modB ?? mod?.modB ?? defaultMod.settings.modB,
+                        remapLevels: new Array(mod?.settings?.remapLevelsDiscretization ?? defaultMod.settings.remapLevelsDiscretization).fill(false).map(element => {
+                            const defaultRemapLevel = getRemapLevel();
+                            return {
+                                y: element?.y ?? defaultRemapLevel.y,
+                                id: element?.id ?? defaultRemapLevel.id,
+                            };
+                        }),
                     },
                     outputs: {
                         size: {
