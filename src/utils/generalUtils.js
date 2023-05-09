@@ -338,3 +338,18 @@ export const calculateShortestAngleDifference = (defaultAngle, targetAngle) => {
     return angleDifference;
 };
 
+export const lerp = (x0, x1, t) => {
+    return x0 + (x1 - x0) * t;
+};
+
+export const quadraticBezier = (p1, p2, p3, t) => {
+    const x1 = lerp(p1[0], p2[0], t);
+    const x2 = lerp(p2[0], p3[0], t);
+    const y1 = lerp(p1[1], p2[1], t);
+    const y2 = lerp(p2[1], p3[1], t);
+    const xRes = lerp(x1, x2, t);
+    const yRes = lerp(y1, y2, t);
+    return [xRes, yRes];
+};
+
+

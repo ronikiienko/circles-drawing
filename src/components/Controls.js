@@ -228,7 +228,7 @@ export const Controls = ({navState, setNavState, settings, setSettings, appSetti
         const tabList = tabListRef.current;
         const wheelHandler = (event) => {
             console.log('eve');
-            tabList.scrollBy(event.deltaY / 10, 0);
+            tabList.scrollBy(event.deltaY / 4, 0);
         };
         tabListRef.current.addEventListener('wheel', wheelHandler);
         return () => {
