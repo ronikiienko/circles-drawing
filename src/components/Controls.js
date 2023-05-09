@@ -17,7 +17,7 @@ import {
     Eye16Regular,
     Stop16Regular,
 } from '@fluentui/react-icons';
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 import {useImmer} from 'use-immer';
 import {hotkeys, tabs} from '../consts/consts';
@@ -26,6 +26,7 @@ import {useBrush} from '../hooks/useBrush';
 import {useClickAndSet} from '../hooks/useClickAndSet';
 import {useDrawingProgress} from '../hooks/useDrawingProgress';
 import {useResizer} from '../hooks/useResizer';
+import {useTranslatedScroll} from '../hooks/useTranslatedScroll';
 import {setObjectPropertyByStringPath} from '../utils/generalUtils';
 import {getRandomName} from '../utils/nameGenerators';
 import {clearCanvas, drawLayer, redo, saveAsImage, stopDrawing, undo} from '../worker/canvasWorkerMediators';
@@ -224,17 +225,7 @@ export const Controls = ({navState, setNavState, settings, setSettings, appSetti
     const tabsClasses = useStylesTabs();
 
     const tabListRef = useRef(null);
-    useEffect(() => {
-        const tabList = tabListRef.current;
-        const wheelHandler = (event) => {
-            console.log('eve');
-            tabList.scrollBy(event.deltaY / 4, 0);
-        };
-        tabListRef.current.addEventListener('wheel', wheelHandler);
-        return () => {
-            tabList.removeEventListener('wheel', wheelHandler);
-        };
-    }, []);
+    useTranslatedScroll(tabListRef, 1 / 4);
 
     const drawingProgress = useDrawingProgress();
 
