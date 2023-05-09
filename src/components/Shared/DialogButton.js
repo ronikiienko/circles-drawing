@@ -57,7 +57,10 @@ export const DialogButton = ({
                             }} appearance="secondary">No</Button>
                         </DialogTrigger>
                         <Button
-                            onClick={onSubmit}
+                            onClick={(event) => {
+                                setOpen(false);
+                                onSubmit(event);
+                            }}
                             ref={buttonRef}
                             appearance="primary"
                         >
