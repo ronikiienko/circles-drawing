@@ -13,6 +13,8 @@ const useStyles = makeStyles({
         position: 'relative',
         ...shorthands.borderRadius('5px'),
         ...shorthands.overflow('hidden', 'hidden'),
+        width: 'fit-content',
+        height: 'fit-content',
     },
     canvas: {
         position: 'relative',

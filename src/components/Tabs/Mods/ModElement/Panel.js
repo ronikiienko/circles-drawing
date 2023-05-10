@@ -124,7 +124,6 @@ export const Panel = ({
                     <Text>
                         {mod.blendRatio}
                     </Text>
-
                 </Label>
                 <Remap
                     id={`mods-${modIndex}-settings-remapLevels`}
