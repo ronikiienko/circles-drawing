@@ -119,7 +119,7 @@ export const Remap = ({mod, setSettings, modIndex}) => {
     return (
         <>
             <div className={localClasses.canvasWrapper}>
-                <canvas className={localClasses.canvas} ref={canvasRef} width={120} height={120}>
+                <canvas className={localClasses.canvas} ref={canvasRef} width={100} height={100}>
                 </canvas>
                 <Text className={localClasses.labelOutputs}>outputs</Text>
                 <Text className={localClasses.labelInputs}>inputs</Text>
