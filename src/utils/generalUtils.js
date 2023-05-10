@@ -2,10 +2,6 @@ export const biasTanhRemap = (x, biasInf, biasA, biasB) => {
     return Math.tanh(Math.pow(x, 1 / biasB) * biasA) * biasInf;
 };
 
-export const modRemap = (x, a, b) => {
-    return (1 - x ** a) ** b * -1 + 1;
-};
-
 export const getBiasedRandomNumber = (min, max, decimals = 0, biasSettings) => {
     const precision = Math.pow(10, decimals);
     const randomNumber = Math.floor(Math.random() * (max * precision - min * precision + 1) + min * precision) / precision;

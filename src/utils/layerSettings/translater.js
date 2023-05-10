@@ -80,6 +80,12 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                     },
                     modA: getTranslatedModA(mod.settings.modA),
                     modB: getTranslatedModB(mod.settings.modB),
+                    remapLevels: mod.settings.remapLevels.map(remapLevel => {
+                        return {
+                            y: parseFloat(remapLevel.y),
+                            id: remapLevel.id,
+                        };
+                    }),
                 },
                 outputs: {
                     size: {
@@ -162,7 +168,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                     };
                 }),
             };
-        }) ?? [],
+        }),
         position: {
             startPos: {
                 x: parseFloat(rawSettings.position.startPos.x),

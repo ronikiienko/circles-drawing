@@ -1,5 +1,5 @@
 import {modTypes} from '../../consts/sharedConsts';
-import {clampValueToRange, modRemap} from '../generalUtils';
+import {clampValueToRange, levelsRemap} from '../generalUtils';
 import {indexMod, noiseMod, radialMod, trigMod} from './mods';
 
 
@@ -25,7 +25,7 @@ export const calculateModsResults = (settings, x, y, absoluteIndex, indexOfBranc
                 break;
         }
         if (value < 0 || value > 1) throw `Mod value is out of range: ${value}`;
-        value = modRemap(value, mod.settings.modA, mod.settings.modB);
+        value = levelsRemap(value, mod.settings.remapLevels);
         modsResultsTemp[mod.id] = value;
         modsResults[mod.id] = value;
     });
