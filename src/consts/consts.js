@@ -159,8 +159,6 @@ export const getDefaultMod = (name) => {
             sineZoomY: 0.2,
             indexType: indexModTypes.absoluteIndex.id,
             trigType: trigModTypes.sine,
-            modA: 0.3,
-            modB: 0.3,
             // if change discretization, also change remap levels
             remapLevelsDiscretization: 40,
             remapLevels: [

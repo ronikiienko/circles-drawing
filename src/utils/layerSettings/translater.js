@@ -10,8 +10,6 @@ import {
     getTranslatedBranchesMagnitude,
     getTranslatedBrushDensity,
     getTranslatedChessPlateDim,
-    getTranslatedModA,
-    getTranslatedModB,
     getTranslatedNoiseZoom,
     getTranslatedPosOffset,
     getTranslatedRectRoundness,
@@ -78,8 +76,6 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                         x: parseFloat(mod.settings.radialCenterPos.x),
                         y: parseFloat(mod.settings.radialCenterPos.y),
                     },
-                    modA: getTranslatedModA(mod.settings.modA),
-                    modB: getTranslatedModB(mod.settings.modB),
                     remapLevels: mod.settings.remapLevels.map(remapLevel => {
                         return {
                             y: parseFloat(remapLevel.y),

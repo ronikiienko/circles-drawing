@@ -9,12 +9,6 @@ export const getTranslatedBiasB = (biasB) => {
     return parseFloat((Math.pow(parseFloat(biasB) + 1, 8) * 0.0390625).toFixed(2));
     // return parseFloat(biasB) * 10;
 };
-export const getTranslatedModA = (modA) => {
-    return Math.pow(parseFloat(modA) + 1, 3) - 1;
-};
-export const getTranslatedModB = (modB) => {
-    return Math.pow(parseFloat(modB) + 1, 3) - 1;
-};
 export const getTranslatedBrushDensity = (brushDensity) => {
     return Math.trunc(Math.pow(parseFloat(brushDensity) + 1, 5));
 };
