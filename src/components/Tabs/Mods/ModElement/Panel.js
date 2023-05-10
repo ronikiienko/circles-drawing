@@ -2,10 +2,10 @@ import {Label, makeStyles, Select, shorthands, Slider, Text, tokens} from '@flue
 import React from 'react';
 import {indexModTypes, modTypes} from '../../../../consts/sharedConsts';
 import {ConditionalPanel} from '../../../Shared/ConditionalPanel';
+import {Remap} from '../../../Shared/Remap';
 import {ModInputs} from '../ModInputs';
 import {Noise} from '../Noise';
 import {Radial} from '../Radial';
-import {Remap} from '../Remap';
 import {Trig} from '../Trig';
 
 
@@ -124,15 +124,13 @@ export const Panel = ({
                     <Text>
                         {mod.blendRatio}
                     </Text>
-                    <Remap
-                        modIndex={modIndex}
-                        settings={settings}
-                        setSettings={setSettings}
-                        mod={mod}
-                        handleChange={handleChange}
-                        classes={classes}
-                    />
+
                 </Label>
+                <Remap
+                    id={`mods-${modIndex}-settings-remapLevels`}
+                    value={settings.mods[modIndex].settings.remapLevels}
+                    setSettings={setSettings}
+                />
             </div>
             <div className={classes.block}>
                 <ModInputs

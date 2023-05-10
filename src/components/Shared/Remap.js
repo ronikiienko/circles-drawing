@@ -1,6 +1,7 @@
 import {makeStyles, shorthands, Text, tokens} from '@fluentui/react-components';
 import React, {useEffect, useRef} from 'react';
-import {getRemapLevel} from '../../../consts/consts';
+import {getRemapLevel} from '../../consts/consts';
+import {setObjectPropertyByStringPath} from '../../utils/generalUtils';
 
 
 const useStyles = makeStyles({
@@ -44,11 +45,10 @@ const useStyles = makeStyles({
         pointerEvents: 'none',
     },
 });
-export const Remap = ({mod, setSettings, modIndex}) => {
+export const Remap = ({setSettings, id, value}) => {
     const localClasses = useStyles();
     const canvasRef = useRef(null);
     const canvasSizeRef = useRef({width: null, height: null});
-
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
@@ -77,13 +77,13 @@ export const Remap = ({mod, setSettings, modIndex}) => {
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
         ctx.beginPath();
-        for (let i = 0; i < mod.settings.remapLevels.length; i++) {
-            const x = i / (mod.settings.remapLevels.length - 1) * canvasWidth;
-            const y = canvasHeight - mod.settings.remapLevels[i].y * canvasHeight;
+        for (let i = 0; i < value.length; i++) {
+            const x = i / (value.length - 1) * canvasWidth;
+            const y = canvasHeight - value[i].y * canvasHeight;
             i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
         }
         ctx.stroke();
-    }, [mod.settings.remapLevels, mod.settings.remapLevels.length]);
+    }, [value]);
     useEffect(() => {
         const canvas = canvasRef.current;
         const canvasWidth = canvasSizeRef.current.width;
@@ -99,11 +99,11 @@ export const Remap = ({mod, setSettings, modIndex}) => {
             const canvasXOffset = event.clientX - boundingClientRect.left;
             const canvasYOffset = event.clientY - boundingClientRect.top;
             setSettings(draft => {
-                let i = Math.trunc(draft.mods[modIndex].settings.remapLevels.length * canvasXOffset / canvasWidth);
-                i = Math.max(0, Math.min(i, draft.mods[modIndex].settings.remapLevels.length - 1));
+                let i = Math.trunc(value.length * canvasXOffset / canvasWidth);
+                i = Math.max(0, Math.min(i, value.length - 1));
                 let newVal = 1 - canvasYOffset / canvasHeight;
                 newVal = Math.max(0, Math.min(newVal, 1));
-                draft.mods[modIndex].settings.remapLevels[i] = getRemapLevel(newVal);
+                setObjectPropertyByStringPath(draft, id + `-${i}`, getRemapLevel(newVal));
             });
         };
         const mouseupHandler = () => {
@@ -115,7 +115,7 @@ export const Remap = ({mod, setSettings, modIndex}) => {
         return () => {
             canvas.removeEventListener('mousedown', mousedownHandler);
         };
-    }, [modIndex, setSettings]);
+    }, [id, setSettings, value.length]);
     return (
         <>
             <div className={localClasses.canvasWrapper}>
