@@ -12,8 +12,8 @@ export const useClickAndSet = ({setSettings}) => {
             if (!clickAndSetProperty) return;
 
             setSettings(draft => {
-                setObjectPropertyByStringPath(draft, clickAndSetProperty + '-x', event.pageX);
-                setObjectPropertyByStringPath(draft, clickAndSetProperty + '-y', event.pageY);
+                setObjectPropertyByStringPath(draft, clickAndSetProperty + '-x', event.clientX);
+                setObjectPropertyByStringPath(draft, clickAndSetProperty + '-y', event.clientY);
             });
             setClickAndSetProperty(null);
         };
@@ -23,19 +23,19 @@ export const useClickAndSet = ({setSettings}) => {
 
             event.stopPropagation();
 
-            let pageX;
-            let pageY;
+            let clientX;
+            let clientY;
             if (event.type === 'touchmove') {
-                pageX = event.targetTouches[0].pageX;
-                pageY = event.targetTouches[0].pageY;
+                clientX = event.targetTouches[0].clientX;
+                clientY = event.targetTouches[0].clientY;
             } else {
-                pageX = event.pageX;
-                pageY = event.pageY;
+                clientX = event.clientX;
+                clientY = event.clientY;
             }
 
             setSettings(draft => {
-                setObjectPropertyByStringPath(draft, dragProperty + '-x', Math.trunc(pageX));
-                setObjectPropertyByStringPath(draft, dragProperty + '-y', Math.trunc(pageY));
+                setObjectPropertyByStringPath(draft, dragProperty + '-x', Math.trunc(clientX));
+                setObjectPropertyByStringPath(draft, dragProperty + '-y', Math.trunc(clientY));
             });
         };
         // TODO standartize coordinates. [x, y] or {x, y} or x: suzuki, y: suzuki

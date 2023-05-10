@@ -8,10 +8,10 @@ export const usePixelShapeEditor = ({canvasRef, setSettings, settings, appSettin
         const canvas = canvasRef.current;
         const pixelSize = canvas.width / settings.shape.pixelShapeRes;
 
-        const pageXYToPixels = (pageX, pageY) => {
+        const clientXYToPixels = (clientX, clientY) => {
             const boundingClientRect = canvas.getBoundingClientRect();
-            const canvasX = pageX - boundingClientRect.left;
-            const canvasY = pageY - boundingClientRect.top;
+            const canvasX = clientX - boundingClientRect.left;
+            const canvasY = clientY - boundingClientRect.top;
             const centerX = Math.trunc(canvasX / pixelSize);
             const centerY = Math.trunc(canvasY / pixelSize);
             const pixels = [];
@@ -26,7 +26,7 @@ export const usePixelShapeEditor = ({canvasRef, setSettings, settings, appSettin
 
         const mousedownHandler = (event) => {
             event.stopPropagation();
-            setPixels(pageXYToPixels(event.pageX, event.pageY));
+            setPixels(clientXYToPixels(event.clientX, event.clientY));
             canvas.addEventListener('mousemove', mousemoveHandler);
             window.addEventListener('mouseup', mouseupHandler);
         };
@@ -47,7 +47,7 @@ export const usePixelShapeEditor = ({canvasRef, setSettings, settings, appSettin
 
         const mousemoveHandler = (event) => {
             event.stopPropagation();
-            setPixels(pageXYToPixels(event.pageX, event.pageY));
+            setPixels(clientXYToPixels(event.clientX, event.clientY));
         };
 
         const mouseupHandler = () => {

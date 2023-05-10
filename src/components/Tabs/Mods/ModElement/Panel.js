@@ -5,7 +5,7 @@ import {ConditionalPanel} from '../../../Shared/ConditionalPanel';
 import {ModInputs} from '../ModInputs';
 import {Noise} from '../Noise';
 import {Radial} from '../Radial';
-import {RemapCharacter} from '../RemapCharacter';
+import {Remap} from '../Remap';
 import {Trig} from '../Trig';
 
 
@@ -124,13 +124,15 @@ export const Panel = ({
                     <Text>
                         {mod.blendRatio}
                     </Text>
+                    <Remap
+                        modIndex={modIndex}
+                        settings={settings}
+                        setSettings={setSettings}
+                        mod={mod}
+                        handleChange={handleChange}
+                        classes={classes}
+                    />
                 </Label>
-                <RemapCharacter
-                    index={modIndex}
-                    handleChange={handleChange}
-                    classes={classes}
-                    mod={mod}
-                />
             </div>
             <div className={classes.block}>
                 <ModInputs

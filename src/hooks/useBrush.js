@@ -20,8 +20,8 @@ export const useBrush = ({settings, appSettings}) => {
 
         // TODO maby not create deep copy
         const rawSettings = deepCopy(settings);
-        rawSettings.brush.brushPos.x = event.pageX;
-        rawSettings.brush.brushPos.y = event.pageY;
+        rawSettings.brush.brushPos.x = event.clientX;
+        rawSettings.brush.brushPos.y = event.clientY;
         rawSettings.brush.brushOn = true;
 
         drawLayer(rawSettings, appSettings, false);
@@ -39,8 +39,8 @@ export const useBrush = ({settings, appSettings}) => {
 
             // TODO maby not create deep copy
             const rawSettings = deepCopy(settings);
-            rawSettings.brush.brushPos.x = event.pageX;
-            rawSettings.brush.brushPos.y = event.pageY;
+            rawSettings.brush.brushPos.x = event.clientX;
+            rawSettings.brush.brushPos.y = event.clientY;
             rawSettings.brush.brushOn = true;
 
             drawLayer(rawSettings, appSettings, false);

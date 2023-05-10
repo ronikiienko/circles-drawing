@@ -71,16 +71,16 @@ const useAngularInput = ({value, onChange, id, inputRef, min, max, half}) => {
             const rect = inputRef.current.getBoundingClientRect();
             const centerX = (rect.left + rect.right) / 2;
             const centerY = (rect.top + rect.bottom) / 2;
-            let pageX;
-            let pageY;
+            let clientX;
+            let clientY;
             if (event.type === 'touchmove') {
-                pageX = event.targetTouches[0].pageX;
-                pageY = event.targetTouches[0].pageY;
+                clientX = event.targetTouches[0].clientX;
+                clientY = event.targetTouches[0].clientY;
             } else {
-                pageX = event.pageX;
-                pageY = event.pageY;
+                clientX = event.clientX;
+                clientY = event.clientY;
             }
-            let [, angle] = getVectorByTwoPoints(centerX, centerY, pageX, pageY);
+            let [, angle] = getVectorByTwoPoints(centerX, centerY, clientX, clientY);
 
             if (half) {
                 if (angle >= 0 && angle <= 90) angle = 0;

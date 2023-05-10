@@ -71,11 +71,11 @@ export const getLayerSettings = (preset) => {
                         noiseZoom: mod?.settings?.noiseZoom ?? mod?.noiseZoom ?? defaultMod.settings.noiseZoom,
                         modA: mod?.settings?.modA ?? mod?.modA ?? defaultMod.settings.modA,
                         modB: mod?.settings?.modB ?? mod?.modB ?? defaultMod.settings.modB,
-                        remapLevels: new Array(mod?.settings?.remapLevelsDiscretization ?? defaultMod.settings.remapLevelsDiscretization).fill(false).map(element => {
+                        remapLevels: new Array(mod?.settings?.remapLevelsDiscretization ?? defaultMod.settings.remapLevelsDiscretization).fill(false).map((element, index) => {
                             const defaultRemapLevel = getRemapLevel();
                             return {
-                                y: element?.y ?? defaultRemapLevel.y,
-                                id: element?.id ?? defaultRemapLevel.id,
+                                y: mod?.settings?.remapLevels?.[index]?.y ?? defaultRemapLevel.y,
+                                id: mod?.settings?.remapLevels?.[index]?.id ?? defaultRemapLevel.id,
                             };
                         }),
                     },

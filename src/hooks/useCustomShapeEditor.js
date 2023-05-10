@@ -11,29 +11,29 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
     useEffect(() => {
         const canvas = canvasRef.current;
 
-        const pageXYToShapeXY = (pageX, pageY) => {
+        const clientXYToShapeXY = (clientX, clientY) => {
             const boundingClientRect = canvas.getBoundingClientRect();
             let shapeX;
             switch (true) {
-                case pageX < boundingClientRect.left:
+                case clientX < boundingClientRect.left:
                     shapeX = 0;
                     break;
-                case pageX > boundingClientRect.right:
+                case clientX > boundingClientRect.right:
                     shapeX = 1;
                     break;
                 default:
-                    shapeX = (pageX - boundingClientRect.left) / canvas.width;
+                    shapeX = (clientX - boundingClientRect.left) / canvas.width;
             }
             let shapeY;
             switch (true) {
-                case pageY < boundingClientRect.top:
+                case clientY < boundingClientRect.top:
                     shapeY = 0;
                     break;
-                case pageY > boundingClientRect.bottom:
+                case clientY > boundingClientRect.bottom:
                     shapeY = 1;
                     break;
                 default:
-                    shapeY = (pageY - boundingClientRect.top) / canvas.height;
+                    shapeY = (clientY - boundingClientRect.top) / canvas.height;
             }
             return [shapeX, shapeY];
         }
@@ -43,17 +43,17 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
 
             event.stopPropagation();
 
-            let pageX;
-            let pageY;
+            let clientX;
+            let clientY;
             if (event.type === 'touchmove') {
-                pageX = event.targetTouches[0].pageX;
-                pageY = event.targetTouches[0].pageY;
+                clientX = event.targetTouches[0].clientX;
+                clientY = event.targetTouches[0].clientY;
             } else {
-                pageX = event.pageX;
-                pageY = event.pageY;
+                clientX = event.clientX;
+                clientY = event.clientY;
             }
 
-            const [shapeX, shapeY] = pageXYToShapeXY(pageX, pageY);
+            const [shapeX, shapeY] = clientXYToShapeXY(clientX, clientY);
 
             setSettings(draft => {
                 setObjectPropertyByStringPath(draft, dragProperty + '-x', parseFloat(shapeX.toFixed(2)));
@@ -68,10 +68,10 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
         const clickAndSetHandler = (event) => {
             if (!clickAndSetProperty) return;
 
-            const pageX = event.pageX;
-            const pageY = event.pageY;
+            const clientX = event.clientX;
+            const clientY = event.clientY;
 
-            const [shapeX, shapeY] = pageXYToShapeXY(pageX, pageY);
+            const [shapeX, shapeY] = clientXYToShapeXY(clientX, clientY);
 
             setSettings(draft => {
                 setObjectPropertyByStringPath(draft, clickAndSetProperty + '-x', shapeX);
@@ -94,7 +94,7 @@ export const useCustomShapeEditor = ({canvasRef, setSettings}) => {
         const canvasMousedownHandler = (event) => {
             event.preventDefault();
             event.stopPropagation();
-            const [shapeX, shapeY] = pageXYToShapeXY(event.pageX, event.pageY);
+            const [shapeX, shapeY] = clientXYToShapeXY(event.clientX, event.clientY);
             setSettings(draft => {
                 draft.shape.customShape.push(getCustomShapePoint(shapeX, shapeY));
                 setDragProperty(`shape-customShape-${draft.shape.customShape.length - 1}`);
