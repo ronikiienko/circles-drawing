@@ -1,19 +1,50 @@
-import {makeStyles, shorthands, tokens} from '@fluentui/react-components';
+import {makeStyles, shorthands, Text, tokens} from '@fluentui/react-components';
 import React, {useEffect, useRef} from 'react';
 import {getRemapLevel} from '../../../consts/consts';
 
 
 const useStyles = makeStyles({
     canvasWrapper: {
-        ...shorthands.padding('3px'),
+        // ...shorthands.padding('3px'),
         ...shorthands.border('2px', 'solid', tokens.colorNeutralStroke1),
         display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        ...shorthands.borderRadius('5px'),
+        ...shorthands.overflow('hidden', 'hidden'),
     },
     canvas: {
+        position: 'relative',
         backgroundColor: tokens.colorNeutralBackgroundAlpha2,
     },
+    labelInputs: {
+        position: 'absolute',
+        bottom: '0px',
+        fontSize: '8px',
+        opacity: 0.3,
+        left: '0px',
+        right: '0px',
+        textAlign: 'center',
+        userSelect: 'none',
+        pointerEvents: 'none',
+        height: '16px',
+    },
+    labelOutputs: {
+        width: '16px',
+        fontSize: '8px',
+        opacity: 0.3,
+        position: 'absolute',
+        writingMode: 'vertical-rl',
+        textOrientation: 'mixed',
+        textAlign: 'center',
+        top: '0px',
+        bottom: '0px',
+        left: '0px',
+        userSelect: 'none',
+        pointerEvents: 'none',
+    },
 });
-export const Remap = ({mod, classes, settings, setSettings, handleChange, modIndex}) => {
+export const Remap = ({mod, setSettings, modIndex}) => {
     const localClasses = useStyles();
     const canvasRef = useRef(null);
     const canvasSizeRef = useRef({width: null, height: null});
@@ -88,9 +119,10 @@ export const Remap = ({mod, classes, settings, setSettings, handleChange, modInd
     return (
         <>
             <div className={localClasses.canvasWrapper}>
-                <canvas className={localClasses.canvas} ref={canvasRef} width={120} height={70}>
-
+                <canvas className={localClasses.canvas} ref={canvasRef} width={120} height={120}>
                 </canvas>
+                <Text className={localClasses.labelOutputs}>outputs</Text>
+                <Text className={localClasses.labelInputs}>inputs</Text>
             </div>
         </>
     );
