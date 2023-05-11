@@ -63,5 +63,5 @@ export const getTranslatedBranchesMagnitude = (branchesMagnitude) => {
 };
 
 export const getTranslatedWorleyThreshold = (worleyThreshold) => {
-    return Math.pow((parseFloat(worleyThreshold) + 1) * 10, 2.4);
+    return Math.pow((parseFloat(worleyThreshold) + 1) * 10, 1.8);
 };
