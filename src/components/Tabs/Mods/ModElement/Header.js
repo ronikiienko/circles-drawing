@@ -1,6 +1,6 @@
-import {Input, makeStyles, shorthands, tokens} from '@fluentui/react-components';
+import {Input, makeStyles, shorthands, Text, tokens, Tooltip} from '@fluentui/react-components';
 import {ChevronRight20Regular, Delete16Regular} from '@fluentui/react-icons';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {hslArrToHsl} from '../../../../utils/generalUtils';
 import {useAccordionState} from '../../../Shared/Accordion';
 import {DialogButton} from '../../../Shared/DialogButton';
@@ -42,10 +42,23 @@ const useStyles = makeStyles({
         float: 'right',
         marginLeft: '20px',
     },
+    outputsTooltip: {
+        marginLeft: '10px',
+        ...shorthands.padding('3px'),
+        backgroundColor: tokens.colorSubtleBackgroundInvertedPressed,
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+    },
 });
 export const Header = ({modIndex, handleChange, removeMod, mod}) => {
     const [isOpened, setIsOpened] = useAccordionState();
-
+    const activeOutputs = useMemo(() => {
+        return Object.entries(mod.outputs).reduce((accum, [key, value]) => {
+            if (value.enabled) {
+                accum.push(key);
+            }
+            return accum;
+        }, []);
+    }, [mod.outputs]);
     const localClasses = useStyles();
     return (
         <div
@@ -73,6 +86,9 @@ export const Header = ({modIndex, handleChange, removeMod, mod}) => {
                     size="small"
                 />
                 {mod.settings.type}
+                <Tooltip content={activeOutputs.join(' ')} relationship="label">
+                    <Text className={localClasses.outputsTooltip} size="small">{activeOutputs.length}</Text>
+                </Tooltip>
             </div>
             <DialogButton
                 onSubmit={(event) => {
