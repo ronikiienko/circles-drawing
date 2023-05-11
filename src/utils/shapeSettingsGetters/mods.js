@@ -29,7 +29,7 @@ export const noiseMod = async (x, y, mod) => {
             noiseValue = mod.settings.valueNoise(x * mod.settings.noiseZoom, y * mod.settings.noiseZoom);
             break;
         case noiseTypes.worley.id:
-            noiseValue = (await mod.settings.worleyNoise.pixel(x, y, true, mod.settings.worleyClosestN)) / 255;
+            noiseValue = 1 - (await mod.settings.worleyNoise.pixel(x, y, true, mod.settings.worleyClosestN)) / 255;
             // TODO problems when use minkowski metric type
     }
     return noiseValue;
