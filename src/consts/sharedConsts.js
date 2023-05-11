@@ -156,4 +156,8 @@ export const noiseTypes = {
         id: 'value',
         name: 'Value noise',
     },
+    worley: {
+        id: 'worley',
+        name: 'Worley noise',
+    },
 };

@@ -62,6 +62,7 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                     type: mod.settings.type,
                     perlinNoise: createNoise2D(),
                     valueNoise: valueNoise(),
+                    worleyNoise: '',
                     sineZoomX: getTranslatedSineZoom(mod.settings.sineZoomX),
                     sineZoomY: getTranslatedSineZoom(mod.settings.sineZoomY),
                     trigType: mod.settings.trigType,
@@ -221,4 +222,3 @@ export const getTranslatedLayerSettings = (rawSettings) => {
         },
     };
 };
-
