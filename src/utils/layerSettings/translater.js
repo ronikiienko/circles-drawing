@@ -69,7 +69,7 @@ export const getTranslatedLayerSettings = (rawSettings, canvasWidth, canvasHeigh
                         height: canvasHeight, // In pixels
                         threshold: getTranslatedWorleyThreshold(mod.settings.worleyThreshold),
                         crests: parseFloat(mod.settings.worleyCrestsNumber),
-                        metric: {type: mod.settings.worleyMetricType},
+                        metric: {type: mod.settings.worleyMetricType, p: mod.settings.worleyMinkowskiP},
                     }),
                     sineZoomX: getTranslatedSineZoom(mod.settings.sineZoomX),
                     sineZoomY: getTranslatedSineZoom(mod.settings.sineZoomY),

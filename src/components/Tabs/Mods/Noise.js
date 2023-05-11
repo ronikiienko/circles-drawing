@@ -21,8 +21,8 @@ export const Noise = ({classes, modIndex, handleChange, mod}) => {
                     })}
                 </Select>
             </Label>
-            <br/>
             <ConditionalPanel active={mod.settings.noiseType === noiseTypes.worley.id}>
+                <br/>
                 <Label className={classes.label}>
                     Worley metric type:
                     <Select
@@ -102,7 +102,8 @@ export const Noise = ({classes, modIndex, handleChange, mod}) => {
                 </ConditionalPanel>
             </ConditionalPanel>
             <br/>
-            <ConditionalPanel active={mod.settings.noiseType !== noiseTypes.random.id}>
+            <ConditionalPanel
+                active={mod.settings.noiseType !== noiseTypes.random.id && mod.settings.noiseType !== noiseTypes.worley.id}>
                 <Label className={classes.label}>
                     Noise zoom:
                     <Slider

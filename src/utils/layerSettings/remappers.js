@@ -50,7 +50,7 @@ export const getTranslatedNoiseZoom = (zoom, noiseType) => {
         case noiseTypes.value.id:
             return Math.pow((1.0000001 - parseFloat(zoom)) / 3, 2);
         case noiseTypes.worley.id:
-            return Math.pow((1.0000001 - parseFloat(zoom)) / 5, 2);
+            return 1;
     }
 };
 
