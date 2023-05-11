@@ -349,7 +349,7 @@ export const quadraticBezier = (p1, p2, p3, t) => {
 };
 
 export const levelsRemap = (x, remapPoints) => {
-    if (x === 1) return remapPoints[remapPoints.length - 1];
+    if (x === 1) return remapPoints[remapPoints.length - 1].y;
     const onePointWidth = 1 / (remapPoints.length - 1);
     const crossXPointIndex = Math.trunc(x / onePointWidth);
     const leftX = crossXPointIndex * onePointWidth;

@@ -1,4 +1,5 @@
 import {createNoise2D} from 'simplex-noise';
+import Worley from 'worleyjs';
 import {shapeTypes} from '../../consts/sharedConsts';
 import {hexToHslArray} from '../generalUtils';
 import {valueNoise} from '../noiseGenerators';
@@ -16,10 +17,11 @@ import {
     getTranslatedSineZoom,
     getTranslatedSize,
     getTranslatedWidthRatio,
+    getTranslatedWorleyThreshold,
 } from './remappers';
 
 
-export const getTranslatedLayerSettings = (rawSettings) => {
+export const getTranslatedLayerSettings = (rawSettings, canvasWidth, canvasHeight) => {
     // reused values
     const shape = rawSettings.shape.shape;
     let shapeAdjustedSizeMult;
@@ -62,13 +64,20 @@ export const getTranslatedLayerSettings = (rawSettings) => {
                     type: mod.settings.type,
                     perlinNoise: createNoise2D(),
                     valueNoise: valueNoise(),
-                    worleyNoise: '',
+                    worleyNoise: new Worley({
+                        width: canvasWidth, // In pixels
+                        height: canvasHeight, // In pixels
+                        threshold: getTranslatedWorleyThreshold(mod.settings.worleyThreshold),
+                        crests: parseFloat(mod.settings.worleyCrestsNumber),
+                        metric: {type: mod.settings.worleyMetricType},
+                    }),
                     sineZoomX: getTranslatedSineZoom(mod.settings.sineZoomX),
                     sineZoomY: getTranslatedSineZoom(mod.settings.sineZoomY),
                     trigType: mod.settings.trigType,
                     indexType: mod.settings.indexType,
                     noiseType: mod.settings.noiseType,
                     noiseZoom: getTranslatedNoiseZoom(mod.settings.noiseZoom, mod.settings.noiseType),
+                    worleyClosestN: parseFloat(mod.settings.worleyClosestN),
                     radialRadiusPos: {
                         x: parseFloat(mod.settings.radialRadiusPos.x),
                         y: parseFloat(mod.settings.radialRadiusPos.y),
@@ -222,3 +231,4 @@ export const getTranslatedLayerSettings = (rawSettings) => {
         },
     };
 };
+

@@ -15,7 +15,7 @@ export const radialMod = (x, y, mod) => {
     return ratio;
 };
 
-export const noiseMod = (x, y, mod) => {
+export const noiseMod = async (x, y, mod) => {
     let noiseValue;
     switch (mod.settings.noiseType) {
         case noiseTypes.perlin.id:
@@ -27,6 +27,9 @@ export const noiseMod = (x, y, mod) => {
         case noiseTypes.value.id:
             // TODO sometimes give little negative number ( when out of field) sometimes gives nan
             noiseValue = mod.settings.valueNoise(x * mod.settings.noiseZoom, y * mod.settings.noiseZoom);
+            break;
+        case noiseTypes.worley.id:
+            noiseValue = (await mod.settings.worleyNoise.pixel(x, y, true, mod.settings.worleyClosestN)) / 255;
     }
     return noiseValue;
 };

@@ -69,6 +69,11 @@ export const getLayerSettings = (preset) => {
                         indexType: mod?.settings?.indexType ?? defaultMod.settings.indexType,
                         noiseType: mod?.settings?.noiseType ?? mod?.noiseType ?? defaultMod.settings.noiseType,
                         noiseZoom: mod?.settings?.noiseZoom ?? mod?.noiseZoom ?? defaultMod.settings.noiseZoom,
+                        worleyMetricType: mod?.settings?.worleyMetricType ?? defaultMod.settings.worleyMetricType,
+                        worleyThreshold: mod?.settings?.worleyThreshold ?? defaultMod.settings.worleyThreshold,
+                        worleyCrestsNumber: mod?.settings?.worleyCrestsNumber ?? defaultMod.settings.worleyCrestsNumber,
+                        worleyMinkowskiP: mod?.settings?.worleyMinkowskiP ?? defaultMod.settings.worleyMinkowskiP,
+                        worleyClosestN: mod?.settings?.worleyClosestN ?? defaultMod.settings.worleyClosestN,
                         remapLevels: new Array(mod?.settings?.remapLevelsDiscretization ?? defaultMod.settings.remapLevelsDiscretization).fill(false).map((element, index) => {
                             const defaultRemapLevel = getRemapLevel();
                             return {

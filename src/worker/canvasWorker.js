@@ -174,14 +174,14 @@ const makeCanvasHighPPI = (width, height, resolutionMult) => {
 export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
     if (isDrawingFlag) return;
     // if (addToHistory && isDrawingFlag) return;
-    let settings = getTranslatedLayerSettings(rawSettings);
+    let settings = getTranslatedLayerSettings(rawSettings, canvasWidth, canvasHeight);
     const appSettings = getTranslatedAppSettings(rawAppSettings);
 
 
     ctx.globalCompositeOperation = settings.color.overlayMode;
     if (!settings.color.blurOn) ctx.filter = 'none';
 
-    const smartDraw = () => {
+    const smartDraw = async () => {
         // TODO use drawing speed as max number of shapes per frame
         isDrawingFlag = true;
 
@@ -190,14 +190,14 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
 
         const targetFps = 60;
 
-        const drawShapes = (startIndex, endIndex) => {
+        const drawShapes = async (startIndex, endIndex) => {
             for (let i = startIndex; i < endIndex; i++) {
                 if (i % sendProgressInterval === 0) sendProgressMessage(i / number, i, number, progressStatuses.drawing.id);
-                const randomizedShapeSettings = getRandomizedShapeSettings(settings, i);
+                const randomizedShapeSettings = await getRandomizedShapeSettings(settings, i);
                 drawShape(ctx, randomizedShapeSettings);
             }
         };
-        const scheduleFrame = (timestamp, shapesDrawn, init) => {
+        const scheduleFrame = async (timestamp, shapesDrawn, init) => {
             const elapsedTime = timestamp - prevTimestamp;
             const currentFps = 1000 / elapsedTime;
 
@@ -217,7 +217,7 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
             let shapesPerFrame = Math.round(Math.min(Math.max(maxShapesToMaintainFpsAltered, 5), number - shapesDrawn));
 
             const endIndex = shapesDrawn + shapesPerFrame;
-            drawShapes(shapesDrawn, endIndex);
+            await drawShapes(shapesDrawn, endIndex);
 
             if (endIndex < number && isDrawingFlag) {
                 requestAnimationFrame((newTimestamp) => scheduleFrame(newTimestamp, endIndex));
@@ -241,7 +241,7 @@ export const drawLayer = async (rawSettings, rawAppSettings, addToHistory) => {
 
         requestAnimationFrame((timestamp) => scheduleFrame(timestamp, 0, true));
     };
-    smartDraw();
+    await smartDraw();
 };
 
 

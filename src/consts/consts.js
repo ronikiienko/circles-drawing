@@ -10,6 +10,7 @@ import {
     pixelShapeBrushTypes,
     shapeTypes,
     trigModTypes,
+    worleyNoiseMetricTypes,
 } from './sharedConsts';
 
 
@@ -155,6 +156,11 @@ export const getDefaultMod = (name) => {
             },
             noiseType: noiseTypes.perlin.id,
             noiseZoom: 0.2,
+            worleyMetricType: worleyNoiseMetricTypes.euclidean.id,
+            worleyCrestsNumber: 50,
+            worleyThreshold: 0.2,
+            worleyMinkowskiP: 3,
+            worleyClosestN: 0,
             sineZoomX: 0.2,
             sineZoomY: 0.2,
             indexType: indexModTypes.absoluteIndex.id,

@@ -49,6 +49,8 @@ export const getTranslatedNoiseZoom = (zoom, noiseType) => {
             return Math.pow((1.0000001 - parseFloat(zoom)) / 5, 2);
         case noiseTypes.value.id:
             return Math.pow((1.0000001 - parseFloat(zoom)) / 3, 2);
+        case noiseTypes.worley.id:
+            return Math.pow((1.0000001 - parseFloat(zoom)) / 5, 2);
     }
 };
 
@@ -58,4 +60,8 @@ export const getTranslatedPosOffset = (offset) => {
 
 export const getTranslatedBranchesMagnitude = (branchesMagnitude) => {
     return Math.pow(parseFloat(branchesMagnitude) + 1, 4) * 6 - 5;
+};
+
+export const getTranslatedWorleyThreshold = (worleyThreshold) => {
+    return Math.pow((parseFloat(worleyThreshold) + 1) * 10, 2.4);
 };

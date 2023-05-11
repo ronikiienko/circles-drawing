@@ -13,7 +13,7 @@ let next = {
     branchIndex: 0,
 };
 
-export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
+export const getRandomizedShapeSettings = async (settings, absoluteIndex) => {
     let xPosition;
     let yPosition;
 
@@ -38,7 +38,7 @@ export const getRandomizedShapeSettings = (settings, absoluteIndex) => {
     }
 
 
-    const modsResults = calculateModsResults(settings, xPosition, yPosition, absoluteIndex, next.branchIndex, next.level);
+    const modsResults = await calculateModsResults(settings, xPosition, yPosition, absoluteIndex, next.branchIndex, next.level);
     const modsSums = calculateModSums(modsResults, settings, xPosition, yPosition);
 
     let widthRatio = settings.shape.widthRatio + modsSums.widthRatio;

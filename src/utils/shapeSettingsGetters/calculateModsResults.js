@@ -3,10 +3,10 @@ import {clampValueToRange, levelsRemap} from '../generalUtils';
 import {indexMod, noiseMod, radialMod, trigMod} from './mods';
 
 
-export const calculateModsResults = (settings, x, y, absoluteIndex, indexOfBranch, indexInBranch) => {
+export const calculateModsResults = async (settings, x, y, absoluteIndex, indexOfBranch, indexInBranch) => {
     const modsResultsTemp = {};
     const modsResults = {};
-    settings.mods.forEach((mod) => {
+    for (let mod of settings.mods) {
         // TODO launch this conditionaly (if no outputs not calculate)
         // TODO if for example angle mod is on, but shape is circle, not calculate it
         let value;
@@ -15,7 +15,7 @@ export const calculateModsResults = (settings, x, y, absoluteIndex, indexOfBranc
                 value = radialMod(x, y, mod);
                 break;
             case modTypes.noise.id:
-                value = noiseMod(x, y, mod);
+                value = await noiseMod(x, y, mod);
                 break;
             case modTypes.index.id:
                 value = indexMod(absoluteIndex, indexOfBranch, indexInBranch, settings.number.number, mod, settings);
@@ -28,7 +28,7 @@ export const calculateModsResults = (settings, x, y, absoluteIndex, indexOfBranc
         value = levelsRemap(value, mod.settings.remapLevels);
         modsResultsTemp[mod.id] = value;
         modsResults[mod.id] = value;
-    });
+    }
     settings.mods.forEach(mod => {
         mod.modOutputs.forEach((output) => {
             const affectAmount = (modsResults[output.id] * modsResultsTemp[mod.id] - modsResults[output.id]) * output.mult;

@@ -161,3 +161,18 @@ export const noiseTypes = {
         name: 'Worley noise',
     },
 };
+
+export const worleyNoiseMetricTypes = {
+    euclidean: {
+        id: 'euclidean',
+        name: 'Euclidean',
+    },
+    manhattan: {
+        id: 'manhattan',
+        name: 'Manhattan',
+    },
+    minkowski: {
+        id: 'minkowski',
+        name: 'Minkowski',
+    },
+};
