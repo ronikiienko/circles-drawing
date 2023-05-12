@@ -8,15 +8,15 @@ export const calculatePosition = (settings, absoluteIndex, branchIndex) => {
     switch (settings.position.biasType) {
         case biasTypes.off.id: {
             return [
-                getBiasedRandomNumber(settings.position.startPos.x, settings.position.endPos.x),
-                getBiasedRandomNumber(settings.position.startPos.y, settings.position.endPos.y),
+                getBiasedRandomNumber(settings.position.startPos.x, settings.position.endPos.x, 1),
+                getBiasedRandomNumber(settings.position.startPos.y, settings.position.endPos.y, 1),
             ];
         }
         case biasTypes.rectangular.id: {
             const x = getBiasedRandomNumber(
                 settings.position.startPos.x,
                 settings.position.endPos.x,
-                0,
+                1,
                 settings.position.biasRectXOn ? {
                     bias: settings.position.biasPos.x,
                     biasInf: settings.position.biasInf,
@@ -27,7 +27,7 @@ export const calculatePosition = (settings, absoluteIndex, branchIndex) => {
             const y = getBiasedRandomNumber(
                 settings.position.startPos.y,
                 settings.position.endPos.y,
-                0,
+                1,
                 settings.position.biasRectYOn ? {
                     bias: settings.position.biasPos.y,
                     biasInf: settings.position.biasInf,
@@ -46,7 +46,7 @@ export const calculatePosition = (settings, absoluteIndex, branchIndex) => {
                 getBiasedRandomNumber(
                     0,
                     diapason,
-                    0,
+                    1,
                     {
                         bias: 0,
                         biasA: settings.position.biasA,

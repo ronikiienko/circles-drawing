@@ -74,6 +74,13 @@ export const trigMod = (x, y, mod) => {
             let avg = (xSin + ySin) / 2;
             value = (Math.sin(avg * 10) + 1) / 2;
         }
+            break;
+        case trigModTypes.test.id: {
+            let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
+            let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY));
+            let avg = (xSin + ySin) / 2;
+            value = avg;
+        }
     }
     return value;
 };
