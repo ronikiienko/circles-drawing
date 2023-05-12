@@ -53,21 +53,27 @@ export const sinTo01 = (value) => {
 };
 
 export const trigMod = (x, y, mod) => {
-    if (mod.settings.trigType === trigModTypes.sine.id) {
-        let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
-        let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY));
-        return (xSin + ySin) / 2;
+    let value;
+    switch (mod.settings.trigType) {
+        case trigModTypes.sine.id: {
+            let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
+            let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY));
+            value = (xSin + ySin) / 2;
+        }
+            break;
+        case trigModTypes.circles.id: {
+            let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
+            let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY));
+            let avg = (xSin + ySin) / 2;
+            value = (Math.sin(avg * 50) + 1) / 2;
+        }
+            break;
+        case trigModTypes.tan.id: {
+            let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
+            let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY)) * sinTo01(Math.tan(x / mod.settings.sineZoomX));
+            let avg = (xSin + ySin) / 2;
+            value = (Math.sin(avg * 10) + 1) / 2;
+        }
     }
-    if (mod.settings.trigType === trigModTypes.circles.id) {
-        let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
-        let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY));
-        let avg = (xSin + ySin) / 2;
-        return (Math.sin(avg * 50) + 1) / 2;
-    }
-    if (mod.settings.trigType === trigModTypes.tan.id) {
-        let xSin = sinTo01(Math.sin(x / mod.settings.sineZoomX));
-        let ySin = sinTo01(Math.sin(y / mod.settings.sineZoomY)) * sinTo01(Math.tan(x / mod.settings.sineZoomX));
-        let avg = (xSin + ySin) / 2;
-        return (Math.sin(avg * 10) + 1) / 2;
-    }
+    return value;
 };

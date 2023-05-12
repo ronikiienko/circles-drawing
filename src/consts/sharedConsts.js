@@ -130,6 +130,10 @@ export const trigModTypes = {
         id: 'circles',
         name: 'Circles',
     },
+    test: {
+        id: 'test',
+        name: 'Test',
+    },
 };
 
 export const indexModTypes = {
