@@ -2,6 +2,7 @@ import {
     getCustomShapePoint,
     getDefaultMod,
     getDefaultModOutput,
+    getDefaultRay,
     getRemapLevel,
     layerPresets,
 } from '../../consts/consts';
@@ -63,6 +64,18 @@ export const getLayerSettings = (preset) => {
                             x: mod?.settings?.radialCenterPos?.x ?? mod?.radialCenterPos?.x ?? defaultMod.settings.radialCenterPos.x,
                             y: mod?.settings?.radialCenterPos?.y ?? mod?.radialCenterPos?.y ?? defaultMod.settings.radialCenterPos.y,
                         },
+                        raysSourcePos: {
+                            x: mod?.settings?.raysSourcePos?.x ?? defaultMod.settings.raysSourcePos.x,
+                            y: mod?.settings?.raysSourcePos?.y ?? defaultMod.settings.raysSourcePos.y,
+                        },
+                        rays: mod?.settings?.rays?.map((ray) => {
+                            const defaultRay = getDefaultRay();
+                            return {
+                                id: ray?.id ?? defaultRay.id,
+                                from: ray?.from ?? defaultRay.from,
+                                to: ray?.to ?? defaultRay.to,
+                            };
+                        }) ?? [],
                         sineZoomX: mod?.settings?.sineZoomX ?? mod?.sineZoomX ?? defaultMod.settings.sineZoomX,
                         sineZoomY: mod?.settings?.sineZoomY ?? mod?.sineZoomY ?? defaultMod.settings.sineZoomY,
                         trigType: mod?.settings?.trigType ?? mod?.trigType ?? defaultMod.settings.trigType,

@@ -137,6 +137,15 @@ export const getRemapLevel = (y = 0.4) => {
     };
 };
 
+export const getRay = (from, to) => {
+    return {
+        id: nanoid(8),
+        from: from,
+        to: to,
+    };
+};
+export const getDefaultRay = () => getRay(15, 75);
+
 export const getDefaultMod = (name) => {
     const id = nanoid(8);
     return {
@@ -154,6 +163,11 @@ export const getDefaultMod = (name) => {
                 x: 100,
                 y: 100,
             },
+            raysSourcePos: {
+                x: 0,
+                y: 0,
+            },
+            rays: [getDefaultRay()],
             noiseType: noiseTypes.perlin.id,
             noiseZoom: 0.2,
             worleyMetricType: worleyNoiseMetricTypes.euclidean.id,

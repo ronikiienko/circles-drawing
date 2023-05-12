@@ -115,6 +115,10 @@ export const modTypes = {
         id: 'trig',
         name: 'Trigonometry',
     },
+    rays: {
+        id: 'rays',
+        name: 'Rays',
+    },
 };
 
 export const trigModTypes = {
