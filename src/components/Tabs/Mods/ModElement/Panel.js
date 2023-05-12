@@ -6,6 +6,7 @@ import {Remap} from '../../../Shared/Remap';
 import {ModInputs} from '../ModInputs';
 import {Noise} from '../Noise';
 import {Radial} from '../Radial';
+import {Rays} from '../Rays';
 import {Trig} from '../Trig';
 
 
@@ -72,7 +73,7 @@ export const Panel = ({
                         handleChange={handleChange}
                         setDragProp={setDragProp}
                         setClickAndSetProp={setClickAndSetProp}
-                        index={modIndex}
+                        modIndex={modIndex}
                     />
                 </div>
             </ConditionalPanel>
@@ -107,6 +108,19 @@ export const Panel = ({
                             })}
                         </Select>
                     </Label>
+                </div>
+            </ConditionalPanel>
+            <ConditionalPanel active={mod.settings.type === modTypes.rays.id}>
+                <div className={classes.block}>
+                    <Rays
+                        mod={mod}
+                        classes={classes}
+                        handleChange={handleChange}
+                        setSettings={setSettings}
+                        modIndex={modIndex}
+                        setDragProp={setDragProp}
+                        setClickAndSetProp={setClickAndSetProp}
+                    />
                 </div>
             </ConditionalPanel>
             <div className={classes.block}>
