@@ -89,6 +89,7 @@ export const Header = ({modIndex, handleChange, removeMod, mod}) => {
                 <Tooltip content={activeOutputs.join(' ')} relationship="label">
                     <Text className={localClasses.outputsTooltip} size="small">{activeOutputs.length}</Text>
                 </Tooltip>
+                <Text className={localClasses.outputsTooltip} size="small">{mod.modOutputs.length}</Text>
             </div>
             <DialogButton
                 onSubmit={(event) => {

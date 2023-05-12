@@ -125,7 +125,7 @@ export const coordinateFlagsSize = 30;
 
 export const getDefaultModOutput = (id) => {
     return {
-        id: id ?? nanoid(),
+        id: id,
         mult: 1,
     };
 };
