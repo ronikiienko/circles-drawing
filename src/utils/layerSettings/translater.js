@@ -86,6 +86,15 @@ export const getTranslatedLayerSettings = (rawSettings, canvasWidth, canvasHeigh
                         x: parseFloat(mod.settings.radialCenterPos.x),
                         y: parseFloat(mod.settings.radialCenterPos.y),
                     },
+                    raysSourcePos: {
+                        x: parseFloat(mod.settings.raysSourcePos.x),
+                        y: parseFloat(mod.settings.raysSourcePos.y),
+                    },
+                    rays: mod.settings.rays.map(ray => ({
+                        id: ray.id,
+                        from: parseFloat(ray.from),
+                        to: parseFloat(ray.to),
+                    })),
                     remapLevels: mod.settings.remapLevels.map(remapLevel => {
                         return {
                             y: parseFloat(remapLevel.y),
