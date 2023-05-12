@@ -1,5 +1,5 @@
 import {indexModTypes, noiseTypes, trigModTypes} from '../../consts/sharedConsts';
-import {getVectorByTwoPoints} from '../generalUtils';
+import {clampValueToRange, getTFromLerp, getVectorByTwoPoints} from '../generalUtils';
 
 
 export const radialMod = (x, y, mod) => {
@@ -30,7 +30,7 @@ export const noiseMod = async (x, y, mod) => {
             break;
         case noiseTypes.worley.id:
             noiseValue = 1 - (await mod.settings.worleyNoise.pixel(x, y, true, mod.settings.worleyClosestN)) / 255;
-            // TODO problems when use minkowski metric type (seems like it's ok only with even numbers)
+        // TODO problems when use minkowski metric type (seems like it's ok only with even numbers)
     }
     return noiseValue;
 };
@@ -83,4 +83,21 @@ export const trigMod = (x, y, mod) => {
         }
     }
     return value;
+};
+
+export const raysMod = (x, y, mod) => {
+    // TODO calculate only angle
+    const [distance, angle] = getVectorByTwoPoints(mod.settings.raysSourcePos.x, mod.settings.raysSourcePos.y, x, y);
+    const intersectingRaysValues = mod.settings.rays.reduce((accumulator, ray) => {
+        if (angle >= ray.from && angle <= ray.to) {
+            const rayAngularDistance = (ray.to - ray.from);
+            const rayHalfCenterAngle = ray.from + rayAngularDistance / 2;
+            const angleDifference = Math.abs(rayHalfCenterAngle - angle);
+            const rayValue = 1 - clampValueToRange(0, 1, getTFromLerp(angleDifference, 0, rayAngularDistance / 2));
+            accumulator.push(rayValue);
+        }
+        return accumulator;
+    }, []);
+    const raysSum = intersectingRaysValues.reduce((partialSum, a) => partialSum + a, 0);
+    return clampValueToRange(0, 1, raysSum);
 };

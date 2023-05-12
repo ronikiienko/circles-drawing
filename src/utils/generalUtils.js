@@ -349,6 +349,8 @@ export const quadraticBezier = (p1, p2, p3, t) => {
 };
 
 export const levelsRemap = (x, remapPoints) => {
+    x = parseFloat(x.toFixed(4));
+    if (x > 1 || x < 0 || isNaN(x)) throw `levels remap wrong input x ${x}`;
     if (x === 1) return remapPoints[remapPoints.length - 1].y;
     const onePointWidth = 1 / (remapPoints.length - 1);
     const crossXPointIndex = Math.trunc(x / onePointWidth);

@@ -1,6 +1,6 @@
 import {modTypes} from '../../consts/sharedConsts';
 import {clampValueToRange, levelsRemap} from '../generalUtils';
-import {indexMod, noiseMod, radialMod, trigMod} from './mods';
+import {indexMod, noiseMod, radialMod, raysMod, trigMod} from './mods';
 
 
 export const calculateModsResults = async (settings, x, y, absoluteIndex, indexOfBranch, indexInBranch) => {
@@ -23,8 +23,10 @@ export const calculateModsResults = async (settings, x, y, absoluteIndex, indexO
             case modTypes.trig.id:
                 value = trigMod(x, y, mod);
                 break;
+            case modTypes.rays.id:
+                value = raysMod(x, y, mod);
+                break;
         }
-        if (value < 0 || value > 1) throw `Mod value is out of range: ${value}`;
         value = levelsRemap(value, mod.settings.remapLevels);
         modsResultsTemp[mod.id] = value;
         modsResults[mod.id] = value;
