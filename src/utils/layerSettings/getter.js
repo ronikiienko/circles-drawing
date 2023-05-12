@@ -72,8 +72,8 @@ export const getLayerSettings = (preset) => {
                             const defaultRay = getDefaultRay();
                             return {
                                 id: ray?.id ?? defaultRay.id,
-                                from: ray?.from ?? defaultRay.from,
-                                to: ray?.to ?? defaultRay.to,
+                                angle: ray?.angle ?? defaultRay.angle,
+                                width: ray?.width ?? defaultRay.width,
                             };
                         }) ?? [],
                         sineZoomX: mod?.settings?.sineZoomX ?? mod?.sineZoomX ?? defaultMod.settings.sineZoomX,

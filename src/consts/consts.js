@@ -137,11 +137,11 @@ export const getRemapLevel = (y = 0.4) => {
     };
 };
 
-export const getRay = (from, to) => {
+export const getRay = (angle, width) => {
     return {
         id: nanoid(8),
-        from: from,
-        to: to,
+        angle: angle,
+        width: width,
     };
 };
 export const getDefaultRay = () => getRay(15, 75);

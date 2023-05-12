@@ -1,8 +1,9 @@
-import {Button, Input, Label, makeStyles} from '@fluentui/react-components';
+import {Button, Input, Label, makeStyles, Slider} from '@fluentui/react-components';
 import {Delete16Regular} from '@fluentui/react-icons';
 import React, {useCallback} from 'react';
 import {getDefaultRay} from '../../../consts/consts';
 import {hslArrToHsl} from '../../../utils/generalUtils';
+import {AngularInput} from '../../Shared/AngularInput';
 import {CoordinateFlag} from '../../Shared/CoordinateFlag';
 
 
@@ -56,25 +57,35 @@ export const Rays = ({classes, modIndex, handleChange, mod, setSettings, setDrag
                 return <React.Fragment key={ray.id}>
                     <div className={classes.row}>
                         <Label className={classes.label}>
-                            From angle:
-                            <Input
-                                className={classes.number}
-                                size="small"
-                                value={ray.from}
-                                type="text"
+                            Angle:
+                            <AngularInput
+                                size={20}
+                                className={classes.slider}
+                                value={ray.angle}
                                 onChange={handleChange}
-                                id={`mods-${modIndex}-settings-rays-${rayIndex}-from`}
+                                id={`mods-${modIndex}-settings-rays-${rayIndex}-angle`}
+                                min={1}
+                                max={360}
                             />
                         </Label>
                         <Label className={classes.label}>
-                            To angle:
+                            Width:
+                            <Slider
+                                size="small"
+                                value={ray.width}
+                                onChange={handleChange}
+                                id={`mods-${modIndex}-settings-rays-${rayIndex}-width`}
+                                min={1}
+                                max={360}
+                            />
                             <Input
                                 className={classes.number}
-                                size="small"
-                                value={ray.to}
                                 type="text"
+                                appearance="underline"
+                                size="small"
+                                value={ray.width}
                                 onChange={handleChange}
-                                id={`mods-${modIndex}-settings-rays-${rayIndex}-to`}
+                                id={`mods-${modIndex}-settings-rays-${rayIndex}-width`}
                             />
                         </Label>
                         <Button onClick={() => removeRay(rayIndex)} size="small" icon={<Delete16Regular/>}/>

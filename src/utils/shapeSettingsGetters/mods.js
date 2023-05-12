@@ -89,11 +89,9 @@ export const raysMod = (x, y, mod) => {
     // TODO calculate only angle
     const [distance, angle] = getVectorByTwoPoints(mod.settings.raysSourcePos.x, mod.settings.raysSourcePos.y, x, y);
     const intersectingRaysValues = mod.settings.rays.reduce((accumulator, ray) => {
-        if (angle >= ray.from && angle <= ray.to) {
-            const rayAngularDistance = (ray.to - ray.from);
-            const rayHalfCenterAngle = ray.from + rayAngularDistance / 2;
-            const angleDifference = Math.abs(rayHalfCenterAngle - angle);
-            const rayValue = 1 - clampValueToRange(0, 1, getTFromLerp(angleDifference, 0, rayAngularDistance / 2));
+        if (angle >= ray.angle - (ray.width / 2) && angle <= ray.angle + (ray.width / 2)) {
+            const angleDifference = Math.abs(ray.angle - angle);
+            const rayValue = 1 - clampValueToRange(0, 1, getTFromLerp(angleDifference, 0, ray.width / 2));
             accumulator.push(rayValue);
         }
         return accumulator;
