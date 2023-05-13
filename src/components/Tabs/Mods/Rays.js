@@ -67,6 +67,15 @@ export const Rays = ({classes, modIndex, handleChange, mod, setSettings, setDrag
                                 min={1}
                                 max={360}
                             />
+                            <Input
+                                className={classes.number}
+                                type="text"
+                                appearance="underline"
+                                size="small"
+                                value={ray.angle}
+                                onChange={handleChange}
+                                id={`mods-${modIndex}-settings-rays-${rayIndex}-angle`}
+                            />
                         </Label>
                         <Label className={classes.label}>
                             Width:
